@@ -70,9 +70,11 @@ input,select,textarea{font-family:var(--body);font-size:16px}
 /* ---- Bottom nav ---- */
 .nav{position:fixed;bottom:0;left:0;right:0;z-index:45;background:rgba(15,15,17,.92);
   backdrop-filter:blur(16px);border-top:1px solid var(--line);
-  display:flex;justify-content:space-around;padding:7px 4px calc(7px + env(safe-area-inset-bottom))}
-.nav a{flex:1;max-width:90px;display:flex;flex-direction:column;align-items:center;gap:3px;
-  color:var(--muted2);font-size:10px;font-weight:500;padding:5px 2px;border-radius:10px;cursor:pointer}
+  display:flex;justify-content:space-around;overflow-x:auto;
+  padding:7px 4px calc(7px + env(safe-area-inset-bottom))}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:1;min-width:58px;max-width:80px;display:flex;flex-direction:column;align-items:center;gap:2px;
+  color:var(--muted2);font-size:9.5px;font-weight:500;padding:5px 2px;border-radius:10px;cursor:pointer}
 .nav a .ic{font-size:19px;line-height:1}
 .nav a.on{color:var(--glow)}
 
@@ -306,6 +308,7 @@ select.inp{appearance:none;-webkit-appearance:none;
     <a data-r="despacho" onclick="go('despacho')"><span class="ic">🛵</span>Despacho</a>
     <a data-r="inv" onclick="go('inv')"><span class="ic">▦</span>Inventario</a>
     <a data-r="fin" onclick="go('fin')"><span class="ic">$</span>Finanzas</a>
+    <a data-r="reportes" onclick="go('reportes')"><span class="ic">📊</span>Reportes</a>
     <a data-r="nomina" onclick="go('nomina')"><span class="ic">💰</span>Nómina</a>
     <a data-r="admin" onclick="go('admin')"><span class="ic">⚙</span>Ajustes</a>
   </nav>
@@ -530,7 +533,7 @@ function sessionStart(){
   const isVend=S.user.rol==='vendedor';
   document.querySelectorAll('.nav a').forEach(a=>{
     const r=a.dataset.r;
-    if(isVend&&(r==='fin'||r==='admin'||r==='inv'||r==='nomina'))a.classList.add('hide');
+    if(isVend&&(r==='fin'||r==='admin'||r==='inv'||r==='nomina'||r==='reportes'))a.classList.add('hide');
     else a.classList.remove('hide');
   });
   go(isVend?'despacho':'dash');
@@ -552,7 +555,7 @@ function go(route){
   document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('on',a.dataset.r===route));
   $('#fab').classList.toggle('hide',route!=='despacho'&&route!=='dash');
   window.scrollTo(0,0);
-  ({dash:viewDash,despacho:viewDespacho,inv:viewInv,fin:viewFin,admin:viewAdmin,nomina:viewNomina}[route]||viewDash)();
+  ({dash:viewDash,despacho:viewDespacho,inv:viewInv,fin:viewFin,admin:viewAdmin,nomina:viewNomina,reportes:viewReportes}[route]||viewDash)();
 }
 
 /* ============================================================
@@ -644,7 +647,7 @@ function orderCard(p){
   return `<div class="order" onclick="openOrder('${p.id}')">
     <div class="oh">
       <div><div class="cust">${esc(p.cliente?.nombre||'—')} <span class="tag t-${p.canal}">${p.canal}</span></div>
-        <div class="meta">${sede?sede.codigo:''} ${p.cliente?.zona?'· '+esc(p.cliente.zona):''} ${p.tipoEntrega==='PICKUP'?'· Pickup':''}</div>
+        <div class="meta">${sede?sede.codigo:''} ${p.cliente?.zona?'· '+esc(p.cliente.zona):''} ${p.tipoEntrega==='PICKUP'?'· Pickup':p.tipoEntrega==='ENVIO_NACIONAL'?'📦 '+esc(p.agenciaEnvio||'Nacional'):''}</div>
         <div class="code">${p.codigo} · ${fechaCorta(p.fecha)}</div></div>
       <div style="text-align:right"><div class="mono" style="font-weight:700;font-size:15px">${usd(total)}</div>
         ${debe>0.5?`<div class="miniml" style="color:var(--warn)">debe ${usd(debe)}</div>`:`<div class="miniml up">pagado</div>`}</div>
@@ -652,7 +655,7 @@ function orderCard(p){
     <div class="items">${items||'—'}</div>
     <div class="ofoot">
       <span class="statusdot" style="color:${em.c}"><span class="d ${['POR_DESPACHAR','EN_CAMINO'].includes(p.estado)?'glowpulse':''}" style="background:${em.c}"></span>${em.n}</span>
-      <span class="miniml">${p.deliveryNombre?'🛵 '+esc(p.deliveryNombre):''}</span>
+      <span class="miniml">${p.tipoEntrega==='ENVIO_NACIONAL'?'📦 '+esc(p.agenciaEnvio||'Nacional'):(p.deliveryNombre?'🛵 '+esc(p.deliveryNombre):'')}</span>
     </div>
   </div>`;
 }
@@ -663,7 +666,7 @@ async function openNewOrder(){
   const [prods,sedes,dels,zonas,c]=await Promise.all([dbAll('productos'),dbAll('sedes'),dbAll('deliveries'),dbAll('zonas'),cfg()]);
   S.cache.prods=prods;S.cache.sedes=sedes;S.cache.dels=dels;S.cache.zonas=zonas;
   const defSede=sedes.find(s=>s.principal)||sedes[0];
-  _draft={id:null,codigo:'FF-'+Date.now().toString().slice(-5),fecha:Date.now(),sedeId:defSede?.id,_pagoYa:false,_pagoMet:'Pago Móvil',_pagoBs:0,_pagoTasa:c.tasaActual||600,_pagoUSD:0,_pagoRef:'',
+  _draft={id:null,codigo:'FF-'+Date.now().toString().slice(-5),fecha:Date.now(),sedeId:defSede?.id,_pagoYa:false,_pagoMet:'Pago Móvil',_pagoBs:0,_pagoTasa:c.tasaActual||600,_pagoUSD:0,_pagoRef:'',agenciaEnvio:'',
     canal:'WS',tipoEntrega:'DELIVERY',cliente:{nombre:'',telefono:'',direccion:'',zona:''},
     items:[],deliveryId:'',deliveryNombre:'',deliveryUSD:0,deliveryPagaCliente:true,
     pagos:[],comentarios:'',estado:'POR_DESPACHAR',_divisas:false,_zonaCustom:false};
@@ -704,8 +707,21 @@ function renderOrderSheet(){
     <div class="chips" style="margin-bottom:12px">
       <div class="chip ${d.tipoEntrega==='DELIVERY'?'on':''}" onclick="_draft.tipoEntrega='DELIVERY';renderOrderSheet()">Delivery</div>
       <div class="chip ${d.tipoEntrega==='PICKUP'?'on':''}" onclick="_draft.tipoEntrega='PICKUP';renderOrderSheet()">Pickup / Retiro</div>
+      <div class="chip ${d.tipoEntrega==='ENVIO_NACIONAL'?'on':''}" onclick="_draft.tipoEntrega='ENVIO_NACIONAL';renderOrderSheet()">📦 Envío nacional</div>
     </div>
-    ${d.tipoEntrega==='DELIVERY'?`
+    ${d.tipoEntrega==='ENVIO_NACIONAL'?`
+      <div class="field"><label>Agencia de envío</label><select class="inp" onchange="_draft.agenciaEnvio=this.value">
+        <option value="">— Seleccionar agencia —</option>
+        ${['Zoom','MRW','Domesa','TuEnvío','Airpack','TRC','IAMSA','Overnite'].map(a=>`<option value="${a}" ${d.agenciaEnvio===a?'selected':''}>${a}</option>`).join('')}
+        <option value="Otra" ${d.agenciaEnvio&&!['Zoom','MRW','Domesa','TuEnvío','Airpack','TRC','IAMSA','Overnite'].includes(d.agenciaEnvio)?'selected':''}>Otra</option>
+      </select></div>
+      <div class="field"><label>Costo del envío $</label><input class="inp mono" inputmode="decimal" value="${d.deliveryUSD||''}" oninput="_draft.deliveryUSD=parseFloat(this.value)||0;renderTotalsLine()" placeholder="0.00"></div>
+      <div class="chips" style="margin-bottom:14px">
+        <div class="chip ${d.deliveryPagaCliente?'on':''}" onclick="_draft.deliveryPagaCliente=true;renderOrderSheet()">Cliente paga el envío</div>
+        <div class="chip ${!d.deliveryPagaCliente?'on':''}" onclick="_draft.deliveryPagaCliente=false;renderOrderSheet()">Firefly paga el envío</div>
+      </div>
+      <div class="field"><label>Dirección de destino</label><textarea class="inp" oninput="_draft.cliente.direccion=this.value" placeholder="Ciudad, estado, dirección completa" rows="2">${esc(d.cliente.direccion)}</textarea></div>
+    `:(d.tipoEntrega==='DELIVERY'?`
       <div class="field"><label>Dirección</label><textarea class="inp" oninput="_draft.cliente.direccion=this.value" placeholder="Dirección de entrega" rows="2">${esc(d.cliente.direccion)}</textarea></div>
       <div class="row">
         <div class="field"><label>Zona</label>
@@ -720,7 +736,7 @@ function renderOrderSheet(){
       <div class="chips" style="margin-bottom:14px">
         <div class="chip ${d.deliveryPagaCliente?'on':''}" onclick="_draft.deliveryPagaCliente=true;renderOrderSheet()">Delivery lo paga el cliente</div>
         <div class="chip ${!d.deliveryPagaCliente?'on':''}" onclick="_draft.deliveryPagaCliente=false;renderOrderSheet()">Lo asume Firefly</div>
-      </div>`:``}
+      </div>`:'')}
     <div class="eyebrow" style="display:flex;justify-content:space-between">Productos
       <label style="font-weight:500;text-transform:none;letter-spacing:0;font-size:12px;color:var(--muted)"><input type="checkbox" ${d._divisas?'checked':''} onchange="_draft._divisas=this.checked;recalcItems()"> Pago en divisas (−30%)</label>
     </div>
@@ -786,7 +802,7 @@ async function saveDraft(){
   const delivFirefly=(d.tipoEntrega==='DELIVERY'&&!d.deliveryPagaCliente)?(+d.deliveryUSD||0):0;
   const ped={id:d.id||uid('ped'),codigo:d.codigo,fecha:d.id?d.fecha:Date.now(),
     sedeId:d.sedeId,canal:d.canal,vendedorId:S.user.id,vendedorNombre:S.user.nombre,
-    cliente:d.cliente,tipoEntrega:d.tipoEntrega,
+    cliente:d.cliente,tipoEntrega:d.tipoEntrega,agenciaEnvio:d.agenciaEnvio||'',
     deliveryId:d.deliveryId,deliveryNombre:d.deliveryNombre||'',
     deliveryUSD:+d.deliveryUSD||0,deliveryPagaCliente:d.deliveryPagaCliente,deliveryFireflyUSD:delivFirefly,
     items:d.items.map(i=>({productoId:i.productoId,version:i.version,cantidad:i.cantidad,precio:i.precio})),
@@ -830,7 +846,7 @@ function renderOrderDetail(p){
       ${p.cliente?.zona?`<div class="stat2"><span class="k">Zona</span><span class="v" style="font-family:var(--body)">${esc(p.cliente.zona)}</span></div>`:''}
       ${p.cliente?.direccion?`<div class="stat2"><span class="k">Dirección</span><span class="v" style="font-family:var(--body);max-width:60%;text-align:right;font-size:12px">${esc(p.cliente.direccion)}</span></div>`:''}
       <div class="stat2"><span class="k">Sede</span><span class="v" style="font-family:var(--body)">${sede?sede.codigo+' · '+sede.nombre:''}</span></div>
-      <div class="stat2"><span class="k">Entrega</span><span class="v" style="font-family:var(--body)">${p.tipoEntrega==='DELIVERY'?'Delivery'+(p.deliveryNombre?' · '+esc(p.deliveryNombre):''):'Pickup'}</span></div>
+      <div class="stat2"><span class="k">Entrega</span><span class="v" style="font-family:var(--body)">${p.tipoEntrega==='DELIVERY'?'Delivery'+(p.deliveryNombre?' · '+esc(p.deliveryNombre):''):p.tipoEntrega==='ENVIO_NACIONAL'?'📦 Envío Nacional · '+(p.agenciaEnvio||'agencia no especificada'):'Pickup'}</span></div>
       ${p.vendedorNombre?`<div class="stat2"><span class="k">Vendedor</span><span class="v" style="font-family:var(--body)">${esc(p.vendedorNombre)}</span></div>`:''}
     </div>
     <div class="card" style="margin-bottom:12px">
@@ -855,11 +871,12 @@ function renderOrderDetail(p){
 function buildWhatsApp(p,sede){
   const items=(p.items||[]).map(i=>`• ${i.cantidad}× ${i.version}`).join('\n');
   const dir=p.cliente?.direccion?'\n📍 '+p.cliente.direccion:'';
+  const agencia=p.tipoEntrega==='ENVIO_NACIONAL'?'\n📦 Envío Nacional · '+(p.agenciaEnvio||'agencia por confirmar'):'';
   const zona=p.cliente?.zona?' ('+p.cliente.zona+')':'';
   const tel=p.cliente?.telefono?'\n📞 '+p.cliente.telefono:'';
   const cobro=(p.totalPagadoUSD>=(p.totalUSD||0)-0.5)?'✅ Ya pagado, solo entregar':`💵 Cobrar ${usd((p.totalUSD||0)-(p.totalPagadoUSD||0))} al entregar`;
-  return `🛵 *PEDIDO ${p.codigo}* — ${sede?sede.codigo:''}
-👤 ${p.cliente?.nombre||''}${zona}${tel}${dir}
+  return `${p.tipoEntrega==='ENVIO_NACIONAL'?'📦':'🛵'} *PEDIDO ${p.codigo}* — ${sede?sede.codigo:''}
+👤 ${p.cliente?.nombre||''}${zona}${tel}${dir}${agencia}
 
 ${items}
 
@@ -880,7 +897,7 @@ async function delOrder(id){confirmSheet('¿Eliminar este pedido?','Se revertir�
 
 async function editOrder(id){
   const p=await dbGet('pedidos',id);if(!p)return;
-  _draft={...p,_divisas:p.divisas,_zonaCustom:false,cliente:{...p.cliente},
+  _draft={...p,_divisas:p.divisas,_zonaCustom:false,agenciaEnvio:p.agenciaEnvio||'',cliente:{...p.cliente},
     items:(p.items||[]).map(i=>{const pr=(S.cache.prods||[]).find(x=>x.id===i.productoId);return{...i,nombre:pr?pr.nombre:i.version};})};
   renderOrderSheet();
 }
@@ -1256,6 +1273,230 @@ async function exportData(){
   a.download='firefly-respaldo-'+new Date().toISOString().slice(0,10)+'.json';a.click();
   toast('Respaldo descargado ✓','ok');}
 
+
+
+/* ============================================================
+   REPORTES
+   ============================================================ */
+function getRangoFechas(p){
+  const hoy=new Date(),y=hoy.getFullYear(),m=hoy.getMonth();
+  const ts=d=>d.getTime();
+  const ranges={
+    mes:    {desde:ts(new Date(y,m,1)),  hasta:ts(hoy),                          label:'Este mes'},
+    mes_ant:{desde:ts(new Date(y,m-1,1)),hasta:ts(new Date(y,m,0,23,59,59)),     label:'Mes anterior'},
+    d30:    {desde:ts(new Date(hoy-30*86400000)),hasta:ts(hoy),                  label:'Últimos 30 días'},
+    d90:    {desde:ts(new Date(hoy-90*86400000)),hasta:ts(hoy),                  label:'Últimos 90 días'},
+  };
+  return ranges[p]||ranges.mes;
+}
+
+async function viewReportes(){
+  const v=document.getElementById('view');
+  v.innerHTML='<div class="empty">Cargando reportes…</div>';
+  const periodo=S.filters.repPeriodo||'mes';
+  const rango=getRangoFechas(periodo);
+  const[peds,prods,sedes]=await Promise.all([dbAll('pedidos'),dbAll('productos'),dbAll('sedes')]);
+  const ventas=peds.filter(p=>p.estado!=='CANCELADO'&&p.fecha>=rango.desde&&p.fecha<=rango.hasta);
+
+  /* ── Acumuladores ── */
+  const porVend={},porSede={},porCanal={},porProd={},porMetodo={},porAgencia={};
+  sedes.forEach(s=>{porSede[s.id]={label:s.codigo+' · '+s.nombre,pedidos:0,unidades:0,ventas:0,pickup:0,nac:0};});
+  CANALES.forEach(k=>{porCanal[k]={label:CANAL_N[k],pedidos:0,unidades:0,ventas:0};});
+
+  ventas.forEach(p=>{
+    const sub=p.subtotalUSD||0;
+    const uds=(p.items||[]).reduce((a,i)=>a+i.cantidad,0);
+    // vendedor
+    const v=p.vendedorNombre||'Sin asignar';
+    if(!porVend[v])porVend[v]={label:v,pedidos:0,unidades:0,ventas:0,pendiente:0};
+    porVend[v].pedidos++;porVend[v].unidades+=uds;porVend[v].ventas+=sub;
+    if(p.totalPagadoUSD<p.totalUSD-0.5)porVend[v].pendiente+=p.totalUSD-p.totalPagadoUSD;
+    // sede
+    if(!porSede[p.sedeId])porSede[p.sedeId]={label:p.sedeId,pedidos:0,unidades:0,ventas:0,pickup:0,nac:0};
+    porSede[p.sedeId].pedidos++;porSede[p.sedeId].unidades+=uds;porSede[p.sedeId].ventas+=sub;
+    if(p.tipoEntrega==='PICKUP')porSede[p.sedeId].pickup++;
+    if(p.tipoEntrega==='ENVIO_NACIONAL')porSede[p.sedeId].nac++;
+    // canal
+    if(!porCanal[p.canal])porCanal[p.canal]={label:CANAL_N[p.canal]||p.canal,pedidos:0,unidades:0,ventas:0};
+    porCanal[p.canal].pedidos++;porCanal[p.canal].unidades+=uds;porCanal[p.canal].ventas+=sub;
+    // producto
+    (p.items||[]).forEach(i=>{
+      if(!porProd[i.version])porProd[i.version]={label:i.version,unidades:0,ventas:0};
+      porProd[i.version].unidades+=i.cantidad;porProd[i.version].ventas+=i.precio*i.cantidad;
+    });
+    // método de pago
+    (p.pagos||[]).forEach(pg=>{
+      const met=pg.metodo||'Sin método';
+      if(!porMetodo[met])porMetodo[met]={label:met,total:0,count:0};
+      porMetodo[met].total+=pg.montoUSD||0;porMetodo[met].count++;
+    });
+    // agencia envío nacional
+    if(p.tipoEntrega==='ENVIO_NACIONAL'){
+      const ag=p.agenciaEnvio||'Sin especificar';
+      if(!porAgencia[ag])porAgencia[ag]={label:ag,pedidos:0,unidades:0,ventas:0};
+      porAgencia[ag].pedidos++;porAgencia[ag].unidades+=uds;porAgencia[ag].ventas+=sub;
+    }
+  });
+
+  const totalVentas=ventas.reduce((a,p)=>a+(p.subtotalUSD||0),0);
+  const totalUnidades=ventas.reduce((a,p)=>a+(p.items||[]).reduce((x,i)=>x+i.cantidad,0),0);
+  const totalNac=ventas.filter(p=>p.tipoEntrega==='ENVIO_NACIONAL').length;
+  const ticketProm=ventas.length?totalVentas/ventas.length:0;
+  const pendienteCobro=ventas.reduce((a,p)=>a+Math.max(0,(p.totalUSD||0)-(p.totalPagadoUSD||0)),0);
+
+  /* ── Helper: fila con barra horizontal ── */
+  function barRow(item,maxVal,colorVar='var(--glow)'){
+    const pct=maxVal>0?Math.round(item.ventas/maxVal*100):0;
+    return `<div style="padding:10px 0;border-bottom:1px solid var(--line)">
+      <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+        <span style="font-size:13px;font-weight:600">${esc(item.label)}</span>
+        <span class="mono" style="font-size:12.5px">${usd(item.ventas)}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="flex:1;height:8px;background:var(--panel3);border-radius:4px;overflow:hidden">
+          <div style="width:${pct}%;height:100%;background:${colorVar};border-radius:4px;transition:width .5s"></div>
+        </div>
+        <span style="font-size:11px;color:var(--muted);min-width:60px;text-align:right">${item.pedidos||0} ped · ${item.unidades||0} u</span>
+      </div>
+    </div>`;
+  }
+
+  /* ── Helper: tabla simple ── */
+  function tablaRow(label,vals,colors){
+    return `<div style="display:flex;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);gap:8px">
+      <span style="flex:1;font-size:13px">${esc(label)}</span>
+      ${vals.map((v,i)=>`<span class="mono" style="font-size:12px;color:${colors?colors[i]:'var(--white)'};min-width:55px;text-align:right">${v}</span>`).join('')}
+    </div>`;
+  }
+
+  const sortByVentas=obj=>Object.values(obj).sort((a,b)=>b.ventas-a.ventas);
+  const maxVend=Math.max(1,...Object.values(porVend).map(x=>x.ventas));
+  const maxSede=Math.max(1,...Object.values(porSede).map(x=>x.ventas));
+  const maxCanal=Math.max(1,...Object.values(porCanal).map(x=>x.ventas));
+  const maxProd=Math.max(1,...Object.values(porProd).map(x=>x.unidades));
+
+  const periodoChips=['mes','mes_ant','d30','d90'].map(p=>{
+    const r=getRangoFechas(p);
+    return `<button class="stbtn ${periodo===p?'on':''}" onclick="S.filters.repPeriodo='${p}';viewReportes()">${r.label}</button>`;
+  }).join('');
+
+  v.innerHTML=`
+  <div class="view-head"><div><div class="eyebrow">Análisis del negocio</div><h2>Reportes</h2>
+    <div class="sub">${rango.label}</div></div></div>
+  <div class="statusbar" style="margin-bottom:14px">${periodoChips}</div>
+
+  <!-- KPIs ejecutivos -->
+  <div class="grid g2" style="margin-bottom:6px">
+    <div class="kpi accent"><div class="lab">Ventas (producto)</div><div class="val">${usd(totalVentas)}</div><div class="delta">${ventas.length} pedidos</div></div>
+    <div class="kpi"><div class="lab">Unidades vendidas</div><div class="val">${totalUnidades}</div><div class="delta">ticket ${usd(ticketProm)}</div></div>
+    <div class="kpi"><div class="lab">Por cobrar</div><div class="val ${pendienteCobro>0?'down':''}">${usd(pendienteCobro)}</div><div class="delta">de pedidos activos</div></div>
+    <div class="kpi"><div class="lab">Envíos nacionales</div><div class="val">${totalNac}</div><div class="delta">${ventas.length>0?Math.round(totalNac/ventas.length*100):0}% del total</div></div>
+  </div>
+
+  <!-- Por vendedor -->
+  <div class="sec-title">Por vendedor <span class="h">ingresos producto</span></div>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;padding:0 0 6px;font-size:11px;color:var(--muted);font-family:var(--mono);border-bottom:1px solid var(--line)">
+      <span>VENDEDOR</span><span>VENTAS · PED · UNID · POR COBRAR</span></div>
+    ${Object.values(porVend).sort((a,b)=>b.ventas-a.ventas).map(d=>`
+      <div style="padding:10px 0;border-bottom:1px solid var(--line)">
+        <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+          <span style="font-size:13px;font-weight:600">${esc(d.label)}</span>
+          <span class="mono" style="font-size:13px;color:var(--glow)">${usd(d.ventas)}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="flex:1;height:8px;background:var(--panel3);border-radius:4px;overflow:hidden">
+            <div style="width:${maxVend>0?Math.round(d.ventas/maxVend*100):0}%;height:100%;background:var(--glow);border-radius:4px"></div>
+          </div>
+          <span style="font-size:11px;color:var(--muted);white-space:nowrap">${d.pedidos}p · ${d.unidades}u${d.pendiente>0?' · <span style="color:var(--warn)">debe '+usd(d.pendiente)+'</span>':''}</span>
+        </div>
+      </div>`).join('')||'<div class="empty" style="padding:14px">Sin ventas en este período</div>'}
+  </div>
+
+  <!-- Por sede -->
+  <div class="sec-title">Por sede <span class="h">distribución geográfica</span></div>
+  <div class="card">
+    ${Object.values(porSede).filter(d=>d.pedidos>0).sort((a,b)=>b.ventas-a.ventas).map(d=>`
+      <div style="padding:10px 0;border-bottom:1px solid var(--line)">
+        <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+          <span style="font-size:13px;font-weight:600">${esc(d.label)}</span>
+          <span class="mono" style="font-size:13px">${usd(d.ventas)}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="flex:1;height:8px;background:var(--panel3);border-radius:4px;overflow:hidden">
+            <div style="width:${maxSede>0?Math.round(d.ventas/maxSede*100):0}%;height:100%;background:var(--info);border-radius:4px"></div>
+          </div>
+          <span style="font-size:11px;color:var(--muted);white-space:nowrap">${d.pedidos}p · ${d.unidades}u${d.pickup>0?' · '+d.pickup+' pickup':''}${d.nac>0?' · '+d.nac+' nac':''}</span>
+        </div>
+      </div>`).join('')||'<div class="empty" style="padding:14px">Sin datos</div>'}
+  </div>
+
+  <!-- Por canal -->
+  <div class="sec-title">Por canal de venta <span class="h">origen del cliente</span></div>
+  <div class="card">
+    ${Object.values(porCanal).filter(d=>d.pedidos>0).sort((a,b)=>b.ventas-a.ventas).map(d=>`
+      <div style="padding:10px 0;border-bottom:1px solid var(--line)">
+        <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+          <span style="font-size:13px;font-weight:600">${esc(d.label)}</span>
+          <span class="mono" style="font-size:13px">${usd(d.ventas)}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="flex:1;height:8px;background:var(--panel3);border-radius:4px;overflow:hidden">
+            <div style="width:${maxCanal>0?Math.round(d.ventas/maxCanal*100):0}%;height:100%;background:var(--purple);border-radius:4px"></div>
+          </div>
+          <span style="font-size:11px;color:var(--muted)">${d.pedidos} pedidos · ${d.unidades} unidades</span>
+        </div>
+      </div>`).join('')||'<div class="empty" style="padding:14px">Sin datos</div>'}
+  </div>
+
+  <!-- Por producto -->
+  <div class="sec-title">Por producto <span class="h">unidades y revenue</span></div>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;padding:0 0 6px;font-size:11px;color:var(--muted);font-family:var(--mono);border-bottom:1px solid var(--line)">
+      <span>MODELO</span><div style="display:flex;gap:16px"><span>UNIDADES</span><span>INGRESOS</span></div></div>
+    ${Object.values(porProd).sort((a,b)=>b.unidades-a.unidades).map(d=>`
+      <div style="display:flex;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);gap:8px">
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:600;margin-bottom:3px">${esc(d.label)}</div>
+          <div style="height:7px;background:var(--panel3);border-radius:4px;overflow:hidden">
+            <div style="width:${maxProd>0?Math.round(d.unidades/maxProd*100):0}%;height:100%;background:var(--ok);border-radius:4px"></div>
+          </div>
+        </div>
+        <span class="mono" style="font-size:13px;min-width:40px;text-align:right">${d.unidades}</span>
+        <span class="mono" style="font-size:13px;color:var(--glow);min-width:65px;text-align:right">${usd(d.ventas)}</span>
+      </div>`).join('')||'<div class="empty" style="padding:14px">Sin datos</div>'}
+  </div>
+
+  <!-- Métodos de pago -->
+  ${Object.keys(porMetodo).length?`<div class="sec-title">Métodos de cobro <span class="h">cómo pagan los clientes</span></div>
+  <div class="card">
+    ${Object.values(porMetodo).sort((a,b)=>b.total-a.total).map(d=>`
+      <div class="stat2"><span class="k">${esc(d.label)} <span class="miniml">(${d.count} cobros)</span></span><span class="v">${usd(d.total)}</span></div>`).join('')}
+  </div>`:''}
+
+  <!-- Envíos nacionales -->
+  ${Object.keys(porAgencia).length?`<div class="sec-title">Envíos nacionales <span class="h">por agencia</span></div>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;padding:0 0 6px;font-size:11px;color:var(--muted);font-family:var(--mono);border-bottom:1px solid var(--line)">
+      <span>AGENCIA</span><div style="display:flex;gap:16px"><span>PEDIDOS</span><span>VENTAS</span></div></div>
+    ${Object.values(porAgencia).sort((a,b)=>b.pedidos-a.pedidos).map(d=>`
+      <div style="display:flex;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)">
+        <span style="flex:1;font-size:13px;font-weight:600">${esc(d.label)}</span>
+        <span class="mono" style="font-size:13px;min-width:40px;text-align:right">${d.pedidos}</span>
+        <span class="mono" style="font-size:13px;color:var(--glow);min-width:65px;text-align:right">${usd(d.ventas)}</span>
+      </div>`).join('')}
+  </div>`:'<div class="sec-title">Envíos nacionales</div><div class="card"><div class="empty" style="padding:14px">Sin envíos nacionales en este período</div></div>'}
+
+  <!-- Desglose de entrega -->
+  <div class="sec-title">Tipo de entrega <span class="h">distribución</span></div>
+  <div class="grid g3">
+    ${[['DELIVERY','🛵 Delivery','var(--info)'],['PICKUP','🏪 Pickup','var(--ok)'],['ENVIO_NACIONAL','📦 Nacional','var(--warn)']].map(([tipo,lab,col])=>{
+      const n=ventas.filter(p=>p.tipoEntrega===tipo).length;
+      const pct=ventas.length>0?Math.round(n/ventas.length*100):0;
+      return`<div class="kpi"><div class="lab" style="color:${col}">${lab}</div><div class="val">${n}</div><div class="delta">${pct}% del total</div></div>`;
+    }).join('')}
+  </div>`;
+}
 
 /* ============================================================
    CAJAS DE EFECTIVO POR SEDE
