@@ -23,7 +23,7 @@
   --void:#0A0A0B;--panel:#141416;--panel2:#1B1B1F;--panel3:#222227;
   --line:#2A2A30;--line2:#34343b;
   --glow:#CDEB45;--glow-d:#a9c531;--glow-soft:rgba(205,235,69,.12);
-  --white:#FFFFFF;--muted:#8C8C95;--muted2:#5f5f68;
+  --white:#FFFFFF;--muted:#8C8C95;--muted2:#71717b;
   --ok:#54d684;--warn:#f5b945;--bad:#ff6b5e;--info:#5db4f5;--purple:#b78bf0;
   --r:14px;--r-s:10px;
   --disp:'Space Grotesk',sans-serif;--body:'Inter',sans-serif;--mono:'Space Mono',monospace;
@@ -81,7 +81,7 @@ input,select,textarea{font-family:var(--body);font-size:16px}
   padding:7px 4px calc(7px + env(safe-area-inset-bottom))}
 .nav::-webkit-scrollbar{display:none}
 .nav a{flex:1;min-width:58px;max-width:80px;display:flex;flex-direction:column;align-items:center;gap:2px;
-  color:var(--muted2);font-size:9.5px;font-weight:500;padding:5px 2px;border-radius:10px;cursor:pointer}
+  color:var(--muted);font-size:9.5px;font-weight:500;padding:5px 2px;border-radius:10px;cursor:pointer}
 .nav a .ic{font-size:19px;line-height:1}
 .nav a.on{color:var(--glow)}
 
@@ -324,6 +324,124 @@ select.inp{appearance:none;-webkit-appearance:none;
 .srch-shortcut{font-size:11px;background:var(--panel2);border:1px solid var(--line);
   border-radius:6px;padding:2px 7px;font-family:var(--mono);color:var(--muted)}
 @media(min-width:768px){.srch-overlay{padding-left:215px}}
+
+/* ============================================================
+   ✨ POLISH LAYER — micro-interacciones, accesibilidad y feedback
+   (capa final: refina sin alterar la estructura)
+   ============================================================ */
+
+/* Selección de texto con identidad */
+::selection{background:rgba(205,235,69,.28);color:var(--white)}
+
+/* Números tabulares: montos y contadores perfectamente alineados */
+.mono,.kpi .val,.li .amt,.stat2 .v,.order .code,.stbtn .ct,.bars .bval{
+  font-variant-numeric:tabular-nums lining-nums}
+
+/* ---- Transiciones consistentes (150–220ms) ---- */
+.btn,.chip,.stbtn,.iconbtn,.li,.order,.kpi,.promo-chip,.nav a,.fab,.inp,select.inp,textarea.inp{
+  transition:background-color .18s ease,border-color .18s ease,color .18s ease,
+    transform .14s ease,box-shadow .2s ease,opacity .18s ease}
+
+/* ---- Feedback táctil: presión sutil en todo lo tocable ---- */
+.chip:active,.stbtn:active,.promo-chip:active{transform:scale(.96)}
+.li:active,.order:active,.kpi:active{transform:scale(.988)}
+.btn:active{transform:translateY(1px) scale(.99)}
+.iconbtn:active{transform:scale(.92)}
+
+/* ---- Hover (desktop / trackpad) ---- */
+@media(hover:hover){
+  .btn:hover{border-color:var(--line2);background:var(--panel3)}
+  .btn.pri:hover{background:#d8f55a;border-color:#d8f55a;box-shadow:0 4px 16px rgba(205,235,69,.25)}
+  .btn.gho:hover{background:var(--panel2)}
+  .btn.dang:hover{background:rgba(255,107,94,.1)}
+  .chip:hover:not(.on){border-color:var(--line2);color:var(--white)}
+  .stbtn:hover:not(.on){border-color:var(--line2);color:var(--white)}
+  .iconbtn:hover{border-color:var(--line2);background:var(--panel2)}
+  .li:hover{border-color:var(--line2);transform:translateY(-1px)}
+  .order:hover{border-color:var(--line2);transform:translateY(-1px);
+    box-shadow:0 6px 20px rgba(0,0,0,.35)}
+  .kpi:hover{border-color:var(--line2);transform:translateY(-1px)}
+  .kpi.accent:hover{border-color:rgba(205,235,69,.5)}
+  .fab:hover{transform:scale(1.05);box-shadow:0 10px 32px rgba(205,235,69,.45),0 2px 8px rgba(0,0,0,.5)}
+  .nav a:hover:not(.on){color:var(--muted)}
+}
+
+/* ---- Jerarquía de acción: el botón primario proyecta luz ---- */
+.btn.pri{box-shadow:0 2px 10px rgba(205,235,69,.18)}
+.btn.pri.full{box-shadow:0 4px 18px rgba(205,235,69,.22)}
+
+/* ---- Profundidad sutil en tarjetas ---- */
+.card,.kpi,.order,.li{box-shadow:0 1px 2px rgba(0,0,0,.25)}
+
+/* ---- Inputs: anillo de enfoque con halo ---- */
+.inp:focus,select.inp:focus,textarea.inp:focus{
+  border-color:var(--glow);box-shadow:0 0 0 3px rgba(205,235,69,.14)}
+.inp::placeholder,textarea.inp::placeholder{color:var(--muted2)}
+
+/* ---- Accesibilidad: foco visible con teclado ---- */
+.btn:focus-visible,.chip:focus-visible,.stbtn:focus-visible,.iconbtn:focus-visible,
+.nav a:focus-visible,.fab:focus-visible,.li:focus-visible,.order:focus-visible{
+  outline:2px solid var(--glow);outline-offset:2px}
+
+/* ---- Touch targets ≥44px en pantallas táctiles ---- */
+@media(pointer:coarse){
+  .chip{padding:10px 15px;min-height:40px}
+  .stbtn{padding:10px 14px;min-height:40px}
+  .iconbtn{width:42px;height:42px}
+  .btn.sm{padding:9px 13px;min-height:38px}
+}
+
+/* ---- Nav móvil: indicador del ítem activo ---- */
+@media(max-width:767px){
+  .nav a{position:relative}
+  .nav a.on::before{content:'';position:absolute;top:-7px;left:50%;transform:translateX(-50%);
+    width:18px;height:3px;border-radius:0 0 3px 3px;background:var(--glow)}
+  .nav a.on .ic{transform:translateY(-1px)}
+  .nav a .ic{transition:transform .18s ease}
+}
+
+/* ---- Statusbar: desvanecido en los bordes (pista de scroll) ---- */
+.statusbar{
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 14px,#000 calc(100% - 22px),transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 14px,#000 calc(100% - 22px),transparent);
+  scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
+
+/* ---- Skeleton shimmer: carga percibida más rápida ---- */
+.skel{position:relative;overflow:hidden;background:var(--panel2);border-radius:8px;color:transparent!important}
+.skel::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.045),transparent);
+  animation:shimmer 1.4s infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.skel-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.skel-line{height:12px;border-radius:6px;margin-bottom:9px}
+.skel-line.w40{width:40%}.skel-line.w60{width:60%}.skel-line.w80{width:80%}
+
+/* ---- Toast con presencia ---- */
+#toast{box-shadow:0 10px 32px rgba(0,0,0,.5);backdrop-filter:blur(10px)}
+
+/* ---- Sheet: entrada más fluida ---- */
+.sheet{transition:transform .28s cubic-bezier(.32,.72,.24,1)}
+.scrim{transition:opacity .22s ease}
+
+/* ---- Scrollbar refinado ---- */
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-thumb{background:var(--line2);border-radius:8px;border:2px solid var(--void)}
+::-webkit-scrollbar-thumb:hover{background:#45454e}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ---- Empty states con más aire ---- */
+.empty{padding:46px 18px}
+.empty .ic{font-size:38px;opacity:.45;margin-bottom:10px;filter:grayscale(.3)}
+
+/* ---- Imágenes nunca rompen el layout ---- */
+img{max-width:100%;display:block}
+
+/* ---- Movimiento reducido: respeta la preferencia del sistema ---- */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;
+    transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+
 </style>
 </head>
 <body>
@@ -483,6 +601,17 @@ async function dbPut(col,obj){
   return obj;
 }
 async function dbDel(col,id){await db.collection(col).doc(id).delete();invalidarCache(col);}
+
+/* ── Skeleton de carga reutilizable ── */
+function skelView(kpis=4,cards=3){
+  return `<div class="grid g2 g4-xl" style="margin-bottom:16px">
+    ${Array(kpis).fill(0).map(()=>`<div class="kpi"><div class="skel skel-line w60"></div><div class="skel skel-line w40" style="height:24px;margin-top:8px"></div></div>`).join('')}
+  </div>
+  ${Array(cards).fill(0).map(()=>`<div class="skel-card" style="margin-bottom:11px">
+    <div class="skel skel-line w40"></div><div class="skel skel-line w80"></div><div class="skel skel-line w60" style="margin-bottom:0"></div>
+  </div>`).join('')}`;
+}
+
 function uid(p='id'){return p+'_'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
 
 /* ---- Constantes ---- */
@@ -717,7 +846,7 @@ async function viewDash(){
   </div>
   <div id="dashAlerts"></div>
   <div id="dashKpis"><div class="grid g2 g4-xl">
-    ${[0,1,2,3].map(()=>`<div class="kpi"><div class="lab" style="opacity:.4">Cargando…</div><div class="val" style="opacity:.3">—</div></div>`).join('')}
+    ${[0,1,2,3].map(()=>`<div class="kpi"><div class="skel skel-line w60"></div><div class="skel skel-line w40" style="height:26px;margin-top:8px;margin-bottom:0"></div></div>`).join('')}
   </div></div>
   <div id="dashBody"></div>`;
 
@@ -805,7 +934,7 @@ async function viewDespacho(forceRefresh){
   const v=$('#view');
   // Cache: evitar refetch en cada cambio de filtro
   if(!S.cache.peds||forceRefresh){
-    v.innerHTML=`<div style="padding:40px 0;text-align:center"><div class="ai-thinking" style="justify-content:center"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div><span style="color:var(--muted2)">Cargando pedidos…</span></div></div>`;
+    v.innerHTML=`<div style="padding:8px 0">${Array(4).fill(0).map(()=>`<div class="skel-card" style="margin-bottom:11px"><div class="skel skel-line w40"></div><div class="skel skel-line w80"></div><div class="skel skel-line w60" style="margin-bottom:0"></div></div>`).join("")}</div>`;
     const [peds,sedes]=await Promise.all([dbAll('pedidos'),dbAll('sedes')]);
     S.cache.peds=peds; S.cache.sedes=sedes;
   }
@@ -1443,7 +1572,7 @@ async function savePago(id){
    VIEW · INVENTARIO
    ============================================================ */
 async function viewInv(){
-  const v=$('#view');v.innerHTML='<div class="empty">Cargando…</div>';
+  const v=$('#view');v.innerHTML=skelView();
   const [prods,sedes,sm,stockFlags]=await Promise.all([dbAll('productos'),dbAll('sedes'),stockMap(),dbAll('stockFlags')]);
   S.cache.prods=prods;S.cache.sedes=sedes;
   const flagMap={};stockFlags.forEach(f=>flagMap[f.id]=f);
@@ -1592,7 +1721,7 @@ async function saveMovimiento(){
    VIEW · FINANZAS
    ============================================================ */
 async function viewFin(){
-  const v=$('#view');v.innerHTML='<div class="empty">Cargando…</div>';
+  const v=$('#view');v.innerHTML=skelView();
   const finPeriodo=S.filters.finPeriodo||'mes';
   const rango=getRangoFechas(finPeriodo);
   const [peds,egr,convs,prods,c]=await Promise.all([dbAll('pedidos'),dbAll('egresos'),dbAll('conversiones'),dbAll('productos'),cfg()]);
@@ -1773,7 +1902,7 @@ async function saveConversion(){const bs=parseFloat(($('#cvBs')?.value||'0').rep
    VIEW · AJUSTES / ADMIN
    ============================================================ */
 async function viewAdmin(){
-  const v=$('#view');v.innerHTML='<div class="empty">Cargando…</div>';
+  const v=$('#view');v.innerHTML=skelView();
   const c=await cfg();
   const rol=S.user?.rol||'vendedor';
   const esSocio=rol==='socio';
@@ -2179,7 +2308,7 @@ function aplicarRangoCustom(filtroKey,viewFn){
 
 async function viewReportes(){
   const v=document.getElementById('view');
-  v.innerHTML='<div class="empty">Cargando reportes…</div>';
+  v.innerHTML=skelView(2,4);
   const periodo=S.filters.repPeriodo||'mes';
   const rango=getRangoFechas(periodo);
   const[peds,prods,sedes]=await Promise.all([dbAll('pedidos'),dbAll('productos'),dbAll('sedes')]);
@@ -2768,7 +2897,7 @@ function calcComisionEmpleado(emp,peds,periodo){
 
 async function viewNomina(){
   const v=document.getElementById('view');
-  v.innerHTML='<div class="empty">Cargando nómina…</div>';
+  v.innerHTML=skelView(2,3);
   const[emps,peds,pagos,usuarios]=await Promise.all([dbAll('nominaEmpleados'),dbAll('pedidos'),dbAll('nominaPagos'),dbAll('usuarios')]);
   const activos=emps.filter(e=>e.activo);
   // Período seleccionado (por defecto: período actual del sistema)
@@ -4959,7 +5088,7 @@ Pedido ${p.codigo}`);
    DASHBOARD DEL VENDEDOR — sin datos financieros
    ============================================================ */
 async function viewDashVend(){
-  const v=$('#view');v.innerHTML='<div class="empty">Cargando…</div>';
+  const v=$('#view');v.innerHTML=skelView();
   const [peds,sedes,prods,sm,stockFlags]=await Promise.all([dbAll('pedidos'),dbAll('sedes'),dbAll('productos'),stockMap(),dbAll('stockFlags')]);
   S.cache.sedes=sedes;
   // Stock bajo (respetando flags de "sin enviar")
