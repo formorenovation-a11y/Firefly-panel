@@ -1717,12 +1717,48 @@ tr.nanul td b,.nemp.nanul .ner b{text-decoration:line-through;color:#8c8c95!impo
 .cobh{display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .cobh b{font-size:14px}
 
+
+/* ===== Login · luciérnaga voladora ===== */
+#ffSky{position:fixed;inset:0;z-index:0;pointer-events:none}
+#loginScreen .login-box{position:relative;z-index:2}
+.login-logo>svg{transition:opacity .25s}
+.login-logo>svg.away{opacity:0}
+#ffFly{position:fixed;left:0;top:0;width:134px;height:73px;z-index:1;pointer-events:none;display:none;will-change:transform,filter;--flap:.16s}
+#ffFly.on{display:block}
+#ffFly svg{width:100%;height:100%;overflow:visible}
+#ffFly .wgrow{transform-box:view-box;transform:scale(0);transition:transform .55s cubic-bezier(.34,1.56,.64,1)}
+#ffFly.wings .wgrow{transform:scale(1)}
+#ffFly .wl .wgrow{transform-origin:43px 36px}#ffFly .wr .wgrow{transform-origin:57px 36px}
+#ffFly .wflap{transform-box:view-box;animation:ffFlapL var(--flap) ease-in-out infinite alternate}
+#ffFly .wl .wflap{transform-origin:43px 36px}
+#ffFly .wr .wflap{transform-origin:57px 36px;animation-name:ffFlapR}
+#ffFly .w2 .wflap{animation-delay:calc(var(--flap) * -.5)}
+#ffFly .wing{fill:url(#ffWG);stroke:#CDEB45;stroke-width:1.4;stroke-opacity:.9}
+#ffFly .w2 .wing{fill:url(#ffWG2);stroke-opacity:.7}
+#ffFly .vein{stroke:#e9ff9a;stroke-width:.8;stroke-opacity:.55;fill:none}
+#ffFly .glow{animation:ffGlow 1.6s ease-in-out infinite}
+@keyframes ffFlapL{from{transform:rotate(14deg) scaleY(.55)}to{transform:rotate(-18deg) scaleY(1)}}
+@keyframes ffFlapR{from{transform:rotate(-14deg) scaleY(.55)}to{transform:rotate(18deg) scaleY(1)}}
+@keyframes ffGlow{50%{opacity:.55}}
+@media (prefers-reduced-motion:reduce){#ffFly,#ffSky{display:none!important}}
 </style>
 </head>
 <body>
 
 <!-- LOGIN -->
 <div id="loginScreen" class="login-wrap">
+  <canvas id="ffSky" aria-hidden="true"></canvas>
+  <div id="ffFly" aria-hidden="true"><svg viewBox="-70 -20 240 130">
+    <defs><radialGradient id="ffWG" cx="85%" cy="70%" r="95%"><stop offset="0" stop-color="#CDEB45" stop-opacity=".55"/><stop offset=".6" stop-color="#CDEB45" stop-opacity=".16"/><stop offset="1" stop-color="#9ee35a" stop-opacity=".04"/></radialGradient>
+    <radialGradient id="ffWG2" cx="85%" cy="40%" r="95%"><stop offset="0" stop-color="#CDEB45" stop-opacity=".4"/><stop offset="1" stop-color="#CDEB45" stop-opacity=".05"/></radialGradient></defs>
+    <g class="wl w2"><g class="wgrow"><g class="wflap"><path class="wing" d="M44 44 C30 50 12 62 -6 62 C-20 62 -20 50 -8 46 C8 40 30 40 44 44Z"/><path class="vein" d="M44 44 C24 48 6 54 -10 55"/></g></g></g><g class="wr w2"><g class="wgrow"><g class="wflap"><path class="wing" d="M56 44 C70 50 88 62 106 62 C120 62 120 50 108 46 C92 40 70 40 56 44Z"/><path class="vein" d="M56 44 C76 48 94 54 110 55"/></g></g></g><g class="wl w1"><g class="wgrow"><g class="wflap"><path class="wing" d="M43 36 C30 14 6 2 -22 6 C-40 9 -42 26 -26 34 C-10 42 22 42 43 36Z"/><path class="vein" d="M43 36 C22 26 2 18 -24 16 M43 36 C20 32 0 32 -20 30"/></g></g></g><g class="wr w1"><g class="wgrow"><g class="wflap"><path class="wing" d="M57 36 C70 14 94 2 122 6 C140 9 142 26 126 34 C110 42 78 42 57 36Z"/><path class="vein" d="M57 36 C78 26 98 18 124 16 M57 36 C80 32 100 32 120 30"/></g></g></g>
+    <g stroke="#CDEB45" stroke-width="3.4" stroke-linecap="round" fill="none">
+          <path d="M30 26 Q26 16 33 12"/><path d="M70 26 Q74 16 67 12"/>
+          <ellipse cx="50" cy="46" rx="26" ry="28" fill="#0A0A0B" fill-opacity=".55"/>
+          <path d="M50 24 C34 40 34 58 50 70 C66 58 66 40 50 24Z"/>
+          <path d="M38 30 C48 44 52 56 50 70"/><path d="M62 30 C52 44 48 56 50 70"/>
+          <path d="M40 78 L38 86 M50 80 L50 90 M60 78 L62 86"/></g>
+        <ellipse class="glow" cx="50" cy="60" rx="9" ry="10" fill="#CDEB45" opacity=".35"/></svg></div>
   <div class="login-box">
     <div class="login-logo">
       <svg viewBox="0 0 100 100" fill="none">
@@ -2064,6 +2100,7 @@ auth.onAuthStateChanged(async fbUser=>{
 function showLoginScreen(msg){
   $('#app').classList.add('hide');
   $('#loginScreen').classList.remove('hide');
+  if(window.ffFlyStart)setTimeout(ffFlyStart,50);
   const btn=$('#loginBtn');if(btn){btn.disabled=false;btn.textContent='Entrar';}
   if(msg)showLoginErr(msg);else hideLoginErr();
 }
@@ -8034,6 +8071,92 @@ function confirmSheet(title,msg,onYes){
    <button class="btn dang full" id="cfYes">Sí, continuar</button>
    <button class="btn gho full" style="margin-top:9px" onclick="closeSheet()">Cancelar</button>`);
   $('#cfYes').onclick=onYes;}
+</script>
+<script>
+/* ===== Login · luciérnaga voladora ===== */
+(function(){
+  const RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let run=false,raf=0,timers=[],cv,cx,fly,home,W=0,H=0,DPR=1,stars=[],trail=[],sparks=[],st=null,t0=0;
+  const TRAIL_MS=1000;
+  const rnd=(a,b)=>a+Math.random()*(b-a);
+  const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  const bez=(p0,p1,p2,p3,t)=>{const u=1-t;return u*u*u*p0+3*u*u*t*p1+3*u*t*t*p2+t*t*t*p3;};
+  function size(){DPR=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;cv.style.width=W+'px';cv.style.height=H+'px';cx.setTransform(DPR,0,0,DPR,0,0);
+    const n=Math.round(Math.min(260,W*H/6500));stars=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,z:rnd(.15,1),p:rnd(0,6.3),s:rnd(.4,1.4)}));}
+  function homeRect(){const r=home.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2,s:r.width/56};}
+  function later(fn,ms){const id=setTimeout(fn,ms);timers.push(id);return id;}
+  function place(x,y,s,rot){fly.style.transform=`translate3d(${x}px,${y}px,0) translate(-50%,-50%) scale(${s}) rotate(${rot}deg)`;
+    const d=Math.max(0,Math.min(1,(s-.45)/.9));fly.style.filter=`drop-shadow(0 0 ${6+10*d}px rgba(205,235,69,${.35+.4*d})) brightness(${.65+.45*d})`;fly.style.opacity=(.55+.45*d).toFixed(2);}
+  function waypoint(prev){
+    const m=Math.max(70,Math.min(W,H)*.1);let x,y,k=0;
+    const box=[...document.querySelectorAll('#loginScreen .login-card,#loginScreen .login-logo h1,#loginScreen .login-logo p')].map(e=>e.getBoundingClientRect());
+    const hit=(x,y)=>box.some(r=>x>r.left-40&&x<r.right+40&&y>r.top-30&&y<r.bottom+30);
+    do{x=rnd(m,W-m);y=rnd(m,H-m);k++;}while(k<60&&(hit(x,y)||Math.hypot(x-prev.x,y-prev.y)<Math.min(W,H)*.28));
+    return{x,y,s:rnd(.55,1.6)};
+  }
+  /* Plan: despega desde el logo, visita varios puntos, vuelve y aterriza */
+  function plan(){
+    const h=homeRect(),pts=[{x:h.x,y:h.y,s:h.s}];const n=Math.round(rnd(4,6));
+    for(let i=0;i<n;i++)pts.push(waypoint(pts[pts.length-1]));
+    pts.push({x:h.x,y:h.y,s:h.s,home:1});
+    const segs=[];for(let i=1;i<pts.length;i++){const a=pts[i-1],b=pts[i],dx=b.x-a.x,dy=b.y-a.y,L=Math.hypot(dx,dy)||1,nx=-dy/L,ny=dx/L,bend=rnd(-.45,.45)*L;
+      segs.push({a,b,c1:{x:a.x+dx*.3+nx*bend,y:a.y+dy*.3+ny*bend-(i===1?L*.25:0)},c2:{x:a.x+dx*.7+nx*bend*.6,y:a.y+dy*.7+ny*bend*.6},dur:Math.max(1100,Math.min(2600,L*2.6)),hold:b.home?0:rnd(900,1700)});}
+    return segs;
+  }
+  function wings(on){fly.classList.toggle('wings',on);}
+  function start(){
+    if(RM||run)return;const scr=document.getElementById('loginScreen');if(!scr||scr.classList.contains('hide'))return;
+    cv=document.getElementById('ffSky');fly=document.getElementById('ffFly');home=document.querySelector('.login-logo>svg');if(!cv||!fly||!home)return;
+    cx=cv.getContext('2d');run=true;size();trail=[];sparks=[];st=null;t0=performance.now();
+    raf=requestAnimationFrame(loop);
+    later(takeoff,2000);
+  }
+  function takeoff(){
+    if(!run)return;const h=homeRect();place(h.x,h.y,h.s,0);fly.classList.add('on');home.classList.add('away');wings(true);
+    later(()=>{if(!run)return;st={segs:plan(),i:0,t:performance.now(),phase:'fly',x:h.x,y:h.y,s:h.s,rot:0};},900);
+  }
+  function land(){
+    wings(false);
+    later(()=>{if(!run)return;fly.classList.remove('on');home.classList.remove('away');st=null;later(takeoff,rnd(5000,8000));},650);
+  }
+  function step(now){
+    if(!st)return;const sg=st.segs[st.i];
+    if(st.phase==='hold'){const k=(now-st.t)/1000;const bx=sg.b.x+Math.sin(k*2.4)*6,by=sg.b.y+Math.cos(k*3.1)*5;st.x=bx;st.y=by;st.rot*=.9;place(bx,by,sg.b.s,st.rot);
+      if(now-st.t>sg.hold){st.i++;st.t=now;st.phase='fly';if(st.i>=st.segs.length){land();st=null;}}return;}
+    let t=Math.min(1,(now-st.t)/sg.dur),e=ease(t);
+    const x=bez(sg.a.x,sg.c1.x,sg.c2.x,sg.b.x,e),y=bez(sg.a.y,sg.c1.y,sg.c2.y,sg.b.y,e);
+    const s=sg.a.s+(sg.b.s-sg.a.s)*e+Math.sin(Math.PI*e)*.18;
+    const vx=x-st.x,vy=y-st.y,sp=Math.hypot(vx,vy);
+    st.rot=st.rot*.85+Math.max(-28,Math.min(28,vx*1.6))*.15;
+    st.x=x;st.y=y;st.s=s;place(x,y,s,st.rot);
+    fly.style.setProperty('--flap',sp>2?'.11s':'.18s');
+    if(sp>.4){trail.push({x,y:y+8*s,s,t:now});for(let q=0;q<(sp>6?2:1);q++)if(Math.random()<.7)sparks.push({x:x+rnd(-6,6)*s,y:y+rnd(0,14)*s,vx:rnd(-.3,.3)-vx*.05,vy:rnd(.1,.6)-vy*.05,t:now,r:rnd(.6,1.8)*s});}
+    if(t>=1){if(sg.b.home){st.i++;land();st=null;return;}st.phase='hold';st.t=now;}
+  }
+  function draw(now){
+    cx.clearRect(0,0,W,H);
+    const k=(now-t0)/1000,ox=st?(st.x-W/2)*-.012:0,oy=st?(st.y-H/2)*-.012:0;
+    for(const p of stars){const tw=.55+.45*Math.sin(k*p.s*1.7+p.p);const x=((p.x+ox*p.z*60+k*6*p.z)%W+W)%W,y=((p.y+oy*p.z*60)%H+H)%H;
+      cx.globalAlpha=(.15+.6*p.z)*tw;cx.fillStyle=p.z>.85?'#e9f7b0':'#c9cbe0';cx.fillRect(x,y,p.z*1.6,p.z*1.6);}
+    cx.globalAlpha=1;
+    while(trail.length&&now-trail[0].t>TRAIL_MS)trail.shift();
+    while(sparks.length&&now-sparks[0].t>TRAIL_MS)sparks.shift();
+    if(trail.length>1){cx.save();cx.globalCompositeOperation='lighter';cx.lineCap='round';cx.lineJoin='round';
+      for(const pass of [[18,.05],[8,.14],[3.2,.38],[1.6,.95]]){for(let i=1;i<trail.length;i++){const a=trail[i-1],b=trail[i],life=1-(now-b.t)/TRAIL_MS;if(life<=0)continue;
+        cx.strokeStyle=pass[1]>.5?`rgba(236,255,170,${(life*pass[1]).toFixed(3)})`:`rgba(205,235,69,${(life*pass[1]).toFixed(3)})`;cx.lineWidth=pass[0]*b.s*(.35+.65*life);cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke();}}
+      cx.restore();}
+    if(sparks.length){cx.save();cx.globalCompositeOperation='lighter';for(const p of sparks){const life=1-(now-p.t)/TRAIL_MS;p.x+=p.vx;p.y+=p.vy;cx.fillStyle=`rgba(215,245,110,${(life*.9).toFixed(3)})`;cx.beginPath();cx.arc(p.x,p.y,p.r*life+.2,0,6.283);cx.fill();}cx.restore();}
+  }
+  function loop(now){
+    const scr=document.getElementById('loginScreen');if(!run||!scr||scr.classList.contains('hide')){stop();return;}
+    step(now);draw(now);raf=requestAnimationFrame(loop);
+  }
+  function stop(){run=false;cancelAnimationFrame(raf);timers.forEach(clearTimeout);timers=[];st=null;if(fly){fly.classList.remove('on','wings');}if(home)home.classList.remove('away');if(cx)cx.clearRect(0,0,W,H);}
+  window.addEventListener('resize',()=>{if(run){size();if(!st&&fly&&fly.classList.contains('on')){const h=homeRect();place(h.x,h.y,h.s,0);}}});
+  window.ffFlyStart=start;window.ffFlyStop=stop;
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
+})();
+
 </script>
 </body>
 </html>
