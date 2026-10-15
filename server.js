@@ -119,10 +119,10 @@ async function shopSetStock(items) {
   const loc = await shopLocation(), out = [], quantities = [];
   for (const it of items.slice(0, 100)) {
     const sku = String(it.sku || '').trim(); if (!sku) continue;
-    const d = await shopGQL('query($q:String!){ productVariants(first: 1, query: $q) { edges { node { id sku inventoryItem { id } } } } }', { q: 'sku:' + JSON.stringify(sku) });
+    const d = await shopGQL('query($q:String!,$loc:ID!){ productVariants(first: 1, query: $q) { edges { node { id sku inventoryItem { id inventoryLevel(locationId: $loc) { quantities(names: ["available"]) { quantity } } } } } } }', { q: 'sku:' + JSON.stringify(sku), loc });
     const v = d.productVariants.edges[0]?.node;
     if (!v) { out.push({ sku, ok: false, error: 'SKU no existe en Shopify' }); continue; }
-    quantities.push({ inventoryItemId: v.inventoryItem.id, locationId: loc, quantity: Math.max(0, Math.floor(+it.qty || 0)) });
+    let lvl = v.inventoryItem.inventoryLevel; if (!lvl) { await shopGQL('mutation($id:ID!,$loc:ID!){ inventoryActivate(inventoryItemId: $id, locationId: $loc) { userErrors { message } } }', { id: v.inventoryItem.id, loc }); lvl = { quantities: [{ quantity: 0 }] }; } quantities.push({ inventoryItemId: v.inventoryItem.id, locationId: loc, quantity: Math.max(0, Math.floor(+it.qty || 0)), changeFromQuantity: lvl.quantities?.[0]?.quantity ?? 0 });
     out.push({ sku, ok: true, qty: Math.max(0, Math.floor(+it.qty || 0)) });
   }
   if (quantities.length) {
