@@ -9876,8 +9876,8 @@ async function viewAjInteg(){
      <div class="intbt">${esSocio?`<button class="btn-out" onclick="intBridgeSave()">${ic('save')}<span>Guardar</span></button>`:''}<button class="btn-out" onclick="intBridgeTest()">${ic('wifi')}<span>Probar conexión</span></button><span id="brRes" class="sub" style="font-size:13px"></span></div></div>
    <div class="intg">${Object.keys(INTG).map(k=>`<div class="intc" onclick="intOpen('${k}')"><div class="h">${INTG[k].t()}<div class="t"><b>${INTG[k].n}</b><small>${INTG[k].d}</small></div></div>${extra(k)}<div class="f">${intStatus(k,c)}<span class="go">Configurar ${ic('chevR')}</span></div></div>`).join('')}</div>`;
 }
-async function intBridgeSave(){const c=await cfg();c.bridge={url:($('#brUrl').value||'').trim().replace(/\/+$/,''),key:($('#brKey').value||'').trim()};await dbPut('config',c);S.cache.cfg=c;toast('Puente guardado ✓','ok');}
-async function intBridgeTest(){const el=$('#brRes');if(el)el.textContent='Probando…';
+async function intBridgeSave(){const u=($('#brUrl').value||'').trim().replace(/\/+$/,'');if(u&&!/^https?:\/\/[^\s/]+\.[^\s]+/.test(u)){toast('La URL debe ser la del puente en Render, ej: https://firefly-bridge.onrender.com. Las claves de Shopify van en Render, no aquí.','bad');throw new Error('URL del puente inválida: debe empezar con https:// (las claves de Shopify van en Render)');}const c=await cfg();c.bridge={url:u,key:($('#brKey').value||'').trim()};await dbPut('config',c);S.cache.cfg=c;toast('Puente guardado ✓','ok');}
+async function intBridgeTest(){const el=$('#brRes');if(el){el.style.color='';el.textContent='Probando…';}
   try{if($('#brUrl')&&S.user?.rol==='socio')await intBridgeSave();const j=await bridgeFetch('/health?check=1');const m=j.modules||{};
     const f=(k,n)=>!m[k]?`${n}: no configurado`:(j[k]==='ok'?`${n} ✓${k==='shopify'&&j.shopName?' ('+j.shopName+')':k==='ml'&&j.mlNick?' ('+j.mlNick+')':''}`:`${n}: error`);
     if(el)el.innerHTML=[f('spidi','SPIDI'),f('shopify','Shopify'),f('ml','Mercado Libre')].map(x=>`<span style="margin-right:10px;color:${/✓/.test(x)?'var(--ok)':/error/.test(x)?'var(--bad)':'var(--muted)'}">${esc(x)}</span>`).join('');}
