@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: firefly-bridge
+    runtime: node
+    plan: free
+    buildCommand: "echo sin dependencias"
+    startCommand: node server.js
+    healthCheckPath: /health
+    envVars:
+      - key: SPIDI_ENV
+        value: sandbox
+      - key: SPIDI_SHORT_NAME
+        sync: false
+      - key: SPIDI_PASSWORD
+        sync: false
+      - key: SPIDI_AGREEMENT_ID
+        sync: false
+      - key: BRIDGE_KEY
+        generateValue: true
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: PUBLIC_URL
+        sync: false
+      - key: SHOPIFY_STORE
+        sync: false
+      - key: SHOPIFY_CLIENT_ID
+        sync: false
+      - key: SHOPIFY_CLIENT_SECRET
+        sync: false
+      - key: SHOPIFY_LOCATION_ID
+        sync: false
+      - key: ML_CLIENT_ID
+        sync: false
+      - key: ML_CLIENT_SECRET
+        sync: false
+      - key: ML_REFRESH_TOKEN
+        sync: false
