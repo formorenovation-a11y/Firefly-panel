@@ -126,7 +126,7 @@ async function shopSetStock(items) {
     out.push({ sku, ok: true, qty: Math.max(0, Math.floor(+it.qty || 0)) });
   }
   if (quantities.length) {
-    const d = await shopGQL('mutation($input: InventorySetQuantitiesInput!){ inventorySetQuantities(input: $input) { userErrors { field message } } }',
+    const d = await shopGQL('mutation($input: InventorySetQuantitiesInput!){ inventorySetQuantities(input: $input) @idempotent(key: "' + crypto.randomUUID() + '") { userErrors { field message } } }',
       { input: { name: 'available', reason: 'correction', quantities } });
     const ue = d.inventorySetQuantities.userErrors || [];
     if (ue.length) throw new Error('Shopify: ' + ue.map(x => x.message).join('; '));
