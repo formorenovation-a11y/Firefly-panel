@@ -127,7 +127,7 @@ async function shopSetStock(items) {
   }
   if (quantities.length) {
     const d = await shopGQL('mutation($input: InventorySetQuantitiesInput!){ inventorySetQuantities(input: $input) { userErrors { field message } } }',
-      { input: { name: 'available', reason: 'correction', ignoreCompareQuantity: true, quantities } });
+      { input: { name: 'available', reason: 'correction', quantities } });
     const ue = d.inventorySetQuantities.userErrors || [];
     if (ue.length) throw new Error('Shopify: ' + ue.map(x => x.message).join('; '));
   }
