@@ -655,7 +655,7 @@ body{font-family:var(--body)}
    ============================================================ */
 /* Nav móvil: 5 ítems, activo con barra bajo el texto */
 @media(max-width:767px){
-  .nav a[data-r="fin"],.nav a[data-r="reportes"],.nav a[data-r="nomina"],.nav a[data-r="agenda"],.nav a[data-r="p360"],.nav a[data-r="productos"]{display:none!important}
+  .nav a[data-r="fin"],.nav a[data-r="nomina"],.nav a[data-r="agenda"],.nav a[data-r="p360"],.nav a[data-r="productos"]{display:none!important}
   .nav a{position:relative;padding-bottom:6px}
   .nav a.on .ic{background:none}
   .nav a.on::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:34px;height:3px;border-radius:3px;background:var(--glow)}
@@ -2472,6 +2472,235 @@ tr.nanul td b,.nemp.nanul .ner b{text-decoration:line-through;color:#8c8c95!impo
 .intmap .ph img{width:100%;height:100%;object-fit:cover}.intmap .ph svg{width:16px;height:16px}
 .intmap .mono{flex:1;color:var(--muted);font-family:var(--mono);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 label.tgl2{cursor:pointer}
+
+/* ===== v12 · UX ===== */
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+#view{animation:v12in .22s ease-out}
+@keyframes v12in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.btn:active,.btn-out:active,.btn-lime:active,.bsec:active,.bsave:active,.fchip:active,.mitem:active,.ok2:active,.ajr:active,.ajtiles button:active{transform:scale(.985)}
+.btn,.btn-out,.btn-lime,.bsec,.bsave,.fchip,.mitem,.ok2,.ajr{transition:transform .12s ease,border-color .15s,background .15s,opacity .15s}
+:focus-visible{outline:2px solid rgba(205,235,69,.7);outline-offset:2px;border-radius:8px}
+.nav a{transition:color .15s}
+.nav a .ic{transition:background .15s,transform .15s}
+.nav a:active .ic{transform:scale(.9)}
+html{scroll-behavior:smooth}
+.v12live{white-space:nowrap;display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.08em;color:#4ee39a;font-family:var(--mono)}
+.v12live i{width:8px;height:8px;border-radius:50%;background:#4ee39a;box-shadow:0 0 0 0 rgba(78,227,154,.6);animation:v12pulse 1.6s infinite}
+@keyframes v12pulse{0%{box-shadow:0 0 0 0 rgba(78,227,154,.55)}70%{box-shadow:0 0 0 8px rgba(78,227,154,0)}100%{box-shadow:0 0 0 0 rgba(78,227,154,0)}}
+.v12av{width:42px;height:42px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:800;font-size:15px;background:color-mix(in srgb,var(--c,#5db4f5) 18%,transparent);color:var(--c,#5db4f5);border:1px solid color-mix(in srgb,var(--c,#5db4f5) 40%,transparent);position:relative}
+.v12av img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+.v12av .pl{position:absolute;right:-3px;bottom:-3px;width:18px;height:18px;border-radius:50%;background:var(--card);display:grid;place-items:center;border:1px solid var(--stroke)}
+.v12av .pl .blogo,.v12av .pl svg{width:11px;height:11px}
+.v12tag{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:999px;font-size:11.5px;font-weight:600;background:color-mix(in srgb,var(--c,#8b7bff) 16%,transparent);color:var(--c,#8b7bff);border:1px solid color-mix(in srgb,var(--c,#8b7bff) 35%,transparent);white-space:nowrap}
+.v12tag button{background:none;border:none;color:inherit;cursor:pointer;display:grid;padding:0;opacity:.7}
+.v12tag button svg{width:12px;height:12px}
+.v12kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.v12kp>div{background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:12px 14px;min-width:0;cursor:default}
+.v12kp>div.go{cursor:pointer}
+.v12kp>div.go:hover{border-color:var(--line2)}
+.v12kp small{display:block;font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.v12kp b{display:block;font-family:var(--mono);font-size:22px;margin-top:4px;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v12kp i{display:block;font-style:normal;font-size:12px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v12kp .hl{border-color:rgba(205,235,69,.45);background:linear-gradient(135deg,rgba(205,235,69,.09),var(--card) 70%)}
+.v12bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.v12bar .sbox{min-width:200px}
+.v12bar select{height:40px;border-radius:12px;background:var(--card);border:1px solid var(--stroke);color:var(--white);padding:0 12px;font-family:var(--body);font-size:13.5px}
+.v12empty{padding:36px 16px;text-align:center;color:var(--muted);font-size:14px}
+.v12empty svg{width:40px;height:40px;color:var(--muted2);margin-bottom:8px}
+.v12sec{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:16px 0 8px;display:flex;align-items:center;gap:8px}
+.v12sec::after{content:'';flex:1;height:1px;background:var(--stroke)}
+.v12row{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--stroke);min-width:0}
+.v12row:last-child{border-bottom:none}
+.v12row .b{flex:1;min-width:0}
+.v12row .b b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v12row .b small{display:block;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v12acts{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.v12acts .btn-out,.v12acts .btn-lime{height:40px;font-size:13.5px;padding:0 13px;border-radius:12px}
+.v12acts .btn-out svg{width:17px;height:17px}
+.v12acts .btn-out.wa{color:#25D366;border-color:rgba(37,211,102,.4)}
+.v12acts .btn-out.ig{color:#ff5c8a;border-color:rgba(255,92,138,.4)}
+.v12acts .btn-out.ok{color:#4ee39a;border-color:rgba(78,227,154,.45)}
+.v12ico{display:inline-grid;place-items:center}.v12ico svg{width:16px;height:16px}
+.v12note{background:var(--card2);border:1px solid var(--stroke);border-radius:12px;padding:10px 12px;font-size:13px;margin-top:8px}
+.v12note small{display:block;color:var(--muted);font-size:11.5px;margin-top:4px}
+.v12grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.v12grid2{grid-template-columns:1fr}}
+/* ===== Clientes (CRM) ===== */
+.cxw{display:block}
+@media(min-width:1180px){.cxw{display:grid;grid-template-columns:minmax(360px,440px) minmax(0,1fr);gap:18px;align-items:start}
+  .cxside{position:sticky;top:88px;max-height:calc(100vh - 104px);overflow:auto;border:1px solid var(--stroke);border-radius:20px;background:var(--card);padding:18px;scrollbar-width:thin}}
+@media(max-width:1179px){.cxside{display:none}}
+#cxList{display:flex;flex-direction:column;gap:8px}
+.cxc{display:flex;gap:12px;align-items:center;padding:12px;border-radius:16px;border:1px solid var(--stroke);background:var(--card);cursor:pointer;min-width:0;transition:border-color .15s,background .15s,transform .12s}
+.cxc:hover{border-color:var(--line2)}
+.cxc.on{border-color:rgba(205,235,69,.6);background:linear-gradient(90deg,rgba(205,235,69,.07),var(--card) 60%)}
+.cxc .b{flex:1;min-width:0}
+.cxc .nm{font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:7px}
+.cxc .sb{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;display:flex;gap:6px;align-items:center}
+.cxc .sb .blogo,.cxc .sb svg{width:13px;height:13px;flex:none}
+.cxc .tg{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.cxc .r{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex:none;text-align:right}
+.cxc .r small{font-size:11.5px;color:var(--muted);white-space:nowrap}
+.cxc .r small.due{color:#f5b945}.cxc .r small.late{color:#ff7a6b;font-weight:700}
+.cxfu{margin-top:8px}
+.cxfu .st{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--stroke);align-items:flex-start}
+.cxfu .st:last-child{border-bottom:none}
+.cxfu .st .n{width:30px;height:30px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:var(--mono);font-size:12px;font-weight:700;border:1px solid var(--stroke);color:var(--muted);background:var(--card2)}
+.cxfu .st.done .n{background:rgba(78,227,154,.15);color:#4ee39a;border-color:rgba(78,227,154,.45)}
+.cxfu .st.due .n{background:rgba(245,185,69,.15);color:#f5b945;border-color:rgba(245,185,69,.5)}
+.cxfu .st.late .n{background:rgba(255,107,94,.15);color:#ff7a6b;border-color:rgba(255,107,94,.5)}
+.cxfu .st .n svg{width:15px;height:15px}
+.cxfu .st .b{flex:1;min-width:0}
+.cxfu .st .b b{display:block;font-size:14px}
+.cxfu .st .b small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.cxfu .st .b .nt{font-size:12.5px;color:#d6d6da;margin-top:4px;background:var(--card2);border-radius:8px;padding:6px 8px}
+.cxfu .st button{height:32px;padding:0 11px;border-radius:10px;border:1px solid var(--stroke);background:var(--card2);color:var(--white);font-size:12.5px;font-weight:600;cursor:pointer;flex:none;font-family:var(--body)}
+.cxfu .st.due button,.cxfu .st.late button{border-color:rgba(205,235,69,.5);background:rgba(205,235,69,.1);color:var(--glow)}
+.cxest{display:flex;gap:6px;flex-wrap:wrap}
+.cxest button{padding:7px 11px;border-radius:999px;border:1px solid var(--stroke);background:var(--card2);color:var(--muted);font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--body);display:inline-flex;align-items:center;gap:6px}
+.cxest button i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.cxest button.on{border-color:var(--c);color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent)}
+.cxhead{display:flex;gap:14px;align-items:center;margin-bottom:6px}
+.cxhead h3{margin:0;font-size:20px;line-height:1.15}
+.cxhead .sub{font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:3px}
+.cxhead .sub .blogo,.cxhead .sub svg{width:14px;height:14px}
+.cxconv{background:rgba(78,227,154,.08);border:1px solid rgba(78,227,154,.4);border-radius:12px;padding:10px 12px;display:flex;gap:10px;align-items:center;margin-top:10px}
+.cxconv svg{width:22px;height:22px;color:#4ee39a;flex:none}
+.cxconv b{display:block;font-size:14px;color:#4ee39a}.cxconv small{color:var(--muted);font-size:12px}
+.cxfilt{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}
+/* ===== Mensajes (Inbox) ===== */
+.ixw{display:block}
+@media(min-width:1024px){.ixw{display:grid;grid-template-columns:minmax(320px,400px) minmax(0,1fr);gap:16px;align-items:start}
+  .ixside{position:sticky;top:88px;height:calc(100vh - 104px);border:1px solid var(--stroke);border-radius:20px;background:var(--card);display:flex;flex-direction:column;overflow:hidden}
+  .ixlist{max-height:calc(100vh - 104px);overflow:auto;scrollbar-width:thin}}
+@media(max-width:1023px){.ixside{display:none}.ixw.open .ixlist{display:none}.ixw.open .ixside{display:flex;flex-direction:column;position:fixed;inset:0;z-index:60;background:var(--void);border-radius:0;height:100dvh}}
+.ixlist{display:flex;flex-direction:column;gap:6px}
+.ixc{display:flex;gap:11px;align-items:center;padding:11px 12px;border-radius:14px;border:1px solid var(--stroke);background:var(--card);cursor:pointer;min-width:0;transition:border-color .15s,background .15s}
+.ixc:hover{border-color:var(--line2)}
+.ixc.on{border-color:rgba(205,235,69,.6);background:linear-gradient(90deg,rgba(205,235,69,.07),var(--card) 60%)}
+.ixc.unread .nm{color:#fff}.ixc.unread .lp{color:#e6e6ea;font-weight:600}
+.ixc .b{flex:1;min-width:0}
+.ixc .nm{font-weight:700;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;gap:6px;align-items:center}
+.ixc .lp{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.ixc .r{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none}
+.ixc .r small{font-size:11px;color:var(--muted);white-space:nowrap}
+.ixc .ub{min-width:18px;height:18px;border-radius:9px;background:var(--glow);color:#0A0A0B;font-size:11px;font-weight:800;display:grid;place-items:center;padding:0 5px}
+.ixc .asg{font-size:10.5px;color:#d6d6da;background:var(--panel3);border-radius:999px;padding:2px 7px;white-space:nowrap;max-width:110px;overflow:hidden;text-overflow:ellipsis}
+.ixc .asg.none{color:#f5b945;background:rgba(245,185,69,.12)}
+.ixh{display:flex;gap:10px;align-items:center;padding:12px 14px;border-bottom:1px solid var(--stroke);flex:none}
+.ixh .t{flex:1;min-width:0}
+.ixh .t b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ixh .t small{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.ixh .t small .blogo,.ixh .t small svg{width:12px;height:12px}
+.ixh .xbtn{width:38px;height:38px}
+.ixact{display:flex;gap:6px;padding:8px 12px;border-bottom:1px solid var(--stroke);overflow-x:auto;scrollbar-width:none;flex:none}
+.ixact::-webkit-scrollbar{display:none}
+.ixact button{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 11px;border-radius:10px;border:1px solid var(--stroke);background:var(--card2);color:var(--white);font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:var(--body);flex:none}
+.ixact button svg{width:15px;height:15px}
+.ixact button.pri{border-color:rgba(205,235,69,.5);background:rgba(205,235,69,.12);color:var(--glow)}
+.ixact button.ok{border-color:rgba(78,227,154,.45);color:#4ee39a}
+.ixmsgs{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:8px;min-height:240px;scrollbar-width:thin;background:radial-gradient(circle at top,rgba(205,235,69,.03),transparent 60%)}
+@media(max-width:1023px){.ixmsgs{min-height:0}}
+.ixm{max-width:78%;align-self:flex-start;background:var(--panel3);border-radius:16px 16px 16px 4px;padding:9px 12px;font-size:14px;line-height:1.4;word-break:break-word}
+.ixm.me{align-self:flex-end;background:rgba(205,235,69,.16);border:1px solid rgba(205,235,69,.25);border-radius:16px 16px 4px 16px}
+.ixm.sys{align-self:center;background:none;color:var(--muted);font-size:12px;max-width:100%;text-align:center;border:1px dashed var(--stroke);border-radius:10px}
+.ixm.nota{align-self:stretch;max-width:100%;background:rgba(245,185,69,.08);border:1px solid rgba(245,185,69,.35);border-radius:12px;font-size:13px}
+.ixm.nota b{color:#f5b945;font-size:11.5px;display:block;margin-bottom:2px;letter-spacing:.06em}
+.ixm small{display:block;font-size:10.5px;color:var(--muted);margin-top:4px;text-align:right}
+.ixm img,.ixm video{max-width:100%;max-height:260px;border-radius:10px;display:block;margin-top:4px}
+.ixm a.file{display:inline-flex;align-items:center;gap:6px;color:var(--glow);font-weight:600;font-size:13px}
+.ixm a.file svg{width:15px;height:15px}
+.ixsend{display:flex;gap:8px;align-items:flex-end;padding:10px 12px calc(10px + env(safe-area-inset-bottom));border-top:1px solid var(--stroke);flex:none;background:var(--card)}
+.ixsend textarea{flex:1;min-height:42px;max-height:120px;resize:none;border-radius:14px;border:1px solid var(--stroke);background:var(--card2);color:var(--white);padding:10px 13px;font-family:var(--body);font-size:14px;line-height:1.35}
+.ixsend button{width:42px;height:42px;border-radius:12px;border:1px solid var(--stroke);background:var(--card2);color:var(--white);display:grid;place-items:center;cursor:pointer;flex:none}
+.ixsend button svg{width:19px;height:19px}
+.ixsend button.go{background:var(--glow);color:#0A0A0B;border-color:var(--glow)}
+.ixsend button:disabled{opacity:.5}
+.ixinfo{padding:10px 14px;font-size:12px;color:var(--muted);border-top:1px solid var(--stroke);flex:none;display:flex;gap:8px;align-items:center}
+.ixinfo svg{width:14px;height:14px;flex:none}
+.ixstat{display:flex;gap:8px;flex-wrap:wrap;padding:8px 12px;border-bottom:1px solid var(--stroke);flex:none;align-items:center;font-size:12.5px;color:var(--muted)}
+.ixstat>svg{width:15px;height:15px;flex:none;color:#f5b945}
+.v12lk{background:none;border:none;color:var(--glow);font-size:12.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:3px;font-family:var(--body);padding:0}
+.v12lk svg{width:14px;height:14px}
+.ixtabs{display:flex;gap:6px;padding:0 0 10px;overflow-x:auto;scrollbar-width:none}
+.ixtabs::-webkit-scrollbar{display:none}
+.ixprog{height:4px;background:var(--panel3);border-radius:4px;overflow:hidden;margin-top:6px}
+.ixprog i{display:block;height:100%;background:var(--glow)}
+/* ===== Ads 360 ===== */
+.adhead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.adper{display:flex;gap:4px;background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:4px}
+.adper button{height:34px;padding:0 13px;border-radius:10px;border:none;background:none;color:var(--muted);font-weight:600;font-size:13px;cursor:pointer;font-family:var(--body)}
+.adper button.on{background:var(--panel3);color:var(--white)}
+.adfun{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media(max-width:640px){.adfun{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.adfun>div{background:var(--card2);border:1px solid var(--stroke);border-radius:14px;padding:12px;text-align:center;position:relative}
+.adfun>div small{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700}
+.adfun>div b{display:block;font-family:var(--mono);font-size:20px;margin-top:4px}
+.adfun>div i{display:block;font-style:normal;font-size:11.5px;color:#f5b945;margin-top:3px}
+.adtab{width:100%;border-collapse:collapse;font-size:13px}
+.adtab th{text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--stroke);white-space:nowrap}
+.adtab td{padding:9px 8px;border-bottom:1px solid var(--stroke);vertical-align:middle}
+.adtab td.r,.adtab th.r{text-align:right;font-family:var(--mono);white-space:nowrap}
+.adtab td.n{max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.adtab tr:last-child td{border-bottom:none}
+.adtw{overflow:auto;margin:0 -6px}
+.adbar{height:6px;border-radius:6px;background:var(--panel3);overflow:hidden;margin-top:4px}
+.adbar i{display:block;height:100%;background:var(--c,#4a8cff)}
+.adchart{position:relative}
+.adchart svg{width:100%;height:170px;display:block}
+.adlg{display:flex;gap:14px;font-size:12px;color:var(--muted);flex-wrap:wrap;margin-bottom:6px}
+.adlg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.adsrc{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
+.adsrc>div{display:flex;gap:10px;align-items:center;background:var(--card2);border:1px solid var(--stroke);border-radius:12px;padding:10px}
+.adsrc>div b{display:block;font-family:var(--mono);font-size:16px}.adsrc>div small{display:block;color:var(--muted);font-size:11.5px}
+.adconn{display:flex;gap:16px;align-items:center;background:linear-gradient(135deg,rgba(74,140,255,.14),var(--card) 70%);border:1px solid rgba(74,140,255,.45);border-radius:18px;padding:18px;flex-wrap:wrap}
+.adconn .t{flex:1;min-width:220px}
+.adconn h3{margin:0 0 4px;font-size:18px}
+.adconn p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.5}
+.mqc{background:linear-gradient(135deg,rgba(74,140,255,.12),var(--card) 70%);border:1px solid rgba(74,140,255,.45)}
+.mqc .mqr{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--stroke);font-size:13.5px}
+.mqc .mqr:last-child{border-bottom:none}
+.mqc .mqr b{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mqc .mqr select{max-width:60%;height:34px;border-radius:10px;background:var(--card2);border:1px solid var(--stroke);color:var(--white);padding:0 8px;font-family:var(--body);font-size:13px}
+.mqc .mqr .ok{color:#4ee39a}.mqc .mqr .no{color:#ff7a6b}
+/* ===== Guía interactiva (sombras) ===== */
+#tgOv{position:fixed;inset:0;z-index:300;pointer-events:none}
+#tgOv.on{pointer-events:auto}
+#tgHole{position:absolute;border-radius:14px;box-shadow:0 0 0 9999px rgba(5,5,7,.78),0 0 0 3px rgba(205,235,69,.9),0 0 30px rgba(205,235,69,.35);transition:all .32s cubic-bezier(.4,0,.2,1);pointer-events:none}
+#tgHole.none{box-shadow:0 0 0 9999px rgba(5,5,7,.78)}
+#tgCard{position:absolute;width:min(360px,calc(100vw - 32px));background:var(--card);border:1px solid var(--line2);border-radius:18px;padding:16px 18px;box-shadow:0 20px 60px rgba(0,0,0,.6);transition:top .32s cubic-bezier(.4,0,.2,1),left .32s cubic-bezier(.4,0,.2,1);animation:v12in .25s}
+#tgCard .cat{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--glow);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+#tgCard .cat span{color:var(--muted)}
+#tgCard h4{margin:6px 0 4px;font-size:17px;line-height:1.2}
+#tgCard p{margin:0;font-size:13.5px;color:#d6d6da;line-height:1.5}
+#tgCard .bt{display:flex;gap:8px;margin-top:14px;align-items:center}
+#tgCard .bt .sk{background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;font-family:var(--body);padding:0;margin-right:auto}
+#tgCard .bt button.nx{height:38px;padding:0 15px;border-radius:11px;border:none;background:var(--glow);color:#0A0A0B;font-weight:700;cursor:pointer;font-family:var(--body);font-size:13.5px}
+#tgCard .bt button.pv{height:38px;width:38px;border-radius:11px;border:1px solid var(--stroke);background:var(--card2);color:var(--white);cursor:pointer;display:grid;place-items:center}
+#tgCard .bt button.pv svg{width:17px;height:17px}
+#tgCard .dots{display:flex;gap:4px;margin-top:12px}
+#tgCard .dots i{height:3px;flex:1;border-radius:3px;background:var(--panel3)}
+#tgCard .dots i.on{background:var(--glow)}
+.tgcat{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:420px){.tgcat{grid-template-columns:1fr}}
+.tgcat button{display:flex;gap:11px;align-items:center;text-align:left;background:var(--card2);border:1px solid var(--stroke);border-radius:14px;padding:12px;cursor:pointer;color:var(--white);font-family:var(--body)}
+.tgcat button:hover{border-color:var(--line2)}
+.tgcat button .i{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;flex:none;background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--c)}
+.tgcat button .i svg{width:19px;height:19px}
+.tgcat button b{display:block;font-size:14px}.tgcat button small{display:block;color:var(--muted);font-size:12px;margin-top:1px}
+.tgcat button.all{grid-column:1/-1;border-color:rgba(205,235,69,.5);background:rgba(205,235,69,.07)}
+/* rol ads · nav móvil */
+@media(max-width:767px){
+  .nav a[data-r="inbox"],.nav a[data-r="clientes"],.nav a[data-r="ads"]{display:none!important}
+  body.rol-ads .nav a[data-r="ads"],body.rol-ads .nav a[data-r="inbox"],body.rol-ads .nav a[data-r="clientes"],body.rol-ads .nav a[data-r="agenda"]{display:flex!important}
+  body.rol-ads .nav a[data-r="dash"],body.rol-ads .nav a[data-r="despacho"],body.rol-ads .nav a[data-r="inv"],body.rol-ads .nav a[data-r="admin"]{display:none!important}
+  body.rol-vendedor .nav a[data-r="inbox"]{display:flex!important}
+  body.rol-vendedor .nav a[data-r="admin"]{display:none!important}
+}
+a.btn-out,a.btn-lime{text-decoration:none}
+body.rol-ads .nav-foot button:first-child{display:none}
+body.rol-ads .nav a[data-r="ads"]{order:-1}
+
 </style>
 </head>
 <body>
@@ -2568,7 +2797,9 @@ label.tgl2{cursor:pointer}
     <a data-r="inv" onclick="go('inv')"><span class="ic" data-ic="grid"></span><span class="t">Inventario</span></a>
     <a data-r="agenda" onclick="go('agenda')"><span class="ic" data-ic="cal"></span><span class="t">Agenda</span></a>
     <a data-r="fin" onclick="go('fin')"><span class="ic" data-ic="dollar"></span><span class="t">Finanzas</span></a>
-    <a data-r="reportes" onclick="go('reportes')"><span class="ic" data-ic="reportes"></span><span class="t">Reportes</span></a>
+    <a data-r="inbox" onclick="go('inbox')"><span class="ic" data-ic="inbox"></span><span class="t">Mensajes</span></a>
+    <a data-r="clientes" onclick="go('clientes')"><span class="ic" data-ic="users"></span><span class="t">Clientes</span></a>
+    <a data-r="ads" onclick="go('ads')"><span class="ic" data-ic="mega"></span><span class="t">Ads 360</span></a>
     <a data-r="nomina" onclick="go('nomina')"><span class="ic" data-ic="bag"></span><span class="t">Nómina</span></a>
     <a data-r="admin" onclick="go('admin')"><span class="ic" data-ic="settings"></span><span class="t">Ajustes</span></a>
     <a data-r="mas" onclick="openMas()"><span class="ic" data-ic="more"></span><span class="t">Más</span></a>
@@ -3113,10 +3344,10 @@ async function viewDash(){
     };
     const kpi=(cls,icn,bg,col,lab,val,dl,go_)=>{const L=String(val).replace(/<[^>]+>/g,'').length;const lc=L>=11?'xlong':L>=9?'long':'';return `<div class="k2 ${cls}" onclick="${go_}"><div class="kic" style="background:${bg};color:${col}">${ic(icn)}</div><div class="kb"><div class="kl">${lab}</div><div class="kv ${lc}">${val}</div>${dl}</div></div>`;};
     $('#dashKpis').innerHTML=
-      kpi('accent','bars','rgba(205,235,69,.16)','var(--glow)','Ventas',usd(A.ing),delta(A.ing,B.ing),"go('reportes')")+
+      kpi('accent','bars','rgba(205,235,69,.16)','var(--glow)','Ventas',usd(A.ing),delta(A.ing,B.ing),"go('fin')")+
       kpi('','dollarC','rgba(205,235,69,.12)','var(--glow)','Utilidad neta',`<span style="color:${A.util<0?'var(--bad)':'inherit'}">${usd(A.util)}</span>`,delta(A.util,B.util),"go('fin')")+
-      kpi('','cube','rgba(255,159,67,.15)','#ff9f43','Unidades vendidas',num(A.uds),delta(A.uds,B.uds),"go('reportes')")+
-      kpi('','tag','rgba(255,90,110,.15)','#ff5a6e','Ticket promedio',usd(A.ticket),delta(A.ticket,B.ticket),"go('reportes')");
+      kpi('','cube','rgba(255,159,67,.15)','#ff9f43','Unidades vendidas',num(A.uds),delta(A.uds,B.uds),"go('productos')")+
+      kpi('','tag','rgba(255,90,110,.15)','#ff5a6e','Ticket promedio',usd(A.ticket),delta(A.ticket,B.ticket),"go('despacho')");
 
     $('#dashAlerts').innerHTML=avisos.map(avisoRow).join('');
 
@@ -3171,7 +3402,7 @@ async function viewDash(){
         </div>
       </div>
       <div class="c2">
-        <div class="c2h"><span class="hic">${ic('reportes')}</span><h3>Top productos</h3><button class="more" onclick="go('reportes')" aria-label="Ver reportes">${ic('chevR')}</button></div>
+        <div class="c2h"><span class="hic">${ic('reportes')}</span><h3>Top productos</h3><button class="more" onclick="go('productos')" aria-label="Ver productos">${ic('chevR')}</button></div>
         ${top.length?top.map(([pid,u],i)=>{const pr=prodMap[pid]||{};const pc=Math.round(u/totU*100);
           return `<div class="tp"><div class="rk">${i+1}</div><div class="im">${pr.fotoURL?`<img src="${esc(pr.fotoURL)}" alt="" loading="lazy">`:esc(pr.version||'—')}</div>
             <div class="gr"><div class="nm">${esc((pr.version?pr.version+' – ':'')+(pr.nombre||'Producto'))}</div><div class="bar"><i style="width:${pc}%"></i></div></div>
@@ -4318,7 +4549,7 @@ async function viewFin(){
   </div>
 
   <div class="frow2">
-    <div class="c2"><div class="c2h"><h3>Ventas por canal</h3><button class="lnk" onclick="go('reportes')">Ver detalle ${ic('chevR')}</button></div>
+    <div class="c2"><div class="c2h"><h3>Ventas por canal</h3><button class="lnk" onclick="go('despacho')">Ver órdenes ${ic('chevR')}</button></div>
       ${parts.length?`<div class="dn">${donutSVG(parts,canTot,'Ingresos')}<div class="dleg">${parts.map(x=>`<div class="dlr"><span class="dd" style="background:${x.c}"></span><span class="dn2">${esc(x.n)}</span><span class="dv">${usd(x.v)}</span><span class="dp">${Math.round(x.v/canTot*100)}%</span></div>`).join('')}</div></div>`:'<div class="trempty">Sin ventas en este período.</div>'}</div>
     <div class="c2"><div class="c2h"><h3>Ventas por sede</h3><button class="lnk" onclick="finGo('sede')">Ver detalle ${ic('chevR')}</button></div>
       ${sParts.length?`<div class="dn">${donutSVG(sParts,sedTot,'').replace(/<text x="75" y="76"[^<]*<\/text>/,`<text x="75" y="80" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" font-family="Inter,sans-serif">${sParts.length}</text>`).replace('>Total<','>sedes<').replace(/<text x="75" y="95"([^>]*)><\/text>/,'<text x="75" y="98"$1>SEDES</text>')}<div class="dleg">${sParts.map(x=>`<div class="dlr"><span class="dd" style="background:${x.c}"></span><span class="dn2">${esc(x.n)}</span><span class="dv">${usd(x.v)}</span><span class="dp">${Math.round(x.v/sedTot*100)}%</span></div>`).join('')}</div></div>`:'<div class="trempty">Sin ventas en este período.</div>'}</div>
@@ -4937,7 +5168,7 @@ async function viewAdmin(){
   if(S.ajSub==='spidi')return viewAjSpidi();
   if(S.ajSub==='integ')return viewAjInteg();
   const v=$('#view');v.innerHTML=skelView(0,4);
-  const c=await cfg();const rol=S.user?.rol||'vendedor',esSocio=rol==='socio',esVend=rol==='vendedor'||rol==='motorizado';
+  const c=await cfg();const rol=S.user?.rol||'vendedor',esSocio=rol==='socio',esVend=rol==='vendedor'||rol==='motorizado'||rol==='ads';
   const u=S.user||{};const pi=c.pagosInfo||PAGOS_INFO_DEFAULT,sp=c.spidi||{};
   const cuenta=ajSec('user','Mi cuenta','Gestiona tu perfil y seguridad',`
     <div class="ajacc" onclick="ajGo('cuenta')" data-q="mi cuenta perfil ${esc((u.nombre||'')+' '+(u.email||''))}">${ajAv(u)}<div class="ajat"><b>${esc(u.nombre||'')}</b><small>${esc(u.email||'')}</small><span class="ajrol">${esc(ROL_L[rol]||rol)}</span></div><span class="ajchev">${ic('chevR')}</span></div>
@@ -4947,6 +5178,7 @@ async function viewAdmin(){
       <button onclick="openAvisos()" data-q="notificaciones alertas avisos">${ic('bell')}<span><b>Notificaciones</b><small>Alertas y avisos</small></span>${ic('chevR')}</button>
     </div>`,"ajGo('cuenta')");
   const ayuda=ajSec('help','Ayuda','Soporte y documentación',`<div class="ajl">
+    ${ajRow('help','#CDEB45','Guía interactiva','Recorrido guiado por categorías','',"tourMenu()",'tour guia ayuda sombras')}
     ${ajRow('book','#5db4f5','Manual del sistema','Cómo usar cada módulo','',"openManual()")}
     ${ajRow('info','#a1a1aa','Acerca de Firefly','Panel operativo','',"ajAcerca()")}</div>`);
   if(esVend){
@@ -5000,7 +5232,7 @@ function ajAcerca(){openSheet(`<div class="shx"><span class="shi">${ic('torch')}
 /* ── Mi cuenta ── */
 async function viewAjCuenta(){
   const v=$('#view');const u=S.user||{},rol=u.rol||'vendedor';
-  const perm={socio:'Acceso total: finanzas, nómina, ajustes, métodos de cobro e integraciones.',admin:'Opera el negocio: despacho, inventario, finanzas, nómina y catálogos. Cobros e integraciones solo los editan los socios.',supervisor:'Supervisa la operación: despacho, inventario y catálogos.',vendedor:'Registra pedidos y ve su resumen y sus ganancias.',motorizado:'Ve y cierra sus entregas, cobra al cliente y ve sus ganancias.'}[rol]||'';
+  const perm={ads:'Marketing: Ads 360 en vivo (Meta), Mensajes, Clientes y Agenda. Sin acceso a órdenes, inventario, finanzas ni nómina.',socio:'Acceso total: finanzas, nómina, ajustes, métodos de cobro e integraciones.',admin:'Opera el negocio: despacho, inventario, finanzas, nómina y catálogos. Cobros e integraciones solo los editan los socios.',supervisor:'Supervisa la operación: despacho, inventario y catálogos.',vendedor:'Registra pedidos y ve su resumen y sus ganancias.',motorizado:'Ve y cierra sus entregas, cobra al cliente y ve sus ganancias.'}[rol]||'';
   v.innerHTML=`${ajHead('Configuración','Mi cuenta','Gestiona tu perfil, seguridad y preferencias')}
    <div class="ajcols"><div>
     <div class="ajacc big">${ajAv(u,'lg')}<div class="ajat"><b>${esc(u.nombre||'')}</b><small>${esc(u.email||'')}</small><span class="ajrol">${esc(ROL_L[rol]||rol)}</span><i class="ajon"><span class="ndot"></span>Cuenta activa</i></div></div>
@@ -7402,7 +7634,7 @@ function openManual(){
 <div style="background:var(--panel2);border-radius:10px;padding:12px 14px;margin-bottom:18px">
   <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--glow);margin-bottom:8px">ÍNDICE</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
-    ${[['◎','Resumen'],['🛵','Despacho'],['▦','Inventario'],['$','Finanzas'],['📊','Reportes'],['💰','Nómina'],['⚙','Ajustes'],['👥','Roles']].map(([ic,n])=>`
+    ${[['◎','Resumen'],['🛵','Despacho'],['▦','Inventario'],['$','Finanzas'],['💰','Nómina'],['⚙','Ajustes'],['👥','Roles']].map(([ic,n])=>`
       <div style="font-size:12.5px;padding:5px 0;color:var(--muted)">${ic} ${n}</div>`).join('')}
   </div>
 </div>
@@ -7492,26 +7724,6 @@ function openManual(){
 
     <b style="color:var(--white)">Tesorería Bs → $</b><br>
     Botón <b>+ Registrar conversión</b> → ingresas total Bs, tasa de conversión y tasa BCV → calcula el USD resultante y la brecha vs BCV automáticamente. Receptor: Binance Dan / Binance Adnan / Zelle Firefly / Cash $.
-  </div>
-</div>
-
-<!-- 📊 REPORTES -->
-<div style="border-left:3px solid var(--purple);padding-left:12px;margin-bottom:20px">
-  <div style="font-family:var(--disp);font-weight:700;font-size:16px;margin-bottom:6px">📊 Reportes</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.6">
-    Radiografía del negocio. Selector de período en la parte superior: este mes / mes anterior / 30 días / 90 días.<br><br>
-
-    <b style="color:var(--white)">Secciones disponibles</b><br>
-    • <b>Por vendedor</b> — quién vendió más, cuántos pedidos, unidades y si hay cobros pendientes<br>
-    • <b>Por sede</b> — qué ciudad genera más ingresos<br>
-    • <b>Por canal</b> — WhatsApp vs Instagram vs Mercado Libre vs Shopify<br>
-    • <b>Por producto</b> — unidades e ingresos por modelo (LC1 / LC3 / LL)<br>
-    • <b>Métodos de cobro</b> — cómo están pagando los clientes<br>
-    • <b>Envíos nacionales</b> — qué agencias se usan más (Zoom, MRW, etc.)<br>
-    • <b>Tipo de entrega</b> — Delivery / Pickup / Nacional en %<br><br>
-
-    <b style="color:var(--white)">Conversaciones diarias</b><br>
-    Al final de la sección → <b>+ Registrar</b> → ingresas cuántas conversaciones atendiste hoy por WS, IG y FB. 30 segundos al día. Si Meta Business API está conectado, el botón <b>↓ Importar Meta</b> jala los datos de IG y Facebook automáticamente.
   </div>
 </div>
 
@@ -7668,7 +7880,7 @@ function renderSearchResults(q,{pedidos,sedes}){
   const acciones=[];
   if(/inventario|stock|unidades/i.test(ql))acciones.push({ic:'▦',t:'Ver inventario',fn:"closeSearch();go('inv')"});
   if(/finanza|ingreso|gasto|caja|utilidad/i.test(ql))acciones.push({ic:'$',t:'Ver finanzas',fn:"closeSearch();go('fin')"});
-  if(/reporte|venta|canal|sede/i.test(ql))acciones.push({ic:'📊',t:'Ver reportes',fn:"closeSearch();go('reportes')"});
+  if(/reporte|venta|canal|sede/i.test(ql))acciones.push({ic:'📊',t:'Ver finanzas',fn:"closeSearch();go('fin')"});
   if(/nómin|comision|pagar|frank|marie/i.test(ql))acciones.push({ic:'💰',t:'Ver nómina',fn:"closeSearch();go('nomina')"});
   if(/pedido|despach|envío|entrega/i.test(ql))acciones.push({ic:'🛵',t:'Ver despacho',fn:"closeSearch();go('despacho')"});
   if(acciones.length)accionesHTML=`<div class="srch-group">
@@ -7690,7 +7902,7 @@ function renderSearchHome(){
       ${[['🛵','Pedidos pendientes',"closeSearch();S.filters.despEstado='POR_DESPACHAR';go('despacho')"],
          ['📦','Tránsito de inventario',"closeSearch();verTrasladosPendientes()"],
          ['💰','Nómina del período',"closeSearch();go('nomina')"],
-         ['📊','Reportes del mes',"closeSearch();go('reportes')"],
+         ['💬','Mensajes y leads',"closeSearch();go('inbox')"],
          ['⚙','Ajustes',"closeSearch();go('admin')"]
         ].map(([ic,t,fn])=>`<div class="srch-item" onclick="${fn}">
           <div class="av">${ic}</div><div class="gr"><div class="t">${t}</div></div>
@@ -10039,6 +10251,781 @@ async function intEnvios(){const c=await cfg(),T=c.trackURLs||{},dis=intEsSocio(
    ${AGENCIAS.map(a=>`<div class="flab">${esc(a)}</div><div class="fx"><span class="fxi">${ic('truck')}</span><input data-ag="${esc(a)}" value="${esc(T[a]||TRACK_DEF[a]||'')}" placeholder="https://…" inputmode="url" ${dis}></div>`).join('')}
    ${intEsSocio()?`<button class="bsave" onclick="intEnviosSave()">${ic('save')}Guardar</button>`:''}`);}
 async function intEnviosSave(){const c=await cfg();const T={};document.querySelectorAll('[data-ag]').forEach(i=>{const v=i.value.trim();if(v&&v!==TRACK_DEF[i.dataset.ag])T[i.dataset.ag]=v;});c.trackURLs=T;await dbPut('config',c);S.cache.cfg=c;toast('Agencias guardadas ✓','ok');closeSheet();}
+
+
+/* ============================================================
+   v12 · CRM: clientes, mensajes (inbox), seguimiento y notificaciones
+   ============================================================ */
+const LEAD_EST={NUEVO:{l:'Nuevo',c:'#5db4f5'},CONTACTADO:{l:'Contactado',c:'#b78bf0'},INTERESADO:{l:'Interesado',c:'#f5b945'},COTIZADO:{l:'Cotizado',c:'#ff9f43'},CONVERTIDO:{l:'Convertido',c:'#4ee39a'},PERDIDO:{l:'Perdido',c:'#ff6b5e'}};
+const LEAD_TAGS=['VIP','Mayorista','Recompra','Caliente','Frío','Regalo','Deportista','Campaña','Referido'];
+const PLAT_C={Instagram:'#ff5c8a',Facebook:'#4a8cff',WhatsApp:'#25D366',Manual:'#CDEB45',Tienda:'#f5b945',Shopify:'#95BF47','Mercado Libre':'#FFE600'};
+/* Plan "fading follow-up": 7 toques, cada vez más espaciados */
+const FU_PLAN=[
+  {k:'1',n:'01',t:'Follow up #1',c:'Llamada',d:1,h:'Día 1–2 · primer contacto o respuesta rápida'},
+  {k:'2',n:'02',t:'Follow up #2',c:'Llamada / Texto',d:4,h:'Día 4–5 · resolver dudas, enviar fotos'},
+  {k:'3',n:'03',t:'Follow up #3',c:'Llamada / Texto',d:7,h:'Día 7–10 · oferta o beneficio'},
+  {k:'4',n:'04',t:'Follow up #4',c:'Texto / Email',d:14,h:'Día 14 · recordatorio corto'},
+  {k:'5',n:'05',t:'Follow up #5',c:'Texto / Email',d:21,h:'Día 21 · último empujón'},
+  {k:'6a',n:'06',t:'Seguimiento largo plazo',c:'Texto / Email',d:30,h:'Cada 30–60 días · novedades y promos'},
+  {k:'6b',n:'06',t:'Seguimiento largo plazo',c:'Texto / Email',d:60,h:'Cada 30–60 días · novedades y promos'},
+  {k:'7',n:'07',t:'Seguimiento a 3 meses',c:'Texto / Email',d:90,h:'Día 90 · reactivación'}];
+const CRM_MGR=['socio','admin','supervisor'];
+const crmMgr=()=>CRM_MGR.includes(S.user?.rol);
+const crmTel=t=>{let d=String(t||'').replace(/\D/g,'');if(d.startsWith('58')&&d.length>=12)d='0'+d.slice(2);return d;};
+const crmIni=n=>initials(String(n||'?').replace('@',''));
+function crmAv(x,size){const c=x.color||PLAT_C[x.plat||x.canal]||'#5db4f5';return `<span class="v12av" style="--c:${c};${size?`width:${size}px;height:${size}px;font-size:${Math.round(size*.36)}px`:''}">${esc(crmIni(x.nombre||x.name))}${x.plat&&BRAND[x.plat]?`<span class="pl">${brandMark(x.plat)}</span>`:''}</span>`;}
+function crmPill(est){const e=LEAD_EST[est]||LEAD_EST.NUEVO;return `<span class="pill" style="--c:${e.c}">${e.l}</span>`;}
+function crmUsers(){return Object.values(S.cache.usersMap||{}).filter(u=>u.activo!==false&&['vendedor','supervisor','admin','socio'].includes(u.rol));}
+function crmDayDiff(ts){return Math.floor((agSod(Date.now())-agSod(ts))/DAY);}
+/* ---------- seguimiento ---------- */
+function cxFuSteps(cl){
+  const fu=cl.fu||{};if(!fu.inicio)return [];const now=agSod(Date.now());
+  return FU_PLAN.map(p=>{const h=(fu.hechos||{})[p.k];const due=agSod(fu.inicio)+p.d*DAY;return {...p,due,done:h||null,late:!h&&now>due,hoy:!h&&now===due,pend:!h};});
+}
+function cxFuNext(cl){if(!cl.fu||!cl.fu.inicio||cl.fu.activo===false)return null;return cxFuSteps(cl).find(s=>s.pend)||null;}
+function cxFuLabel(cl){const n=cxFuNext(cl);if(!n)return '';const d=Math.round((n.due-agSod(Date.now()))/DAY);return d<0?`${n.t} · atrasado ${-d} d`:d===0?`${n.t} · hoy`:`${n.t} · en ${d} d`;}
+/* ---------- notificaciones internas ---------- */
+async function crmNotify(paraId,n){
+  if(!paraId)return;const id=n.id||uid('nf');
+  try{await db.collection('notifs').doc(id).set({paraId,titulo:n.titulo||'',sub:n.sub||'',r:n.r||'inbox',arg:n.arg||'',tipo:n.tipo||'info',ts:Date.now(),leido:false,deId:S.user?.id||'',deNombre:S.user?.nombre||''},{merge:true});}catch(e){console.warn('notif',e);}
+}
+async function crmNotifLeer(id){try{await db.collection('notifs').doc(id).set({leido:true},{merge:true});}catch(e){}}
+function crmNotifOpen(id){const n=(S.cache.notifs||[]).find(x=>x.id===id);closeSheet();if(!n)return;crmNotifLeer(id);if(n.r==='inbox'&&n.arg){S.ixOpen=n.arg;}if(n.r==='clientes'&&n.arg){S.cxSel=n.arg;}go(n.r||'inbox');}
+function crmPush(titulo,body,tag){try{if(window.Notification&&Notification.permission==='granted')new Notification('Firefly · '+titulo,{body,tag});}catch(e){}}
+function crmAskPush(){try{if(window.Notification&&Notification.permission==='default')Notification.requestPermission().catch(()=>{});}catch(e){}}
+/* listeners en vivo (Firestore onSnapshot) */
+function crmListen(){
+  crmUnlisten();const me=S.user?.id;if(!me)return;
+  let first=true;
+  try{window._ixUnsub=db.collection('conversaciones').orderBy('t','desc').limit(400).onSnapshot(snap=>{
+    S.cache.convs=snap.docs.map(d=>({id:d.id,...d.data()}));
+    if(!first){snap.docChanges().forEach(ch=>{const x={id:ch.doc.id,...ch.doc.data()};
+      if(ch.type==='added'&&x.estado==='NUEVO'&&!x.asignadoId&&crmMgr()){toast('💬 Nuevo lead de '+x.plat+': '+x.name);crmPush('Nuevo lead · '+x.plat,x.name+(x.last?': '+x.last.slice(0,80):''),'lead_'+x.id);}
+      else if(ch.type==='modified'&&x.asignadoId===me&&!x.lastMine&&x.unread&&x.lastTs&&x.lastTs>(window._ixSeen||0)&&S.ixOpen!==x.id){toast('💬 '+x.name+': '+(x.last||'').slice(0,60));crmPush(x.name,(x.last||'Nuevo mensaje').slice(0,100),'msg_'+x.id);}
+    });}
+    first=false;window._ixSeen=Date.now();
+    if(S.route==='inbox')ixRenderList();refreshTopbar();
+  },e=>console.warn('convs',e));}catch(e){}
+  let firstN=true;
+  try{window._nfUnsub=db.collection('notifs').where('paraId','==',me).where('leido','==',false).onSnapshot(snap=>{
+    S.cache.notifs=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>b.ts-a.ts);
+    if(!firstN)snap.docChanges().forEach(ch=>{if(ch.type!=='added')return;const n=ch.doc.data();toast('🔔 '+n.titulo);crmPush(n.titulo,n.sub||'',ch.doc.id);});
+    firstN=false;refreshTopbar();
+  },e=>console.warn('notifs',e));}catch(e){}
+}
+function crmUnlisten(){try{window._ixUnsub&&window._ixUnsub();window._nfUnsub&&window._nfUnsub();}catch(e){}window._ixUnsub=null;window._nfUnsub=null;}
+/* ---------- clientes: datos ---------- */
+async function crmAll(){return dbAll('clientes');}
+function crmMatch(list,{tel,igId,fbId,email}){
+  const t=crmTel(tel);return list.find(c=>(igId&&c.igId===igId)||(fbId&&c.fbId===fbId)||(t&&t.length>=7&&crmTel(c.telefono)===t)||(email&&c.email&&c.email.toLowerCase()===String(email).toLowerCase()))||null;
+}
+async function crmUpsertFromPedido(p){
+  if(!p||!p.cliente||p.esMayor)return;const tel=crmTel(p.cliente.telefono);if(!tel&&!p.cliente.nombre)return;
+  const list=await crmAll();let c=crmMatch(list,{tel,email:p.cliente.email});
+  const canal={IG:'Instagram',FB:'Facebook',WS:'WhatsApp',TIENDA:'Tienda',SHOPIFY:'Shopify',ML:'Mercado Libre'}[p.canal]||p.canal||'Manual';
+  const ids=new Set([...(c?.pedidoIds||[]),p.id]);
+  const peds=(await dbAll('pedidos')).filter(x=>ids.has(x.id)&&x.estado!=='CANCELADO');
+  const tot=peds.reduce((a,x)=>a+(x.subtotalUSD||0),0);
+  const doc={id:c?.id||uid('cl'),nombre:c?.nombre||p.cliente.nombre||'Cliente',telefono:c?.telefono||p.cliente.telefono||'',direccion:p.cliente.direccion||c?.direccion||'',zona:p.cliente.zona||c?.zona||'',email:c?.email||p.cliente.email||'',
+    canal:c?.canal||canal,origen:c?.origen||'Pedido',pedidoIds:[...ids],pedidos:peds.length,totalUSD:Math.round(tot*100)/100,ultimoPedido:Math.max(c?.ultimoPedido||0,p.fecha||0),ultimoContacto:Math.max(c?.ultimoContacto||0,p.fecha||0),
+    estado:peds.length?'CONVERTIDO':(c?.estado||'NUEVO'),creado:c?.creado||p.fecha||Date.now(),actualizado:Date.now(),tags:c?.tags||[],
+    vendedorId:c?.vendedorId||p.vendedorId||'',vendedorNombre:c?.vendedorNombre||p.vendedorNombre||''};
+  if(peds.length&&!(c&&c.conversion))doc.conversion={ts:p.fecha||Date.now(),por:p.vendedorNombre||'',porId:p.vendedorId||'',pedidoId:p.id,montoUSD:p.subtotalUSD||0,auto:true};
+  if(peds.length&&c?.fu?.activo!==false&&c?.fu?.inicio)doc.fu={...c.fu,activo:false,cerrado:Date.now(),motivo:'Compró'};
+  await dbPut('clientes',doc);return doc;
+}
+/* engancha pedidos → clientes (sin tocar la lógica de pedidos) */
+{const _dbPutV11=dbPut;dbPut=async function(col,obj){const r=await _dbPutV11(col,obj);if(col==='pedidos'&&obj&&obj.cliente&&obj.items&&!window._crmBackfilling){crmUpsertFromPedido(obj).catch(e=>console.warn('crm',e));}return r;};}
+async function crmBackfill(silent){
+  const c=await cfg();const peds=await dbAll('pedidos');const list=await crmAll();
+  const done=new Set(list.flatMap(x=>x.pedidoIds||[]));const todo=peds.filter(p=>!done.has(p.id)&&p.cliente&&!p.esMayor&&p.estado!=='CANCELADO').sort((a,b)=>a.fecha-b.fecha);
+  if(!todo.length){if(!silent)toast('Clientes al día ✓','ok');return 0;}
+  if(!silent)toast(`Importando ${todo.length} pedidos a clientes…`);
+  window._crmBackfilling=true;const map={};let n=0;
+  try{
+    for(const p of todo){const tel=crmTel(p.cliente.telefono);const key=tel&&tel.length>=7?'t'+tel:'n'+(p.cliente.nombre||'').trim().toLowerCase();
+      let cl=map[key]||crmMatch(await crmAll(),{tel})||null;
+      const canal={IG:'Instagram',FB:'Facebook',WS:'WhatsApp',TIENDA:'Tienda',SHOPIFY:'Shopify',ML:'Mercado Libre'}[p.canal]||p.canal||'Manual';
+      if(!cl){cl={id:uid('cl'),nombre:p.cliente.nombre||'Cliente',telefono:p.cliente.telefono||'',direccion:p.cliente.direccion||'',zona:p.cliente.zona||'',email:p.cliente.email||'',canal,origen:'Historial',pedidoIds:[],pedidos:0,totalUSD:0,estado:'CONVERTIDO',creado:p.fecha||Date.now(),tags:[],vendedorId:p.vendedorId||'',vendedorNombre:p.vendedorNombre||''};}
+      cl.pedidoIds=[...new Set([...(cl.pedidoIds||[]),p.id])];cl.pedidos=cl.pedidoIds.length;cl.totalUSD=Math.round((cl.totalUSD||0)*100+(p.subtotalUSD||0)*100)/100;cl.ultimoPedido=Math.max(cl.ultimoPedido||0,p.fecha||0);cl.ultimoContacto=cl.ultimoPedido;cl.estado='CONVERTIDO';cl.actualizado=Date.now();
+      if(!cl.conversion)cl.conversion={ts:p.fecha||Date.now(),por:p.vendedorNombre||'',porId:p.vendedorId||'',pedidoId:p.id,montoUSD:p.subtotalUSD||0,auto:true};
+      map[key]=cl;n++;}
+    const docs=Object.values(map);
+    for(let i=0;i<docs.length;i+=350){const b=db.batch();docs.slice(i,i+350).forEach(d=>{const {id,...data}=d;b.set(db.collection('clientes').doc(id),data,{merge:true});});await b.commit();}
+    invalidarCache('clientes');c.crmBackfillTs=Date.now();await _dbPutV11Cfg(c);
+  }finally{window._crmBackfilling=false;}
+  if(!silent)toast(`${Object.keys(map).length} clientes actualizados desde ${n} pedidos ✓`,'ok');return n;
+}
+async function _dbPutV11Cfg(c){await db.collection('config').doc('main').set({crmBackfillTs:c.crmBackfillTs},{merge:true});S.cache.cfg=c;}
+/* ---------- VISTA · CLIENTES ---------- */
+async function viewClientes(){
+  const v=$('#view');if(!S.cx)S.cx={q:'',est:'todos',vend:crmMgr()?'todos':'mios',tag:'',fu:false,pag:0};
+  v.innerHTML=skelView(4,3);
+  const [list,c]=await Promise.all([crmAll(),cfg()]);
+  if(!c.crmBackfillTs&&crmMgr()){try{await crmBackfill(true);return viewClientes();}catch(e){console.warn(e);}}
+  const me=S.user.id,F=S.cx,hoy=agSod(Date.now()),mes0=new Date();mes0.setDate(1);mes0.setHours(0,0,0,0);
+  const mine=list.filter(x=>x.vendedorId===me);
+  const base=crmMgr()?list:(S.user.rol==='ads'?list:mine);
+  const nuevosMes=base.filter(x=>(x.creado||0)>=mes0.getTime()).length,convMes=base.filter(x=>x.conversion&&x.conversion.ts>=mes0.getTime()).length;
+  const leadsMes=base.filter(x=>(x.creado||0)>=mes0.getTime()&&x.origen!=='Historial').length;
+  const pendFu=base.filter(x=>{const n=cxFuNext(x);return n&&(n.late||n.hoy);}).length;
+  const tags=[...new Set(base.flatMap(x=>x.tags||[]))];
+  const vendOpts=crmUsers().map(u=>`<option value="${u.id}" ${F.vend===u.id?'selected':''}>${esc(u.nombre)}</option>`).join('');
+  v.innerHTML=`<div class="vh"><div><h2>Clientes</h2><div class="sub">Base de datos, asignación y seguimiento</div></div>
+    <div style="display:flex;gap:8px">${crmMgr()?`<button class="btn-out" onclick="crmBackfill()" title="Trae los clientes de pedidos que aún no estén aquí">${ic('refresh')}<span class="hm">Importar de pedidos</span></button>`:''}<button class="btn-lime" onclick="cxEdit()">${ic('plus')}<span>Nuevo</span></button></div></div>
+   <div class="v12kp">
+    <div class="go" onclick="S.cx.est='todos';S.cx.fu=false;viewClientes()"><small>Clientes</small><b>${num(base.length)}</b><i>${num(nuevosMes)} nuevos este mes</i></div>
+    <div class="go" onclick="S.cx.est='CONVERTIDO';viewClientes()"><small>Conversiones del mes</small><b style="color:#4ee39a">${num(convMes)}</b><i>${leadsMes?Math.round(convMes/leadsMes*100)+'% de los leads del mes':'marca ventas como conversión'}</i></div>
+    <div class="go ${pendFu?'hl':''}" onclick="S.cx.fu=!S.cx.fu;viewClientes()"><small>Seguimientos para hoy</small><b style="color:${pendFu?'#f5b945':'inherit'}">${num(pendFu)}</b><i>${pendFu?'toques pendientes o atrasados':'todo al día'}</i></div>
+    <div class="go" onclick="S.cx.est='INTERESADO';viewClientes()"><small>En proceso</small><b>${num(base.filter(x=>['CONTACTADO','INTERESADO','COTIZADO'].includes(x.estado)).length)}</b><i>contactados, interesados o cotizados</i></div>
+   </div>
+   <div class="v12bar"><div class="sbox"><span>${ic('search')}</span><input id="cxQ" placeholder="Nombre, teléfono, @instagram…" value="${esc(F.q)}" oninput="S.cx.q=this.value;S.cx.pag=0;cxRender()" autocomplete="off"></div>
+    ${crmMgr()||S.user.rol==='ads'?`<select onchange="S.cx.vend=this.value;S.cx.pag=0;cxRender()"><option value="todos">Todos los vendedores</option><option value="mios" ${F.vend==='mios'?'selected':''}>Míos</option><option value="sin" ${F.vend==='sin'?'selected':''}>Sin asignar</option>${vendOpts}</select>`:''}
+    ${tags.length?`<select onchange="S.cx.tag=this.value;S.cx.pag=0;cxRender()"><option value="">Todas las etiquetas</option>${tags.map(t=>`<option ${F.tag===t?'selected':''}>${esc(t)}</option>`).join('')}</select>`:''}</div>
+   <div class="cxfilt" id="cxEst">${[['todos','Todos'],...Object.entries(LEAD_EST).map(([k,e])=>[k,e.l])].map(([k,l])=>`<button class="fchip ${F.est===k?'on':''}" onclick="S.cx.est='${k}';S.cx.pag=0;viewClientes()">${k!=='todos'?`<span class="d" style="background:${LEAD_EST[k].c}"></span>`:''}${l}<span class="n">${num(k==='todos'?base.length:base.filter(x=>(x.estado||'NUEVO')===k).length)}</span></button>`).join('')}<button class="fchip ${F.fu?'on':''}" onclick="S.cx.fu=!S.cx.fu;viewClientes()">${ic('bell')}Seguimiento hoy</button></div>
+   <div class="cxw"><div id="cxList"></div><aside class="cxside" id="cxSide"></aside></div>`;
+  window._cxBase=base;cxRender();
+}
+function cxFiltered(){
+  const F=S.cx,me=S.user.id,q=(F.q||'').trim().toLowerCase(),qt=crmTel(q);
+  return (window._cxBase||[]).filter(x=>{
+    if(F.est!=='todos'&&(x.estado||'NUEVO')!==F.est)return false;
+    if(F.vend==='mios'&&x.vendedorId!==me)return false;if(F.vend==='sin'&&x.vendedorId)return false;if(F.vend&&!['todos','mios','sin'].includes(F.vend)&&x.vendedorId!==F.vend)return false;
+    if(F.tag&&!(x.tags||[]).includes(F.tag))return false;
+    if(F.fu){const n=cxFuNext(x);if(!n||!(n.late||n.hoy))return false;}
+    if(q){const hay=[x.nombre,x.telefono,x.ig,x.email,x.ciudad,x.zona,(x.tags||[]).join(' ')].join(' ').toLowerCase();if(!hay.includes(q)&&!(qt&&qt.length>=4&&crmTel(x.telefono).includes(qt)))return false;}
+    return true;}).sort((a,b)=>{const na=cxFuNext(a),nb=cxFuNext(b);const la=na&&(na.late||na.hoy)?0:1,lb=nb&&(nb.late||nb.hoy)?0:1;if(la!==lb)return la-lb;return (b.actualizado||b.creado||0)-(a.actualizado||a.creado||0);});
+}
+function cxCard(x){
+  const n=cxFuNext(x),fl=cxFuLabel(x);const wide=innerWidth>=1180;
+  return `<div class="cxc ${S.cxSel===x.id?'on':''}" onclick="cxOpen('${x.id}')">${crmAv({nombre:x.nombre,plat:BRAND[x.canal]?x.canal:''},44)}
+    <div class="b"><div class="nm">${esc(x.nombre)}${x.conversion?`<span class="v12ico" style="color:#4ee39a" title="Conversión">${ic('check')}</span>`:''}</div>
+    <div class="sb">${x.telefono?`${ic('phone')}${esc(x.telefono)}`:x.ig?`${brandMark('Instagram')}@${esc(x.ig.replace('@',''))}`:esc(x.canal||'')}${x.vendedorNombre?` · ${esc(x.vendedorNombre.split(' ')[0])}`:' · <span style="color:#f5b945">sin asignar</span>'}</div>
+    ${(x.tags||[]).length?`<div class="tg">${x.tags.slice(0,3).map(t=>`<span class="v12tag" style="--c:#8b7bff">${esc(t)}</span>`).join('')}</div>`:''}</div>
+    <div class="r">${crmPill(x.estado||'NUEVO')}${fl?`<small class="${n.late?'late':n.hoy?'due':''}">${esc(fl)}</small>`:x.pedidos?`<small>${x.pedidos} pedido${x.pedidos>1?'s':''} · ${usd(x.totalUSD||0)}</small>`:`<small>${esc(fechaRel(x.actualizado||x.creado||Date.now()))}</small>`}</div>
+    ${wide?'':`<span class="chv">${ic('chevR')}</span>`}</div>`;
+}
+function cxRender(){
+  const el=$('#cxList');if(!el)return;const L=cxFiltered();const P=40,pg=S.cx.pag||0,show=L.slice(0,(pg+1)*P);
+  el.innerHTML=(show.length?show.map(cxCard).join(''):`<div class="v12empty">${ic('users')}<br>No hay clientes con ese filtro.</div>`)+(L.length>show.length?`<button class="btn-out" style="justify-content:center" onclick="S.cx.pag++;cxRender()">Ver ${Math.min(P,L.length-show.length)} más</button>`:'');
+  if(innerWidth>=1180){const sel=L.find(x=>x.id===S.cxSel)||L[0];S.cxSel=sel?.id||null;cxSide();}
+}
+async function cxSide(){const a=$('#cxSide');if(!a)return;const x=(await crmAll()).find(y=>y.id===S.cxSel);a.innerHTML=x?await cxDetailHTML(x):`<div class="v12empty">${ic('user')}<br>Selecciona un cliente.</div>`;}
+async function cxOpen(id){
+  S.cxSel=id;const x=(await crmAll()).find(y=>y.id===id);if(!x)return;
+  if(innerWidth>=1180&&S.route==='clientes'){document.querySelectorAll('.cxc').forEach(e=>e.classList.toggle('on',e.getAttribute('onclick').includes(id)));cxSide();return;}
+  openSheet(`<div class="shx"><span class="shi">${ic('user')}</span><div style="flex:1;min-width:0"><h3>Cliente</h3><div class="shsub">${esc(x.nombre)}</div></div><button class="xbtn" onclick="closeSheet()" aria-label="Cerrar">${ic('x')}</button></div><div id="cxSheet">${await cxDetailHTML(x)}</div>`);
+}
+async function cxRefresh(id){id=id||S.cxSel;invalidarCache('clientes');const x=(await crmAll()).find(y=>y.id===id);if(!x)return;const sh=$('#cxSheet');if(sh&&$('#scrim').classList.contains('show'))sh.innerHTML=await cxDetailHTML(x);if(S.route==='clientes'){window._cxBase=crmMgr()||S.user.rol==='ads'?await crmAll():(await crmAll()).filter(z=>z.vendedorId===S.user.id);cxRender();}}
+async function cxDetailHTML(x){
+  const peds=(await dbAll('pedidos')).filter(p=>(x.pedidoIds||[]).includes(p.id)||(crmTel(x.telefono).length>=7&&crmTel(p.cliente?.telefono)===crmTel(x.telefono))).sort((a,b)=>b.fecha-a.fecha);
+  const convs=(S.cache.convs||[]).filter(cv=>cv.clienteId===x.id||(x.igId&&cv.uid===x.igId));
+  const steps=cxFuSteps(x),e=LEAD_EST[x.estado||'NUEVO'],tel=x.telefono;
+  const esMio=x.vendedorId===S.user.id,puede=crmMgr()||esMio||!x.vendedorId;
+  const con=x.conversion;
+  return `<div class="cxhead">${crmAv({nombre:x.nombre,plat:BRAND[x.canal]?x.canal:''},56)}<div style="flex:1;min-width:0"><h3>${esc(x.nombre)}</h3><div class="sub">${x.canal?`${BRAND[x.canal]?brandMark(x.canal):''}${esc(x.canal)}`:''}${x.ig?` · @${esc(x.ig.replace('@',''))}`:''}${x.ciudad||x.zona?` · ${esc(x.ciudad||x.zona)}`:''} · desde ${esc(fechaRel(x.creado||Date.now()))}</div></div>${crmPill(x.estado||'NUEVO')}</div>
+  <div class="v12acts">${tel?`<a class="btn-out wa" href="${waLink(tel)}" target="_blank" rel="noopener">${brandMark('WhatsApp','#25D366')}WhatsApp</a><a class="btn-out" href="tel:${esc(tel)}">${ic('phone')}Llamar</a>`:''}${x.ig?`<a class="btn-out ig" href="https://ig.me/m/${esc(x.ig.replace('@',''))}" target="_blank" rel="noopener">${brandMark('Instagram','#ff5c8a')}Instagram</a>`:''}
+    ${convs.length?`<button class="btn-out" onclick="closeSheet();S.ixOpen='${convs[0].id}';go('inbox')">${ic('msg')}Conversación</button>`:''}
+    ${S.user.rol!=='ads'?`<button class="btn-out" onclick="cxNuevoPedido('${x.id}')">${ic('cart')}Nuevo pedido</button>`:''}
+    <button class="btn-out" onclick="cxEdit('${x.id}')">${ic('edit')}Editar</button></div>
+  ${con?`<div class="cxconv">${ic('check')}<div style="flex:1"><b>Conversión ${con.auto?'automática (pedido)':'interna'}</b><small>${esc(fechaCorta(con.ts))}${con.por?' · por '+esc(con.por):''}${con.montoUSD?' · '+usd(con.montoUSD):''}${con.pedidoId?' · pedido vinculado':''}</small></div>${crmMgr()||esMio?`<button class="xbtn" style="width:36px;height:36px" title="Quitar conversión" onclick="cxConvQuitar('${x.id}')">${ic('x')}</button>`:''}</div>`:''}
+  <div class="v12sec">Estado</div>
+  <div class="cxest">${Object.entries(LEAD_EST).map(([k,v])=>`<button style="--c:${v.c}" class="${(x.estado||'NUEVO')===k?'on':''}" ${puede?`onclick="cxEstado('${x.id}','${k}')"`:'disabled'}><i></i>${v.l}</button>`).join('')}</div>
+  ${!con&&puede?`<button class="btn-out ok" style="margin-top:10px;width:100%;justify-content:center" onclick="cxConvMarcar('${x.id}')">${ic('check')}Marcar como conversión</button>`:''}
+  <div class="v12sec">Vendedor</div>
+  <div class="v12row"><div class="b"><b>${x.vendedorNombre?esc(x.vendedorNombre):'<span style="color:#f5b945">Sin asignar</span>'}</b><small>${x.asignadoTs?'Asignado '+esc(fechaRel(x.asignadoTs))+(x.asignadoPor?' por '+esc(x.asignadoPor):''):'Asigna este cliente para iniciar su seguimiento'}</small></div>${crmMgr()||!x.vendedorId?`<button class="btn-out" style="height:36px" onclick="cxAsignar('${x.id}')">${ic('users')}${x.vendedorId?'Cambiar':'Asignar'}</button>`:''}</div>
+  <div class="v12sec">Etiquetas</div>
+  <div class="chipx" id="cxTags">${(x.tags||[]).map(t=>`<span class="v12tag" style="--c:#8b7bff">${esc(t)}${puede?`<button onclick="cxTag('${x.id}','${esc(t)}',0)" aria-label="Quitar">${ic('x')}</button>`:''}</span>`).join('')}${puede?`<button onclick="cxTagAdd('${x.id}')">${ic('plus')}Etiqueta</button>`:''}</div>
+  <div class="v12sec">Seguimiento ${x.fu?.inicio?`<span style="font-weight:500;text-transform:none;letter-spacing:0">${x.fu.activo===false?'· cerrado'+(x.fu.motivo?' · '+esc(x.fu.motivo):''):'· '+steps.filter(s=>s.done).length+'/'+steps.length}</span>`:''}</div>
+  ${x.fu?.inicio?`<div class="cxfu">${steps.map(s=>`<div class="st ${s.done?'done':s.late?'late':s.hoy?'due':''}"><span class="n">${s.done?ic('check'):s.n}</span><div class="b"><b>${s.t} <span style="color:var(--muted);font-weight:500">· ${s.c}</span></b><small>${s.done?'Hecho '+esc(fechaCorta(s.done.ts))+(s.done.por?' · '+esc(s.done.por):'')+(s.done.canal?' · '+esc(s.done.canal):''):esc(s.h)+' · vence '+new Date(s.due).toLocaleDateString('es-VE',{day:'numeric',month:'short'})}</small>${s.done?.nota?`<div class="nt">${esc(s.done.nota)}</div>`:''}</div>${!s.done&&puede&&x.fu.activo!==false?`<button onclick="cxFuDone('${x.id}','${s.k}')">Hecho</button>`:''}</div>`).join('')}
+    ${puede?`<div style="display:flex;gap:8px;margin-top:10px">${x.fu.activo===false?`<button class="btn-out" style="height:38px" onclick="cxFuStart('${x.id}')">${ic('refresh')}Reiniciar plan</button>`:`<button class="btn-out" style="height:38px" onclick="cxFuCerrar('${x.id}')">${ic('xc')}Cerrar seguimiento</button>`}</div>`:''}</div>`
+   :`<div class="v12note">Sin plan de seguimiento.${puede?` <button class="v12lk" onclick="cxFuStart('${x.id}')">Iniciar el plan de 7 toques ${ic('chevR')}</button>`:''}<small>Follow-up #1 (día 1–2) → #2 (día 4–5) → #3 (día 7–10) → #4 (día 14) → #5 (día 21) → largo plazo (30–60 d) → 3 meses.</small></div>`}
+  <div class="v12sec">Notas</div>
+  ${(x.notas||[]).slice().reverse().slice(0,8).map(n=>`<div class="v12note">${esc(n.txt)}<small>${esc(fechaCorta(n.ts))} · ${esc(n.por||'')}</small></div>`).join('')||'<div class="fhint">Sin notas.</div>'}
+  ${puede?`<div style="display:flex;gap:8px;margin-top:8px"><input class="inp" id="cxNotaInp" placeholder="Escribe una nota interna…" style="flex:1" onkeydown="if(event.key==='Enter')cxNota('${x.id}')"><button class="btn-out" style="height:44px" onclick="cxNota('${x.id}')">${ic('plus')}</button></div>`:''}
+  <div class="v12sec">Pedidos <span style="font-weight:500;text-transform:none;letter-spacing:0">· ${peds.length} · ${usd(peds.filter(p=>p.estado!=='CANCELADO').reduce((a,p)=>a+(p.subtotalUSD||0),0))}</span></div>
+  ${peds.slice(0,6).map(p=>`<div class="v12row" style="cursor:pointer" onclick="closeSheet();openOrder('${p.id}')"><div class="b"><b>${esc(p.codigo)} · ${usd(p.subtotalUSD||0)}</b><small>${esc(fechaCorta(p.fecha))} · ${esc((p.items||[]).map(i=>i.cantidad+'× '+i.version).join(', '))}</small></div>${crmPill(p.estado==='CANCELADO'?'PERDIDO':'CONVERTIDO').replace(/>[^<]+</,'>'+esc(p.estado)+'<')}</div>`).join('')||'<div class="fhint">Aún no tiene pedidos.</div>'}
+  ${convs.length?`<div class="v12sec">Conversaciones</div>${convs.map(cv=>`<div class="v12row" style="cursor:pointer" onclick="closeSheet();S.ixOpen='${cv.id}';go('inbox')">${crmAv({name:cv.name,plat:cv.plat},36)}<div class="b"><b>${esc(cv.name)}</b><small>${esc((cv.last||'').slice(0,70))} · ${esc(fechaRel(cv.t||0))}</small></div>${ic('chevR')}</div>`).join('')}`:''}
+  <div class="fhint" style="margin-top:14px">${x.direccion?'📍 '+esc(x.direccion)+' · ':''}${x.email?esc(x.email)+' · ':''}Origen: ${esc(x.origen||'—')}</div>`;
+}
+/* ---------- acciones cliente ---------- */
+async function cxPatch(id,patch){await db.collection('clientes').doc(id).set({...patch,actualizado:Date.now()},{merge:true});invalidarCache('clientes');}
+async function cxEstado(id,est){await cxPatch(id,{estado:est,ultimoContacto:Date.now()});const cv=(S.cache.convs||[]).find(c=>c.clienteId===id);if(cv)db.collection('conversaciones').doc(cv.id).set({estado:est},{merge:true}).catch(()=>{});toast('Estado: '+LEAD_EST[est].l,'ok');cxRefresh(id);if(S.route==='inbox')ixRenderList();}
+async function cxTag(id,tag,add){const x=(await crmAll()).find(y=>y.id===id);if(!x)return;let tags=(x.tags||[]).filter(t=>t!==tag);if(add)tags.push(tag);await cxPatch(id,{tags});cxRefresh(id);}
+async function cxTagAdd(id){
+  const x=(await crmAll()).find(y=>y.id===id);const cur=new Set(x?.tags||[]);
+  openSheet(`<div class="sh-head"><h3>Etiquetas</h3></div><div class="chipx" style="margin-bottom:14px">${LEAD_TAGS.filter(t=>!cur.has(t)).map(t=>`<button onclick="cxTag('${id}','${t}',1);closeSheet();setTimeout(()=>cxOpen('${id}'),80)">${esc(t)}</button>`).join('')}</div>
+   <div class="field"><label>Otra etiqueta</label><input class="inp" id="cxTagNew" placeholder="Ej. Ciclista" maxlength="24"></div><button class="btn pri full" onclick="const t=($('#cxTagNew').value||'').trim();if(t){cxTag('${id}',t,1);closeSheet();setTimeout(()=>cxOpen('${id}'),80)}">Agregar</button>`);
+}
+async function cxNota(id){const inp=$('#cxNotaInp'),txt=(inp?.value||'').trim();if(!txt)return;const x=(await crmAll()).find(y=>y.id===id);const notas=[...(x?.notas||[]),{ts:Date.now(),por:S.user.nombre,txt}].slice(-50);await cxPatch(id,{notas,ultimoContacto:Date.now()});cxRefresh(id);}
+async function cxFuStart(id){await cxPatch(id,{fu:{inicio:Date.now(),hechos:{},activo:true}});toast('Plan de seguimiento iniciado ✓','ok');crmAskPush();cxRefresh(id);}
+async function cxFuCerrar(id){const x=(await crmAll()).find(y=>y.id===id);if(!x?.fu)return;await cxPatch(id,{fu:{...x.fu,activo:false,cerrado:Date.now(),motivo:'Cerrado manualmente'}});cxRefresh(id);}
+async function cxFuDone(id,k){
+  const p=FU_PLAN.find(s=>s.k===k);
+  openSheet(`<div class="sh-head"><h3>${esc(p.t)}</h3></div><div class="hintline" style="margin-bottom:12px">${esc(p.h)}</div>
+   <div class="field"><label>¿Por dónde lo contactaste?</label><div class="chipx" id="fuCanal">${['Llamada','WhatsApp','Instagram','Texto','Email'].map((c,i)=>`<button class="${i===0?'on':''}" onclick="document.querySelectorAll('#fuCanal button').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${c}</button>`).join('')}</div></div>
+   <div class="field"><label>Resultado / nota</label><textarea class="inp" id="fuNota" rows="3" placeholder="Ej. No contestó, reintentar mañana / Pidió fotos del LC3…"></textarea></div>
+   <div class="field"><label>Estado del cliente</label><select class="inp" id="fuEst"><option value="">Sin cambio</option>${Object.entries(LEAD_EST).map(([k,v])=>`<option value="${k}">${v.l}</option>`).join('')}</select></div>
+   <button class="btn pri full" onclick="cxFuSave('${id}','${k}')">Guardar toque</button>`);
+}
+async function cxFuSave(id,k){
+  const x=(await crmAll()).find(y=>y.id===id);if(!x)return;const canal=document.querySelector('#fuCanal button.on')?.textContent||'',nota=($('#fuNota').value||'').trim(),est=$('#fuEst').value;
+  const fu={...(x.fu||{inicio:Date.now(),activo:true}),hechos:{...(x.fu?.hechos||{}),[k]:{ts:Date.now(),por:S.user.nombre,canal,nota}}};
+  const patch={fu,ultimoContacto:Date.now()};if(est)patch.estado=est;if(nota)patch.notas=[...(x.notas||[]),{ts:Date.now(),por:S.user.nombre,txt:`${FU_PLAN.find(s=>s.k===k).t} (${canal}): ${nota}`}].slice(-50);
+  await cxPatch(id,patch);closeSheet();toast('Toque registrado ✓','ok');cxRefresh(id);refreshTopbar();
+}
+async function cxAsignar(id,convId){
+  const us=crmUsers();const x=id?(await crmAll()).find(y=>y.id===id):null;
+  openSheet(`<div class="sh-head"><h3>Asignar a vendedor</h3></div><div class="hintline" style="margin-bottom:12px">El vendedor recibe una notificación y el cliente aparece en su lista con el plan de seguimiento.</div>
+   <label class="cfsw" style="display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:14px"><input type="checkbox" id="asgFu" checked ${x?.fu?.inicio&&x.fu.activo!==false?'disabled':''}><i></i><span>Iniciar plan de seguimiento (7 toques)</span></label>
+   <div class="mlist">${us.map(u=>menuItem('user',esc(u.nombre),esc(ROL_L[u.rol]||u.rol)+(x?.vendedorId===u.id?' · actual':''),`cxAsignarA('${id||''}','${u.id}','${convId||''}')`,x?.vendedorId===u.id?'on':'')).join('')}</div>`);
+}
+async function cxAsignarA(id,uid_,convId){
+  const u=(S.cache.usersMap||{})[uid_];if(!u)return;const fuOn=$('#asgFu')?.checked;const now=Date.now();
+  let x=id?(await crmAll()).find(y=>y.id===id):null;
+  const cv=convId?(S.cache.convs||[]).find(c=>c.id===convId):null;
+  if(!x&&cv){x=await ixCliente(cv);id=x.id;}
+  if(!x)return;
+  const patch={vendedorId:u.id,vendedorNombre:u.nombre,asignadoTs:now,asignadoPor:S.user.nombre,estado:x.estado&&x.estado!=='NUEVO'?x.estado:'CONTACTADO'};
+  if(fuOn&&!(x.fu?.inicio&&x.fu.activo!==false))patch.fu={inicio:now,hechos:{},activo:true};
+  await cxPatch(id,patch);
+  const convs=(S.cache.convs||[]).filter(c=>c.clienteId===id||c.id===convId);
+  for(const c of convs){await db.collection('conversaciones').doc(c.id).set({asignadoId:u.id,asignadoNombre:u.nombre,asignadoTs:now,asignadoPor:S.user.nombre,clienteId:id,estado:c.estado==='NUEVO'?'CONTACTADO':(c.estado||'CONTACTADO')},{merge:true}).catch(()=>{});}
+  if(u.id!==S.user.id)await crmNotify(u.id,{id:'nf_asig_'+id+'_'+now,titulo:'Nuevo cliente asignado: '+x.nombre,sub:(cv?cv.plat+' · '+(cv.last||'').slice(0,80):(x.canal||''))+(fuOn?' · Inicia el follow-up #1 hoy':''),r:convs.length?'inbox':'clientes',arg:convs.length?convs[0].id:id,tipo:'lead'});
+  closeSheet();toast(`Asignado a ${u.nombre.split(' ')[0]} ✓`,'ok');crmAskPush();
+  cxRefresh(id);if(S.route==='inbox'){ixRenderList();if(S.ixOpen)ixOpen(S.ixOpen,true);}refreshTopbar();
+}
+async function cxConvMarcar(id){
+  const x=(await crmAll()).find(y=>y.id===id);if(!x)return;const tel=crmTel(x.telefono);
+  const peds=(await dbAll('pedidos')).filter(p=>p.estado!=='CANCELADO'&&((x.pedidoIds||[]).includes(p.id)||(tel.length>=7&&crmTel(p.cliente?.telefono)===tel)||(p.vendedorId===S.user.id&&Date.now()-p.fecha<7*DAY))).sort((a,b)=>b.fecha-a.fecha).slice(0,12);
+  openSheet(`<div class="sh-head"><h3>Marcar conversión</h3></div><div class="hintline" style="margin-bottom:12px">Cuenta como venta lograda desde este lead (para el análisis de ads y comisiones internas).</div>
+   <div class="field"><label>Pedido vinculado (opcional)</label><select class="inp" id="cvPed"><option value="">Sin pedido · solo registrar</option>${peds.map(p=>`<option value="${p.id}" data-m="${p.subtotalUSD||0}">${esc(p.codigo)} · ${usd(p.subtotalUSD||0)} · ${esc(p.cliente?.nombre||'')}</option>`).join('')}</select></div>
+   <div class="field"><label>Monto de la venta (USD)</label><input class="inp mono" id="cvMonto" inputmode="decimal" placeholder="0.00" value="${peds[0]&&(x.pedidoIds||[]).includes(peds[0].id)?peds[0].subtotalUSD:''}"></div>
+   <div class="field"><label>Canal de cierre</label><div class="chipx" id="cvCanal">${['Instagram','WhatsApp','Facebook','Tienda','Llamada'].map((c,i)=>`<button class="${(x.canal===c||(i===0&&!PLAT_C[x.canal]))?'on':''}" onclick="document.querySelectorAll('#cvCanal button').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${c}</button>`).join('')}</div></div>
+   <div class="field"><label>Nota</label><input class="inp" id="cvNota" placeholder="Ej. Compró 2 LC3 por IG"></div>
+   <button class="btn pri full" onclick="cxConvSave('${id}')">Confirmar conversión</button>`);
+  $('#cvPed').addEventListener('change',e=>{const o=e.target.selectedOptions[0];if(o&&o.dataset.m)$('#cvMonto').value=o.dataset.m;});
+}
+async function cxConvSave(id){
+  const x=(await crmAll()).find(y=>y.id===id);if(!x)return;const pedId=$('#cvPed').value,monto=parseFloat(($('#cvMonto').value||'').replace(',','.'))||0,canal=document.querySelector('#cvCanal button.on')?.textContent||'',nota=($('#cvNota').value||'').trim();
+  const conversion={ts:Date.now(),por:S.user.nombre,porId:S.user.id,pedidoId:pedId||'',montoUSD:monto,canal,nota,auto:false};
+  const patch={conversion,estado:'CONVERTIDO',ultimoContacto:Date.now()};if(pedId)patch.pedidoIds=[...new Set([...(x.pedidoIds||[]),pedId])];
+  if(x.fu?.inicio&&x.fu.activo!==false)patch.fu={...x.fu,activo:false,cerrado:Date.now(),motivo:'Convertido'};
+  if(nota)patch.notas=[...(x.notas||[]),{ts:Date.now(),por:S.user.nombre,txt:'Conversión: '+nota}].slice(-50);
+  await cxPatch(id,patch);
+  for(const c of (S.cache.convs||[]).filter(c=>c.clienteId===id))db.collection('conversaciones').doc(c.id).set({estado:'CONVERTIDO',convertido:true,convTs:Date.now()},{merge:true}).catch(()=>{});
+  if(x.vendedorId&&x.vendedorId!==S.user.id)crmNotify(x.vendedorId,{titulo:'Conversión registrada: '+x.nombre,sub:(monto?usd(monto)+' · ':'')+'por '+S.user.nombre,r:'clientes',arg:id,tipo:'conv'});
+  closeSheet();toast('🎉 Conversión registrada','ok');cxRefresh(id);if(S.route==='inbox'){ixRenderList();if(S.ixOpen)ixOpen(S.ixOpen,true);}
+}
+async function cxConvQuitar(id){confirmSheet('Quitar conversión','El cliente volverá a estado Interesado. ¿Continuar?',async()=>{await db.collection('clientes').doc(id).set({conversion:firebase.firestore.FieldValue.delete(),estado:'INTERESADO',actualizado:Date.now()},{merge:true});invalidarCache('clientes');for(const c of (S.cache.convs||[]).filter(c=>c.clienteId===id))db.collection('conversaciones').doc(c.id).set({estado:'INTERESADO',convertido:false},{merge:true}).catch(()=>{});cxRefresh(id);});}
+async function cxEdit(id){
+  const x=id?(await crmAll()).find(y=>y.id===id):{};const u=x||{};
+  openSheet(`<div class="sh-head"><h3>${id?'Editar':'Nuevo'} cliente</h3></div>
+   <div class="field"><label>Nombre</label><input class="inp" id="ceNom" value="${esc(u.nombre||'')}" placeholder="Nombre y apellido"></div>
+   <div class="v12grid2"><div class="field"><label>Teléfono</label><input class="inp" id="ceTel" inputmode="tel" value="${esc(u.telefono||'')}" placeholder="0412-0000000"></div>
+   <div class="field"><label>Instagram</label><input class="inp" id="ceIg" value="${esc(u.ig||'')}" placeholder="@usuario"></div></div>
+   <div class="v12grid2"><div class="field"><label>Correo</label><input class="inp" id="ceMail" type="email" value="${esc(u.email||'')}"></div>
+   <div class="field"><label>Canal de origen</label><select class="inp" id="ceCanal">${['Instagram','WhatsApp','Facebook','Tienda','Shopify','Mercado Libre','Referido','Otro'].map(c=>`<option ${(u.canal||'Instagram')===c?'selected':''}>${c}</option>`).join('')}</select></div></div>
+   <div class="v12grid2"><div class="field"><label>Ciudad</label><input class="inp" id="ceCiu" value="${esc(u.ciudad||'')}"></div><div class="field"><label>Dirección</label><input class="inp" id="ceDir" value="${esc(u.direccion||'')}"></div></div>
+   <div class="field"><label>Nota</label><input class="inp" id="ceNota" placeholder="Qué busca, contexto…"></div>
+   <button class="btn pri full" onclick="cxSave('${id||''}')">Guardar</button>`);
+}
+async function cxSave(id){
+  const nombre=($('#ceNom').value||'').trim();if(!nombre){toast('Falta el nombre','bad');return;}
+  const tel=($('#ceTel').value||'').trim();
+  if(!id){const dup=crmMatch(await crmAll(),{tel});if(dup&&tel){toast('Ya existe: '+dup.nombre,'bad');closeSheet();cxOpen(dup.id);return;}}
+  const x=id?(await crmAll()).find(y=>y.id===id):null;
+  const doc={id:id||uid('cl'),nombre,telefono:tel,ig:($('#ceIg').value||'').trim().replace(/^@/,''),email:($('#ceMail').value||'').trim(),canal:$('#ceCanal').value,ciudad:($('#ceCiu').value||'').trim(),direccion:($('#ceDir').value||'').trim(),actualizado:Date.now()};
+  if(!x){Object.assign(doc,{estado:'NUEVO',creado:Date.now(),origen:'Manual',tags:[],pedidoIds:[],pedidos:0,totalUSD:0,vendedorId:crmMgr()?'':S.user.id,vendedorNombre:crmMgr()?'':S.user.nombre});if(!crmMgr())doc.asignadoTs=Date.now();}
+  const nota=($('#ceNota').value||'').trim();if(nota)doc.notas=[...(x?.notas||[]),{ts:Date.now(),por:S.user.nombre,txt:nota}];
+  await dbPut('clientes',doc);closeSheet();toast('Cliente guardado ✓','ok');S.cxSel=doc.id;if(S.route==='clientes')viewClientes();else cxOpen(doc.id);
+}
+async function cxNuevoPedido(id){
+  const x=(await crmAll()).find(y=>y.id===id);if(!x)return;closeSheet();
+  await openNewOrder();if(!window._draft)return;
+  _draft.cliente={..._draft.cliente,nombre:x.nombre||'',telefono:x.telefono||'',direccion:x.direccion||'',zona:x.zona||''};_draft.canal={Instagram:'IG',WhatsApp:'WS',Facebook:'IG',Tienda:'TIENDA'}[x.canal]||_draft.canal;_draft._clienteId=x.id;
+  if(typeof renderOrderSheet==='function')renderOrderSheet();
+}
+/* ============================================================
+   MENSAJES · inbox unificado
+   ============================================================ */
+async function ixCliente(cv){
+  const list=await crmAll();let x=cv.clienteId?list.find(y=>y.id===cv.clienteId):null;
+  if(!x)x=crmMatch(list,{igId:cv.plat==='Instagram'?cv.uid:'',fbId:cv.plat==='Facebook'?cv.uid:'',tel:cv.tel});
+  if(!x){x={id:uid('cl'),nombre:cv.name||'Cliente',telefono:cv.tel||'',ig:cv.plat==='Instagram'?(cv.name||'').replace('@',''):'',igId:cv.plat==='Instagram'?cv.uid:'',fbId:cv.plat==='Facebook'?cv.uid:'',canal:cv.plat||'Manual',origen:'Mensaje',estado:'NUEVO',creado:cv.creado||Date.now(),actualizado:Date.now(),tags:[],pedidoIds:[],pedidos:0,totalUSD:0,vendedorId:cv.asignadoId||'',vendedorNombre:cv.asignadoNombre||''};await dbPut('clientes',x);}
+  else{const patch={};if(cv.plat==='Instagram'&&cv.uid&&!x.igId)patch.igId=cv.uid;if(cv.plat==='Facebook'&&cv.uid&&!x.fbId)patch.fbId=cv.uid;if(Object.keys(patch).length)await cxPatch(x.id,patch);}
+  if(cv.clienteId!==x.id)await db.collection('conversaciones').doc(cv.id).set({clienteId:x.id},{merge:true}).catch(()=>{});
+  return x;
+}
+async function ixMetaSync(force){
+  const c=await cfg();if(!c.metaPageToken||!c.metaPageId)return false;
+  if(!['socio','admin','supervisor','ads'].includes(S.user?.rol))return false;
+  if(!force&&Date.now()-(window._ixSyncTs||0)<60e3)return false;window._ixSyncTs=Date.now();
+  const f='id,updated_time,unread_count,participants,messages.limit(1){message,from,created_time,attachments}';
+  const rs=await Promise.allSettled([p3Graph(`${c.metaPageId}/conversations?platform=instagram&fields=${f}&limit=50`,c.metaPageToken),p3Graph(`${c.metaPageId}/conversations?platform=messenger&fields=${f}&limit=50`,c.metaPageToken)]);
+  if(rs.every(r=>r.status==='rejected')){window._ixSyncErr=rs[0].reason?.message||'Error';return false;}window._ixSyncErr='';
+  const me=[c.metaPageId,c.metaIgUserId].filter(Boolean),cur=S.cache.convs||[],batch=db.batch();let n=0;
+  rs.forEach((r,i)=>{if(r.status!=='fulfilled')return;(r.value.data||[]).forEach(cv=>{
+    const who=(cv.participants?.data||[]).find(p=>!me.includes(p.id))||{},m=cv.messages?.data?.[0]||{};
+    const id='mt_'+String(cv.id).replace(/[^A-Za-z0-9_-]/g,'_'),t=Date.parse(cv.updated_time)||Date.now(),ex=cur.find(x=>x.id===id);
+    const unread=+cv.unread_count||0;if(ex&&ex.t===t&&ex.unread===unread)return;
+    const doc={metaId:cv.id,plat:i===0?'Instagram':'Facebook',name:who.username||who.name||'Cliente',uid:who.id||'',t,unread,last:m.message||(m.attachments?'📎 Adjunto':''),lastMine:me.includes(m.from?.id),lastTs:Date.parse(m.created_time)||t,fuente:'meta'};
+    if(!ex){doc.estado='NUEVO';doc.creado=Date.parse(m.created_time)||t;doc.asignadoId='';}
+    batch.set(db.collection('conversaciones').doc(id),doc,{merge:true});n++;});});
+  if(n)await batch.commit();return true;
+}
+function ixTick(){if(!S.user||S.user.rol==='motorizado')return;ixMetaSync().catch(e=>console.warn('ixSync',e));
+  /* recordatorio diario de seguimientos */
+  try{const k='ffFuRem_'+S.user.id+'_'+agSod(Date.now());if(localStorage.getItem(k))return;const h=new Date().getHours();if(h<8)return;
+    crmAll().then(L=>{const n=L.filter(x=>x.vendedorId===S.user.id&&(()=>{const s=cxFuNext(x);return s&&(s.late||s.hoy);})()).length;if(!n)return;localStorage.setItem(k,'1');toast(`🔔 Tienes ${n} seguimiento${n>1?'s':''} para hoy`);crmPush('Seguimientos de hoy',`${n} cliente${n>1?'s':''} esperan tu toque de follow-up`,k);}).catch(()=>{});}catch(e){}
+}
+setInterval(ixTick,60e3);
+function ixList(){
+  const F=S.ix,me=S.user.id,q=(F.q||'').trim().toLowerCase();
+  return (S.cache.convs||[]).filter(x=>{
+    if(S.user.rol==='vendedor'&&x.asignadoId&&x.asignadoId!==me&&F.tab!=='todas')return false;
+    if(F.tab==='sin'&&x.asignadoId)return false;if(F.tab==='mias'&&x.asignadoId!==me)return false;if(F.tab==='noleidas'&&!x.unread)return false;if(F.tab==='conv'&&!x.convertido)return false;
+    if(F.plat&&x.plat!==F.plat)return false;
+    if(q&&!((x.name||'')+' '+(x.last||'')+' '+(x.asignadoNombre||'')+' '+(x.tel||'')).toLowerCase().includes(q))return false;
+    return true;}).sort((a,b)=>(b.t||0)-(a.t||0));
+}
+async function viewInbox(){
+  const v=$('#view');if(!S.ix)S.ix={tab:S.user.rol==='vendedor'?'mias':'todas',q:'',plat:''};
+  const c=await cfg();const meta=!!(c.metaPageToken&&c.metaPageId);
+  if(!S.cache.convs)v.innerHTML=skelView(0,4);
+  v.innerHTML=`<div class="vh"><div><h2>Mensajes</h2><div class="sub">Leads de Instagram, Facebook y WhatsApp en un solo lugar</div></div>
+    <div style="display:flex;gap:8px;align-items:center">${meta?`<span class="v12live" id="ixLive"><i></i>EN VIVO</span>`:''}<button class="btn-out" onclick="ixNueva()">${ic('plus')}<span class="hm">Conversación</span></button>${meta?`<button class="xbtn" style="width:40px;height:40px" title="Sincronizar ahora" onclick="ixSyncNow()">${ic('refresh')}</button>`:''}</div></div>
+   ${!meta&&crmMgr()?`<div class="adconn" style="margin-bottom:14px">${metTile('Instagram',48)}<div class="t"><h3>Conecta Instagram y Facebook</h3><p>Con un token de Meta, los mensajes directos llegan aquí solos y puedes asignarlos a cada vendedor.</p></div><button class="btn-lime" onclick="window._ajSubNext='meta';go('admin')">${ic('link')}Conectar Meta</button></div>`:''}
+   <div class="v12bar"><div class="sbox"><span>${ic('search')}</span><input placeholder="Buscar conversación…" value="${esc(S.ix.q)}" oninput="S.ix.q=this.value;ixRenderList()" autocomplete="off"></div>
+    <select onchange="S.ix.plat=this.value;ixRenderList()"><option value="">Todas las plataformas</option>${['Instagram','Facebook','WhatsApp','Manual'].map(p=>`<option ${S.ix.plat===p?'selected':''}>${p}</option>`).join('')}</select></div>
+   <div class="ixtabs" id="ixTabs"></div>
+   <div class="ixw ${S.ixOpen&&innerWidth<1024?'open':''}" id="ixW"><div class="ixlist" id="ixList"></div><aside class="ixside" id="ixSide"></aside></div>`;
+  ixRenderList();
+  if(meta){ixMetaSync(true).then(ok=>{if(ok)ixRenderList();}).catch(()=>{});}
+  if(S.ixOpen)ixOpen(S.ixOpen,true);else if(innerWidth>=1024){const L=ixList();if(L[0])ixOpen(L[0].id,true);else{const a=$('#ixSide');if(a)a.innerHTML=`<div class="v12empty" style="margin:auto">${ic('inbox')}<br>${meta?'Aún no hay conversaciones.':'Conecta Meta o crea una conversación manual.'}</div>`;}}
+}
+function ixRenderList(){
+  const el=$('#ixList'),tabs=$('#ixTabs');if(!el)return;const all=S.cache.convs||[],me=S.user.id;
+  const cnt={todas:all.length,sin:all.filter(x=>!x.asignadoId).length,mias:all.filter(x=>x.asignadoId===me).length,noleidas:all.filter(x=>x.unread).length,conv:all.filter(x=>x.convertido).length};
+  if(tabs)tabs.innerHTML=[['todas','Todas'],['sin','Sin asignar'],['mias','Mías'],['noleidas','No leídas'],['conv','Convertidas']].filter(([k])=>!(S.user.rol==='vendedor'&&k==='sin')).map(([k,l])=>`<button class="fchip ${S.ix.tab===k?'on':''}" onclick="S.ix.tab='${k}';ixRenderList()">${l}<span class="n">${num(cnt[k])}</span></button>`).join('');
+  const L=ixList();
+  el.innerHTML=L.length?L.slice(0,120).map(x=>`<div class="ixc ${S.ixOpen===x.id?'on':''} ${x.unread&&!x.lastMine?'unread':''}" onclick="ixOpen('${x.id}')">${crmAv({name:x.name,plat:x.plat},42)}<div class="b"><div class="nm">${esc(x.name)}${x.convertido?`<span class="v12ico" style="color:#4ee39a">${ic('check')}</span>`:''}</div><div class="lp">${x.lastMine?'Tú: ':''}${esc((x.last||'').slice(0,80))}</div></div><div class="r"><small>${esc(fechaRel(x.t||0))}</small>${x.unread&&!x.lastMine?`<span class="ub">${x.unread}</span>`:''}<span class="asg ${x.asignadoId?'':'none'}">${x.asignadoId?esc((x.asignadoNombre||'').split(' ')[0]):'Sin asignar'}</span></div></div>`).join('')
+    :`<div class="v12empty">${ic('inbox')}<br>${window._ixSyncErr?'Meta: '+esc(window._ixSyncErr):'No hay conversaciones en este filtro.'}</div>`;
+}
+async function ixSyncNow(){const b=$('#ixLive');if(b)b.innerHTML='<i></i>SINCRONIZANDO';try{await ixMetaSync(true);toast('Sincronizado ✓','ok');}catch(e){toast('Meta: '+e.message,'bad');}if(b)b.innerHTML='<i></i>EN VIVO';ixRenderList();}
+async function ixOpen(id,keep){
+  const x=(S.cache.convs||[]).find(y=>y.id===id);if(!x)return;S.ixOpen=id;
+  const w=$('#ixW');if(w&&innerWidth<1024)w.classList.add('open');
+  document.querySelectorAll('.ixc').forEach(e=>e.classList.toggle('on',e.getAttribute('onclick').includes(id)));
+  const a=$('#ixSide');if(!a)return;const c=await cfg();
+  const cl=x.clienteId?(await crmAll()).find(y=>y.id===x.clienteId):null;
+  const mine=x.asignadoId===S.user.id,puede=crmMgr()||mine||!x.asignadoId;
+  const est=x.estado||'NUEVO',e=LEAD_EST[est]||LEAD_EST.NUEVO;
+  const fu=cl?cxFuNext(cl):null;
+  a.innerHTML=`<div class="ixh"><button class="xbtn" aria-label="Volver" onclick="ixBack()">${ic('back')}</button>${crmAv({name:x.name,plat:x.plat},40)}<div class="t"><b>${esc(x.name)}</b><small>${brandMark(x.plat)||''}${esc(x.plat)} · ${x.asignadoId?'<span style="color:#d6d6da">'+esc(x.asignadoNombre||'')+'</span>':'<span style="color:#f5b945">sin asignar</span>'} · ${crmPill(est)}</small></div>
+     ${cl?`<button class="xbtn" title="Ficha del cliente" onclick="cxOpen('${cl.id}')">${ic('user')}</button>`:''}</div>
+   <div class="ixact">
+    ${crmMgr()?`<button class="pri" onclick="cxAsignar('${cl?cl.id:''}','${x.id}')">${ic('users')}${x.asignadoId?'Reasignar':'Asignar'}</button>`:(!x.asignadoId?`<button class="pri" onclick="ixTomar('${x.id}')">${ic('user')}Tomar lead</button>`:'')}
+    ${puede?`<button onclick="ixEstadoSheet('${x.id}')"><i style="width:8px;height:8px;border-radius:50%;background:${e.c};display:inline-block"></i>Estado</button>`:''}
+    ${puede&&!x.convertido?`<button class="ok" onclick="ixConvertir('${x.id}')">${ic('check')}Conversión</button>`:''}
+    ${puede?`<button onclick="ixFu('${x.id}')">${ic('bell')}${fu?esc(fu.t):'Seguimiento'}</button>`:''}
+    ${S.user.rol!=='ads'?`<button onclick="ixPedido('${x.id}')">${ic('cart')}Pedido</button>`:''}
+    ${puede?`<button onclick="ixNotaSheet('${x.id}')">${ic('note')}Nota</button>`:''}
+    ${x.tel?`<a class="btn-out wa" style="height:34px;font-size:12.5px;padding:0 11px;border-radius:10px" href="${waLink(x.tel)}" target="_blank" rel="noopener">${brandMark('WhatsApp','#25D366')}WhatsApp</a>`:''}
+   </div>
+   ${fu?`<div class="ixstat">${ic('bell')}<span>Próximo toque: <b style="color:${fu.late?'#ff7a6b':fu.hoy?'#f5b945':'#d6d6da'}">${esc(fu.t)}</b> · ${fu.late?'atrasado':fu.hoy?'hoy':'vence '+new Date(fu.due).toLocaleDateString('es-VE',{day:'numeric',month:'short'})}</span><button class="v12lk" style="margin-left:auto" onclick="cxFuDone('${cl.id}','${fu.k}')">Marcar hecho ${ic('chevR')}</button></div>`:''}
+   <div class="ixmsgs" id="ixMsgs"><div class="spload">${ic('refresh')}Cargando…</div></div>
+   ${puede?`<div class="ixsend"><input type="file" id="ixFile" class="hide" accept="image/*,video/*,.pdf" onchange="ixAdjuntar('${x.id}',this.files[0])"><button title="Adjuntar foto, video o PDF" onclick="$('#ixFile').click()">${ic('clip')}</button><textarea id="ixTxt" placeholder="${x.fuente==='meta'?'Responder por '+esc(x.plat)+'…':'Registrar mensaje…'}" rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();ixSend('${x.id}')}"></textarea><button class="go" aria-label="Enviar" onclick="ixSend('${x.id}')">${ic('send')}</button></div>`:`<div class="ixinfo">${ic('lock')}Esta conversación está asignada a ${esc(x.asignadoNombre||'otro vendedor')}.</div>`}
+   ${x.fuente==='meta'?`<div class="ixinfo">${ic('info')}Meta permite responder hasta 24 h después del último mensaje del cliente. Las notas internas no se envían.</div>`:x.plat==='WhatsApp'?`<div class="ixinfo">${brandMark('WhatsApp','#25D366')}Los mensajes se envían por WhatsApp Business API si está activa; si no, se abre WhatsApp y aquí queda el registro.</div>`:''}`;
+  await ixLoadMsgs(x);
+  if(x.unread&&!x.lastMine&&(mine||crmMgr()))db.collection('conversaciones').doc(x.id).set({unread:0,leidoPor:S.user.nombre,leidoTs:Date.now()},{merge:true}).catch(()=>{});
+}
+function ixBack(){S.ixOpen=null;const w=$('#ixW');if(w)w.classList.remove('open');document.querySelectorAll('.ixc').forEach(e=>e.classList.remove('on'));}
+async function ixLoadMsgs(x){
+  const el=$('#ixMsgs');if(!el)return;const c=await cfg();let M=[];
+  try{
+    if(x.fuente==='meta'&&x.metaId){const key='ixm_'+x.id;const cch=window._ixMsgC&&window._ixMsgC[key];
+      let data=cch&&Date.now()-cch.ts<20e3?cch.data:null;
+      if(!data){const j=await p3Graph(`${x.metaId}?fields=messages.limit(40){message,from,created_time,attachments{image_data,video_data,file_url,name,mime_type}}`,c.metaPageToken);data=(j.messages?.data||[]);window._ixMsgC=window._ixMsgC||{};window._ixMsgC[key]={ts:Date.now(),data};}
+      const me=[c.metaPageId,c.metaIgUserId].filter(Boolean);
+      M=data.map(m=>{const at=(m.attachments?.data||[])[0];return {ts:Date.parse(m.created_time),me:me.includes(m.from?.id),txt:m.message||'',img:at?.image_data?.url||'',vid:at?.video_data?.url||'',file:at?.file_url||'',fname:at?.name||''};});}
+    else M=(x.msgs||[]).map(m=>({...m,me:m.from==='me'}));
+    M=M.concat((x.notas||[]).map(n=>({...n,nota:true}))).sort((a,b)=>a.ts-b.ts);
+    el.innerHTML=M.length?M.map(m=>m.nota?`<div class="ixm nota"><b>NOTA INTERNA · ${esc(m.por||'')}</b>${esc(m.txt)}<small>${esc(agHM(m.ts))}</small></div>`:`<div class="ixm ${m.me?'me':''}">${m.txt?esc(m.txt):''}${m.img?`<img src="${esc(m.img)}" loading="lazy" onclick="window.open(this.src)">`:''}${m.vid?`<video src="${esc(m.vid)}" controls preload="metadata"></video>`:''}${m.file?`<a class="file" href="${esc(m.file)}" target="_blank" rel="noopener">${ic('file')}${esc(m.fname||'Archivo')}</a>`:''}<small>${m.por&&m.me?esc(m.por)+' · ':''}${esc(fechaCorta(m.ts))}</small></div>`).join(''):`<div class="ixm sys">Sin mensajes todavía.</div>`;
+    el.scrollTop=el.scrollHeight;
+  }catch(e){el.innerHTML=`<div class="warnbox">${ic('alert')}<span>No se pudieron leer los mensajes: ${esc(e.message)}</span></div>`;}
+}
+async function ixSend(id,extra){
+  const x=(S.cache.convs||[]).find(y=>y.id===id);if(!x)return;const ta=$('#ixTxt'),txt=(ta?.value||'').trim();if(!txt&&!extra)return;const c=await cfg();
+  const btn=document.querySelector('.ixsend .go');if(btn)btn.disabled=true;
+  try{
+    if(x.fuente==='meta'){
+      const msg=extra?{attachment:{type:extra.tipo,payload:{url:extra.url,is_reusable:true}}}:{text:txt};
+      const r=await fetch(GRAPH+c.metaPageId+'/messages?access_token='+encodeURIComponent(c.metaPageToken),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({recipient:{id:x.uid},message:msg,messaging_type:'RESPONSE'})});
+      const j=await r.json().catch(()=>({}));if(!r.ok||j.error)throw new Error(j.error?.message||'HTTP '+r.status);
+      if(extra&&txt){await fetch(GRAPH+c.metaPageId+'/messages?access_token='+encodeURIComponent(c.metaPageToken),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({recipient:{id:x.uid},message:{text:txt},messaging_type:'RESPONSE'})}).catch(()=>{});}
+      if(window._ixMsgC)delete window._ixMsgC['ixm_'+id];
+      await db.collection('conversaciones').doc(id).set({last:txt||('📎 '+(extra?.nombre||'Adjunto')),lastMine:true,t:Date.now(),lastTs:Date.now(),unread:0},{merge:true});
+    }else{
+      let enviado=false;
+      if(x.plat==='WhatsApp'&&x.tel&&txt&&typeof waCloudSend==='function'&&c.waCloud?.activo){try{enviado=await waCloudSend(x.tel,txt+(extra?'\n'+extra.url:''));}catch(e){}}
+      const m={ts:Date.now(),from:'me',por:S.user.nombre,txt,...(extra?{[extra.tipo==='image'?'img':extra.tipo==='video'?'vid':'file']:extra.url,fname:extra.nombre}:{}),enviado};
+      await db.collection('conversaciones').doc(id).set({msgs:[...(x.msgs||[]),m].slice(-300),last:txt||('📎 '+(extra?.nombre||'Adjunto')),lastMine:true,t:Date.now(),lastTs:Date.now(),unread:0},{merge:true});
+      if(x.plat==='WhatsApp'&&x.tel&&!enviado&&txt)window.open(waLink(x.tel,txt+(extra?'\n'+extra.url:'')),'_blank','noopener');
+    }
+    if(ta)ta.value='';
+    if(x.clienteId)cxPatch(x.clienteId,{ultimoContacto:Date.now()}).catch(()=>{});
+    setTimeout(()=>{const y=(S.cache.convs||[]).find(z=>z.id===id)||x;ixLoadMsgs(y);},350);
+  }catch(e){toast('No se envió: '+e.message,'bad');}
+  if(btn)btn.disabled=false;ta&&ta.focus();
+}
+async function ixAdjuntar(id,file){
+  if(!file)return;if(file.size>25*1024*1024){toast('Máximo 25 MB','bad');return;}
+  toast('Subiendo adjunto…');
+  try{let blob=file,ext=(file.name.split('.').pop()||'bin').toLowerCase();if(file.type.startsWith('image/')&&typeof ffImgCompress==='function'){blob=await ffImgCompress(file,1800,.85);ext='jpg';}
+    const ref=storage.ref(`chats/${id}/${Date.now()}.${ext}`);await ref.put(blob,{contentType:ext==='jpg'?'image/jpeg':file.type||'application/octet-stream'});const url=await ref.getDownloadURL();
+    const tipo=file.type.startsWith('image/')?'image':file.type.startsWith('video/')?'video':'file';
+    const x=(S.cache.convs||[]).find(y=>y.id===id);if(x)await db.collection('conversaciones').doc(id).set({adjuntos:[...(x.adjuntos||[]),{url,tipo,nombre:file.name,ts:Date.now(),por:S.user.nombre}].slice(-100)},{merge:true});
+    await ixSend(id,{url,tipo,nombre:file.name});toast('Adjunto enviado ✓','ok');
+  }catch(e){toast('No se pudo subir: '+(e.code==='storage/unauthorized'?'revisa las reglas de Storage en Firebase':e.message),'bad');}
+  const f=$('#ixFile');if(f)f.value='';
+}
+async function ixTomar(id){const x=(S.cache.convs||[]).find(y=>y.id===id);if(!x||x.asignadoId)return;const cl=await ixCliente(x);const now=Date.now();
+  await cxPatch(cl.id,{vendedorId:S.user.id,vendedorNombre:S.user.nombre,asignadoTs:now,asignadoPor:S.user.nombre,estado:cl.estado==='NUEVO'?'CONTACTADO':cl.estado,...(cl.fu?.inicio?{}:{fu:{inicio:now,hechos:{},activo:true}})});
+  await db.collection('conversaciones').doc(id).set({asignadoId:S.user.id,asignadoNombre:S.user.nombre,asignadoTs:now,asignadoPor:S.user.nombre,clienteId:cl.id,estado:'CONTACTADO'},{merge:true});toast('Lead tomado ✓ · se inició el seguimiento','ok');crmAskPush();setTimeout(()=>ixOpen(id,true),300);}
+function ixEstadoSheet(id){openSheet(`<div class="sh-head"><h3>Estado del lead</h3></div><div class="mlist">${Object.entries(LEAD_EST).map(([k,v])=>menuItem('flag',v.l,{NUEVO:'Acaba de escribir',CONTACTADO:'Ya respondimos',INTERESADO:'Quiere comprar, falta cerrar',COTIZADO:'Le enviamos precio / opciones',CONVERTIDO:'Compró',PERDIDO:'No compró o dejó de responder'}[k],`ixEstado('${id}','${k}')`)).join('')}</div>`);}
+async function ixEstado(id,est){const x=(S.cache.convs||[]).find(y=>y.id===id);if(!x)return;closeSheet();if(est==='CONVERTIDO'&&!x.convertido){ixConvertir(id);return;}
+  const cl=await ixCliente(x);await cxPatch(cl.id,{estado:est,ultimoContacto:Date.now()});await db.collection('conversaciones').doc(id).set({estado:est,clienteId:cl.id},{merge:true});toast('Estado: '+LEAD_EST[est].l,'ok');setTimeout(()=>ixOpen(id,true),250);}
+async function ixConvertir(id){const x=(S.cache.convs||[]).find(y=>y.id===id);if(!x)return;const cl=await ixCliente(x);if(!x.clienteId)await db.collection('conversaciones').doc(id).set({clienteId:cl.id},{merge:true});cxConvMarcar(cl.id);}
+async function ixFu(id){const x=(S.cache.convs||[]).find(y=>y.id===id);if(!x)return;const cl=await ixCliente(x);if(!cl.fu?.inicio){await cxFuStart(cl.id);}cxOpen(cl.id);}
+async function ixNotaSheet(id){openSheet(`<div class="sh-head"><h3>Nota interna</h3></div><div class="hintline" style="margin-bottom:10px">Solo la ve el equipo; no se envía al cliente.</div><div class="field"><textarea class="inp" id="ixNotaTxt" rows="3" placeholder="Ej. Quiere 2 LC3, pagará el viernes"></textarea></div><button class="btn pri full" onclick="ixNota('${id}')">Guardar nota</button>`);}
+async function ixNota(id){const x=(S.cache.convs||[]).find(y=>y.id===id);const txt=($('#ixNotaTxt')?.value||'').trim();if(!x||!txt)return;await db.collection('conversaciones').doc(id).set({notas:[...(x.notas||[]),{ts:Date.now(),por:S.user.nombre,txt}].slice(-100)},{merge:true});if(x.clienteId){const cl=(await crmAll()).find(y=>y.id===x.clienteId);if(cl)await cxPatch(cl.id,{notas:[...(cl.notas||[]),{ts:Date.now(),por:S.user.nombre,txt}].slice(-50)});}closeSheet();toast('Nota guardada ✓','ok');setTimeout(()=>ixOpen(id,true),250);}
+async function ixPedido(id){const x=(S.cache.convs||[]).find(y=>y.id===id);if(!x)return;const cl=await ixCliente(x);await cxNuevoPedido(cl.id);}
+function ixNueva(){
+  openSheet(`<div class="sh-head"><h3>Nueva conversación</h3></div><div class="hintline" style="margin-bottom:12px">Registra un lead que llegó por WhatsApp, llamada o en la tienda para asignarlo y hacerle seguimiento.</div>
+   <div class="field"><label>Plataforma</label><div class="chipx" id="nvPlat">${['WhatsApp','Instagram','Facebook','Manual'].map((p,i)=>`<button class="${i===0?'on':''}" onclick="document.querySelectorAll('#nvPlat button').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${p}</button>`).join('')}</div></div>
+   <div class="field"><label>Nombre o @usuario</label><input class="inp" id="nvNom" placeholder="María Pérez / @maria.p"></div>
+   <div class="field"><label>Teléfono</label><input class="inp" id="nvTel" inputmode="tel" placeholder="0412-0000000"></div>
+   <div class="field"><label>Primer mensaje del cliente</label><textarea class="inp" id="nvMsg" rows="2" placeholder="Hola, ¿tienen la LC3 disponible?"></textarea></div>
+   <button class="btn pri full" onclick="ixNuevaSave()">Crear conversación</button>`);
+}
+async function ixNuevaSave(){
+  const plat=document.querySelector('#nvPlat button.on')?.textContent||'Manual',name=($('#nvNom').value||'').trim(),tel=($('#nvTel').value||'').trim(),msg=($('#nvMsg').value||'').trim();
+  if(!name){toast('Falta el nombre','bad');return;}const now=Date.now(),id=uid('cv');
+  const cv={id,plat,name,tel,uid:'',t:now,creado:now,lastTs:now,unread:msg?1:0,last:msg,lastMine:false,estado:'NUEVO',asignadoId:'',fuente:'manual',msgs:msg?[{ts:now,from:'cl',txt:msg}]:[],creadoPor:S.user.nombre};
+  const cl=await ixCliente(cv);cv.clienteId=cl.id;
+  const {id:_i,...data}=cv;await db.collection('conversaciones').doc(id).set(data);closeSheet();toast('Conversación creada ✓','ok');S.ixOpen=id;if(S.route!=='inbox')go('inbox');
+}
+/* ---------- avisos (campana) ---------- */
+{const _computeAvisosV11=computeAvisos;computeAvisos=async function(){
+  const out=await _computeAvisosV11();try{
+    const me=S.user?.id,rol=S.user?.rol;if(rol==='motorizado')return out;
+    if(rol==='ads'){for(let i=out.length-1;i>=0;i--)if(['activos','stock','transito','moto'].includes(out[i].k))out.splice(i,1);}
+    const nf=(S.cache.notifs||[]);nf.slice(0,3).forEach(n=>out.unshift({k:'nf_'+n.id,t:n.tipo==='lead'?'warn':'info',i:n.tipo==='lead'?'msg':'bell',titulo:n.titulo,sub:n.sub||'',r:n.r||'inbox',nf:n.id}));
+    const convs=S.cache.convs||[];
+    if(crmMgr()){const sin=convs.filter(x=>!x.asignadoId&&x.estado==='NUEVO').length;if(sin)out.unshift({k:'leads',t:'warn',i:'inbox',titulo:`${sin} lead${sin>1?'s':''} sin asignar`,sub:'Asigna cada conversación a un vendedor desde Mensajes',r:'inbox'});}
+    const nolei=convs.filter(x=>x.asignadoId===me&&x.unread&&!x.lastMine).length;if(nolei)out.unshift({k:'nolei',t:'info',i:'msg',titulo:`${nolei} conversación${nolei>1?'es':''} sin responder`,sub:'Clientes esperando tu respuesta',r:'inbox'});
+    const L=await crmAll();const fu=L.filter(x=>x.vendedorId===me).map(x=>({x,s:cxFuNext(x)})).filter(o=>o.s&&(o.s.late||o.s.hoy));
+    if(fu.length)out.push({k:'fu',t:fu.some(o=>o.s.late)?'bad':'warn',i:'bell',titulo:`${fu.length} seguimiento${fu.length>1?'s':''} para hoy`,sub:fu.slice(0,3).map(o=>`${o.x.nombre} · ${o.s.t}`).join(' · '),r:'clientes',fu:1});
+  }catch(e){}return out;};}
+{const _avisoRowV11=avisoRow;avisoRow=function(a){if(a.nf)return `<div class="arow ${a.t}" onclick="crmNotifOpen('${a.nf}')"><div class="aic">${ic(a.i)}</div><div class="ab"><div class="at">${esc(a.titulo)}</div><div class="as">${esc(a.sub)}</div></div><div class="chev">${ic('chevR')}</div></div>`;if(a.fu)return `<div class="arow ${a.t}" onclick="closeSheet();S.cx=S.cx||{q:'',est:'todos',vend:'mios',tag:'',pag:0};S.cx.fu=true;S.cx.vend='mios';go('clientes')"><div class="aic">${ic(a.i)}</div><div class="ab"><div class="at">${esc(a.titulo)}</div><div class="as">${esc(a.sub)}</div></div><div class="chev">${ic('chevR')}</div></div>`;return _avisoRowV11(a);};}
+
+/* ============================================================
+   v12 · Rol "ads", Ads 360 en vivo y conexión rápida de Meta
+   ============================================================ */
+ROL_L.ads='Ads / Marketing';COLORES_ROL.ads='#4a8cff';
+const ADS_PER=[['hoy','Hoy','today'],['ayer','Ayer','yesterday'],['d7','7 días','last_7d'],['d30','30 días','last_30d'],['mes','Este mes','this_month'],['mesant','Mes pasado','last_month']];
+function adsRango(per){const now=Date.now(),hoy=agSod(now);const m0=new Date(hoy);m0.setDate(1);
+  switch(per){case 'hoy':return [hoy,now];case 'ayer':return [hoy-DAY,hoy-1];case 'd7':return [hoy-6*DAY,now];case 'd30':return [hoy-29*DAY,now];case 'mesant':{const a=new Date(m0);a.setMonth(a.getMonth()-1);return [a.getTime(),m0.getTime()-1];}default:return [m0.getTime(),now];}}
+async function viewAds(){
+  if(!['ads','socio','admin','supervisor'].includes(S.user?.rol)){go('dash');return;}
+  const v=$('#view');if(!S.ads)S.ads={per:'d7'};const c=await cfg();
+  const acct=String(c.metaAdAccount||'').replace(/^act_/,''),tok=c.metaAdsToken||c.metaPageToken;
+  v.innerHTML=`<div class="adhead"><div><h2 style="margin:0">Ads 360</h2><div class="sub" style="color:var(--muted);font-size:13px;margin-top:3px">Meta Ads en vivo + leads y conversiones reales de Firefly</div></div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><div class="adper">${ADS_PER.map(([k,l])=>`<button class="${S.ads.per===k?'on':''}" onclick="S.ads.per='${k}';viewAds()">${l}</button>`).join('')}</div>
+    ${acct&&tok?`<span class="v12live" id="adsLive"><i></i>EN VIVO</span><button class="xbtn" style="width:40px;height:40px" title="Actualizar" onclick="window._adsC=null;viewAds()">${ic('refresh')}</button>`:''}
+    <button class="xbtn" style="width:40px;height:40px" title="Exportar CSV" onclick="adsCSV()">${ic('download')}</button></div></div>
+   ${!(acct&&tok)?`<div class="adconn" style="margin-bottom:14px">${metTile('Meta',52)}<div class="t"><h3>Conecta Meta Ads</h3><p>${crmMgr()?'Pega un token de Meta en Ajustes → Integraciones → Meta y Firefly detecta la cuenta publicitaria sola.':'Pídele a un socio que conecte Meta Ads en Ajustes → Integraciones. Mientras tanto ves los leads y conversiones internas.'}</p></div>${crmMgr()?`<button class="btn-lime" onclick="window._ajSubNext='meta';go('admin')">${ic('link')}Conectar</button>`:''}</div>`:''}
+   <div id="adsK" class="v12kp">${skelView(6,0)}</div>
+   <div class="c2" id="adsFun"></div>
+   <div class="c2" id="adsChart"></div>
+   <div class="c2" id="adsCamp"></div>
+   <div class="c2" id="adsPlat"></div>
+   <div class="c2" id="adsVend"></div>`;
+  await adsLoad();
+}
+async function adsLoad(){
+  const c=await cfg(),per=S.ads.per,[a,b]=adsRango(per),pre=(ADS_PER.find(p=>p[0]===per)||ADS_PER[2])[2];
+  const acct=String(c.metaAdAccount||'').replace(/^act_/,''),tok=c.metaAdsToken||c.metaPageToken;
+  const [peds,cls]=await Promise.all([dbAll('pedidos'),crmAll()]);const convs=S.cache.convs||[];
+  /* Firefly real */
+  const vIG=peds.filter(p=>p.estado!=='CANCELADO'&&['IG','WS','FB'].includes(p.canal)&&p.fecha>=a&&p.fecha<=b);
+  const ventas=vIG.reduce((s,p)=>s+(p.subtotalUSD||0),0);
+  const leads=convs.filter(x=>['Instagram','Facebook'].includes(x.plat)&&(x.creado||x.t||0)>=a&&(x.creado||x.t||0)<=b);
+  const leadsAll=cls.filter(x=>(x.creado||0)>=a&&(x.creado||0)<=b&&x.origen!=='Historial');
+  const asig=leads.filter(x=>x.asignadoId).length;
+  const convI=cls.filter(x=>x.conversion&&x.conversion.ts>=a&&x.conversion.ts<=b);
+  const convMeta=convI.filter(x=>['Instagram','Facebook'].includes(x.canal)||['Instagram','Facebook'].includes(x.conversion?.canal));
+  const ingConv=convI.reduce((s,x)=>s+(x.conversion.montoUSD||0),0);
+  let d=null,err='';
+  if(acct&&tok){try{
+    const key=acct+pre;d=window._adsC&&window._adsC.key===key&&Date.now()-window._adsC.ts<2*60e3?window._adsC:null;
+    if(!d){const f='spend,impressions,clicks,ctr,cpc,cpm,reach,frequency,actions,action_values,purchase_roas,cost_per_action_type';
+      const dayPre=pre==='today'||pre==='yesterday'?'last_7d':pre;
+      const [tot,day,cmp,plat]=await Promise.all([p3Graph(`act_${acct}/insights?fields=${f}&date_preset=${pre}`,tok),p3Graph(`act_${acct}/insights?fields=spend,impressions,clicks,actions&date_preset=${dayPre}&time_increment=1&limit=90`,tok),p3Graph(`act_${acct}/insights?level=campaign&fields=campaign_name,campaign_id,objective,spend,impressions,clicks,ctr,cpc,reach,actions,action_values,purchase_roas&date_preset=${pre}&sort=spend_descending&limit=25`,tok),p3Graph(`act_${acct}/insights?fields=spend,impressions,clicks,actions&breakdowns=publisher_platform&date_preset=${pre}`,tok).catch(()=>({data:[]}))]);
+      d={key,ts:Date.now(),tot:(tot.data||[])[0]||{},day:day.data||[],cmp:cmp.data||[],plat:plat.data||[]};window._adsC=d;}
+  }catch(e){err=e.message;}}
+  if(S.route!=='ads')return;
+  const t=d?.tot||{},sp=+t.spend||0,imp=+t.impressions||0,clk=+t.clicks||0,reach=+t.reach||0,buy=p3Act(t.actions,P3_BUY),msg=p3Act(t.actions,P3_MSG),val=p3Act(t.action_values,P3_BUY);
+  const res=buy||msg,cpa=res?sp/res:0,roasM=(t.purchase_roas&&+t.purchase_roas[0]?.value)||(sp&&val?val/sp:0),real=sp?ventas/sp:0;
+  const nLeads=leads.length||leadsAll.length,cpl=nLeads&&sp?sp/nLeads:0,cpaReal=convMeta.length&&sp?sp/convMeta.length:0;
+  const col=x=>x>=3?'#4ee39a':x>=1.5?'#f5b945':'#ff7a6b';
+  const K=$('#adsK');if(K)K.innerHTML=(d?`
+    <div class="hl"><small>Gasto en ads</small><b>${usd(sp)}</b><i>CPM ${usd(+t.cpm||0)} · CPC ${usd(+t.cpc||0)}</i></div>
+    <div><small>Impresiones</small><b>${num(imp)}</b><i>${num(reach)} personas · frec. ${(+t.frequency||0).toFixed(1)}</i></div>
+    <div><small>Clics · CTR</small><b>${num(clk)}</b><i>CTR ${(+t.ctr||0).toFixed(2)}%</i></div>
+    <div><small>${buy?'Compras (píxel)':'Conversaciones iniciadas'}</small><b>${num(res)}</b><i>${res?'costo '+usd(cpa)+' c/u':'sin resultados aún'}${buy&&msg?' · '+num(msg)+' chats':''}</i></div>
+    <div><small>ROAS Meta</small><b>${roasM?roasM.toFixed(2)+'×':'—'}</b><i>${roasM?'según el píxel':'sin eventos de compra'}</i></div>
+    <div class="hl"><small>ROAS real Firefly</small><b style="color:${sp?col(real):'inherit'}">${sp?real.toFixed(2)+'×':'—'}</b><i>${usd(ventas)} ventas IG+WS ÷ gasto</i></div>`
+   :`<div class="hl"><small>Gasto en ads</small><b>—</b><i>${err?esc(err):'Meta sin conectar'}</i></div>`)+`
+    <div class="go" onclick="go('inbox')"><small>Leads recibidos</small><b>${num(nLeads)}</b><i>${leads.length?num(asig)+' asignados · '+num(leads.length-asig)+' sin asignar':'conversaciones nuevas en el período'}</i></div>
+    <div class="go" onclick="S.cx=S.cx||{q:'',est:'todos',vend:'todos',tag:'',pag:0};S.cx.est='CONVERTIDO';go('clientes')"><small>Conversiones internas</small><b style="color:#4ee39a">${num(convI.length)}</b><i>${nLeads?Math.round(convI.length/nLeads*100)+'% de los leads':'marcadas por vendedores'}${ingConv?' · '+usd(ingConv):''}</i></div>
+    ${sp?`<div><small>Costo por lead real</small><b>${nLeads?usd(cpl):'—'}</b><i>gasto ÷ leads recibidos</i></div><div><small>Costo por conversión real</small><b style="color:${cpaReal?(cpaReal<=15?'#4ee39a':cpaReal<=30?'#f5b945':'#ff7a6b'):'inherit'}">${cpaReal?usd(cpaReal):'—'}</b><i>gasto ÷ conversiones de IG/FB</i></div>`:''}`;
+  /* embudo */
+  const F=$('#adsFun');if(F)F.innerHTML=`<div class="c2h"><span class="hic">${ic('target')}</span><h3>Embudo</h3><span class="p3chips"><span>${esc((ADS_PER.find(p=>p[0]===per)||[])[1]||'')}</span></span></div>
+    <div class="adfun">${[['Impresiones',imp,''],['Clics',clk,imp?(clk/imp*100).toFixed(2)+'% CTR':''],['Leads',nLeads,clk?(nLeads/clk*100).toFixed(1)+'% de clics':''],['Conversiones',convI.length,nLeads?Math.round(convI.length/nLeads*100)+'% de leads':'']].map(([l,n,s])=>`<div><small>${l}</small><b>${d||l==='Leads'||l==='Conversiones'?num(n):'—'}</b>${s?`<i>${s}</i>`:''}</div>`).join('')}</div>
+    <div class="fhint" style="margin-top:10px">Leads = conversaciones nuevas de Instagram/Facebook en Mensajes${leads.length?'':' (o clientes nuevos si aún no hay Meta)'}. Conversiones = clientes marcados como convertidos por el equipo (o pedidos registrados).</div>`;
+  /* gráfico diario */
+  const Ch=$('#adsChart');if(Ch){const days=(d?.day||[]).map(x=>({d:x.date_start,s:+x.spend||0,c:+x.clicks||0,l:0,v:0}));
+    const byD={};days.forEach(x=>byD[x.d]=x);
+    if(!days.length){const n=per==='hoy'||per==='ayer'?7:Math.min(60,Math.ceil((b-a)/DAY)+1);for(let i=n-1;i>=0;i--){const dd=new Date(agSod(b)-i*DAY),k=dd.toISOString().slice(0,10);byD[k]={d:k,s:0,c:0,l:0,v:0};days.push(byD[k]);}}
+    const key=ts=>{const x=new Date(ts);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0');};
+    peds.filter(p=>p.estado!=='CANCELADO'&&['IG','WS','FB'].includes(p.canal)).forEach(p=>{const k=key(p.fecha);if(byD[k])byD[k].v+=p.subtotalUSD||0;});
+    convs.filter(x=>['Instagram','Facebook'].includes(x.plat)).forEach(x=>{const k=key(x.creado||x.t||0);if(byD[k])byD[k].l++;});
+    const W=600,H=160,mx=Math.max(1,...days.map(x=>Math.max(x.s,x.v))),ml=Math.max(1,...days.map(x=>x.l));
+    const pts=(arr,m)=>arr.map((y,i)=>`${(i/Math.max(1,arr.length-1)*W).toFixed(1)},${(H-6-y/m*(H-16)).toFixed(1)}`).join(' ');
+    const bw=Math.max(2,Math.min(14,W/days.length*.22));
+    Ch.innerHTML=`<div class="c2h"><span class="hic">${ic('trend')}</span><h3>Día a día</h3></div><div class="adlg"><span><i style="background:#4a8cff"></i>Gasto</span><span><i style="background:#CDEB45"></i>Ventas IG+WS</span><span><i style="background:rgba(255,92,138,.6)"></i>Leads</span></div>
+     <div class="adchart"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${days.map((x,i)=>x.l?`<rect x="${(i/Math.max(1,days.length-1)*W-bw/2).toFixed(1)}" y="${(H-6-x.l/ml*(H-16)).toFixed(1)}" width="${bw}" height="${(x.l/ml*(H-16)).toFixed(1)}" rx="2" fill="rgba(255,92,138,.45)"><title>${x.d}: ${x.l} leads</title></rect>`:'').join('')}<polyline points="${pts(days.map(x=>x.v),mx)}" fill="none" stroke="#CDEB45" stroke-width="2"/><polyline points="${pts(days.map(x=>x.s),mx)}" fill="none" stroke="#4a8cff" stroke-width="2"/></svg></div>
+     <div class="p3sx" style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:4px"><span>${esc(days[0].d.slice(5))}</span><span>${esc(days[days.length-1].d.slice(5))}</span></div>`;}
+  /* campañas */
+  const Cm=$('#adsCamp');if(Cm){const cmp=d?.cmp||[];
+    Cm.innerHTML=`<div class="c2h"><span class="hic">${ic('mega')}</span><h3>Campañas</h3><span class="p3chips"><span>${num(cmp.length)} con gasto</span></span>${acct?`<a class="v12lk" href="https://adsmanager.facebook.com/adsmanager/manage/campaigns?act=${esc(acct)}" target="_blank" rel="noopener">Ads Manager ${ic('ext')}</a>`:''}</div>
+     ${cmp.length?`<div class="adtw"><table class="adtab"><thead><tr><th>Campaña</th><th>Objetivo</th><th class="r">Gasto</th><th class="r">Impr.</th><th class="r">CTR</th><th class="r">Result.</th><th class="r">Costo/res.</th><th class="r">ROAS</th></tr></thead><tbody>${cmp.map(x=>{const s=+x.spend||0,bb=p3Act(x.actions,P3_BUY),m=p3Act(x.actions,P3_MSG),r=bb||m,ro=(x.purchase_roas&&+x.purchase_roas[0]?.value)||0;const pct=sp?s/sp*100:0;return `<tr><td class="n" title="${esc(x.campaign_name)}">${esc(x.campaign_name)}<div class="adbar"><i style="width:${pct.toFixed(0)}%"></i></div></td><td style="color:var(--muted);font-size:12px">${esc(String(x.objective||'').replace('OUTCOME_','').toLowerCase())}</td><td class="r">${usd(s)}</td><td class="r">${num(+x.impressions||0)}</td><td class="r">${(+x.ctr||0).toFixed(2)}%</td><td class="r">${num(r)}${bb&&m?`<small style="color:var(--muted)"> · ${num(m)} chats</small>`:''}</td><td class="r">${r?usd(s/r):'—'}</td><td class="r" style="color:${ro?col(ro):'inherit'}">${ro?ro.toFixed(2)+'×':'—'}</td></tr>`;}).join('')}</tbody></table></div>`
+      :`<div class="v12empty">${ic('mega')}<br>${d?'Sin campañas con gasto en el período.':'Conecta Meta Ads para ver las campañas.'}</div>`}`;}
+  /* por plataforma */
+  const Pl=$('#adsPlat');if(Pl){const pl=d?.plat||[];const nice={instagram:'Instagram',facebook:'Facebook',audience_network:'Audience Network',messenger:'Messenger',threads:'Threads'};
+    Pl.innerHTML=`<div class="c2h"><span class="hic">${ic('layers')}</span><h3>Por plataforma</h3></div>${pl.length?`<div class="adsrc">${pl.sort((x,y)=>(+y.spend||0)-(+x.spend||0)).map(x=>{const s=+x.spend||0,r=p3Act(x.actions,P3_BUY)||p3Act(x.actions,P3_MSG);const n=nice[x.publisher_platform]||x.publisher_platform;return `<div>${BRAND[n]?metTile(n,36):`<span class="v12ico" style="width:36px;height:36px;border-radius:10px;background:var(--panel3)">${ic('layers')}</span>`}<div style="flex:1;min-width:0"><b>${usd(s)}</b><small>${esc(n)} · ${num(+x.impressions||0)} impr. · ${num(+x.clicks||0)} clics${r?' · '+num(r)+' result.':''}</small></div></div>`;}).join('')}</div>`:`<div class="fhint">Sin desglose por plataforma${d?' en el período':''}.</div>`}`;}
+  /* por vendedor */
+  const Vd=$('#adsVend');if(Vd){const us=crmUsers();const rows=us.map(u=>{const L=cls.filter(x=>x.vendedorId===u.id&&(x.asignadoTs||x.creado||0)>=a&&(x.asignadoTs||x.creado||0)<=b);const cv=cls.filter(x=>x.vendedorId===u.id&&x.conversion&&x.conversion.ts>=a&&x.conversion.ts<=b);const pend=cls.filter(x=>x.vendedorId===u.id).map(cxFuNext).filter(s=>s&&(s.late||s.hoy)).length;return {u,L:L.length,cv:cv.length,m:cv.reduce((s,x)=>s+(x.conversion.montoUSD||0),0),pend};}).filter(r=>r.L||r.cv||r.pend).sort((x,y)=>y.cv-x.cv||y.L-x.L);
+    Vd.innerHTML=`<div class="c2h"><span class="hic">${ic('users')}</span><h3>Leads por vendedor</h3></div>${rows.length?`<div class="adtw"><table class="adtab"><thead><tr><th>Vendedor</th><th class="r">Leads asignados</th><th class="r">Conversiones</th><th class="r">Tasa</th><th class="r">Ventas</th><th class="r">Follow-ups hoy</th></tr></thead><tbody>${rows.map(r=>`<tr><td class="n">${esc(r.u.nombre)}</td><td class="r">${num(r.L)}</td><td class="r" style="color:#4ee39a">${num(r.cv)}</td><td class="r">${r.L?Math.round(r.cv/r.L*100)+'%':'—'}</td><td class="r">${usd(r.m)}</td><td class="r" style="color:${r.pend?'#f5b945':'inherit'}">${num(r.pend)}</td></tr>`).join('')}</tbody></table></div>`:`<div class="fhint">Aún no hay leads asignados en este período.</div>`}`;}
+  const lv=$('#adsLive');if(lv)lv.innerHTML=`<i></i>EN VIVO · ${agHM(d?.ts||Date.now())}`;
+  clearTimeout(window._adsT);window._adsT=setTimeout(()=>{if(S.route==='ads'){window._adsC=null;adsLoad();}},2*60e3);
+}
+function adsCSV(){
+  const d=window._adsC;if(!d){toast('No hay datos de Meta cargados','bad');return;}
+  const rows=[['Campaña','Objetivo','Gasto','Impresiones','Clics','CTR','Alcance','Compras','Conversaciones','ROAS']].concat((d.cmp||[]).map(x=>[x.campaign_name,x.objective||'',x.spend,x.impressions,x.clicks,x.ctr,x.reach,p3Act(x.actions,P3_BUY),p3Act(x.actions,P3_MSG),(x.purchase_roas&&x.purchase_roas[0]?.value)||'']));
+  const csv='﻿'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=`firefly-ads-${S.ads?.per||'periodo'}.csv`;a.click();
+}
+/* ---------- conexión rápida de Meta (un solo token) ---------- */
+{const _viewAjMetaV11=viewAjMeta;viewAjMeta=async function(){
+  await _viewAjMetaV11();const v=$('#view');const cols=v.querySelector('.ajcols');if(!cols)return;const c=await cfg();
+  const box=document.createElement('div');box.className='c2 ajc mqc';box.id='mqBox';
+  box.innerHTML=`<div class="ajct">${metTile('Meta',52)}<div><b>Conexión rápida</b><small>Pega un token y Firefly detecta tu página, Instagram, WhatsApp y cuenta publicitaria.</small></div>${c.metaPageToken?`<span class="ajok">${ic('check')}Conectado</span>`:''}</div>
+   <div class="ajfld"><small>Token de acceso (System User de Business Manager o token de usuario con permisos)</small><div class="fx"><span class="fxi lime">${ic('key')}</span><input id="mqTok" type="password" placeholder="EAAG… (se guarda solo en tu Firebase)" style="font-family:var(--mono)"><button type="button" class="ajeye" aria-label="Mostrar" onclick="const i=$('#mqTok');i.type=i.type==='password'?'text':'password'">${ic('eye')}</button></div></div>
+   <div class="fhint">Permisos recomendados: <code>pages_show_list</code>, <code>pages_messaging</code>, <code>instagram_basic</code>, <code>instagram_manage_messages</code>, <code>pages_read_engagement</code>, <code>ads_read</code>, <code>business_management</code>. En Business Manager → Usuarios del sistema → Generar token.</div>
+   <button class="bsec" style="justify-content:center;margin-top:10px" onclick="mqDetect()">${ic('wifi')}Detectar y conectar</button><div id="mqRes"></div>`;
+  cols.insertBefore(box,cols.firstChild);
+  const ol=v.querySelector('.ajsteps');if(ol)ol.innerHTML=[['Entra a <a href="https://business.facebook.com/settings/system-users" target="_blank" rel="noopener">Business Manager → Usuarios del sistema</a>','Con la cuenta que administra la página de Firefly.'],['Crea un usuario del sistema (admin)','O usa uno existente. Asígnale la página, el Instagram y la cuenta publicitaria en "Agregar activos".'],['Genera un token','Marca pages_show_list, pages_messaging, instagram_basic, instagram_manage_messages, pages_read_engagement, ads_read y business_management. Elige "Nunca vence".'],['Pégalo arriba en Conexión rápida','Firefly detecta la página, el Instagram y la cuenta de anuncios y guarda todo.'],['Opcional: WhatsApp Cloud API','Si tienes un número en la Cloud API, el WABA se detecta también; el Phone Number ID se configura en Integraciones → WhatsApp.']].map(([t,s])=>`<li><b>${t}</b><small>${s}</small></li>`).join('');
+  const fh=ol?.nextElementSibling;if(fh&&fh.classList.contains('fhint'))fh.innerHTML=ic('info')+' Los campos de abajo se llenan solos con la conexión rápida; solo edítalos si sabes lo que haces.';
+};}
+async function mqDetect(){
+  const tok=($('#mqTok').value||'').trim(),R=$('#mqRes');if(!tok){R.innerHTML='<div class="fhint" style="color:#ff7a6b">Pega el token primero.</div>';return;}
+  R.innerHTML=`<div class="spload">${ic('refresh')}Consultando Meta…</div>`;
+  const out={pages:[],ads:[],wabas:[],me:null};const T=p=>p3Graph(p,tok);
+  try{out.me=await T('me?fields=id,name');}catch(e){R.innerHTML=`<div class="warnbox">${ic('alert')}<span>Token inválido: ${esc(e.message)}</span></div>`;return;}
+  const r=await Promise.allSettled([T('me/accounts?fields=id,name,access_token,instagram_business_account{id,username}&limit=50'),T('me/adaccounts?fields=id,name,currency,account_status,amount_spent&limit=50'),T('me/businesses?fields=id,name,owned_whatsapp_business_accounts{id,name},client_whatsapp_business_accounts{id,name}&limit=20'),T('me?fields=id,name,instagram_business_account{id,username}')]);
+  if(r[0].status==='fulfilled')out.pages=r[0].value.data||[];
+  if(r[1].status==='fulfilled')out.ads=r[1].value.data||[];
+  if(r[2].status==='fulfilled')(r[2].value.data||[]).forEach(bz=>{[...(bz.owned_whatsapp_business_accounts?.data||[]),...(bz.client_whatsapp_business_accounts?.data||[])].forEach(w=>out.wabas.push({...w,biz:bz.name}));});
+  if(!out.pages.length&&r[3].status==='fulfilled'&&r[3].value.instagram_business_account){out.pages=[{id:r[3].value.id,name:r[3].value.name,access_token:tok,instagram_business_account:r[3].value.instagram_business_account,esPage:true}];}
+  if(!out.pages.length){try{const p=await T('me/accounts?limit=50');out.pages=p.data||[];}catch(e){}}
+  window._mq={...out,tok};
+  const sel=(id,arr,lab,val,none)=>`<div class="mqr"><b>${lab}</b>${arr.length?`<select id="${id}">${arr.map(x=>`<option value="${esc(x.id)}">${esc(val(x))}</option>`).join('')}</select>`:`<span class="no">${none}</span>`}</div>`;
+  R.innerHTML=`<div style="margin-top:12px">
+   <div class="mqr"><b>Token válido · ${esc(out.me.name||out.me.id)}</b><span class="ok">${ic('check')}</span></div>
+   ${sel('mqPage',out.pages,'Página de Facebook',x=>x.name+(x.instagram_business_account?' · @'+x.instagram_business_account.username:' · sin IG vinculado'),'No se encontraron páginas (falta pages_show_list)')}
+   ${sel('mqAd',out.ads,'Cuenta publicitaria',x=>x.name+' · '+x.currency+(x.account_status===1?'':' · inactiva'),'No se encontraron cuentas (falta ads_read)')}
+   ${sel('mqWaba',[{id:'',name:'No usar'},...out.wabas],'WhatsApp Business',x=>x.name+(x.biz?' · '+x.biz:''),'')}
+   <button class="bsave" style="margin-top:12px" onclick="mqApply()">${ic('save')}Conectar todo</button>
+   <div class="fhint">Se guardará el token de la página (para mensajes) y este token para anuncios. Nada sale de tu Firebase.</div></div>`;
+}
+async function mqApply(){
+  const M=window._mq;if(!M)return;const c=await cfg();
+  const pg=M.pages.find(p=>p.id===$('#mqPage')?.value)||M.pages[0];const ad=M.ads.find(a=>a.id===$('#mqAd')?.value)||M.ads[0];const wb=$('#mqWaba')?.value||'';
+  if(pg){c.metaPageId=pg.id;c.metaPageToken=pg.access_token||M.tok;c.metaIgUserId=pg.instagram_business_account?.id||c.metaIgUserId||'';}
+  if(ad){c.metaAdAccount=String(ad.id).replace(/^act_/,'');c.metaAdsToken=M.tok;}
+  if(wb)c.metaWabaId=wb;c.metaConectadoTs=Date.now();c.metaConectadoPor=S.user.nombre;
+  await dbPut('config',c);S.cache.cfg=c;window._p3AdsC=null;window._adsC=null;window._p3ChC=null;
+  toast('Meta conectado ✓ · '+[pg?'página':'',pg?.instagram_business_account?'Instagram':'',ad?'anuncios':'',wb?'WhatsApp':''].filter(Boolean).join(', '),'ok');
+  try{await ixMetaSync(true);}catch(e){}
+  viewAjMeta();
+}
+/* el dock de chats del Panel 360 ahora lleva a Mensajes */
+p3Chats=async function(){let dock=document.getElementById('p3Dock');if(!dock){document.body.insertAdjacentHTML('beforeend','<div id="p3Dock" class="p3dock"></div>');dock=document.getElementById('p3Dock');}
+  if(S.route!=='p360'){dock.hidden=true;return;}dock.hidden=false;const un=(S.cache.convs||[]).filter(x=>x.unread&&!x.lastMine).length,sin=(S.cache.convs||[]).filter(x=>!x.asignadoId&&x.estado==='NUEVO').length;
+  dock.innerHTML=`<button class="p3bub head" onclick="go('inbox')" title="Mensajes y leads">${ic('msg')}${un||sin?`<i class="p3ub">${un||sin}</i>`:''}</button>`;};
+/* ---------- navegación, roles y limpieza de Reportes ---------- */
+const ADS_ROUTES=['ads','inbox','clientes','agenda','admin'];
+{const _goV11=go;go=function(route){
+  const rol=S.user?.rol;
+  if(rol==='ads'&&!ADS_ROUTES.includes(route))route='ads';
+  if(rol==='motorizado'&&['inbox','clientes','ads'].includes(route))route='moto';
+  if(route==='reportes'&&!['socio','admin'].includes(rol))route='dash';
+  if(rol==='vendedor'&&['fin','nomina','p360'].includes(route))route='dash';
+  if(route==='inbox'||route==='clientes'||route==='ads'){
+    S.finSub=null;S.nomSub=null;S.ajSub=null;S.route=route;
+    document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('on',a.dataset.r===route||(a.dataset.r==='mas'&&innerWidth<768&&!document.querySelector(`.nav a[data-r="${route}"]`)?.offsetParent)));
+    document.body.className=document.body.className.replace(/\broute-\S+/g,'').trim()+' route-'+route;
+    $('#fab').classList.add('hide');window.scrollTo(0,0);
+    {const _d=$('#p3Dock'),_w=$('#p3Win');if(_d)_d.hidden=true;if(_w)_w.hidden=true;}
+    if(route!=='inbox'&&innerWidth<1024)S.ixOpen=null;
+    ({inbox:viewInbox,clientes:viewClientes,ads:viewAds}[route])();return;
+  }
+  return _goV11(route);
+};}
+{const _sessionStartV11=sessionStart;sessionStart=function(){
+  _sessionStartV11();const rol=S.user?.rol;
+  document.body.className=document.body.className.replace(/\brol-\S+/g,'').trim()+' rol-'+rol;
+  document.querySelectorAll('.nav a').forEach(a=>{const r=a.dataset.r;
+    if(r==='reportes')a.classList.add('hide');
+    if(rol==='ads'){a.classList.toggle('hide',!ADS_ROUTES.includes(r)&&r!=='mas');}
+    if(rol==='motorizado'&&['inbox','clientes','ads'].includes(r))a.classList.add('hide');
+    if(rol==='vendedor'&&r==='ads')a.classList.add('hide');
+    if(rol==='supervisor'&&r==='ads')a.classList.add('hide');
+  });
+  dbAll('usuarios').then(us=>{S.cache.usersMap={};us.forEach(u=>S.cache.usersMap[u.id]=u);});
+  crmListen();setTimeout(ixTick,3500);
+  if(rol==='ads')go('ads');
+  setTimeout(()=>{if(typeof tourAuto==='function')tourAuto();},1800);
+};}
+{const _logoutV11=logout;logout=function(){crmUnlisten();S.cache.convs=null;S.cache.notifs=null;return _logoutV11();};}
+{const _openMasV11=openMas;openMas=function(){
+  _openMasV11();const rol=S.user?.rol;const list=document.querySelector('#sheetBody .mlist');if(!list)return;
+  list.querySelectorAll('.mitem').forEach(m=>{if(/go\('reportes'\)/.test(m.getAttribute('onclick')||''))m.remove();});
+  const extra=[];
+  if(rol!=='motorizado')extra.push(menuItem('inbox','Mensajes','Leads de Instagram, Facebook y WhatsApp',"closeSheet();go('inbox')"),menuItem('users','Clientes','Base de datos, asignación y seguimiento',"closeSheet();go('clientes')"));
+  if(['socio','admin','ads','supervisor'].includes(rol))extra.push(menuItem('mega','Ads 360','Meta Ads en vivo, leads y conversiones',"closeSheet();go('ads')"));
+  extra.push(menuItem('help','Guía interactiva','Recorrido por lo esencial de la app',"closeSheet();tourMenu()"));
+  const first=list.firstElementChild;extra.forEach(h=>first.insertAdjacentHTML('beforebegin',h));
+  if(rol==='ads'){list.querySelectorAll('.mitem').forEach(m=>{const oc=m.getAttribute('onclick')||'';if(/go\('(productos|fin|nomina|p360|inv|despacho|dash)'\)|openSearch/.test(oc))m.remove();});}
+};}
+{const _editUserV11=editUser;editUser=async function(id){
+  await _editUserV11(id);const sel=document.querySelector('#sheetBody select');if(!sel||sel.querySelector('option[value="ads"]'))return;
+  const o=document.createElement('option');o.value='ads';o.textContent='ads (marketing)';if(window._eu?.rol==='ads')o.selected=true;sel.appendChild(o);
+  const h=sel.closest('.field')?.nextElementSibling;if(h&&h.classList.contains('hintline'))h.insertAdjacentHTML('beforeend',' <span style="color:#4a8cff">■</span> ads');
+};}
+
+/* ============================================================
+   v12 · Guía interactiva (spotlight / sombras) por categorías
+   ============================================================ */
+const TOUR_CATS=[
+  {k:'esencial',t:'Lo esencial',s:'Navegación, avisos y tasa',i:'torch',c:'#CDEB45',roles:null},
+  {k:'ordenes',t:'Órdenes',s:'Crear, filtrar y despachar pedidos',i:'scooter',c:'#f5b945',roles:['socio','admin','supervisor','vendedor']},
+  {k:'inventario',t:'Inventario',s:'Stock por sede, recepciones y traslados',i:'grid',c:'#5db4f5',roles:['socio','admin','supervisor','vendedor']},
+  {k:'clientes',t:'Clientes y mensajes',s:'Leads, asignación y seguimiento',i:'users',c:'#b78bf0',roles:['socio','admin','supervisor','vendedor','ads']},
+  {k:'finanzas',t:'Finanzas y nómina',s:'Gastos, cajas, P&L y comisiones',i:'dollar',c:'#54d684',roles:['socio','admin']},
+  {k:'ads',t:'Ads 360',s:'Meta Ads en vivo y conversiones',i:'mega',c:'#4a8cff',roles:['socio','admin','ads','supervisor']},
+  {k:'moto',t:'Mis entregas',s:'Portal del motorizado',i:'package',c:'#ff9f43',roles:['motorizado']}];
+function tourSteps(cat){
+  const rol=S.user?.rol,mob=innerWidth<768,nav=r=>`.nav a[data-r="${r}"]`;
+  const E={
+   esencial:[
+    {t:'¡Bienvenido a Firefly!',p:'Este recorrido te muestra lo esencial en menos de un minuto. Puedes salir cuando quieras y volver a verlo desde Ajustes → Ayuda → Guía interactiva.'},
+    {sel:'.nav',t:'Navegación',p:mob?'Abajo tienes las secciones principales. En "Más" están el resto de módulos, la búsqueda y tu cuenta.':'A la izquierda están todas las secciones. Haz clic para moverte entre ellas; la activa se marca en verde.'},
+    {sel:'#tbBell',t:'Avisos',p:'La campana reúne lo que requiere acción: leads sin asignar, mensajes sin responder, seguimientos del día, stock bajo o tareas atrasadas. Toca cada aviso para ir directo.'},
+    {sel:'#tbTasa',t:'Tasa del día',p:'Bs por dólar que se usa en cobros y reportes. Los socios y admins pueden actualizarla aquí o activar la tasa BCV automática en Integraciones.'},
+    {sel:nav('agenda'),t:'Agenda',p:'Tareas, recordatorios y reuniones del equipo. Lo que te asignen aparece aquí y en tus avisos.',skipIfHidden:true},
+    {sel:'#userAv',t:'Tu cuenta',p:'Tu foto, contraseña y notificaciones del navegador. Activa las notificaciones para enterarte de leads y mensajes aunque estés en otra pestaña.'}],
+   ordenes:[
+    {route:'despacho',sel:nav('despacho'),t:'Órdenes',p:'Todos los pedidos en un solo lugar: por despachar, en camino, entregados y cancelados.'},
+    {route:'despacho',sel:'.fchip',t:'Filtros rápidos',p:'Toca un chip para filtrar por estado o por mayoristas. El contador te dice cuántos hay en cada uno.'},
+    {route:'despacho',sel:mob?'#fab':'#orderList .ok2',t:mob?'Nuevo pedido':'Lista y detalle',p:mob?'El botón + abre el asistente de 3 pasos: cliente, productos y pago/entrega.':'Selecciona un pedido para ver su detalle al lado: pagos, timeline, guía e impresión. El botón + abre el asistente de nuevo pedido.'},
+    {route:'productos',sel:nav('productos'),t:'Productos',p:'Catálogo con fotos, precios, SKU, stock mínimo y los canales donde se publica (Shopify, Mercado Libre, Meta).',skipIfHidden:true}],
+   inventario:[
+    {route:'inv',sel:nav('inv'),t:'Inventario',p:'Stock por sede, con fotos de cada tienda y alertas de stock bajo.'},
+    {route:'inv',sel:'#invStats',t:'Resumen de stock',p:'Unidades totales, valor del inventario y traslados en tránsito.'},
+    {route:'inv',sel:'.iseg',t:'Sedes, recepciones e incidencias',p:'Registra recepciones con fotos de las cajas, reporta incidencias (daños o faltantes) y mueve stock entre sedes.',skipIfHidden:true}],
+   clientes:[
+    {route:'inbox',sel:nav('inbox'),t:'Mensajes',p:'Aquí llegan los DMs de Instagram y Facebook (y los leads que registres de WhatsApp). Cada conversación es un lead.',skipIfHidden:true},
+    {route:'inbox',sel:'#ixTabs',t:'Bandejas',p:'"Sin asignar" son leads nuevos esperando vendedor. "Mías" son las conversaciones a tu cargo.'},
+    {route:'inbox',sel:'.ixact',pre:()=>{if(innerWidth<1024&&!S.ixOpen){const L=ixList();if(L[0])return ixOpen(L[0].id);}},t:'Acciones del lead',p:'Asigna (o toma) la conversación, cambia el estado, marca la conversión, inicia el seguimiento, adjunta fotos o crea el pedido sin salir del chat.'},
+    {route:'clientes',sel:nav('clientes'),t:'Clientes',p:'Base de datos completa: historial de pedidos, etiquetas, vendedor asignado y plan de seguimiento de 7 toques.',skipIfHidden:true},
+    {route:'clientes',sel:'.v12kp',t:'Seguimiento',p:'Los toques vencidos aparecen en amarillo/rojo y en tu campana. Marca cada uno como hecho con una nota del resultado.'}],
+   finanzas:[
+    {route:'fin',sel:nav('fin'),t:'Finanzas',p:'Gastos, cajas por sede, cuentas por cobrar y P&L del período.',skipIfHidden:true},
+    {route:'nomina',sel:nav('nomina'),t:'Nómina',p:'Comisiones por vendedor, bonos por meta y pagos del equipo.',skipIfHidden:true},
+    {route:'admin',sel:nav('admin'),t:'Ajustes',p:'Tasa, catálogos, equipo, métodos de cobro, integraciones y respaldo de datos.'}],
+   ads:[
+    {route:'ads',sel:nav('ads'),t:'Ads 360',p:'Datos de Meta Ads en vivo (se actualizan cada 2 minutos) cruzados con los leads y conversiones reales del equipo.',skipIfHidden:true},
+    {route:'ads',sel:'.adper',t:'Período',p:'Hoy, ayer, 7 días, 30 días o el mes. Todas las métricas y tablas cambian a la vez.'},
+    {route:'ads',sel:'#adsK',t:'Métricas clave',p:'Gasto, impresiones, CTR, resultados, ROAS de Meta y el ROAS real: ventas por Instagram/WhatsApp entre el gasto. También costo por lead y por conversión real.'},
+    {route:'ads',sel:'#adsFun',t:'Embudo',p:'Impresiones → clics → leads → conversiones. Si el embudo se cae en "leads", el problema es el anuncio; si se cae en "conversiones", es el seguimiento.'},
+    {route:'ads',sel:'#adsCamp',t:'Campañas',p:'Gasto, resultados y ROAS por campaña. Exporta a CSV con el botón de descarga arriba.'}],
+   moto:[
+    {route:'moto',sel:nav('moto'),t:'Mis entregas',p:'Tus pedidos asignados del día, con dirección, mapa, teléfono del cliente y el cobro en Bs a la tasa del día.'},
+    {sel:'#tbBell',t:'Avisos',p:'Aquí te avisamos cuando te asignan una nueva entrega.'}]};
+  return (E[cat]||[]).filter(s=>!s.roles||s.roles.includes(rol));
+}
+function tourCatsFor(){return TOUR_CATS.filter(c=>!c.roles||c.roles.includes(S.user?.rol));}
+function tourMenu(){
+  const cats=tourCatsFor();
+  openSheet(`<div class="shx"><span class="shi">${ic('help')}</span><div style="flex:1;min-width:0"><h3>Guía interactiva</h3><div class="shsub">Elige qué quieres recorrer</div></div><button class="xbtn" onclick="closeSheet()" aria-label="Cerrar">${ic('x')}</button></div>
+   <div class="tgcat"><button class="all" onclick="closeSheet();tourStart(${JSON.stringify(cats.map(c=>c.k)).replace(/"/g,'&quot;')})"><span class="i" style="--c:#CDEB45">${ic('torch')}</span><span><b>Recorrido completo</b><small>${cats.length} categorías · unos 3 minutos</small></span></button>
+   ${cats.map(c=>`<button onclick="closeSheet();tourStart(['${c.k}'])"><span class="i" style="--c:${c.c}">${ic(c.i)}</span><span><b>${c.t}</b><small>${c.s}</small></span></button>`).join('')}</div>
+   <div class="fhint" style="margin-top:12px">Puedes volver a abrir esta guía cuando quieras desde Ajustes → Ayuda o desde el menú Más.</div>`);
+}
+function tourStart(cats){
+  const steps=[];cats.forEach(k=>{const c=TOUR_CATS.find(x=>x.k===k);tourSteps(k).forEach(s=>steps.push({...s,cat:c?.t||k}));});
+  if(!steps.length)return;window._tour={steps,i:0,route0:S.route};
+  if(!$('#tgOv'))document.body.insertAdjacentHTML('beforeend','<div id="tgOv"><div id="tgHole" class="none"></div><div id="tgCard"></div></div>');
+  $('#tgOv').classList.add('on');closeSheet();
+  window._tourRz=()=>tourShow();addEventListener('resize',window._tourRz);
+  tourShow();
+}
+function tourEnd(){const ov=$('#tgOv');if(ov)ov.classList.remove('on');if(ov)ov.remove();removeEventListener('resize',window._tourRz||(()=>{}));const t=window._tour;window._tour=null;try{localStorage.setItem('ffTour_'+S.user.id,'1');}catch(e){}if(S.user&&S.user.guiaVista!==true){S.user.guiaVista=true;db.collection('usuarios').doc(S.user.id).set({guiaVista:true},{merge:true}).catch(()=>{});}}
+async function tourShow(){
+  const T=window._tour;if(!T)return;let s=T.steps[T.i];if(!s){tourEnd();toast('¡Listo! Ya conoces lo esencial 🙌','ok');return;}
+  if(s.route&&S.route!==s.route){go(s.route);await new Promise(r=>setTimeout(r,350));}
+  if(s.pre){try{await s.pre();}catch(e){}}
+  let el=null;if(s.sel){for(let k=0;k<30;k++){el=document.querySelector(s.sel);if(el&&el.offsetParent!==null&&el.getBoundingClientRect().width>0)break;el=null;await new Promise(r=>setTimeout(r,90));if(!window._tour)return;}}
+  if(s.sel&&!el&&s.skipIfHidden){T.i++;return tourShow();}
+  const hole=$('#tgHole'),card=$('#tgCard');if(!hole||!card)return;
+  if(el){el.scrollIntoView({block:'center',behavior:'smooth',inline:'nearest'});await new Promise(r=>setTimeout(r,260));}
+  const r=el?el.getBoundingClientRect():null,pad=8;
+  if(r){hole.className='';hole.style.cssText=`top:${r.top-pad}px;left:${r.left-pad}px;width:${r.width+pad*2}px;height:${r.height+pad*2}px`;}
+  else{hole.className='none';hole.style.cssText='top:50%;left:50%;width:0;height:0';}
+  const n=T.steps.length;
+  card.innerHTML=`<div class="cat">${esc(s.cat||'')}<span>${T.i+1} / ${n}</span></div><h4>${esc(s.t)}</h4><p>${esc(s.p)}</p>
+   <div class="dots">${T.steps.map((_,i)=>`<i class="${i<=T.i?'on':''}"></i>`).join('')}</div>
+   <div class="bt"><button class="sk" onclick="tourEnd()">Salir</button>${T.i>0?`<button class="pv" aria-label="Anterior" onclick="window._tour.i--;tourShow()">${ic('chevL')}</button>`:''}<button class="nx" onclick="window._tour.i++;tourShow()">${T.i===n-1?'Terminar':'Siguiente'}</button></div>`;
+  const cw=card.offsetWidth||340,ch=card.offsetHeight||180,vw=innerWidth,vh=innerHeight;let top,left;
+  if(r){left=Math.min(Math.max(16,r.left+r.width/2-cw/2),vw-cw-16);
+    if(r.bottom+ch+24<vh)top=r.bottom+pad+12;else if(r.top-ch-24>0)top=r.top-pad-12-ch;else{top=Math.max(16,Math.min(vh-ch-16,r.top));left=r.right+cw+24<vw?r.right+pad+12:Math.max(16,r.left-pad-12-cw);}
+    if(innerWidth<768&&r.top>vh*.6)top=Math.max(16,r.top-pad-12-ch);}
+  else{top=Math.max(16,vh/2-ch/2);left=Math.max(16,vw/2-cw/2);}
+  card.style.top=top+'px';card.style.left=left+'px';
+}
+document.addEventListener('keydown',e=>{if(!window._tour)return;if(e.key==='Escape')tourEnd();if(e.key==='ArrowRight'||e.key==='Enter'){window._tour.i++;tourShow();}if(e.key==='ArrowLeft'&&window._tour.i>0){window._tour.i--;tourShow();}});
+function tourAuto(){
+  if(!S.user||window._tour)return;let seen=false;try{seen=!!localStorage.getItem('ffTour_'+S.user.id);}catch(e){}
+  if(seen||S.user.guiaVista)return;
+  openSheet(`<div class="shx"><span class="shi">${ic('torch')}</span><div style="flex:1;min-width:0"><h3>¿Un recorrido rápido?</h3><div class="shsub">Te mostramos lo esencial de Firefly en un minuto</div></div></div>
+   <div class="hintline" style="margin-bottom:14px">Es la primera vez que entras con esta cuenta. Puedes verlo ahora o después desde Ajustes → Ayuda → Guía interactiva.</div>
+   <button class="btn pri full" onclick="closeSheet();tourStart(['esencial'${['socio','admin','supervisor','vendedor'].includes(S.user.rol)?",'ordenes','clientes'":S.user.rol==='ads'?",'ads','clientes'":S.user.rol==='motorizado'?",'moto'":''}])">Empezar recorrido</button>
+   <button class="btn gho full" style="margin-top:8px" onclick="closeSheet();tourEnd()">Ahora no</button>`);
+}
 
 </script>
 <script>
