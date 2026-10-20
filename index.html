@@ -2754,7 +2754,7 @@ body.rol-motorizado .nav a[data-r="admin"]{display:none!important}
 .mh{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:4px 0 16px}
 .mh .ttl{flex:1;min-width:0}
 .mh .ttl .eb{font-size:12.5px;font-weight:600;color:var(--glow);margin-bottom:4px}
-.mh .ttl h2{margin:0;font-size:26px;line-height:1.15;font-weight:800;min-height:1.15em;transition:opacity .35s,transform .35s}
+.mh .ttl h2{margin:0;font-size:22px;line-height:1.15;font-weight:800;min-height:1.15em;transition:opacity .35s,transform .35s}
 .mh .ttl h2.sw{opacity:0;transform:translateY(6px)}
 .mh .ttl .sub{font-size:13.5px;color:var(--muted);margin-top:4px}
 .mh .ttl .sub .wx{display:inline-flex;align-items:center;gap:5px}.mh .ttl .sub .wx svg{width:15px;height:15px;color:#f5b945}
@@ -2921,6 +2921,15 @@ body.rol-motorizado .nav a[data-r="admin"]{display:none!important}
 .ajh h3,.ajsl b,.wzbt,.ocard>h5,.fsec>h4{font-size:13.5px!important;font-weight:700!important}
 .sec-title{font-size:15px;font-weight:700;color:var(--white);border-bottom:none;margin:22px 0 10px;padding:0}
 .sec-title .h{font-size:12px;color:var(--muted);font-weight:500;margin-left:6px}
+.mstriph{display:flex;align-items:center;justify-content:space-between;margin:-4px 0 8px}
+.mstriph>span{font-size:12.5px;font-weight:600;color:var(--muted)}
+.mstrip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-bottom:6px}
+.mstrip>div{background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:10px 6px;text-align:center;min-width:0}
+.mstrip>div.hl{border-color:rgba(205,235,69,.45);background:linear-gradient(160deg,rgba(205,235,69,.1),var(--card) 70%)}
+.mstrip .si{display:grid;place-items:center;margin:0 auto 4px}.mstrip .si svg{width:18px;height:18px}
+.mstrip b{display:block;font-size:16px;font-weight:800;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mstrip small{display:block;font-size:10.5px;color:var(--muted);margin-top:2px;white-space:nowrap}
+.mper button{height:26px;padding:0 9px;font-size:12px}
 
 </style>
 </head>
@@ -3081,6 +3090,7 @@ firebase.initializeApp(FIREBASE_CONFIG);
 const auth = firebase.auth();
 const db   = firebase.firestore();
 const storage = firebase.storage();
+try{db.enablePersistence({synchronizeTabs:true}).catch(()=>{});}catch(e){}
 auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(()=>{});
 
 /* ---- Firestore wrappers (misma API que antes) ---- */
@@ -11250,6 +11260,62 @@ function tourAuto(){
 
 
 /* ============================================================
+   v13 · caché en vivo: colecciones clave con onSnapshot (instantáneo,
+   sin recargas cada 60 s) y escrituras optimistas
+   ============================================================ */
+const LIVE_COLS=new Set(['pedidos','productos','sedes','config','deliveries','rutas','zonas','promociones','usuarios','tareas','clientes','stockFlags','traslados','mayoristas']);
+const _live={};
+function liveStart(col){
+  if(_live[col])return _live[col].ready;
+  let res,rej;const ready=new Promise((a,b)=>{res=a;rej=b;});const L=_live[col]={ready,first:false};
+  try{L.unsub=db.collection(col).onSnapshot(snap=>{
+    _cacheDB[col]={data:snap.docs.map(d=>({id:d.id,...d.data()})),ts:Date.now()};
+    if(!L.first){L.first=true;res(_cacheDB[col].data);}else liveChanged(col);
+  },err=>{console.warn('live',col,err);if(!L.first){delete _live[col];rej(err);}});}
+  catch(e){delete _live[col];rej(e);}
+  return ready;
+}
+function liveStop(){Object.values(_live).forEach(L=>{try{L.unsub&&L.unsub();}catch(e){}});Object.keys(_live).forEach(k=>delete _live[k]);}
+function liveChanged(col){
+  clearTimeout(window._lvT);window._lvT=setTimeout(()=>{
+    try{
+      if(col==='pedidos'||col==='rutas'||col==='deliveries'){
+        if(S.route==='moto'&&!document.getElementById('mdp')&&!document.getElementById('scrim')?.classList.contains('show')&&!window._tour)viewMoto();
+        if(col==='pedidos')refreshTopbar();
+      }
+      if(col==='config'){const c=(_cacheDB.config?.data||[]).find(x=>x.id==='main');if(c)S.cache.cfg=c;refreshTopbar();}
+      if(col==='usuarios'){S.cache.usersMap={};(_cacheDB.usuarios?.data||[]).forEach(u=>S.cache.usersMap[u.id]=u);}
+    }catch(e){}
+  },350);
+}
+{const _dbAllV1=dbAll;dbAll=async function(col,force){
+  if(LIVE_COLS.has(col)&&S.user){if(_live[col]&&_live[col].first)return _cacheDB[col].data;try{return await liveStart(col);}catch(e){return _dbAllV1(col,force);}}
+  return _dbAllV1(col,force);};}
+{const _dbGetV1=dbGet;dbGet=async function(col,id){
+  if(LIVE_COLS.has(col)&&_live[col]&&_live[col].first){const x=(_cacheDB[col]?.data||[]).find(d=>d.id===id);if(x)return {...x};}
+  return _dbGetV1(col,id);};}
+{const _invV1=invalidarCache;invalidarCache=function(...cols){
+  if(!cols.length){Object.keys(_cacheDB).forEach(k=>{if(!(LIVE_COLS.has(k)&&_live[k]))delete _cacheDB[k];});return;}
+  cols.forEach(c=>{if(!(LIVE_COLS.has(c)&&_live[c]))delete _cacheDB[c];});};}
+/* escritura optimista: el caché local se actualiza al instante y la UI no espera al servidor */
+{const _dbPutV13=dbPut;dbPut=async function(col,obj){
+  if(!LIVE_COLS.has(col)||!_live[col])return _dbPutV13(col,obj);
+  const {id,...data}=obj;const p=db.collection(col).doc(id).set(data,{merge:true});
+  try{const arr=_cacheDB[col]?.data;if(arr){const i=arr.findIndex(x=>x.id===id);const merged={...(i>=0?arr[i]:{}),...obj};if(i>=0)arr[i]=merged;else arr.push(merged);}}catch(e){}
+  p.catch(e=>{console.warn('dbPut',col,e);toast('No se pudo guardar: '+(e.code||e.message),'bad');});
+  await Promise.race([p,new Promise(r=>setTimeout(r,300))]);
+  if(col==='pedidos'&&obj&&obj.cliente&&obj.items&&!window._crmBackfilling&&typeof crmUpsertFromPedido==='function')crmUpsertFromPedido(obj).catch(()=>{});
+  return obj;};}
+{const _dbDelV1=dbDel;dbDel=async function(col,id){
+  if(LIVE_COLS.has(col)&&_live[col]){const arr=_cacheDB[col]?.data;if(arr){const i=arr.findIndex(x=>x.id===id);if(i>=0)arr.splice(i,1);}const p=db.collection(col).doc(id).delete();p.catch(e=>toast('No se pudo eliminar: '+(e.code||e.message),'bad'));await Promise.race([p,new Promise(r=>setTimeout(r,300))]);return;}
+  return _dbDelV1(col,id);};}
+{const _logoutV13=logout;logout=function(){liveStop();Object.keys(_cacheDB).forEach(k=>delete _cacheDB[k]);return _logoutV13.apply(this,arguments);};}
+/* precalienta lo esencial según el rol */
+{const _ssV13=sessionStart;sessionStart=function(){_ssV13();const rol=S.user?.rol;
+  const cols=rol==='motorizado'?['pedidos','sedes','deliveries','rutas','config','usuarios']:rol==='ads'?['config','usuarios','clientes','pedidos']:['pedidos','productos','sedes','config','deliveries','rutas','usuarios','zonas'];
+  cols.forEach(c=>{liveStart(c).catch(()=>{});});};}
+
+/* ============================================================
    v13 · base: iconos en vez de emojis, toasts, avatar, menús, guía por rol
    ============================================================ */
 Object.assign(ICO,{
@@ -11482,8 +11548,7 @@ function mSaludos(ctx){
   if(ctx.hoyOk)L.push(`${ctx.hoyOk} completada${ctx.hoyOk>1?'s':''} hoy, buen ritmo`);
   return L;
 }
-function mRotar(list){clearInterval(window._mRot);let i=0;const el=$('#mTitle');if(!el)return;el.textContent=list[0];
-  window._mRot=setInterval(()=>{const e=$('#mTitle');if(!e||S.route!=='moto'){clearInterval(window._mRot);return;}i=(i+1)%list.length;e.classList.add('sw');setTimeout(()=>{e.textContent=list[i];e.classList.remove('sw');},350);},7000);}
+function mRotar(list){const el=$('#mTitle');if(!el)return;let k=-1;try{k=+sessionStorage.getItem('ffSaludoIx');}catch(e){}if(!(k>=0)||k>=list.length){k=Math.floor(Math.random()*list.length);try{sessionStorage.setItem('ffSaludoIx',String(k));}catch(e){}}el.textContent=list[k];}
 function mPeriodoRango(per){const hoy=agSod(Date.now());if(per==='hoy')return [hoy,Infinity];if(per==='sem'){const d=new Date(hoy);const dow=(d.getDay()+6)%7;return [hoy-dow*DAY,Infinity];}const m=new Date(hoy);m.setDate(1);return [m.getTime(),Infinity];}
 function mEsMio(p){const d=mDel();return !!((d&&p.deliveryId===d.id)||(p.deliveryNombre&&p.deliveryNombre===S.user.nombre));}
 function mDebe(p){return Math.max(0,(p.totalUSD||0)-(p.totalPagadoUSD||0));}
@@ -11508,23 +11573,24 @@ function mZona(p){return p.cliente?.zona||p.cliente?.ciudad||'Zona por confirmar
   const enPer=entregados.filter(p=>(p.motoEntregadoEl||p.fecha)>=a);
   const conIssue=mios.filter(p=>p.motoIssue&&(p.motoIssue.ts||0)>=a);
   const rutasOk=rutas.filter(r=>miDel&&r.deliveryId===miDel.id&&r.estado==='COMPLETADA'&&(r.completada||r.fecha||0)>=a).length;
+  const ganado=enPer.reduce((s,p)=>s+(+p.deliveryUSD||0),0);
   const cobrado=enPer.reduce((s,p)=>s+(p.pagos||[]).filter(g=>g.por===S.user.nombre).reduce((t,g)=>t+(g.montoUSD||0),0),0);
   const hoyOk=entregados.filter(p=>(p.motoEntregadoEl||p.fecha)>=hoy).length;
   const av=(window._avisos||[]).length;const _rm={};rutas.forEach(r=>{if(r.estado!=='CANCELADA'&&r.estado!=='COMPLETADA')(r.paradas||[]).forEach(id=>_rm[id]=r.nombre);});S.cache._rutasMap=_rm;
   v.innerHTML=`<div class="mh"><div class="ttl"><div class="eb">Portal de entregas</div><h2 id="mTitle">&nbsp;</h2><div class="sub" id="mSub">${nuevas.length+enCurso.length?`${nuevas.length+enCurso.length} entrega${nuevas.length+enCurso.length>1?'s':''} activa${nuevas.length+enCurso.length>1?'s':''}`:'Sin entregas pendientes'}</div></div>
-    <button class="mbell" onclick="openAvisos()" aria-label="Avisos">${ic('bell')}${av?'<span class="dot"></span>':''}</button></div>
+    <div style="display:flex;gap:8px;flex:none"><button class="mbell" onclick="go('agenda')" aria-label="Agenda">${ic('cal')}</button><button class="mbell" onclick="openAvisos()" aria-label="Avisos">${ic('bell')}${av?'<span class="dot"></span>':''}</button></div></div>
+   <div class="mstriph"><span>Tus números</span><div class="mper">${[['hoy','Hoy'],['sem','Semana'],['mes','Mes']].map(([k,l])=>`<button class="${S.mper===k?'on':''}" onclick="S.mper='${k}';viewMoto()">${l}</button>`).join('')}</div></div>
+   <div class="mstrip" id="mStats">
+    <div><span class="si" style="color:var(--glow)">${ic('route')}</span><b>${num(rutasOk)}</b><small>Rutas</small></div>
+    <div><span class="si" style="color:#4ee39a">${ic('check')}</span><b>${num(enPer.filter(p=>!p.motoIssue).length)}</b><small>Entregas</small></div>
+    <div><span class="si" style="color:#ff7a6b">${ic('alert')}</span><b>${num(conIssue.length)}</b><small>Incidencias</small></div>
+    <div class="hl"><span class="si" style="color:var(--glow)">${ic('wallet')}</span><b>${usd(ganado)}</b><small>Ganado</small></div>
+   </div>
    ${enCurso.length?`<div class="msec"><h3>En curso</h3></div>${enCurso.map(p=>mOrderCard(p,'curso')).join('')}`:''}
    <div class="msec"><h3>Rutas del día</h3>${misRutas.length?`<button class="v12lk" onclick="mRutasTodas()">Ver todas ${ic('chevR')}</button>`:''}</div>
    <div id="mRutas">${misRutas.length?misRutas.slice(0,3).map(r=>mRutaCard(r,peds)).join(''):`<div class="v12note">${ei('route')} Cuando la central arme una ruta para tu sede aparecerá aquí con su hora de salida. Mientras tanto puedes aceptar entregas individuales.</div>`}</div>
    <div class="msec"><h3>Nuevas entregas</h3><span style="font-size:12.5px;color:var(--muted)">${nuevas.length+libres.length?num(nuevas.length+libres.length)+' disponibles':''}</span></div>
    <div id="mNuevas">${nuevas.length||libres.length?nuevas.map(p=>mOrderCard(p,'nueva')).join('')+libres.slice(0,5).map(p=>mOrderCard(p,'libre')).join(''):`<div class="v12note">${ei('check')} No hay entregas nuevas por ahora. Te avisaremos con una notificación cuando te asignen una.</div>`}</div>
-   <div class="msec"><h3>Tus números</h3><div class="mper">${[['hoy','Hoy'],['sem','Semana'],['mes','Mes']].map(([k,l])=>`<button class="${S.mper===k?'on':''}" onclick="S.mper='${k}';viewMoto()">${l}</button>`).join('')}</div></div>
-   <div class="mstat" id="mStats">
-    <div><span class="si" style="background:rgba(205,235,69,.12);color:var(--glow)">${ic('route')}</span><div><b>${num(rutasOk)}</b><small>Rutas completadas</small></div></div>
-    <div><span class="si" style="background:rgba(78,227,154,.14);color:#4ee39a">${ic('check')}</span><div><b>${num(enPer.filter(p=>!p.motoIssue).length)}</b><small>Entregas exitosas</small></div></div>
-    <div><span class="si" style="background:rgba(255,107,94,.14);color:#ff7a6b">${ic('alert')}</span><div><b>${num(conIssue.length)}</b><small>Con incidencia</small></div></div>
-    <div><span class="si" style="background:rgba(93,180,245,.14);color:#5db4f5">${ic('wallet')}</span><div><b>${usd(cobrado)}</b><small>Cobrado al cliente</small></div></div>
-   </div>
    <div id="motoGanancias" style="margin-top:10px"></div>
    <div class="msec"><h3>Entregas completadas</h3>${entregados.length>3?`<button class="v12lk" onclick="mHistorial()">Ver historial ${ic('chevR')}</button>`:''}</div>
    <div id="mHist">${entregados.length?entregados.slice(0,3).map(mHistRow).join(''):`<div class="v12note">Aún no tienes entregas completadas.</div>`}</div>`;
