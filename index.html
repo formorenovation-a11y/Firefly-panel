@@ -18,6 +18,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js" defer></script>
 <style>
 :root{
   --void:#0A0A0B;--panel:#141416;--panel2:#1B1B1F;--panel3:#222227;
@@ -2930,6 +2931,28 @@ body.rol-motorizado .nav a[data-r="admin"]{display:none!important}
 .mstrip b{display:block;font-size:16px;font-weight:800;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mstrip small{display:block;font-size:10.5px;color:var(--muted);margin-top:2px;white-space:nowrap}
 .mper button{height:26px;padding:0 9px;font-size:12px}
+/* QR de cobro */
+.qrbox{background:#fff;border-radius:14px;padding:8px;display:block;box-sizing:border-box}
+.qrbox svg{width:100%;height:100%;display:block}
+img.qrbox{padding:0;object-fit:contain}
+.qrwrap{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:12px}
+.qrwrap small{font-size:11.5px;color:var(--muted);text-align:center}
+.qrwrap.sm .qrbox{width:128px;height:128px}
+.qrcfg{display:flex;gap:12px;align-items:center;background:var(--card2);border:1px solid var(--stroke);border-radius:14px;padding:10px 12px;margin:10px 0}
+.qrcfg-p{width:56px;height:56px;border-radius:12px;overflow:hidden;flex:none;background:#fff;display:grid;place-items:center}
+.qrcfg-p img,.qrcfg-p .qrbox{width:56px;height:56px;border-radius:0;padding:3px}
+.qrcfg b{display:block;font-size:13.5px}.qrcfg small{display:block;font-size:12px;color:var(--muted)}
+/* deslizar para recargar */
+html{overscroll-behavior-y:contain}
+#ptr{position:fixed;left:50%;top:calc(8px + env(safe-area-inset-top));transform:translate(-50%,-70px);z-index:95;display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line2);border-radius:999px;padding:8px 14px;font-size:12.5px;font-weight:600;color:var(--muted);box-shadow:0 10px 30px rgba(0,0,0,.5);transition:transform .15s,opacity .15s;opacity:0;pointer-events:none}
+#ptr.show{opacity:1;transform:translate(-50%,calc(var(--p,0px) - 60px))}
+#ptr.ready{color:var(--glow);border-color:rgba(205,235,69,.6)}
+#ptr .ptri{display:grid}#ptr .ptri svg{width:16px;height:16px;transition:transform .2s}
+#ptr.ready .ptri svg{transform:rotate(180deg)}
+#ptr.spin .ptri svg{animation:v13spin .8s linear infinite}
+@keyframes v13spin{to{transform:rotate(360deg)}}
+.mgan{display:inline-flex;align-items:center;gap:8px;margin-top:10px;background:rgba(205,235,69,.1);border:1px solid rgba(205,235,69,.45);border-radius:999px;padding:8px 14px;font-size:14px;color:var(--white)}
+.mgan svg{width:18px;height:18px;color:var(--glow)}
 
 </style>
 </head>
@@ -11825,6 +11848,50 @@ async function mpIssueOk(id,est){const p=await dbGet('pedidos',id);if(!p)return;
 {const _agHoyV12=agHoyCard;agHoyCard=async function(){if(S.user?.rol==='motorizado'&&S.route==='moto')return;return _agHoyV12.apply(this,arguments);};}
 /* foto de perfil del motorizado también desde Ajustes → Editar perfil */
 {const _editMiFotoV12=editMiFoto;editMiFoto=async function(){if(S.user?.rol==='motorizado')return motoFoto();return _editMiFotoV12.apply(this,arguments);};}
+
+/* ============================================================
+   v13.2 · QR por método de pago, deslizar para recargar, ganancias al cierre
+   ============================================================ */
+function qrSVG(text,size){
+  try{if(typeof qrcode!=='function')throw 0;if(qrcode.stringToBytesFuncs&&qrcode.stringToBytesFuncs['UTF-8']&&!qrcode._ff8){qrcode.stringToBytes=qrcode.stringToBytesFuncs['UTF-8'];qrcode._ff8=1;}const q=qrcode(0,'M');q.addData(String(text),'Byte');q.make();const n=q.getModuleCount();const cs=Math.max(1,Math.floor((size||150)/n));
+    return `<div class="qrbox" style="width:${n*cs+16}px;height:${n*cs+16}px">${q.createSvgTag({cellSize:cs,margin:0,scalable:true})}</div>`;}
+  catch(e){return `<img class="qrbox" src="https://api.qrserver.com/v1/create-qr-code/?size=${size||150}x${size||150}&data=${encodeURIComponent(text)}" style="width:${size||150}px;height:${size||150}px" alt="QR">`;}
+}
+function qrKey(m){return {'Zelle':'zelle','PayPal':'paypal','Binance':'binance','Pago Móvil':'pm'}[m]||'';}
+function qrPagoTexto(m,montoUSD){
+  const c=S.cache.cfg||{},pi={...PAGOS_INFO_DEFAULT,...(c.pagosInfo||{})},tasa=+c.tasaActual||0,bs=montoUSD&&tasa?Math.round(montoUSD*tasa):0;
+  switch(m){
+    case 'Pago Móvil':return `PAGO MOVIL FIREFLY\nBanco: ${pi.pmBanco}\nTelefono: ${pi.pmTelefono}\nCI/RIF: ${pi.pmCedula}${bs?`\nMonto: ${bs} Bs`:''}`;
+    case 'Zelle':return pi.zelle||'';case 'PayPal':return pi.paypal||'';case 'Binance':return pi.binance||'';default:return '';}
+}
+function qrPagoHTML(m,montoUSD,compact){
+  const k=qrKey(m);if(!k)return '';const c=S.cache.cfg||{},img=(c.pagosInfo?.qrImg||{})[k];const txt=qrPagoTexto(m,montoUSD);if(!img&&!txt)return '';
+  return `<div class="qrwrap ${compact?'sm':''}">${img?`<img class="qrbox" src="${esc(img)}" alt="QR ${esc(m)}">`:qrSVG(txt,compact?120:150)}<small>${img?'QR oficial de '+esc(m)+' · el cliente lo escanea desde su app':'Escanea para copiar los datos de '+esc(m)}</small></div>`;
+}
+/* tarjeta de cobro del motorizado: QR debajo de los datos */
+{const _mPayCardV13=mPayCard;mPayCard=function(m,debe,p){const h=_mPayCardV13(m,debe,p);const q=qrPagoHTML(m,debe);return q?h.replace(/<\/div>\s*$/,q+'</div>'):h;};}
+/* instrucciones de cobro (detalle del pedido en la central) */
+{const _cobroV1=cobroInstrucciones;cobroInstrucciones=function(m,pi,monto,pid){let h=_cobroV1(m,pi,monto,pid);if(!qrKey(m))return h;h=h.replace(/<img src="https:\/\/api\.qrserver\.com[^>]*>/,'').replace(/<div style="font-size:12px;color:var\(--muted\);margin-bottom:8px">El cliente escanea el QR o copia estos datos:<\/div>/,'');return h.replace(/<\/div>\s*$/,qrPagoHTML(m,monto,true)+'</div>');};}
+/* Ajustes → Cobros: subir el QR oficial de cada plataforma */
+{const _ajCobrosV1=viewAjCobros;viewAjCobros=async function(){await _ajCobrosV1();try{const c=await cfg();const esSocio=S.user?.rol==='socio';const imgs=c.pagosInfo?.qrImg||{};
+  document.querySelectorAll('#view .ajm').forEach(card=>{const name=card.querySelector('.ajmh b')?.textContent||'';const k=qrKey(name);if(!k||card.querySelector('.qrcfg'))return;
+    const url=imgs[k];card.querySelector('.ajbtns')?.insertAdjacentHTML('beforebegin',`<div class="qrcfg"><div class="qrcfg-p">${url?`<img src="${esc(url)}" alt="">`:qrSVG(qrPagoTexto(name,0)||name,64)}</div><div style="flex:1;min-width:0"><b>QR para el cliente</b><small>${url?'Usando el QR oficial de '+esc(name)+'.':'Se genera automáticamente con los datos de arriba. Si tienes el QR oficial de '+esc(name)+', súbelo aquí.'}</small></div>
+      ${esSocio?`<label class="btn-out" style="height:36px;font-size:12.5px;padding:0 10px;cursor:pointer"><input type="file" accept="image/*" class="hide" onchange="qrCfgUpload('${k}',this.files[0])">${ic('image')}${url?'Cambiar':'Subir'}</label>${url?`<button class="xbtn" style="width:36px;height:36px" title="Usar el QR generado" onclick="qrCfgQuitar('${k}')">${ic('x')}</button>`:''}`:''}</div>`);});}catch(e){}};}
+async function qrCfgUpload(k,f){if(!f)return;toast('Subiendo QR…');try{let blob=f;if(typeof ffImgCompress==='function')try{blob=await ffImgCompress(f,900,.9);}catch(e){}const ref=storage.ref(`cobros-qr/${k}_${Date.now()}.jpg`);await ref.put(blob,{contentType:'image/jpeg'});const url=await ref.getDownloadURL();
+  const c=await cfg();c.pagosInfo={...(c.pagosInfo||PAGOS_INFO_DEFAULT),qrImg:{...(c.pagosInfo?.qrImg||{}),[k]:url}};await dbPut('config',c);S.cache.cfg=c;toast('QR guardado','ok');viewAjCobros();}catch(e){toast('No se pudo subir: '+(e.code==='storage/unauthorized'?'reglas de Storage pendientes':e.message),'bad');}}
+async function qrCfgQuitar(k){const c=await cfg();const q={...(c.pagosInfo?.qrImg||{})};delete q[k];c.pagosInfo={...(c.pagosInfo||PAGOS_INFO_DEFAULT),qrImg:q};await dbPut('config',c);S.cache.cfg=c;viewAjCobros();}
+/* deslizar hacia abajo para recargar (PWA en teléfono / iPad) */
+(function(){
+  let y0=null,pull=0,on=false;const TH=84;
+  const bar=()=>{let b=document.getElementById('ptr');if(!b){document.body.insertAdjacentHTML('afterbegin','<div id="ptr"><span class="ptri">'+ic('refresh')+'</span><span class="ptrt">Desliza para recargar</span></div>');b=document.getElementById('ptr');}return b;};
+  const ok=()=>S.user&&window.scrollY<=0&&!document.getElementById('scrim')?.classList.contains('show')&&!document.getElementById('mdp')&&!window._tour&&!document.querySelector('#loginScreen:not(.hide)');
+  document.addEventListener('touchstart',e=>{if(!ok()||e.touches.length!==1){y0=null;return;}y0=e.touches[0].clientY;pull=0;on=false;},{passive:true});
+  document.addEventListener('touchmove',e=>{if(y0==null)return;const d=e.touches[0].clientY-y0;if(d<=0||window.scrollY>0){if(on){on=false;bar().className='';}return;}
+    pull=Math.min(140,d*.55);on=true;const b=bar();b.className='show'+(pull>=TH?' ready':'');b.style.setProperty('--p',pull+'px');b.querySelector('.ptrt').textContent=pull>=TH?'Suelta para recargar':'Desliza para recargar';},{passive:true});
+  document.addEventListener('touchend',()=>{if(y0==null)return;const b=document.getElementById('ptr');if(on&&pull>=TH){if(b){b.className='show ready spin';b.querySelector('.ptrt').textContent='Recargando…';}setTimeout(()=>location.reload(),250);}else if(b)b.className='';y0=null;on=false;pull=0;},{passive:true});
+})();
+/* ganancias al cerrar cada entrega */
+{const _mRenderV13=mEntregaRender;mEntregaRender=function(){_mRenderV13();try{const E=window._mE;if(!E||E.step!==3)return;const p=E.p,g=+p.deliveryUSD||0;const d=document.querySelector('#mdp .mdone p');if(d&&!document.querySelector('#mdp .mgan'))d.insertAdjacentHTML('afterend',`<div class="mgan">${ic('wallet')}<span>${g?'<b>+'+usd(g)+'</b> a tus ganancias':'Entrega sin tarifa de delivery registrada'}</span></div>`);}catch(e){}};}
 
 </script>
 <script>
