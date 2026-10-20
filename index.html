@@ -13,7 +13,7 @@
 <title>Firefly Team</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -326,7 +326,7 @@ select.inp{appearance:none;-webkit-appearance:none;
 @media(min-width:768px){.srch-overlay{padding-left:215px}}
 
 /* ============================================================
-   ✨ POLISH LAYER — micro-interacciones, accesibilidad y feedback
+   POLISH LAYER — micro-interacciones, accesibilidad y feedback
    (capa final: refina sin alterar la estructura)
    ============================================================ */
 
@@ -2701,6 +2701,227 @@ a.btn-out,a.btn-lime{text-decoration:none}
 body.rol-ads .nav-foot button:first-child{display:none}
 body.rol-ads .nav a[data-r="ads"]{order:-1}
 
+
+/* ===== v13 · tipografía redonda y limpieza visual ===== */
+:root{--disp:'Plus Jakarta Sans',system-ui,sans-serif;--body:'Plus Jakarta Sans',system-ui,sans-serif;--mono:'Plus Jakarta Sans',system-ui,sans-serif}
+body,.mono,.od-t h2,.od-amt b,.v12kp b,.k2 .kv,.tb-tasa .v,.adtab td.r,.adtab th.r{font-variant-numeric:tabular-nums}
+.eyebrow,.v12sec,.sec-title,.srch-label,.flab,.flab2>span,.p3k small,.v12kp small,.adfun>div small,.dst .sl,.od-st,.cxfu .st .n,#tgCard .cat,.aj-eyebrow,.wzs small,.lbl{font-family:var(--body)!important;letter-spacing:.01em!important;text-transform:none!important}
+.eyebrow{font-size:12.5px;font-weight:600;color:var(--glow);opacity:.95;margin-bottom:4px}
+.v12sec,.sec-title,.srch-label{font-size:12.5px;font-weight:600;color:var(--muted)}
+.v12kp small,.adfun>div small,.dst .sl{font-size:12px;font-weight:600;color:var(--muted)}
+h1,h2,h3,h4{letter-spacing:-.01em}
+.vh h2{font-weight:800}
+code{font-family:var(--body);font-size:.92em;background:var(--panel3);border-radius:6px;padding:1px 6px;color:#e4e4e8}
+.tb-search kbd{display:none}
+.tb-user .role-pill{display:none}
+.tb-user{padding:3px;border-color:var(--stroke)}
+.tb-user #userAv{width:38px!important;height:38px!important;overflow:hidden}
+.tb-user #userAv img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+/* selects más suaves */
+select.inp,.fx select,.v12bar select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238C8C95' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:16px;padding-right:36px!important;border-radius:14px}
+.fx select{background-position:right 36px center}
+select option{background:#1B1B1F;color:#fff}
+/* toast con icono */
+#toast{display:flex;align-items:center;gap:10px}
+#toast .ti{display:grid;flex:none}#toast .ti svg{width:18px;height:18px}
+#toast.ok .ti{color:#4ee39a}#toast.bad .ti{color:#ff7a6b}
+.ii{display:inline-grid;vertical-align:-.18em;line-height:0}.ii svg{width:1em;height:1em}
+.empty .ic svg{width:40px;height:40px;color:var(--muted2)}
+/* scroll visible */
+.ordside,.cxside,.ixlist,.ixmsgs,.mdp-body,.sheet{scrollbar-width:thin;scrollbar-color:rgba(205,235,69,.45) transparent}
+.ordside::-webkit-scrollbar,.cxside::-webkit-scrollbar,.ixlist::-webkit-scrollbar,.mdp-body::-webkit-scrollbar{width:8px}
+.ordside::-webkit-scrollbar-thumb,.cxside::-webkit-scrollbar-thumb,.ixlist::-webkit-scrollbar-thumb,.mdp-body::-webkit-scrollbar-thumb{background:rgba(205,235,69,.45);border-radius:8px;border:2px solid var(--card)}
+.ordside::-webkit-scrollbar-track{background:transparent}
+/* Órdenes web: selección evidente + panel con borde neón */
+.ok2.on{border-color:var(--glow)!important;background:linear-gradient(90deg,rgba(205,235,69,.14),var(--card) 70%)!important;box-shadow:0 0 0 1px var(--glow),0 0 22px rgba(205,235,69,.28)!important;transform:translateX(4px)}
+.ok2.on::before{content:'';position:absolute;left:-1px;top:14px;bottom:14px;width:4px;border-radius:4px;background:var(--glow);box-shadow:0 0 12px var(--glow)}
+.ok2.on .chv{color:var(--glow)}
+@media(min-width:1180px){.ordside{border:1px solid rgba(205,235,69,.75)!important;box-shadow:0 0 0 1px rgba(205,235,69,.25),0 0 30px rgba(205,235,69,.16),inset 0 0 0 1px rgba(205,235,69,.08)!important;overflow-y:scroll!important}}
+/* login: el fondo no se encoge con el teclado */
+.login-wrap{min-height:100vh;min-height:100lvh}
+#ffSky,#ffFront{height:100lvh!important;bottom:auto}
+/* ===== Métodos de pago múltiples ===== */
+.wzmt button.on .mc{position:absolute;top:6px;right:6px;width:18px;height:18px;border-radius:50%;background:var(--glow);color:#0a0a0b;display:grid;place-items:center;font-size:11px;font-weight:800}
+.wzmt button{position:relative}
+.wzmt button.on.pri::after{content:'Principal';position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);font-size:9.5px;font-weight:700;background:var(--glow);color:#0a0a0b;border-radius:999px;padding:2px 7px;white-space:nowrap}
+.pmlist{display:flex;flex-wrap:wrap;gap:6px}
+.pmlist span{display:inline-flex;align-items:center;gap:6px;padding:4px 10px 4px 5px;border-radius:999px;background:var(--panel3);font-size:12.5px;font-weight:600}
+.pmlist span .btile,.pmlist span .blogo{width:18px;height:18px}
+.pmlist span.pri{background:rgba(205,235,69,.14);border:1px solid rgba(205,235,69,.45)}
+/* ===== Portal del motorizado (v13) ===== */
+body.rol-motorizado .topbar .tb-search,body.rol-motorizado .topbar #tbBell{display:none}
+body.rol-motorizado .nav a[data-r="admin"]{display:none!important}
+.mh{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:4px 0 16px}
+.mh .ttl{flex:1;min-width:0}
+.mh .ttl .eb{font-size:12.5px;font-weight:600;color:var(--glow);margin-bottom:4px}
+.mh .ttl h2{margin:0;font-size:26px;line-height:1.15;font-weight:800;min-height:1.15em;transition:opacity .35s,transform .35s}
+.mh .ttl h2.sw{opacity:0;transform:translateY(6px)}
+.mh .ttl .sub{font-size:13.5px;color:var(--muted);margin-top:4px}
+.mh .ttl .sub .wx{display:inline-flex;align-items:center;gap:5px}.mh .ttl .sub .wx svg{width:15px;height:15px;color:#f5b945}
+.mbell{position:relative;width:46px;height:46px;border-radius:50%;border:1px solid var(--stroke);background:var(--card);color:var(--white);display:grid;place-items:center;cursor:pointer;flex:none}
+.mbell svg{width:22px;height:22px}
+.mbell .dot{position:absolute;top:10px;right:11px;width:9px;height:9px;border-radius:50%;background:#ff5a6e;border:2px solid var(--card)}
+.msec{display:flex;align-items:center;justify-content:space-between;margin:18px 0 10px}
+.msec h3{margin:0;font-size:16px;font-weight:700}
+.msec .v12lk{font-size:13px}
+.mrt{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--stroke);border-radius:20px;padding:14px;margin-bottom:8px;cursor:pointer}
+.mrt .ri{width:48px;height:48px;border-radius:16px;background:rgba(205,235,69,.12);color:var(--glow);display:grid;place-items:center;flex:none}
+.mrt .ri svg{width:24px;height:24px}
+.mrt .rbd{flex:1;min-width:0}
+.mrt .rbd b{display:block;font-size:15.5px}
+.mrt .rbd small{display:block;font-size:12.5px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mrt .rbd .rz{display:flex;gap:4px;flex-wrap:wrap;margin-top:7px}
+.mrt .rbd .rz i{font-style:normal;font-size:11px;background:var(--panel3);border-radius:999px;padding:2px 8px;color:#d6d6da}
+.mrt .rac{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.mrt .rac .btn-lime{height:38px;padding:0 14px;font-size:13.5px;border-radius:12px}
+.mrt .rac small{font-size:11.5px;color:var(--muted)}
+.mrt.on{border-color:rgba(205,235,69,.55);background:linear-gradient(135deg,rgba(205,235,69,.1),var(--card) 60%)}
+.mrt.open .ri{background:rgba(93,180,245,.12);color:#5db4f5}
+.mo{background:var(--card);border:1px solid var(--stroke);border-radius:22px;padding:16px;margin-bottom:10px;position:relative;overflow:hidden}
+.mo.new{border-color:rgba(205,235,69,.45);box-shadow:0 0 0 1px rgba(205,235,69,.12)}
+.mo .top{display:flex;align-items:center;gap:12px}
+.mo .av{width:46px;height:46px;border-radius:50%;background:rgba(93,180,245,.14);color:#5db4f5;display:grid;place-items:center;font-weight:800;font-size:16px;flex:none}
+.mo .nm{font-size:17px;font-weight:800;line-height:1.2}
+.mo .zn{font-size:13px;color:var(--muted);margin-top:2px;display:flex;gap:5px;align-items:center}
+.mo .zn svg{width:14px;height:14px}
+.mo .amt{margin-left:auto;text-align:right;flex:none}
+.mo .amt b{display:block;font-size:19px;font-weight:800}
+.mo .amt small{font-size:11.5px;color:var(--muted)}
+.mo .amt.paid b{color:#4ee39a;font-size:14px}
+.mo .meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.mo .meta span{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#d6d6da;background:var(--panel3);border-radius:999px;padding:5px 10px}
+.mo .meta span svg,.mo .meta span .blogo{width:13px;height:13px}
+.mo .meta span.rt{color:var(--muted);background:none;border:1px dashed var(--stroke)}
+.mo .meta span.st{color:#f5b945;background:rgba(245,185,69,.12)}
+.mo .meta span.st.go{color:#4ee39a;background:rgba(78,227,154,.12)}
+.mo .act{display:flex;gap:8px;margin-top:14px}
+.mo .act .btn-lime{flex:1;justify-content:center;height:48px;border-radius:14px;font-size:15px}
+.mo .act .btn-out{height:48px;width:48px;padding:0;justify-content:center;border-radius:14px;flex:none}
+.mstat{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.mstat>div{background:var(--card);border:1px solid var(--stroke);border-radius:18px;padding:14px;display:flex;gap:12px;align-items:center}
+.mstat .si{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;flex:none}
+.mstat .si svg{width:21px;height:21px}
+.mstat b{display:block;font-size:20px;font-weight:800;line-height:1.1}
+.mstat small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.mper{display:inline-flex;gap:3px;background:var(--card);border:1px solid var(--stroke);border-radius:12px;padding:3px}
+.mper button{height:30px;padding:0 11px;border-radius:9px;border:none;background:none;color:var(--muted);font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--body)}
+.mper button.on{background:var(--panel3);color:var(--white)}
+.mhist{display:flex;gap:12px;align-items:center;padding:12px 14px;background:var(--card);border:1px solid var(--stroke);border-radius:16px;margin-bottom:8px;cursor:pointer}
+.mhist .ok{width:36px;height:36px;border-radius:50%;background:rgba(78,227,154,.14);color:#4ee39a;display:grid;place-items:center;flex:none}
+.mhist .ok.bad{background:rgba(255,107,94,.14);color:#ff7a6b}
+.mhist .ok svg{width:17px;height:17px}
+.mhist .b{flex:1;min-width:0}
+.mhist .b b{display:block;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mhist .b small{display:block;font-size:12px;color:var(--muted)}
+.mhist .r{font-weight:700;font-size:14px;flex:none}
+/* pantalla de entrega paso a paso */
+.mdp{position:fixed;inset:0;z-index:55;background:var(--void);display:flex;flex-direction:column;animation:v12in .22s ease-out}
+.mdp-h{display:flex;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top)) 14px 10px;flex:none;border-bottom:1px solid var(--stroke);background:rgba(10,10,11,.92);backdrop-filter:blur(10px)}
+.mdp-h .xbtn{width:42px;height:42px}
+.mdp-h .t{flex:1;min-width:0}
+.mdp-h .t b{display:block;font-size:15.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mdp-h .t small{display:block;font-size:12px;color:var(--muted)}
+.mdp-h .help{height:36px;padding:0 12px;border-radius:999px;border:1px solid rgba(245,185,69,.45);background:rgba(245,185,69,.1);color:#f5b945;font-size:12.5px;font-weight:700;display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-family:var(--body);flex:none}
+.mdp-h .help svg{width:15px;height:15px}
+.mdp-steps{display:flex;gap:5px;padding:10px 16px 0;flex:none}
+.mdp-steps i{flex:1;height:4px;border-radius:4px;background:var(--panel3)}
+.mdp-steps i.on{background:var(--glow)}
+.mdp-steps i.done{background:rgba(205,235,69,.45)}
+.mdp-body{flex:1;min-height:0;overflow:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px;-webkit-overflow-scrolling:touch}
+.mdp-foot{flex:none;padding:10px 16px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--stroke);background:var(--void);display:flex;gap:8px}
+.mdp-foot .btn-lime{flex:1;justify-content:center;height:52px;border-radius:16px;font-size:16px;font-weight:800}
+.mdp-foot .btn-lime:disabled{opacity:.45}
+.mdp-foot .btn-out{height:52px;border-radius:16px}
+.mcl{display:flex;gap:12px;align-items:center}
+.mcl .av{width:52px;height:52px;border-radius:50%;background:rgba(93,180,245,.14);color:#5db4f5;display:grid;place-items:center;font-weight:800;font-size:18px;flex:none}
+.mcl b{display:block;font-size:19px;font-weight:800;line-height:1.15}
+.mcl small{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+.maddr{background:var(--card);border:1px solid var(--stroke);border-radius:18px;padding:14px}
+.maddr .lb{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:4px;display:flex;gap:5px;align-items:center}
+.maddr .lb svg{width:14px;height:14px;color:var(--glow)}
+.maddr .tx{font-size:15px;line-height:1.35;font-weight:600}
+.maddr .nt{font-size:13px;color:#d6d6da;margin-top:8px;padding-top:8px;border-top:1px solid var(--stroke)}
+.mnav{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mnav a{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px;border-radius:16px;background:var(--card);border:1px solid var(--stroke);color:var(--white);text-decoration:none;font-size:12.5px;font-weight:600}
+.mnav a .ni{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-weight:900;font-size:15px}
+.mnav a .ni svg{width:20px;height:20px}
+.mgo{display:flex;align-items:center;gap:12px;padding:14px;border-radius:18px;background:linear-gradient(135deg,rgba(93,180,245,.18),var(--card) 70%);border:1px solid rgba(93,180,245,.5);color:var(--white);text-decoration:none}
+.mgo .gi{width:44px;height:44px;border-radius:14px;background:#5db4f5;color:#0a0a0b;display:grid;place-items:center;flex:none}
+.mgo .gi svg{width:22px;height:22px}
+.mgo b{display:block;font-size:15.5px}.mgo small{display:block;font-size:12.5px;color:var(--muted)}
+.mrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mrow .btn-out{height:50px;justify-content:center;border-radius:16px;font-size:14px}
+.mrow .btn-out.wa{color:#25D366;border-color:rgba(37,211,102,.45);background:rgba(37,211,102,.08)}
+.mitems{background:var(--card);border:1px solid var(--stroke);border-radius:18px;padding:12px 14px;display:flex;gap:10px;align-items:center}
+.mitems .pi{width:40px;height:40px;border-radius:12px;background:var(--panel3);display:grid;place-items:center;flex:none;overflow:hidden}
+.mitems .pi img{width:100%;height:100%;object-fit:cover}
+.mitems .pi svg{width:20px;height:20px;color:var(--glow)}
+.mitems .pt{flex:1;min-width:0;font-size:14px;font-weight:600}
+.mitems .pt small{display:block;font-size:12px;color:var(--muted);font-weight:500}
+.mpay{background:linear-gradient(135deg,rgba(205,235,69,.1),var(--card) 65%);border:1px solid rgba(205,235,69,.5);border-radius:20px;padding:14px}
+.mpay .ph{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.mpay .ph b{font-size:16px}
+.mpay .ph small{display:block;font-size:12px;color:var(--muted)}
+.mpay .big{font-size:30px;font-weight:800;line-height:1;margin:6px 0 2px}
+.mpay .big small{font-size:13px;color:var(--muted);font-weight:600;margin-left:6px}
+.mpay .dat{background:rgba(10,10,11,.55);border-radius:14px;padding:10px 12px;margin-top:10px;font-size:14px;line-height:1.7}
+.mpay .dat b{font-weight:700}
+.mpay .dat .r{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.mpay .dat .r button{height:30px;padding:0 10px;border-radius:9px;border:1px solid var(--stroke);background:var(--card2);color:var(--white);font-size:12px;font-weight:600;cursor:pointer;font-family:var(--body);display:inline-flex;align-items:center;gap:4px}
+.mpay .dat .r button svg{width:13px;height:13px}
+.mpay img.qr{width:140px;height:140px;border-radius:12px;display:block;margin:10px auto 0}
+.malt{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 0}
+.malt::-webkit-scrollbar{display:none}
+.malt button{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px 0 6px;border-radius:999px;border:1px solid var(--stroke);background:var(--card);color:#d6d6da;font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--body);flex:none}
+.malt button .btile,.malt button .blogo{width:22px;height:22px}
+.malt button.on{border-color:var(--glow);color:var(--white);background:rgba(205,235,69,.1)}
+.mpg{background:var(--card);border:1px solid var(--stroke);border-radius:18px;padding:12px 14px}
+.mpg .r{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--stroke);font-size:14px}
+.mpg .r:last-child{border-bottom:none}
+.mpg .r small{color:var(--muted);font-size:12px;display:block}
+.mpg .r b.ok{color:#4ee39a}.mpg .r b.deb{color:#f5b945}
+.mpg .add{width:100%;height:42px;border-radius:12px;border:1px dashed rgba(205,235,69,.5);background:none;color:var(--glow);font-weight:700;font-size:13.5px;cursor:pointer;font-family:var(--body);display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px}
+.mpg .add svg{width:16px;height:16px}
+.mfoto{display:flex;align-items:center;gap:12px;background:var(--card);border:1px dashed rgba(205,235,69,.5);border-radius:18px;padding:12px 14px;cursor:pointer}
+.mfoto.ok{border-style:solid;border-color:rgba(78,227,154,.5)}
+.mfoto .fi{width:48px;height:48px;border-radius:14px;background:rgba(205,235,69,.12);color:var(--glow);display:grid;place-items:center;flex:none;overflow:hidden}
+.mfoto.ok .fi{background:rgba(78,227,154,.14);color:#4ee39a}
+.mfoto .fi img{width:100%;height:100%;object-fit:cover}
+.mfoto .fi svg{width:22px;height:22px}
+.mfoto b{display:block;font-size:14.5px}.mfoto small{display:block;font-size:12px;color:var(--muted)}
+.mdone{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;padding:20px}
+.mdone .ck{width:92px;height:92px;border-radius:50%;background:rgba(78,227,154,.14);color:#4ee39a;display:grid;place-items:center;animation:v13pop .5s cubic-bezier(.2,1.4,.4,1)}
+.mdone .ck svg{width:46px;height:46px}
+.mdone h3{margin:6px 0 0;font-size:24px;font-weight:800}
+.mdone p{margin:0;color:var(--muted);font-size:14px;max-width:300px}
+@keyframes v13pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+.mlive{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#4ee39a;font-weight:600}
+.mlive i{width:7px;height:7px;border-radius:50%;background:#4ee39a;animation:v12pulse 1.6s infinite}
+.mlive.off{color:var(--muted)}.mlive.off i{background:var(--muted);animation:none}
+.mmenu{position:absolute;right:14px;top:calc(56px + env(safe-area-inset-top));z-index:60;background:var(--card);border:1px solid var(--line2);border-radius:18px;padding:8px;box-shadow:0 18px 50px rgba(0,0,0,.55);min-width:230px;animation:v12in .18s}
+.mmenu .mitem{margin:0 0 4px;padding:10px 12px}
+.mmenu .mh2{display:flex;gap:10px;align-items:center;padding:8px 10px 12px}
+.mmenu .mh2 b{display:block;font-size:14.5px}.mmenu .mh2 small{display:block;font-size:12px;color:var(--muted)}
+/* rutas · supervisor */
+.rtc{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:12px;margin-bottom:8px}
+.rtc .ri{width:40px;height:40px;border-radius:12px;background:rgba(205,235,69,.12);color:var(--glow);display:grid;place-items:center;flex:none}
+.rtc .ri svg{width:20px;height:20px}
+.rtc .b{flex:1;min-width:0}.rtc .b b{display:block;font-size:14.5px}.rtc .b small{display:block;font-size:12px;color:var(--muted)}
+.rtsel{display:flex;flex-direction:column;gap:6px;max-height:40vh;overflow:auto}
+.rtsel label{display:flex;gap:10px;align-items:center;padding:9px 10px;border-radius:12px;border:1px solid var(--stroke);background:var(--card2);cursor:pointer;font-size:13.5px}
+.rtsel label input{width:18px;height:18px;accent-color:#CDEB45}
+.rtsel label small{display:block;color:var(--muted);font-size:12px}
+.rtsel label .b{flex:1;min-width:0}
+.issuetag{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:#ff7a6b;background:rgba(255,107,94,.12);border:1px solid rgba(255,107,94,.4);border-radius:999px;padding:3px 9px}
+.issuetag svg{width:12px;height:12px}
+.mfoto>svg{width:18px;height:18px;flex:none;color:var(--muted)}
+.li .av svg{width:16px;height:16px}
+/* títulos de sección sin mayúsculas forzadas */
+.ajh h3,.ajsl b,.wzbt,.ocard>h5,.fsec>h4,.stot small,.nkb small,.facts small,.kpi .lab,.ftbl th,.adtab th,.cfr3 small,.spamt small,.aggh small,.agstrip small,.ai-box .lbl,.srch-label,.sec-title,.v12sec,.v12kp small,.adfun>div small,#tgCard .cat{text-transform:none!important;letter-spacing:.01em!important;font-family:var(--body)!important}
+.ajh h3,.ajsl b,.wzbt,.ocard>h5,.fsec>h4{font-size:13.5px!important;font-weight:700!important}
+.sec-title{font-size:15px;font-weight:700;color:var(--white);border-bottom:none;margin:22px 0 10px;padding:0}
+.sec-title .h{font-size:12px;color:var(--muted);font-weight:500;margin-left:6px}
+
 </style>
 </head>
 <body>
@@ -2814,7 +3035,7 @@ body.rol-ads .nav a[data-r="ads"]{order:-1}
 <!-- Buscador inteligente -->
 <div id="searchOverlay" class="srch-overlay" onclick="if(event.target===this)closeSearch()">
   <div class="srch-bar">
-    <span class="ic">🔍</span>
+    <span class="ic" data-ic="search"></span>
     <input id="searchInput" class="srch-inp" placeholder="Buscar pedido, cliente, teléfono… o pregunta en lenguaje natural"
       oninput="onSearchInput(this.value)"
       onkeydown="if(event.key==='Escape')closeSearch()">
@@ -2998,9 +3219,9 @@ async function seedIfEmpty(){
   ];
   for(const ne of nominaEmps)await dbPut('nominaEmpleados',ne);
   const promosSeed=[
-    {id:'promo1',nombre:'1 Linterna',descripcion:'1 linterna de cabeza 1 tira',productoId:'p_lc1',cantidad:1,precioTotal:19.99,activo:true,icono:'🔦'},
-    {id:'promo2',nombre:'2 Linternas',descripcion:'Pack de 2 linternas',productoId:'p_lc1',cantidad:2,precioTotal:29.99,activo:true,icono:'🔦🔦'},
-    {id:'promo3',nombre:'3 Linternas',descripcion:'Pack de 3 linternas',productoId:'p_lc1',cantidad:3,precioTotal:39.99,activo:true,icono:'🔦🔦🔦'},
+    {id:'promo1',nombre:'1 Linterna',descripcion:'1 linterna de cabeza 1 tira',productoId:'p_lc1',cantidad:1,precioTotal:19.99,activo:true,icono:''},
+    {id:'promo2',nombre:'2 Linternas',descripcion:'Pack de 2 linternas',productoId:'p_lc1',cantidad:2,precioTotal:29.99,activo:true,icono:''},
+    {id:'promo3',nombre:'3 Linternas',descripcion:'Pack de 3 linternas',productoId:'p_lc1',cantidad:3,precioTotal:39.99,activo:true,icono:''},
   ];
   for(const p of promosSeed)await dbPut('promociones',p);
   toast('Firefly configurado ✓ — datos iniciales cargados','ok');
@@ -3562,7 +3783,7 @@ async function saveDraft(){
     deliveryId:d.deliveryId,deliveryNombre:d.deliveryNombre||'',
     ...(d.deliveryId&&!d.id?{motoEstado:'ASIGNADO'}:{}),
     deliveryUSD:+d.deliveryUSD||0,deliveryPagaCliente:d.deliveryPagaCliente,deliveryFireflyUSD:delivFirefly,
-    metodoPrevisto:d._metodoPrevisto||'',
+    metodoPrevisto:d._metodoPrevisto||'',metodosPrevistos:(d._metodosPrev&&d._metodosPrev.length?d._metodosPrev:(d._metodoPrevisto?[d._metodoPrevisto]:[])),
     items:d.items.map(i=>({productoId:i.productoId,version:i.version,cantidad:i.cantidad,precio:i.precio})),
     subtotalUSD:t.sub,totalUSD:t.total,pagos:d.pagos||[],totalPagadoUSD:t.pagado,
     comentarios:d.comentarios,divisas:!!d._divisas,
@@ -3643,7 +3864,7 @@ async function delOrder(id){confirmSheet('¿Eliminar este pedido?','Se revertir�
 
 async function editOrder(id){
   const p=await dbGet('pedidos',id);if(!p)return;
-  _draft={...p,_divisas:p.divisas,_zonaCustom:false,agenciaEnvio:p.agenciaEnvio||'',cliente:{...p.cliente},
+  _draft={...p,_divisas:p.divisas,_metodosPrev:(p.metodosPrevistos&&p.metodosPrevistos.length?p.metodosPrevistos.slice():(p.metodoPrevisto?[p.metodoPrevisto]:[])),_zonaCustom:false,agenciaEnvio:p.agenciaEnvio||'',cliente:{...p.cliente},
     items:(p.items||[]).map(i=>{const pr=(S.cache.prods||[]).find(x=>x.id===i.productoId);return{...i,nombre:pr?pr.nombre:i.version};})};
   renderOrderSheet();
 }
@@ -3660,7 +3881,7 @@ async function addPago(id){
      <div class="field"><label>Tasa</label><input id="pgTasa" class="inp mono" inputmode="decimal" value="${c.tasaActual}" oninput="pgCalc()"></div></div>
    <div class="field"><label>Monto USD de la venta</label><input id="pgUsd" class="inp mono" inputmode="decimal" placeholder="0.00" oninput="calcVueltoPago()"></div>
    <div id="pgVueltoWrap" style="display:none;background:var(--panel2);border-radius:10px;padding:12px;margin-bottom:10px">
-     <div class="eyebrow" style="font-size:9px;margin-bottom:8px">💵 Calculadora de vuelto</div>
+     <div class="eyebrow" style="font-size:9px;margin-bottom:8px">Calculadora de vuelto</div>
      <div class="row" style="align-items:flex-end">
        <div class="field" style="margin:0"><label>Cliente paga con $</label>
          <input id="pgPagoCon" class="inp mono" inputmode="decimal" placeholder="Ej: 50" oninput="calcVueltoPago()"></div>
@@ -4098,7 +4319,7 @@ async function saveMovimiento(){
   }else if(t==='GARANTIA'){
     const garantiaCosto=parseFloat(document.getElementById('mvGarantiaCosto')?.value)||0;
     await dbPut('movimientos',{id:uid('mv'),fecha:Date.now(),tipo:'OUT',sedeId:sede,productoId:prod,cantidad:cant,
-      esGarantia:true,nota:'🔄 Garantía/Intercambio'+(nota&&nota!=='GARANTIA'?' · '+nota:''),...por});
+      esGarantia:true,nota:'Garantía/Intercambio'+(nota&&nota!=='GARANTIA'?' · '+nota:''),...por});
     if(garantiaCosto>0){
       await dbPut('egresos',{id:uid('eg'),fecha:Date.now(),categoria:'Garantía / Delivery',
         descripcion:'Delivery de reemplazo'+(nota&&nota!=='GARANTIA'?' · '+nota:''),
@@ -4832,7 +5053,7 @@ function iTot(){
 function iSig(s){window._ing.signo=s;document.querySelectorAll('#iSig button').forEach(b=>b.classList.toggle('on',+b.dataset.s===s));$('#iEf').textContent=s>0?'Suma':'Resta';}
 function iSync(src){const I=window._ing,u=$('#iUsd'),b=$('#iBs'),pf=x=>parseFloat((x||'').replace(',','.'))||0;
   if(src==='bs'&&I.tasa>0&&b.value)u.value=(pf(b.value)/I.tasa).toFixed(2);$('#iSumTot').textContent=usd(pf(u.value));}
-function iFile(inp){const f=inp.files?.[0];if(!f)return;if(f.size>10*1024*1024){toast('El archivo pesa más de 10 MB','bad');return;}window._ing.file=f;const n=document.getElementById('iFileN');if(n){n.textContent='✓ '+f.name;n.style.color='var(--ok)';}}
+function iFile(inp){const f=inp.files?.[0];if(!f)return;if(f.size>10*1024*1024){toast('El archivo pesa más de 10 MB','bad');return;}window._ing.file=f;const n=document.getElementById('iFileN');if(n){n.textContent='Archivo: '+f.name;n.style.color='var(--ok)';}}
 async function iUpload(path){const f=window._ing?.file;if(!f)return '';try{const ext=(f.name.split('.').pop()||'jpg').toLowerCase();const ref=storage.ref(`${path}/${Date.now()}.${ext}`);await ref.put(f);return await ref.getDownloadURL();}catch(e){toast('No se pudo subir el comprobante; se guarda sin él','bad');return '';}}
 function iBusy(on,txt){const b=document.getElementById('iSave');if(b){b.disabled=on;if(txt)b.lastChild.textContent=txt;}}
 async function saveVentaFin(){
@@ -4986,7 +5207,7 @@ function gSync(src){
   if(src==='bs'&&t>0&&b.value)u.value=(pf(b.value)/t).toFixed(2);
   const st=document.getElementById('gSumTot');if(st)st.textContent=usd(pf(u.value));
 }
-function gFile(inp){const f=inp.files?.[0];if(!f)return;if(f.size>10*1024*1024){toast('El archivo pesa más de 10 MB','bad');return;}window._gFile=f;const n=document.getElementById('gFileN');if(n){n.textContent='✓ '+f.name;n.style.color='var(--ok)';}}
+function gFile(inp){const f=inp.files?.[0];if(!f)return;if(f.size>10*1024*1024){toast('El archivo pesa más de 10 MB','bad');return;}window._gFile=f;const n=document.getElementById('gFileN');if(n){n.textContent='Archivo: '+f.name;n.style.color='var(--ok)';}}
 async function saveGasto(){
   const pf=x=>parseFloat((x||'').replace(',','.'))||0;
   const u=pf($('#gUsd')?.value);if(u<=0){toast('Escribe el monto en USD (o en Bs)','bad');return;}
@@ -5345,7 +5566,7 @@ async function viewAjMeta(){
 }
 async function ajAdsTest(){const a=($('#mpAdAcct').value||'').trim().replace(/^act_/,''),t=($('#mpAdsTok').value||'').trim()||($('#mpToken').value||'').trim(),el=$('#adsTestRes');
   if(!a||!t){el.innerHTML='<span style="color:#ff7a6b">Escribe la cuenta publicitaria y un token.</span>';return;}el.textContent='Probando…';
-  try{const j=await p3Graph(`act_${a}?fields=name,currency,account_status,amount_spent`,t);el.innerHTML=`<span style="color:var(--ok)">✓ Conectada: <b>${esc(j.name||'')}</b> · ${esc(j.currency||'')} ${j.account_status===1?'· activa':''}</span>`;}
+  try{const j=await p3Graph(`act_${a}?fields=name,currency,account_status,amount_spent`,t);el.innerHTML=`<span style="color:var(--ok)">${ei('check')} Conectada: <b>${esc(j.name||'')}</b> · ${esc(j.currency||'')} ${j.account_status===1?'· activa':''}</span>`;}
   catch(e){el.innerHTML=`<span style="color:#ff7a6b">Error: ${esc(e.message)}</span>`;}}
 async function ajMetaTest(){await testMetaConnection();const r=$('#metaTestResult'),s=$('#metaStat');if(!r||!s)return;const ok=/Conectado/.test(r.textContent);s.className='ajstat '+(ok?'ok':/Error|Ingresa/.test(r.textContent)?'bad':'no');s.querySelector('b').textContent=ok?'Conectado':/Error|Ingresa/.test(r.textContent)?'Error de conexión':'Probando…';}
 
@@ -5880,7 +6101,7 @@ async function p3ChatLoad(){
   const x=window._p3Open,c=await cfg(),el=$('#p3Msgs');if(!x||!el)return;
   try{const j=await p3Graph(`${x.id}?fields=messages.limit(25){message,from,created_time,attachments}`,c.metaPageToken);const me=[c.metaPageId,c.metaIgUserId].filter(Boolean);
     const M=(j.messages?.data||[]).slice().reverse();
-    el.innerHTML=M.map(m=>{const mine=me.includes(m.from?.id);return `<div class="p3m ${mine?'me':''}"><span>${esc(m.message||(m.attachments?'📎 Adjunto':''))}</span><small>${esc(agHM(Date.parse(m.created_time)))}</small></div>`;}).join('')||'<div class="trempty">Sin mensajes.</div>';el.scrollTop=el.scrollHeight;
+    el.innerHTML=M.map(m=>{const mine=me.includes(m.from?.id);return `<div class="p3m ${mine?'me':''}"><span>${esc(m.message||(m.attachments?'Adjunto':''))}</span><small>${esc(agHM(Date.parse(m.created_time)))}</small></div>`;}).join('')||'<div class="trempty">Sin mensajes.</div>';el.scrollTop=el.scrollHeight;
   }catch(e){el.innerHTML=`<div class="warnbox">${ic('alert')}<span>No se pudieron leer los mensajes: ${esc(e.message)}</span></div>`;}
 }
 async function p3ChatSend(){
@@ -5896,7 +6117,7 @@ async function p3ChatSend(){
 
 /* ── Mi cuenta: foto y contraseña ── */
 async function editMiFoto(){
-  openSheet(`<div class="sh-head"><h3>📷 Foto de perfil</h3></div>
+  openSheet(`<div class="sh-head"><h3>Foto de perfil</h3></div>
    <div class="field"><label>Selecciona tu foto</label>
      <input type="file" id="miFotoInp" accept="image/*" class="inp" style="padding:10px"></div>
    <button class="btn pri full" onclick="saveMiFoto()">Guardar</button>`);
@@ -5915,7 +6136,7 @@ async function saveMiFoto(){
   }catch(e){toast('Error: '+e.message,'bad');}
 }
 async function cambiarMiPassword(){
-  openSheet(`<div class="sh-head"><h3>🔐 Cambiar contraseña</h3></div>
+  openSheet(`<div class="sh-head"><h3>Cambiar contraseña</h3></div>
    <div class="field"><label>Nueva contraseña (mín. 6 caracteres)</label>
      <input type="password" id="newPass1" class="inp" placeholder="••••••"></div>
    <div class="field"><label>Confirma la contraseña</label>
@@ -5991,7 +6212,7 @@ async function delZona(id){confirmSheet('¿Eliminar zona?','',async()=>{await db
 /* ---- Motorizados ---- */
 async function adminDeliveries(){const [dels,sedes]=await Promise.all([dbAll('deliveries'),dbAll('sedes')]);
   openSheet(`<div class="sh-head"><h3>Motorizados</h3><button class="btn pri sm" onclick="editDel()">+ Nuevo</button></div>
-   <div class="list">${dels.map(d=>{const s=sedes.find(x=>x.id===d.sedeId);return `<div class="li" onclick="editDel('${d.id}')"><div class="av" style="font-size:18px;background:transparent">🛵</div><div class="gr"><div class="t">${esc(d.nombre)} ${!d.activo?'<span class="tag" style="background:var(--panel3);color:var(--muted)">inactivo</span>':''}</div><div class="s">${s?s.codigo:''} ${d.telefono?'· '+esc(d.telefono):''}</div></div><span style="color:var(--muted2)">›</span></div>`;}).join('')}</div>`);}
+   <div class="list">${dels.map(d=>{const s=sedes.find(x=>x.id===d.sedeId);return `<div class="li" onclick="editDel('${d.id}')"><div class="av" style="background:transparent">${ic('scooter')}</div><div class="gr"><div class="t">${esc(d.nombre)} ${!d.activo?'<span class="tag" style="background:var(--panel3);color:var(--muted)">inactivo</span>':''}</div><div class="s">${s?s.codigo:''} ${d.telefono?'· '+esc(d.telefono):''}</div></div><span style="color:var(--muted2)">›</span></div>`;}).join('')}</div>`);}
 async function editDel(id){const [d,sedes,usuarios]=await Promise.all([id?dbGet('deliveries',id):Promise.resolve({id:null,nombre:'',sedeId:'',telefono:'',activo:true,usuarioId:'',fotoURL:''}),dbAll('sedes'),dbAll('usuarios')]);window._ed={...d};
   if(!window._ed.sedeId&&sedes[0])window._ed.sedeId=sedes[0].id;
   const motoUsers=usuarios.filter(u=>u.rol==='motorizado');
@@ -6000,12 +6221,12 @@ async function editDel(id){const [d,sedes,usuarios]=await Promise.all([id?dbGet(
    <div class="field"><label>Nombre</label><input class="inp" value="${esc(d.nombre)}" oninput="_ed.nombre=this.value"></div>
    <div class="row"><div class="field"><label>Sede</label><select class="inp" onchange="_ed.sedeId=this.value">${sedes.map(s=>`<option value="${s.id}" ${window._ed.sedeId===s.id?'selected':''}>${s.codigo}</option>`).join('')}</select></div>
      <div class="field"><label>Teléfono WS</label><input class="inp" inputmode="tel" value="${esc(d.telefono)}" oninput="_ed.telefono=this.value"></div></div>
-   <div class="field"><label>🔗 Cuenta del portal (opcional)</label>
+   <div class="field"><label>Cuenta del portal (opcional)</label>
      <select class="inp" onchange="_ed.usuarioId=this.value">
        <option value="">Sin cuenta — no usa el portal</option>
        ${motoUsers.map(u=>`<option value="${u.id}" ${d.usuarioId===u.id?'selected':''}>${esc(u.nombre)} · ${esc(u.email||'')}</option>`).join('')}
      </select>
-     <div class="hintline">Crea la cuenta en ⚙ Equipo con rol "motorizado" y vincúlala aquí para que vea sus entregas en el portal</div>
+     <div class="hintline">Crea la cuenta en Ajustes → Equipo con rol "motorizado" y vincúlala aquí para que vea sus entregas en el portal</div>
    </div>
    <label style="display:flex;gap:8px;margin-bottom:16px"><input type="checkbox" ${d.activo?'checked':''} onchange="_ed.activo=this.checked"> Activo</label>
    <button class="btn pri full" onclick="saveDel()">Guardar</button>
@@ -6112,7 +6333,7 @@ function getRangoFechas(p){
 function abrirRangoCustom(filtroKey,viewFn){
   const hoy=new Date().toISOString().slice(0,10);
   const hace30=new Date(Date.now()-30*86400000).toISOString().slice(0,10);
-  openSheet(`<div class="sh-head"><h3>📅 Rango personalizado</h3></div>
+  openSheet(`<div class="sh-head"><h3>Rango personalizado</h3></div>
    <div class="row">
      <div class="field"><label>Desde</label>
        <input type="date" id="rangoDesde" class="inp" value="${S.filters.customDesde||hace30}" max="${hoy}"></div>
@@ -6226,7 +6447,7 @@ async function viewReportes(){
   const periodoChips=['mes','mes_ant','q1','q2','q3','q4'].map(p=>{
     const r=getRangoFechas(p);
     return `<button class="stbtn ${periodo===p?'on':''}" onclick="S.filters.repPeriodo='${p}';viewReportes()">${r.label}</button>`;
-  }).join('')+`<button class="stbtn ${periodo==='custom'?'on':''}" onclick="abrirRangoCustom('repPeriodo','viewReportes')">📅 ${periodo==='custom'?getRangoFechas('custom').label:'Personalizado'}</button>`;
+  }).join('')+`<button class="stbtn ${periodo==='custom'?'on':''}" onclick="abrirRangoCustom('repPeriodo','viewReportes')">${ei('cal')} ${periodo==='custom'?getRangoFechas('custom').label:'Personalizado'}</button>`;
 
   v.innerHTML=`
   <div class="view-head"><div><div class="eyebrow">Análisis del negocio</div><h2>Reportes</h2>
@@ -6336,7 +6557,7 @@ async function viewReportes(){
   <!-- Desglose de entrega -->
   <div class="sec-title">Tipo de entrega <span class="h">distribución</span></div>
   <div class="card">
-    ${(()=>{const dE=[['DELIVERY','🛵 Delivery','#5db4f5'],['PICKUP','🏪 Pickup','#54d684'],['ENVIO_NACIONAL','📦 Nacional','#f5b945']]
+    ${(()=>{const dE=[['DELIVERY','Delivery','#5db4f5'],['PICKUP','Pickup','#54d684'],['ENVIO_NACIONAL','Nacional','#f5b945']]
       .map(([tipo,lab,col])=>({label:lab,value:ventas.filter(p=>p.tipoEntrega===tipo).length,color:col})).filter(d=>d.value>0);
       return dE.length?donutWithLegend(dE,{centerLabel:ventas.length,centerSub:'pedidos'}):'<div class="empty" style="padding:14px">Sin datos</div>';})()}
   </div>
@@ -6502,7 +6723,7 @@ async function adminMetaConfig(){
      <input id="mpToken" class="inp mono" value="${c.metaPageToken||''}" type="password" placeholder="EAAxxxxxx…"></div>
    <div class="field"><label>WhatsApp Business Account ID <span style="color:var(--muted2)">(opcional — solo si usas Cloud API)</span></label>
      <input id="mpWabaId" class="inp mono" value="${c.metaWabaId||''}" placeholder="Solo si tienes WhatsApp Business Platform"></div>
-   <button class="btn full" style="margin-bottom:10px" onclick="testMetaConnection()">🔌 Probar conexión</button>
+   <button class="btn full" style="margin-bottom:10px" onclick="testMetaConnection()">Probar conexión</button>
    <button class="btn pri full" onclick="saveMetaConfig()">Guardar configuración</button>
    <div id="metaTestResult" style="margin-top:10px;font-size:12.5px"></div>`);
 }
@@ -6528,7 +6749,7 @@ async function testMetaConnection(){
     const resp=await fetch(`https://graph.facebook.com/v19.0/${pageId}?fields=name,fan_count&access_token=${token}`);
     const data=await resp.json();
     if(data.error){el.innerHTML=`<span style="color:var(--bad)">Error: ${esc(data.error.message)}</span>`;}
-    else{el.innerHTML=`<span style="color:var(--ok)">✓ Conectado: <b>${esc(data.name)}</b> (${(data.fan_count||0).toLocaleString()} seguidores)</span>`;}
+    else{el.innerHTML=`<span style="color:var(--ok)">${ei('check')} Conectado: <b>${esc(data.name)}</b> (${(data.fan_count||0).toLocaleString()} seguidores)</span>`;}
   }catch(e){el.innerHTML=`<span style="color:var(--bad)">Error de red: ${e.message}</span>`;}
 }
 
@@ -6973,7 +7194,7 @@ async function viewNomPago(empId){
 }
 function nomPagoTot(){const N=window._np,pf=x=>parseFloat((x||'').replace(',','.'))||0;const b=pf($('#npBono')?.value),d=pf($('#npDed')?.value);const t=Math.round((N.calc.salario+N.calc.comision+b-d)*100)/100;
   $('#npTot').textContent=usd(t);const l=$('#npBtnL');if(l)l.textContent='Registrar pago de '+usd(t);const btn=$('#npBtn');if(btn)btn.disabled=t<=0;}
-function nomFile(inp){const f=inp.files?.[0];if(!f)return;if(f.size>10*1024*1024){toast('El archivo pesa más de 10 MB','bad');return;}window._np.file=f;$('#npFileN').textContent='✓ '+f.name;}
+function nomFile(inp){const f=inp.files?.[0];if(!f)return;if(f.size>10*1024*1024){toast('El archivo pesa más de 10 MB','bad');return;}window._np.file=f;$('#npFileN').textContent='Archivo: '+f.name;}
 function nomPedsSheet(){const L=window._npPeds||[];const fd=ts=>new Date(ts).toLocaleDateString('es-VE',{day:'numeric',month:'short'});
   openSheet(`<div class="shx"><span class="shi">${ic('package')}</span><div style="flex:1;min-width:0"><h3>Pedidos del período</h3><div class="shsub">${num(L.length)} pedidos · ${usd(L.reduce((a,p)=>a+(p.subtotalUSD||0),0))}</div></div><button class="xbtn" onclick="closeSheet()" aria-label="Cerrar">${ic('x')}</button></div>
   <div class="npeds">${L.map(p=>{const em=estadoMeta(p.estado);return `<div class="npr" onclick="closeSheet();openOrder('${p.id}')">${ic('cube')}<b>${esc(p.codigo||'')}</b><span class="mut">${esc(fd(p.fecha))} · ${esc(p.cliente?.nombre||'')}</span><span class="mono">${usd(p.subtotalUSD||0)}</span><span class="nbad" style="color:${em.c};border-color:${em.c}66">${esc(em.n)}</span></div>`;}).join('')}</div>`);}
@@ -7217,7 +7438,7 @@ async function loadCajas(){
   const mvRows=recientes.length?recientes.map(m=>{
     const s=sedes.find(x=>x.id===m.sedeId);
     const col=m.esVueltoBs?'var(--warn)':m.tipo==='SALIDA'?'var(--bad)':'var(--ok)';
-    const ico=m._anulado?'✗':m.esVueltoBs?'💱':m.tipo==='SALIDA'?'↑':'↓';
+    const ico=m._anulado?ic('x'):m.esVueltoBs?ic('swap'):m.tipo==='SALIDA'?ic('up'):ic('down');
     const esManual=!m.esVueltoBs&&!m.esDeliveryPedido;
     const colFinal=m._anulado?'var(--muted2)':col;
     return `<div class="li" ${esManual&&!m._anulado?`onclick="editCajaMov('${m.id}')"`:''} style="${esManual&&!m._anulado?'cursor:pointer':'opacity:'+(m._anulado?.5:1)}">
@@ -7231,7 +7452,7 @@ async function loadCajas(){
     :'<div class="empty" style="padding:14px 0">Sin movimientos manuales aún</div>';
 
   el.innerHTML=`
-    <div class="alert" style="margin-bottom:12px;font-size:12px;background:rgba(84,214,132,.08);border-color:rgba(84,214,132,.25);color:#9ae6b4"><span>✓</span><div><b>Registro automático:</b> todos los pagos en Cash $ y Efectivo Bs de los pedidos ya se suman aquí automáticamente por sede. Solo registra manualmente los egresos (retiros, pagos al delivery, etc.).</div></div>
+    <div class="alert" style="margin-bottom:12px;font-size:12px;background:rgba(84,214,132,.08);border-color:rgba(84,214,132,.25);color:#9ae6b4"><span>${ei('check')}</span><div><b>Registro automático:</b> todos los pagos en Cash $ y Efectivo Bs de los pedidos ya se suman aquí automáticamente por sede. Solo registra manualmente los egresos (retiros, pagos al delivery, etc.).</div></div>
     <div class="alert info" style="margin-bottom:12px;font-size:12px">
       <span>ℹ️</span><div>El saldo incluye todas las ventas cobradas en <b>Cash $</b> y <b>Efectivo Bs</b> (convertido a USD) menos los retiros registrados. Úsalo como referencia del efectivo físico en cada sede.</div>
     </div>
@@ -7386,7 +7607,7 @@ async function parseAndFill(){
   const msg=document.getElementById('parseMsg')?.value?.trim();
   if(!msg){toast('Pega el mensaje primero','bad');return;}
   const btn=document.getElementById('parseBtn');
-  if(btn){btn.textContent='⚡ Analizando…';btn.disabled=true;}
+  if(btn){btn.textContent='Analizando…';btn.disabled=true;}
 
   // ── PASO 1: Parser local de plantilla (instantáneo, sin internet) ──
   const local=parseLocalTemplate(msg);
@@ -7403,7 +7624,7 @@ async function parseAndFill(){
   }
 
   // ── PASO 2: Mensaje no sigue la plantilla → intentar con IA ──
-  if(btn){btn.textContent='✨ Analizando con IA…';}
+  if(btn){btn.textContent='Analizando con IA…';}
   try{
     const conf=await cfg();
     const apiKey=conf.anthropicKey||'';
@@ -7415,7 +7636,7 @@ async function parseAndFill(){
         toast(`⚡ ${n} campo(s) del mensaje — completa el resto manual`,'ok');
       }else{
         toast('El mensaje no sigue la plantilla y no hay API key configurada — rellena manual','bad');
-        if(btn){btn.textContent='✨ Parsear y rellenar automáticamente';btn.disabled=false;}
+        if(btn){btn.textContent='Parsear y rellenar automáticamente';btn.disabled=false;}
       }
       return;
     }
@@ -7445,7 +7666,7 @@ async function parseAndFill(){
       toast(`⚡ ${n} campo(s) del mensaje (IA no disponible) — completa el resto`,'ok');
     }else{
       toast('No se pudo analizar el mensaje — rellena manual','bad');
-      if(btn){btn.textContent='✨ Parsear y rellenar automáticamente';btn.disabled=false;}
+      if(btn){btn.textContent='Parsear y rellenar automáticamente';btn.disabled=false;}
     }
   }
 }
@@ -7522,7 +7743,7 @@ async function crearTraslado(){
   // OUT inmediato de origen
   const mvId=uid('mv');
   await dbPut('movimientos',{id:mvId,fecha:Date.now(),tipo:'OUT',sedeId:orig,productoId:prod,cantidad:cant,
-    nota:`🚚 Traslado en tránsito → ${destInfo?.codigo||dest}${nota?' · '+nota:''}`});
+    nota:`Traslado en tránsito → ${destInfo?.codigo||dest}${nota?' · '+nota:''}`});
   // Registro de traslado
   const trId=uid('tr');
   await dbPut('traslados',{id:trId,fecha:Date.now(),estado:'EN_TRANSITO',
@@ -7596,7 +7817,7 @@ async function confirmarRecepcion(trId){
   // Crear IN en destino con la cantidad REAL recibida
   const mvId=uid('mv');
   await dbPut('movimientos',{id:mvId,fecha:Date.now(),tipo:'IN',sedeId:t.sedeDestinoId,productoId:t.productoId,cantidad:cant,
-    nota:`✓ Traslado recibido de ${t.sedeOrigenCod}${cant!==t.cantidadEnviada?' (enviadas '+t.cantidadEnviada+')':''}${nota?' · '+nota:''}`});
+    nota:`Traslado recibido de ${t.sedeOrigenCod}${cant!==t.cantidadEnviada?' (enviadas '+t.cantidadEnviada+')':''}${nota?' · '+nota:''}`});
   // Si hubo diferencia, crear ajuste en origen (revertir la diferencia)
   if(cant<t.cantidadEnviada){
     const diff=t.cantidadEnviada-cant;
@@ -7628,14 +7849,14 @@ async function cancelarTraslado(trId){
    ============================================================ */
 function openManual(){
   openSheet(`
-<div class="sh-head"><h3>📖 Manual del sistema</h3></div>
+<div class="sh-head"><h3>Manual del sistema</h3></div>
 
 <!-- ÍNDICE -->
 <div style="background:var(--panel2);border-radius:10px;padding:12px 14px;margin-bottom:18px">
   <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--glow);margin-bottom:8px">ÍNDICE</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
-    ${[['◎','Resumen'],['🛵','Despacho'],['▦','Inventario'],['$','Finanzas'],['💰','Nómina'],['⚙','Ajustes'],['👥','Roles']].map(([ic,n])=>`
-      <div style="font-size:12.5px;padding:5px 0;color:var(--muted)">${ic} ${n}</div>`).join('')}
+    ${[['home','Resumen'],['scooter','Despacho'],['grid','Inventario'],['dollar','Finanzas'],['bag','Nómina'],['settings','Ajustes'],['users','Roles']].map(([i,n])=>`
+      <div style="font-size:12.5px;padding:5px 0;color:var(--muted);display:flex;gap:7px;align-items:center">${ei(i)} ${n}</div>`).join('')}
   </div>
 </div>
 
@@ -7644,21 +7865,21 @@ function openManual(){
   <div style="font-family:var(--disp);font-weight:700;font-size:16px;margin-bottom:6px">◎ Resumen</div>
   <div style="font-size:13px;color:var(--muted);line-height:1.6">
     Pantalla de inicio visible al entrar. Muestra el estado del negocio en tiempo real:<br><br>
-    <b style="color:var(--white)">Alertas automáticas</b> — si hay pedidos en proceso, traslados en tránsito o stock bajo, aparecen banners en la parte superior. Cada uno tiene un botón ✕ para descartarlo por hoy — vuelve a aparecer automáticamente al día siguiente si la condición persiste.<br><br>
+    <b style="color:var(--white)">Alertas automáticas</b> — si hay pedidos en proceso, traslados en tránsito o stock bajo, aparecen banners en la parte superior. Cada uno tiene un botón de cerrar para descartarlo por hoy — vuelve a aparecer automáticamente al día siguiente si la condición persiste.<br><br>
     <b style="color:var(--white)">KPIs del mes</b> — ventas (solo producto, sin delivery del cliente), utilidad neta después de costos y gastos, unidades vendidas y ticket promedio.<br><br>
     <b style="color:var(--white)">Gráfico 7 días</b> — barra por día de la semana, el día de hoy resaltado en verde lima.<br><br>
     <b style="color:var(--white)">Estado de pedidos</b> — tarjetas por estado (Por despachar / En camino / etc.). Toca una para ir directo a Despacho filtrado.
   </div>
 </div>
 
-<!-- 🛵 DESPACHO -->
+<!-- DESPACHO -->
 <div style="border-left:3px solid var(--info);padding-left:12px;margin-bottom:20px">
-  <div style="font-family:var(--disp);font-weight:700;font-size:16px;margin-bottom:6px">🛵 Despacho</div>
+  <div style="font-family:var(--disp);font-weight:700;font-size:16px;margin-bottom:6px">${ei('scooter')} Despacho</div>
   <div style="font-size:13px;color:var(--muted);line-height:1.6">
     Centro de la operación. Aquí viven todos los pedidos.<br><br>
 
     <b style="color:var(--white)">Crear pedido — forma rápida (recomendada)</b><br>
-    Toca <b>+ Pedido</b> → aparece la sección <b>"📋 Rellenar desde mensaje"</b> → pega el mensaje de WhatsApp del cliente → toca <b>Parsear</b>. La IA extrae nombre, teléfono, dirección, producto, cantidad, método de pago y tipo de entrega. Revisas, ajustas si hace falta, y guardas.<br><br>
+    Toca <b>+ Pedido</b> → aparece la sección <b>"Rellenar desde mensaje"</b> → pega el mensaje de WhatsApp del cliente → toca <b>Parsear</b>. La IA extrae nombre, teléfono, dirección, producto, cantidad, método de pago y tipo de entrega. Revisas, ajustas si hace falta, y guardas.<br><br>
 
     <b style="color:var(--white)">Crear pedido — manual</b><br>
     Canal → datos del cliente → sede → tipo de entrega (Delivery / Pickup / Envío nacional) → zona y motorizado → productos (toca el modelo para añadir, +/− para cantidad) → método de pago → guardar.<br><br>
@@ -7696,9 +7917,9 @@ function openManual(){
     • <b>Ajuste de conteo</b> — ingresas el stock físico real y el sistema calcula la diferencia<br><br>
 
     <b style="color:var(--white)">Marcar "sin stock — no enviado"</b><br>
-    Si una sede nunca ha recibido cierto producto, su stock en 0 va a disparar la alerta de "stock bajo" sin necesidad. Toca el botón 🚫 en la esquina de esa tarjeta para desactivar la alerta solo para esa combinación sede-producto. Vuelve a tocarlo (✓) para reactivarla cuando empieces a enviar ahí.<br><br>
+    Si una sede nunca ha recibido cierto producto, su stock en 0 va a disparar la alerta de "stock bajo" sin necesidad. Toca el botón de silenciar en la esquina de esa tarjeta para desactivar la alerta solo para esa combinación sede-producto. Vuelve a tocarlo para reactivarla cuando empieces a enviar ahí.<br><br>
     <b style="color:var(--white)">Traslados entre sedes (sistema de tránsito)</b><br>
-    Botón <b>🚚 En tránsito → + Nuevo</b><br>
+    Botón <b>En tránsito → + Nuevo</b><br>
     1. Seleccionas origen, destino, producto y cantidad<br>
     2. El stock se <b>descuenta de origen inmediatamente</b><br>
     3. La sede destino <b>no ve nada todavía</b> — aparece un banner amarillo en el inventario mientras está en camino<br>
@@ -7727,14 +7948,14 @@ function openManual(){
   </div>
 </div>
 
-<!-- 💰 NÓMINA -->
+<!-- NÓMINA -->
 <div style="border-left:3px solid var(--ok);padding-left:12px;margin-bottom:20px">
-  <div style="font-family:var(--disp);font-weight:700;font-size:16px;margin-bottom:6px">💰 Nómina</div>
+  <div style="font-family:var(--disp);font-weight:700;font-size:16px;margin-bottom:6px">${ei('bag')} Nómina</div>
   <div style="font-size:13px;color:var(--muted);line-height:1.6">
     Calcula comisiones automáticamente a partir de las ventas del período.<br><br>
 
     <b style="color:var(--white)">Cómo funciona</b><br>
-    Cada vendedor tiene un perfil en <b>⚙ Equipo</b> con su porcentaje de comisión, tipo de pago (solo comisión / solo salario / mixto), sedes y canales donde aplica, y si cobra quincenal (días 15 y fin de mes) o mensual.<br><br>
+    Cada vendedor tiene un perfil en <b>Ajustes → Equipo</b> con su porcentaje de comisión, tipo de pago (solo comisión / solo salario / mixto), sedes y canales donde aplica, y si cobra quincenal (días 15 y fin de mes) o mensual.<br><br>
 
     <b style="color:var(--white)">Lo que ves en pantalla</b><br>
     El monto acumulado de cada empleado para el período actual. Toca cualquiera para ver el desglose: cuántos pedidos registró, total en ventas, comisión calculada.<br><br>
@@ -7743,13 +7964,13 @@ function openManual(){
     Botón <b>Pagar</b> junto al monto → seleccionas método (PM / Zelle / Cash / Binance) → confirmas. Queda registrado en el historial con fecha, monto y quién lo procesó.<br><br>
 
     <b style="color:var(--white)">Añadir empleado</b><br>
-    Botón <b>⚙ Equipo → + Nuevo</b> → configuras nombre, tipo, %, sedes, canales y frecuencia. Si tiene cuenta en la app, vincúlalo para que el cálculo use su ID en vez del nombre.
+    Botón <b>Ajustes → Equipo → + Nuevo</b> → configuras nombre, tipo, %, sedes, canales y frecuencia. Si tiene cuenta en la app, vincúlalo para que el cálculo use su ID en vez del nombre.
   </div>
 </div>
 
-<!-- ⚙ AJUSTES -->
+<!-- AJUSTES -->
 <div style="border-left:3px solid var(--muted2);padding-left:12px;margin-bottom:20px">
-  <div style="font-family:var(--disp);font-weight:700;font-size:16px;margin-bottom:6px">⚙ Ajustes</div>
+  <div style="font-family:var(--disp);font-weight:700;font-size:16px;margin-bottom:6px">${ei('settings')} Ajustes</div>
   <div style="font-size:13px;color:var(--muted);line-height:1.6">
     <b style="color:var(--white)">Tasa del día</b> — actualízala cada vez que cambie. Afecta todas las conversiones de Bs a USD en tiempo real.<br><br>
     <b style="color:var(--white)">Costo unitario</b> — costo base por linterna (con empaque). Se usa para calcular el margen bruto.<br><br>
@@ -7764,9 +7985,9 @@ function openManual(){
   </div>
 </div>
 
-<!-- 👥 ROLES -->
+<!-- ROLES -->
 <div style="border-left:3px solid var(--glow);padding-left:12px;margin-bottom:20px">
-  <div style="font-family:var(--disp);font-weight:700;font-size:16px;margin-bottom:6px">👥 Roles y accesos</div>
+  <div style="font-family:var(--disp);font-weight:700;font-size:16px;margin-bottom:6px">${ei('users')} Roles y accesos</div>
   <div style="font-size:13px;color:var(--muted);line-height:1.6">
     <div style="display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin-top:4px">
       <span style="color:var(--glow);font-weight:700">Admin</span><span>Dan / Frank — acceso completo a todo</span>
@@ -7781,13 +8002,13 @@ function openManual(){
 <div style="background:var(--panel2);border-radius:10px;padding:14px;margin-bottom:6px">
   <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--glow);margin-bottom:10px">TIPS RÁPIDOS</div>
   <div style="font-size:12.5px;color:var(--muted);line-height:1.8">
-    💡 La tasa del día en Ajustes afecta todo — actualízala diario<br>
-    💡 El parser de IA necesita la Anthropic Key en Ajustes para funcionar<br>
-    💡 Los traslados siempre en dos pasos: crear (descuenta) → recibir (suma)<br>
-    💡 El cash de ventas entra a la caja automático — solo registra egresos<br>
-    💡 Exporta el respaldo JSON una vez por semana<br>
-    💡 Vincula cada empleado de nómina a su cuenta de la app para cálculos exactos<br>
-    💡 El mensaje de WhatsApp al motorizado se genera solo — solo copia y pega
+    ${ei('bulb')} La tasa del día en Ajustes afecta todo — actualízala diario<br>
+    ${ei('bulb')} El parser de IA necesita la Anthropic Key en Ajustes para funcionar<br>
+    ${ei('bulb')} Los traslados siempre en dos pasos: crear (descuenta) → recibir (suma)<br>
+    ${ei('bulb')} El cash de ventas entra a la caja automático — solo registra egresos<br>
+    ${ei('bulb')} Exporta el respaldo JSON una vez por semana<br>
+    ${ei('bulb')} Vincula cada empleado de nómina a su cuenta de la app para cálculos exactos<br>
+    ${ei('bulb')} El mensaje de WhatsApp al motorizado se genera solo — solo copia y pega
   </div>
 </div>
   `);
@@ -7878,15 +8099,15 @@ function renderSearchResults(q,{pedidos,sedes}){
   const ql=q.toLowerCase();
   let accionesHTML='';
   const acciones=[];
-  if(/inventario|stock|unidades/i.test(ql))acciones.push({ic:'▦',t:'Ver inventario',fn:"closeSearch();go('inv')"});
-  if(/finanza|ingreso|gasto|caja|utilidad/i.test(ql))acciones.push({ic:'$',t:'Ver finanzas',fn:"closeSearch();go('fin')"});
-  if(/reporte|venta|canal|sede/i.test(ql))acciones.push({ic:'📊',t:'Ver finanzas',fn:"closeSearch();go('fin')"});
-  if(/nómin|comision|pagar|frank|marie/i.test(ql))acciones.push({ic:'💰',t:'Ver nómina',fn:"closeSearch();go('nomina')"});
-  if(/pedido|despach|envío|entrega/i.test(ql))acciones.push({ic:'🛵',t:'Ver despacho',fn:"closeSearch();go('despacho')"});
+  if(/inventario|stock|unidades/i.test(ql))acciones.push({ic:'grid',t:'Ver inventario',fn:"closeSearch();go('inv')"});
+  if(/finanza|ingreso|gasto|caja|utilidad/i.test(ql))acciones.push({ic:'dollar',t:'Ver finanzas',fn:"closeSearch();go('fin')"});
+  if(/reporte|venta|canal|sede/i.test(ql))acciones.push({ic:'bars',t:'Ver finanzas',fn:"closeSearch();go('fin')"});
+  if(/nómin|comision|pagar|frank|marie/i.test(ql))acciones.push({ic:'wallet',t:'Ver nómina',fn:"closeSearch();go('nomina')"});
+  if(/pedido|despach|envío|entrega/i.test(ql))acciones.push({ic:'scooter',t:'Ver despacho',fn:"closeSearch();go('despacho')"});
   if(acciones.length)accionesHTML=`<div class="srch-group">
     <div class="srch-label">Acciones rápidas</div>
     ${acciones.map(a=>`<div class="srch-item" onclick="${a.fn}">
-      <div class="av">${a.ic}</div><div class="gr"><div class="t">${a.t}</div></div>
+      <div class="av">${ic(a.ic)}</div><div class="gr"><div class="t">${a.t}</div></div>
     </div>`).join('')}
   </div>`;
 
@@ -7899,24 +8120,24 @@ function renderSearchHome(){
   el.innerHTML=`
     <div class="srch-group">
       <div class="srch-label">Accesos rápidos</div>
-      ${[['🛵','Pedidos pendientes',"closeSearch();S.filters.despEstado='POR_DESPACHAR';go('despacho')"],
-         ['📦','Tránsito de inventario',"closeSearch();verTrasladosPendientes()"],
-         ['💰','Nómina del período',"closeSearch();go('nomina')"],
-         ['💬','Mensajes y leads',"closeSearch();go('inbox')"],
-         ['⚙','Ajustes',"closeSearch();go('admin')"]
-        ].map(([ic,t,fn])=>`<div class="srch-item" onclick="${fn}">
-          <div class="av">${ic}</div><div class="gr"><div class="t">${t}</div></div>
+      ${[['scooter','Pedidos pendientes',"closeSearch();S.filters.despEstado='POR_DESPACHAR';go('despacho')"],
+         ['package','Tránsito de inventario',"closeSearch();verTrasladosPendientes()"],
+         ['wallet','Nómina del período',"closeSearch();go('nomina')"],
+         ['msg','Mensajes y leads',"closeSearch();go('inbox')"],
+         ['settings','Ajustes',"closeSearch();go('admin')"]
+        ].map(([i,t,fn])=>`<div class="srch-item" onclick="${fn}">
+          <div class="av">${ic(i)}</div><div class="gr"><div class="t">${t}</div></div>
         </div>`).join('')}
     </div>
     <div class="srch-group">
       <div class="srch-label">¿Qué puedes preguntar?</div>
       <div style="font-size:12.5px;color:var(--muted2);line-height:1.8;padding:4px 0">
-        💬 "Ronald Hernández" — busca por nombre de cliente<br>
-        💬 "04125669870" — busca por teléfono<br>
-        💬 "FF-12345" — busca por código de pedido<br>
-        💬 "cuánto vendió Frank este mes" — respuesta de IA<br>
-        💬 "pedidos pendientes en CCS" — acción directa<br>
-        💬 "cuál es el stock de LC1 en PZO" — consulta de inventario
+        ${ei('msg')} "Ronald Hernández" — busca por nombre de cliente<br>
+        ${ei('msg')} "04125669870" — busca por teléfono<br>
+        ${ei('msg')} "FF-12345" — busca por código de pedido<br>
+        ${ei('msg')} "cuánto vendió Frank este mes" — respuesta de IA<br>
+        ${ei('msg')} "pedidos pendientes en CCS" — acción directa<br>
+        ${ei('msg')} "cuál es el stock de LC1 en PZO" — consulta de inventario
       </div>
     </div>`;
 }
@@ -7973,7 +8194,7 @@ Responde en español, directo y breve (máximo 2-3 oraciones). Usa los datos par
     const ans=(data.content?.[0]?.text||'').trim();
     const el=document.getElementById('aiAnswer');
     if(el&&ans)el.innerHTML=`<div class="ai-box">
-      <div class="lbl">✦ IA · Firefly</div>
+      <div class="lbl">${ei('sparkle')} IA · Firefly</div>
       <div class="ans">${esc(ans)}</div>
     </div>`;
   }catch(e){
@@ -8014,7 +8235,7 @@ async function adminPromociones(){
    <div class="list">
      ${promos.map(promo=>{const p=prods.find(x=>x.id===promo.productoId);
        return`<div class="li" onclick="editPromocion('${promo.id}')">
-         <div class="av" style="font-size:17px;background:var(--panel3)">${promo.icono||'📦'}</div>
+         <div class="av" style="font-size:17px;background:var(--panel3)">${promo.icono?esc(promo.icono):ic('torch')}</div>
          <div class="gr"><div class="t">${esc(promo.nombre)} ${!promo.activo?'<span class="tag" style="background:var(--panel3);color:var(--muted)">inactivo</span>':''}</div>
            <div class="s">${p?p.version:''} × ${promo.cantidad} u · ${usd(promo.precioTotal)}</div></div>
          <div class="amt" style="color:var(--glow)">${usd(promo.precioTotal)}</div></div>`;}).join('')
@@ -8024,12 +8245,12 @@ async function adminPromociones(){
 
 async function editPromocion(id){
   const[promo,prods]=await Promise.all([
-    id?dbGet('promociones',id):Promise.resolve({id:null,nombre:'',descripcion:'',productoId:'p_lc1',cantidad:1,precioTotal:0,activo:true,icono:'🔦'}),
+    id?dbGet('promociones',id):Promise.resolve({id:null,nombre:'',descripcion:'',productoId:'p_lc1',cantidad:1,precioTotal:0,activo:true,icono:''}),
     dbAll('productos')]);
   window._epr={...promo};
   openSheet(`<div class="sh-head"><h3>${id?'Editar':'Nueva'} promoción</h3></div>
    <div class="row"><div class="field"><label>Ícono</label>
-     <input class="inp" value="${esc(promo.icono||'🔦')}" oninput="_epr.icono=this.value" style="font-size:22px;text-align:center" maxlength="4"></div>
+     <input class="inp" value="${esc(promo.icono||'')}" oninput="_epr.icono=this.value" style="font-size:22px;text-align:center" maxlength="4"></div>
      <div class="field"><label>Nombre</label><input class="inp" value="${esc(promo.nombre)}" oninput="_epr.nombre=this.value" placeholder="Pack 2 linternas"></div>
    </div>
    <div class="field"><label>Producto</label><select class="inp" onchange="_epr.productoId=this.value">
@@ -8058,9 +8279,9 @@ async function delPromocion(id){confirmSheet('¿Eliminar promoción?','',async()
 async function abrirGarantiaDesdeP(sedeId){
   const[prods,sedes]=await Promise.all([dbAll('productos'),dbAll('sedes')]);
   S.cache.prods=prods;S.cache.sedes=sedes;
-  openSheet(`<div class="sh-head"><h3>🔄 Registrar reemplazo por garantía</h3></div>
+  openSheet(`<div class="sh-head"><h3>Registrar reemplazo por garantía</h3></div>
    <div class="alert" style="margin-bottom:14px;background:rgba(183,139,240,.1);border-color:rgba(183,139,240,.3);color:var(--purple)">
-     <span>🔄</span><div>Esto <b>solo descuenta del inventario</b> la unidad de reemplazo. No genera ingreso, no afecta finanzas ni comisiones.</div>
+     <span>${ei('refresh')}</span><div>Esto <b>solo descuenta del inventario</b> la unidad de reemplazo. No genera ingreso, no afecta finanzas ni comisiones.</div>
    </div>
    <div class="field"><label>Sede que entrega el reemplazo</label><select id="mvSede" class="inp">
      ${sedes.map(s=>`<option value="${s.id}" ${s.id===sedeId?'selected':''}>${s.codigo} · ${s.nombre}</option>`).join('')}</select></div>
@@ -8073,9 +8294,9 @@ async function abrirGarantiaDesdeP(sedeId){
      <input id="mvGarantiaCosto" class="inp mono" inputmode="decimal" placeholder="0.00">
    </div>
    <div class="alert" style="margin-bottom:12px;font-size:12px;background:rgba(183,139,240,.08);border-color:rgba(183,139,240,.2);color:var(--purple)">
-     <span>💡</span><div>Si dejas el delivery en blanco → solo afecta inventario.<br>Si escribes un monto → también se anota como gasto en Finanzas.</div>
+     <span>${ei('bulb')}</span><div>Si dejas el delivery en blanco → solo afecta inventario.<br>Si escribes un monto → también se anota como gasto en Finanzas.</div>
    </div>
-   <button class="btn full" style="background:rgba(183,139,240,.15);border-color:rgba(183,139,240,.4);color:var(--purple);width:100%" onclick="saveGarantia()">🔄 Descontar unidad de reemplazo</button>`);
+   <button class="btn full" style="background:rgba(183,139,240,.15);border-color:rgba(183,139,240,.4);color:var(--purple);width:100%" onclick="saveGarantia()">Descontar unidad de reemplazo</button>`);
   window._mvTipo='GARANTIA';
 }
 
@@ -8087,7 +8308,7 @@ async function saveGarantia(){
   const delivCosto=parseFloat(document.getElementById('mvGarantiaCosto')?.value)||0;
   if(cant<=0){toast('Cantidad inválida','bad');return;}
   await dbPut('movimientos',{id:uid('mv'),fecha:Date.now(),tipo:'OUT',sedeId:sede,productoId:prod,
-    cantidad:cant,esGarantia:true,nota:'🔄 Garantía/Intercambio'+(nota?' · '+nota:'')});
+    cantidad:cant,esGarantia:true,nota:'Garantía/Intercambio'+(nota?' · '+nota:'')});
   if(delivCosto>0){
     await dbPut('egresos',{id:uid('eg'),fecha:Date.now(),categoria:'Garantía / Delivery',
       descripcion:'Delivery de reemplazo'+(nota?' · '+nota:''),
@@ -8118,14 +8339,14 @@ function calcVueltoPago(){
    conversiones, nómina, garantías en una línea de tiempo
    ============================================================ */
 const AUDIT_TIPOS={
-  VENTA:     {ic:'💰',label:'Venta cobrada',   col:'var(--ok)'},
-  VUELTO_BS: {ic:'💱',label:'Vuelto en Bs',    col:'var(--warn)'},
+  VENTA:     {ic:'wallet',label:'Venta cobrada',   col:'var(--ok)'},
+  VUELTO_BS: {ic:'swap',label:'Vuelto en Bs',    col:'var(--warn)'},
   RETIRO:    {ic:'↑', label:'Retiro de caja',  col:'var(--bad)'},
   DEPOSITO:  {ic:'↓', label:'Depósito',        col:'var(--ok)'},
-  GASTO:     {ic:'📤',label:'Gasto operativo', col:'var(--bad)'},
-  CONVERSION:{ic:'🔄',label:'Conversión Bs→$', col:'var(--info)'},
-  NOMINA:    {ic:'👤',label:'Nómina',          col:'var(--purple)'},
-  GARANTIA:  {ic:'🔧',label:'Garantía',        col:'var(--muted)'},
+  GASTO:     {ic:'share',label:'Gasto operativo', col:'var(--bad)'},
+  CONVERSION:{ic:'refresh',label:'Conversión Bs→$', col:'var(--info)'},
+  NOMINA:    {ic:'user',label:'Nómina',          col:'var(--purple)'},
+  GARANTIA:  {ic:'wrench',label:'Garantía',        col:'var(--muted)'},
 };
 
 async function buildAuditEntries(desde, hasta){
@@ -8296,7 +8517,7 @@ async function cambiarVendedor(pedId){
      ${usuarios.map(u=>`<div class="li ${p.vendedorId===u.id?'':''}\" onclick="asignarVendedor('${pedId}','${u.id}','${esc(u.nombre)}')">
        <div class="av" style="background:${(u.color||'#54d684')}22;color:${u.color||'#54d684'}">${initials(u.nombre)}</div>
        <div class="gr"><div class="t">${esc(u.nombre)}</div><div class="s" style="text-transform:capitalize">${u.rol}</div></div>
-       ${p.vendedorId===u.id?'<span style="color:var(--glow)">✓ actual</span>':'<span style="color:var(--muted2)">›</span>'}
+       ${p.vendedorId===u.id?'<span style="color:var(--glow)">actual</span>':'<span style="color:var(--muted2)">›</span>'}
      </div>`).join('')}
    </div>`);
 }
@@ -8384,7 +8605,7 @@ async function importData(file){
 async function adminMayoristas(){
   const [mayors,prods]=await Promise.all([dbAll('mayoristas'),dbAll('productos')]);
   const pedsMayor=await dbAll('pedidos').then(ps=>ps.filter(p=>p.canal==='MAYOR'));
-  openSheet(`<div class="sh-head"><h3>🏭 Mayoristas / Consignaciones</h3><button class="btn pri sm" onclick="editMayorista()">+ Nuevo</button></div>
+  openSheet(`<div class="sh-head"><h3>Mayoristas / Consignaciones</h3><button class="btn pri sm" onclick="editMayorista()">+ Nuevo</button></div>
    <div class="hintline" style="margin-bottom:12px">Clientes al mayor o en consignación. Al crear un pedido con canal "Mayor" se vinculan automáticamente.</div>
    ${mayors.length?`<div class="list">
      ${mayors.map(m=>{
@@ -8392,7 +8613,7 @@ async function adminMayoristas(){
        const pendiente=suyos.reduce((a,p)=>a+(p.totalUSD||0)-(p.totalPagadoUSD||0),0);
        const entregado=suyos.reduce((a,p)=>a+(p.items||[]).reduce((b,i)=>b+i.cantidad,0),0);
        return`<div class="li" onclick="editMayorista('${m.id}')">
-         <div class="av" style="font-size:18px;background:var(--panel3)">🏭</div>
+         <div class="av" style="background:var(--panel3)">${ic('building')}</div>
          <div class="gr">
            <div class="t">${esc(m.nombre)} ${!m.activo?'<span class="tag" style="color:var(--muted)">inactivo</span>':''}</div>
            <div class="s">${esc(m.contacto||'')}${m.telefono?' · '+esc(m.telefono):''}</div>
@@ -8697,7 +8918,7 @@ async function editCajaMov(id){
   const m=await dbGet('cajaMovs',id);if(!m){toast('Movimiento no encontrado','bad');return;}
   if(m._anulado){
     openSheet(`<div class="sh-head"><h3>Movimiento anulado</h3></div>
-     <div class="alert bad" style="margin-bottom:12px"><span>✗</span><div>Anulado por <b>${esc(m._anuladoPor||'')}</b> el ${fechaCorta(m._anuladoEl||0)}<br>Motivo: ${esc(m._anuladoMotivo||'')}</div></div>
+     <div class="alert bad" style="margin-bottom:12px"><span>${ei('x')}</span><div>Anulado por <b>${esc(m._anuladoPor||'')}</b> el ${fechaCorta(m._anuladoEl||0)}<br>Motivo: ${esc(m._anuladoMotivo||'')}</div></div>
      <div class="stat2"><span class="k">Concepto original</span><span class="v">${esc(m.concepto||'')}</span></div>
      <div class="stat2"><span class="k">Monto</span><span class="v">${usd(m.montoUSD||0)}</span></div>`);
     return;
@@ -8712,7 +8933,7 @@ async function editCajaMov(id){
   openSheet(`<div class="sh-head"><h3>Editar movimiento</h3></div>
    ${histHTML}
    <div class="alert" style="margin-bottom:12px;font-size:12px;background:rgba(245,185,69,.08);border-color:rgba(245,185,69,.25);color:var(--warn)">
-     <span>🔒</span><div>Los cambios quedan registrados con tu nombre, fecha y los valores originales. <b>No se puede borrar definitivamente.</b></div>
+     <span>${ei('lock')}</span><div>Los cambios quedan registrados con tu nombre, fecha y los valores originales. <b>No se puede borrar definitivamente.</b></div>
    </div>
    <div class="eyebrow">Tipo</div>
    <div class="chips" style="margin-bottom:14px">
@@ -8813,52 +9034,52 @@ async function viewMoto(){
     return;
   }
 
-  // MOTORIZADO: su vista personal
-  const miDel=dels.find(d=>d.usuarioId===S.user.id)||dels.find(d=>d.nombre===S.user.nombre);
-  const misPeds=peds.filter(p=>{
-    if(p.estado==='CANCELADO')return false;
-    const esM=(miDel&&p.deliveryId===miDel.id)||(p.deliveryNombre===S.user.nombre);
-    return esM;
-  });
-  const pendientes=misPeds.filter(p=>['POR_DESPACHAR','DESPACHADO','EN_CAMINO'].includes(p.estado)).sort((a,b)=>b.fecha-a.fecha);
-  const entregadosHoy=misPeds.filter(p=>p.estado==='ENTREGADO'&&new Date(p.fecha).toDateString()===new Date().toDateString());
-  const historial=misPeds.filter(p=>p.estado==='ENTREGADO').sort((a,b)=>b.fecha-a.fecha).slice(0,15);
+ // MOTORIZADO: su vista personal
+ const miDel=dels.find(d=>d.usuarioId===S.user.id)||dels.find(d=>d.nombre===S.user.nombre);
+ const misPeds=peds.filter(p=>{
+  if(p.estado==='CANCELADO')return false;
+  const esM=(miDel&&p.deliveryId===miDel.id)||(p.deliveryNombre===S.user.nombre);
+  return esM;
+ });
+ const pendientes=misPeds.filter(p=>['POR_DESPACHAR','DESPACHADO','EN_CAMINO'].includes(p.estado)).sort((a,b)=>b.fecha-a.fecha);
+ const entregadosHoy=misPeds.filter(p=>p.estado==='ENTREGADO'&&new Date(p.fecha).toDateString()===new Date().toDateString());
+ const historial=misPeds.filter(p=>p.estado==='ENTREGADO').sort((a,b)=>b.fecha-a.fecha).slice(0,15);
 
-  v.innerHTML=`
-  <div class="vh"><div><div class="eyebrow">Portal de entregas</div><h2>Hola, ${esc(S.user.nombre.split(' ')[0])}</h2>
-    <div class="sub">${pendientes.length} entrega${pendientes.length===1?'':'s'} pendiente${pendientes.length===1?'':'s'}</div></div>
-    <div onclick="editMiPerfilMoto()" style="cursor:pointer">
-      ${miDel?.fotoURL?`<img src="${miDel.fotoURL}" style="width:44px;height:44px;border-radius:12px;object-fit:cover;border:2px solid var(--glow)">`:
-      `<div style="width:44px;height:44px;border-radius:12px;background:var(--panel2);border:2px solid var(--line);display:grid;place-items:center;font-size:18px">📷</div>`}
-    </div>
+ v.innerHTML=`
+ <div class="vh"><div><div class="eyebrow">Portal de entregas</div><h2>Hola, ${esc(S.user.nombre.split(' ')[0])}</h2>
+  <div class="sub">${pendientes.length} entrega${pendientes.length===1?'':'s'} pendiente${pendientes.length===1?'':'s'}</div></div>
+  <div onclick="editMiPerfilMoto()" style="cursor:pointer">
+   ${miDel?.fotoURL?`<img src="${miDel.fotoURL}" style="width:44px;height:44px;border-radius:12px;object-fit:cover;border:2px solid var(--glow)">`:
+   `<div style="width:44px;height:44px;border-radius:12px;background:var(--panel2);border:2px solid var(--line);display:grid;place-items:center;font-size:18px"></div>`}
   </div>
-  <div class="dstats" style="grid-template-columns:1fr 1fr">
-    <div class="dst"><div class="si" style="background:rgba(245,185,69,.15);color:var(--warn)">${ic('cube')}</div><div class="sb"><div class="sl">Pendientes</div><div class="sv">${pendientes.length}</div></div></div>
-    <div class="dst"><div class="si" style="background:rgba(84,214,132,.15);color:var(--ok)">${ic('check')}</div><div class="sb"><div class="sl">Entregadas hoy</div><div class="sv">${entregadosHoy.length}</div></div></div>
-  </div>
+ </div>
+ <div class="dstats" style="grid-template-columns:1fr 1fr">
+  <div class="dst"><div class="si" style="background:rgba(245,185,69,.15);color:var(--warn)">${ic('cube')}</div><div class="sb"><div class="sl">Pendientes</div><div class="sv">${pendientes.length}</div></div></div>
+  <div class="dst"><div class="si" style="background:rgba(84,214,132,.15);color:var(--ok)">${ic('check')}</div><div class="sb"><div class="sl">Entregadas hoy</div><div class="sv">${entregadosHoy.length}</div></div></div>
+ </div>
 
-  ${pendientes.length?`
-  <div class="sec-title">Entregas activas</div>
-  ${pendientes.map(p=>motoCard(p)).join('')}`
-  :`<div class="empty" style="padding:40px 0;text-align:center">
-    <div style="font-size:44px;margin-bottom:10px">✨</div>
-    <div style="font-weight:600">Sin entregas pendientes</div>
-    <div style="font-size:13px;color:var(--muted2);margin-top:4px">Cuando te asignen un pedido aparecerá aquí</div>
-  </div>`}
+ ${pendientes.length?`
+ <div class="sec-title">Entregas activas</div>
+ ${pendientes.map(p=>motoCard(p)).join('')}`
+ :`<div class="empty" style="padding:40px 0;text-align:center">
+  <div style="font-size:44px;margin-bottom:10px"></div>
+  <div style="font-weight:600">Sin entregas pendientes</div>
+  <div style="font-size:13px;color:var(--muted2);margin-top:4px">Cuando te asignen un pedido aparecerá aquí</div>
+ </div>`}
 
-  <!-- Mis ganancias (si tiene nómina configurada) -->
-  <div id="motoGanancias"></div>
+ <!-- Mis ganancias (si tiene nómina configurada) -->
+ <div id="motoGanancias"></div>
 
-  ${historial.length?`
-  <div class="sec-title">Entregas completadas <span class="h">historial</span></div>
-  <div class="list">
-    ${historial.map(p=>`<div class="li">
-      <div class="av" style="font-size:12px;background:rgba(84,214,132,.15);color:var(--ok)">✓</div>
-      <div class="gr"><div class="t">${esc(p.cliente?.nombre||'—')}</div>
-        <div class="s">${esc(p.cliente?.zona||'')} · ${fechaCorta(p.motoEntregadoEl||p.fecha)}</div></div>
-      <div class="amt">${usd(p.totalUSD||0)}</div>
-    </div>`).join('')}
-  </div>`:''}`;
+ ${historial.length?`
+ <div class="sec-title">Entregas completadas <span class="h">historial</span></div>
+ <div class="list">
+  ${historial.map(p=>`<div class="li">
+   <div class="av" style="font-size:12px;background:rgba(84,214,132,.15);color:var(--ok)">${ic('check')}</div>
+   <div class="gr"><div class="t">${esc(p.cliente?.nombre||'—')}</div>
+    <div class="s">${esc(p.cliente?.zona||'')} · ${fechaCorta(p.motoEntregadoEl||p.fecha)}</div></div>
+   <div class="amt">${usd(p.totalUSD||0)}</div>
+  </div>`).join('')}
+ </div>`:''}`;
 
   // Cargar ganancias del motorizado en segundo plano
   bloqueGananciasEmpleado(S.user.id,S.user.nombre).then(htmlG=>{
@@ -8988,67 +9209,67 @@ function openMotoEntrega(id){
 }
 
 function motoCard(p){
-  const mEst=p.motoEstado||'ASIGNADO'; // ASIGNADO → ACEPTADO → EN_SITIO
-  const debe=(p.totalUSD||0)-(p.totalPagadoUSD||0);
-  const items=(p.items||[]).map(i=>`${i.cantidad}× ${i.version}`).join(', ');
-  return `<div class="card" style="margin-bottom:12px;border:1px solid ${mEst==='ASIGNADO'?'rgba(245,185,69,.35)':mEst==='ACEPTADO'?'rgba(93,180,245,.35)':'rgba(84,214,132,.35)'}">
-    <!-- Header -->
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
-      <div>
-        <div style="font-weight:700;font-size:16px">${esc(p.cliente?.nombre||'—')}</div>
-        <div style="font-size:12px;color:var(--muted)">${p.codigo} · ${fechaCorta(p.fecha)}</div>
-      </div>
-      <span class="tag" style="background:${mEst==='ASIGNADO'?'rgba(245,185,69,.15)':mEst==='ACEPTADO'?'rgba(93,180,245,.15)':'rgba(84,214,132,.15)'};color:${mEst==='ASIGNADO'?'var(--warn)':mEst==='ACEPTADO'?'var(--info)':'var(--ok)'}">${mEst==='ASIGNADO'?'Nueva':mEst==='ACEPTADO'?'Aceptada':'En sitio'}</span>
-    </div>
-    <!-- Productos -->
-    <div style="font-size:13px;color:var(--muted);margin-bottom:10px">📦 ${items}</div>
+ const mEst=p.motoEstado||'ASIGNADO'; // ASIGNADO → ACEPTADO → EN_SITIO
+ const debe=(p.totalUSD||0)-(p.totalPagadoUSD||0);
+ const items=(p.items||[]).map(i=>`${i.cantidad}× ${i.version}`).join(', ');
+ return `<div class="card" style="margin-bottom:12px;border:1px solid ${mEst==='ASIGNADO'?'rgba(245,185,69,.35)':mEst==='ACEPTADO'?'rgba(93,180,245,.35)':'rgba(84,214,132,.35)'}">
+  <!-- Header -->
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+   <div>
+    <div style="font-weight:700;font-size:16px">${esc(p.cliente?.nombre||'—')}</div>
+    <div style="font-size:12px;color:var(--muted)">${p.codigo} · ${fechaCorta(p.fecha)}</div>
+   </div>
+   <span class="tag" style="background:${mEst==='ASIGNADO'?'rgba(245,185,69,.15)':mEst==='ACEPTADO'?'rgba(93,180,245,.15)':'rgba(84,214,132,.15)'};color:${mEst==='ASIGNADO'?'var(--warn)':mEst==='ACEPTADO'?'var(--info)':'var(--ok)'}">${mEst==='ASIGNADO'?'Nueva':mEst==='ACEPTADO'?'Aceptada':'En sitio'}</span>
+  </div>
+  <!-- Productos -->
+  <div style="font-size:13px;color:var(--muted);margin-bottom:10px"> ${items}</div>
 
-    ${mEst==='ASIGNADO'?`
-    <!-- Estado 1: solo zona visible, aceptar para ver todo -->
-    <div style="font-size:13px;color:var(--muted);margin-bottom:12px">📍 Zona: <b style="color:var(--white)">${esc(p.cliente?.zona||'Por confirmar')}</b></div>
-    <button class="btn pri full" onclick="motoAceptar('${p.id}')">✓ Aceptar esta entrega</button>`
-    :''}
+  ${mEst==='ASIGNADO'?`
+  <!-- Estado 1: solo zona visible, aceptar para ver todo -->
+  <div style="font-size:13px;color:var(--muted);margin-bottom:12px"> Zona: <b style="color:var(--white)">${esc(p.cliente?.zona||'Por confirmar')}</b></div>
+  <button class="btn pri full" onclick="motoAceptar('${p.id}')"> Aceptar esta entrega</button>`
+  :''}
 
-    ${mEst==='ACEPTADO'?`
-    <!-- Estado 2: toda la info visible -->
-    <div style="background:var(--panel2);border-radius:10px;padding:12px;margin-bottom:12px">
-      <div class="stat2"><span class="k">📍 Dirección</span><span class="v" style="font-family:var(--body);font-size:13px;text-align:right;max-width:60%">${esc(p.cliente?.direccion||p.cliente?.zona||'—')}</span></div>
-      <div class="stat2"><span class="k">📞 Teléfono</span><span class="v" style="font-family:var(--body)"><a href="tel:${esc(p.cliente?.telefono||'')}" style="color:var(--info)">${esc(p.cliente?.telefono||'—')}</a></span></div>
-      <div class="stat2"><span class="k">💰 Cobrar al cliente</span><span class="v" style="color:${debe>0.5?'var(--warn)':'var(--ok)'}">${debe>0.5?usd(debe):'✓ Ya pagó'}</span></div>
-      ${p.metodoPrevisto&&debe>0.5?`<div class="stat2"><span class="k">💳 Va a pagar con</span><span class="v" style="color:${metodColor(p.metodoPrevisto)}">${esc(p.metodoPrevisto)}</span></div>`:''}
-      ${p.comentarios?`<div class="stat2"><span class="k">📝 Notas</span><span class="v" style="font-family:var(--body);font-size:12px;text-align:right;max-width:60%">${esc(p.comentarios)}</span></div>`:''}
-    </div>
-    ${p.metodoPrevisto&&debe>0.5?`<div style="margin-bottom:12px">${cobroInstrucciones(p.metodoPrevisto,S.cache.cfg?.pagosInfo,debe,p.id)}</div>`:''}
-    ${p.cliente?.direccionLink?`<a href="${esc(p.cliente.direccionLink)}" target="_blank" class="btn pri full" style="text-align:center;text-decoration:none;margin-bottom:8px;background:rgba(93,180,245,.15);border-color:rgba(93,180,245,.4);color:var(--info)">🗺️ Abrir ubicación en GPS</a>`:''}
-    <div style="display:flex;gap:8px">
-      <a href="https://wa.me/${(p.cliente?.telefono||'').replace(/\D/g,'')}" target="_blank" class="btn" style="flex:1;text-align:center;text-decoration:none">💬 WhatsApp</a>
-      <button class="btn pri" style="flex:1" onclick="motoEnSitio('${p.id}')">📍 Llegué al sitio</button>
-    </div>`
-    :''}
+  ${mEst==='ACEPTADO'?`
+  <!-- Estado 2: toda la info visible -->
+  <div style="background:var(--panel2);border-radius:10px;padding:12px;margin-bottom:12px">
+   <div class="stat2"><span class="k"> Dirección</span><span class="v" style="font-family:var(--body);font-size:13px;text-align:right;max-width:60%">${esc(p.cliente?.direccion||p.cliente?.zona||'—')}</span></div>
+   <div class="stat2"><span class="k"> Teléfono</span><span class="v" style="font-family:var(--body)"><a href="tel:${esc(p.cliente?.telefono||'')}" style="color:var(--info)">${esc(p.cliente?.telefono||'—')}</a></span></div>
+   <div class="stat2"><span class="k"> Cobrar al cliente</span><span class="v" style="color:${debe>0.5?'var(--warn)':'var(--ok)'}">${debe>0.5?usd(debe):' Ya pagó'}</span></div>
+   ${p.metodoPrevisto&&debe>0.5?`<div class="stat2"><span class="k"> Va a pagar con</span><span class="v" style="color:${metodColor(p.metodoPrevisto)}">${esc(p.metodoPrevisto)}</span></div>`:''}
+   ${p.comentarios?`<div class="stat2"><span class="k"> Notas</span><span class="v" style="font-family:var(--body);font-size:12px;text-align:right;max-width:60%">${esc(p.comentarios)}</span></div>`:''}
+  </div>
+  ${p.metodoPrevisto&&debe>0.5?`<div style="margin-bottom:12px">${cobroInstrucciones(p.metodoPrevisto,S.cache.cfg?.pagosInfo,debe,p.id)}</div>`:''}
+  ${p.cliente?.direccionLink?`<a href="${esc(p.cliente.direccionLink)}" target="_blank" class="btn pri full" style="text-align:center;text-decoration:none;margin-bottom:8px;background:rgba(93,180,245,.15);border-color:rgba(93,180,245,.4);color:var(--info)"> Abrir ubicación en GPS</a>`:''}
+  <div style="display:flex;gap:8px">
+   <a href="https://wa.me/${(p.cliente?.telefono||'').replace(/\D/g,'')}" target="_blank" class="btn" style="flex:1;text-align:center;text-decoration:none"> WhatsApp</a>
+   <button class="btn pri" style="flex:1" onclick="motoEnSitio('${p.id}')"> Llegué al sitio</button>
+  </div>`
+  :''}
 
-    ${mEst==='EN_SITIO'?`
-    <!-- Estado 3: subir comprobante y entregar -->
-    <div style="background:rgba(84,214,132,.06);border:1px solid rgba(84,214,132,.2);border-radius:10px;padding:12px;margin-bottom:12px">
-      <div class="eyebrow" style="color:var(--ok);margin-bottom:8px">Para cerrar la entrega</div>
-      ${debe>0.5&&p.metodoPrevisto?`<div style="margin-bottom:10px">${cobroInstrucciones(p.metodoPrevisto,S.cache.cfg?.pagosInfo,debe,p.id)}</div>`:''}
-      ${debe>0.5?`
-      <div class="field" style="margin-bottom:10px"><label>Método de pago que usó el cliente</label>
-        <select id="motoPagoMet_${p.id}" class="inp" onchange="motoToggleRef('${p.id}',this.value)">${METODOS.map(m=>`<option ${p.metodoPrevisto===m?'selected':''}>${m}</option>`).join('')}</select></div>
-      <div class="field" style="margin-bottom:10px"><label>Monto cobrado $</label>
-        <input id="motoPagoMonto_${p.id}" class="inp mono" inputmode="decimal" value="${debe.toFixed(2)}"></div>
-      <div class="field" id="motoRefWrap_${p.id}" style="margin-bottom:10px;display:${['Pago Móvil','Zelle','Binance','PayPal'].includes(p.metodoPrevisto||'Pago Móvil')?'block':'none'}">
-        <label>Últimos 4 dígitos de la referencia <span class="req">*</span></label>
-        <input id="motoPagoRef_${p.id}" class="inp mono" inputmode="numeric" maxlength="8" placeholder="1234"></div>`
-      :'<div style="font-size:12.5px;color:var(--ok);margin-bottom:10px">✓ El cliente ya pagó — solo sube foto de la entrega</div>'}
-      <div class="field" style="margin-bottom:0">
-        <label>📸 Foto del comprobante <span class="req">*</span> <span style="color:var(--muted2);text-transform:none">${debe>0.5?'(pantallazo del pago / foto de los billetes)':'(entrega)'}</span></label>
-        <input type="file" id="motoFoto_${p.id}" accept="image/*" capture="environment" class="inp" style="padding:10px">
-        <div class="hintline">Pago móvil: foto del teléfono con la transferencia. Efectivo: foto de los billetes.</div>
-      </div>
-    </div>
-    <button class="btn pri full" id="motoEntregarBtn_${p.id}" onclick="motoEntregar('${p.id}')">✓ Confirmar entrega</button>`
-    :''}
-  </div>`;
+  ${mEst==='EN_SITIO'?`
+  <!-- Estado 3: subir comprobante y entregar -->
+  <div style="background:rgba(84,214,132,.06);border:1px solid rgba(84,214,132,.2);border-radius:10px;padding:12px;margin-bottom:12px">
+   <div class="eyebrow" style="color:var(--ok);margin-bottom:8px">Para cerrar la entrega</div>
+   ${debe>0.5&&p.metodoPrevisto?`<div style="margin-bottom:10px">${cobroInstrucciones(p.metodoPrevisto,S.cache.cfg?.pagosInfo,debe,p.id)}</div>`:''}
+   ${debe>0.5?`
+   <div class="field" style="margin-bottom:10px"><label>Método de pago que usó el cliente</label>
+    <select id="motoPagoMet_${p.id}" class="inp" onchange="motoToggleRef('${p.id}',this.value)">${METODOS.map(m=>`<option ${p.metodoPrevisto===m?'selected':''}>${m}</option>`).join('')}</select></div>
+   <div class="field" style="margin-bottom:10px"><label>Monto cobrado $</label>
+    <input id="motoPagoMonto_${p.id}" class="inp mono" inputmode="decimal" value="${debe.toFixed(2)}"></div>
+   <div class="field" id="motoRefWrap_${p.id}" style="margin-bottom:10px;display:${['Pago Móvil','Zelle','Binance','PayPal'].includes(p.metodoPrevisto||'Pago Móvil')?'block':'none'}">
+    <label>Últimos 4 dígitos de la referencia <span class="req">*</span></label>
+    <input id="motoPagoRef_${p.id}" class="inp mono" inputmode="numeric" maxlength="8" placeholder="1234"></div>`
+   :'<div style="font-size:12.5px;color:var(--ok);margin-bottom:10px"> El cliente ya pagó — solo sube foto de la entrega</div>'}
+   <div class="field" style="margin-bottom:0">
+    <label> Foto del comprobante <span class="req">*</span> <span style="color:var(--muted2);text-transform:none">${debe>0.5?'(pantallazo del pago / foto de los billetes)':'(entrega)'}</span></label>
+    <input type="file" id="motoFoto_${p.id}" accept="image/*" capture="environment" class="inp" style="padding:10px">
+    <div class="hintline">Pago móvil: foto del teléfono con la transferencia. Efectivo: foto de los billetes.</div>
+   </div>
+  </div>
+  <button class="btn pri full" id="motoEntregarBtn_${p.id}" onclick="motoEntregar('${p.id}')"> Confirmar entrega</button>`
+  :''}
+ </div>`;
 }
 
 
@@ -9081,70 +9302,70 @@ async function motoEnSitio(pedId){
 }
 
 async function motoEntregar(pedId){
-  const p=await dbGet('pedidos',pedId);if(!p)return;
-  const fileInput=document.getElementById('motoFoto_'+pedId);
-  const file=fileInput?.files?.[0];
-  if(!file){toast('Toma o sube la foto del comprobante primero','bad');return;}
-  const btn=document.getElementById('motoEntregarBtn_'+pedId);
-  if(btn){btn.textContent='📤 Subiendo foto…';btn.disabled=true;}
-  try{
-    // Subir foto a Firebase Storage
-    const ext=file.name.split('.').pop()||'jpg';
-    const path=`comprobantes/${pedId}/${Date.now()}.${ext}`;
-    const ref=storage.ref(path);
-    await ref.put(file);
-    const fotoURL=await ref.getDownloadURL();
+ const p=await dbGet('pedidos',pedId);if(!p)return;
+ const fileInput=document.getElementById('motoFoto_'+pedId);
+ const file=fileInput?.files?.[0];
+ if(!file){toast('Toma o sube la foto del comprobante primero','bad');return;}
+ const btn=document.getElementById('motoEntregarBtn_'+pedId);
+ if(btn){btn.textContent=' Subiendo foto…';btn.disabled=true;}
+ try{
+  // Subir foto a Firebase Storage
+  const ext=file.name.split('.').pop()||'jpg';
+  const path=`comprobantes/${pedId}/${Date.now()}.${ext}`;
+  const ref=storage.ref(path);
+  await ref.put(file);
+  const fotoURL=await ref.getDownloadURL();
 
-    // Registrar pago si el cliente pagó al momento
-    const debe=(p.totalUSD||0)-(p.totalPagadoUSD||0);
-    if(debe>0.5){
-      const met=document.getElementById('motoPagoMet_'+pedId)?.value||'Cash $';
-      const monto=parseFloat(document.getElementById('motoPagoMonto_'+pedId)?.value)||debe;
-      const refInput=document.getElementById('motoPagoRef_'+pedId)?.value?.trim()||'';
-      // Validar referencia para métodos electrónicos
-      if(['Pago Móvil','Zelle','Binance','PayPal'].includes(met)&&!refInput){
-        toast('Falta los últimos 4 dígitos de la referencia','bad');
-        if(btn){btn.textContent='✓ Confirmar entrega';btn.disabled=false;}
-        return;
-      }
-      const pg={metodo:met,montoUSD:monto,montoBs:0,tasa:0,ref:refInput||'entrega',
-        ts:Date.now(),por:S.user.nombre,comprobanteURL:fotoURL};
-      p.pagos=[...(p.pagos||[]),pg];
-      p.totalPagadoUSD=(p.totalPagadoUSD||0)+monto;
-    }
-
-    // Cerrar la orden
-    p.estado='ENTREGADO';
-    p.motoEstado='ENTREGADO';
-    p.motoEntregadoEl=Date.now();
-    p.comprobanteEntregaURL=fotoURL;
-    p.timeline=[...(p.timeline||[]),{estado:'ENTREGADO',ts:Date.now(),por:S.user.nombre,nota:'Entregado con comprobante 📸'}];
-    S.cache.peds=null;invalidarCache('pedidos');
-    await dbPut('pedidos',p);
-    toast('🎉 Entrega completada — comprobante guardado','ok');
-    viewMoto();
-  }catch(e){
-    toast('Error al subir: '+(e.message||e),'bad');
-    if(btn){btn.textContent='✓ Confirmar entrega';btn.disabled=false;}
+  // Registrar pago si el cliente pagó al momento
+  const debe=(p.totalUSD||0)-(p.totalPagadoUSD||0);
+  if(debe>0.5){
+   const met=document.getElementById('motoPagoMet_'+pedId)?.value||'Cash $';
+   const monto=parseFloat(document.getElementById('motoPagoMonto_'+pedId)?.value)||debe;
+   const refInput=document.getElementById('motoPagoRef_'+pedId)?.value?.trim()||'';
+   // Validar referencia para métodos electrónicos
+   if(['Pago Móvil','Zelle','Binance','PayPal'].includes(met)&&!refInput){
+    toast('Falta los últimos 4 dígitos de la referencia','bad');
+    if(btn){btn.textContent=' Confirmar entrega';btn.disabled=false;}
+    return;
+   }
+   const pg={metodo:met,montoUSD:monto,montoBs:0,tasa:0,ref:refInput||'entrega',
+    ts:Date.now(),por:S.user.nombre,comprobanteURL:fotoURL};
+   p.pagos=[...(p.pagos||[]),pg];
+   p.totalPagadoUSD=(p.totalPagadoUSD||0)+monto;
   }
+
+  // Cerrar la orden
+  p.estado='ENTREGADO';
+  p.motoEstado='ENTREGADO';
+  p.motoEntregadoEl=Date.now();
+  p.comprobanteEntregaURL=fotoURL;
+  p.timeline=[...(p.timeline||[]),{estado:'ENTREGADO',ts:Date.now(),por:S.user.nombre,nota:'Entregado con comprobante '}];
+  S.cache.peds=null;invalidarCache('pedidos');
+  await dbPut('pedidos',p);
+  toast(' Entrega completada — comprobante guardado','ok');
+  viewMoto();
+ }catch(e){
+  toast('Error al subir: '+(e.message||e),'bad');
+  if(btn){btn.textContent=' Confirmar entrega';btn.disabled=false;}
+ }
 }
 
 /* ── Perfil del motorizado con foto ── */
 async function editMiPerfilMoto(){
-  const dels=await dbAll('deliveries');
-  const miDel=dels.find(d=>d.usuarioId===S.user.id)||dels.find(d=>d.nombre===S.user.nombre);
-  if(!miDel){toast('Tu perfil de motorizado no está vinculado — avisa al admin','bad');return;}
-  openSheet(`<div class="sh-head"><h3>Mi perfil</h3></div>
-   <div style="text-align:center;margin-bottom:16px">
-     ${miDel.fotoURL?`<img src="${miDel.fotoURL}" style="width:100px;height:100px;border-radius:24px;object-fit:cover;border:3px solid var(--glow)">`:
-     `<div style="width:100px;height:100px;border-radius:24px;background:var(--panel2);display:grid;place-items:center;font-size:36px;margin:0 auto">🛵</div>`}
-     <div style="font-weight:700;font-size:17px;margin-top:10px">${esc(miDel.nombre)}</div>
-     <div style="font-size:12px;color:var(--muted)">${esc(miDel.telefono||'')}</div>
-   </div>
-   <div class="field"><label>📷 Cambiar foto de perfil</label>
-     <input type="file" id="perfilFoto" accept="image/*" class="inp" style="padding:10px">
-   </div>
-   <button class="btn pri full" onclick="savePerfilMotoFoto('${miDel.id}')">Guardar foto</button>`);
+ const dels=await dbAll('deliveries');
+ const miDel=dels.find(d=>d.usuarioId===S.user.id)||dels.find(d=>d.nombre===S.user.nombre);
+ if(!miDel){toast('Tu perfil de motorizado no está vinculado — avisa al admin','bad');return;}
+ openSheet(`<div class="sh-head"><h3>Mi perfil</h3></div>
+  <div style="text-align:center;margin-bottom:16px">
+   ${miDel.fotoURL?`<img src="${miDel.fotoURL}" style="width:100px;height:100px;border-radius:24px;object-fit:cover;border:3px solid var(--glow)">`:
+   `<div style="width:100px;height:100px;border-radius:24px;background:var(--panel2);display:grid;place-items:center;font-size:36px;margin:0 auto"></div>`}
+   <div style="font-weight:700;font-size:17px;margin-top:10px">${esc(miDel.nombre)}</div>
+   <div style="font-size:12px;color:var(--muted)">${esc(miDel.telefono||'')}</div>
+  </div>
+  <div class="field"><label> Cambiar foto de perfil</label>
+   <input type="file" id="perfilFoto" accept="image/*" class="inp" style="padding:10px">
+  </div>
+  <button class="btn pri full" onclick="savePerfilMotoFoto('${miDel.id}')">Guardar foto</button>`);
 }
 
 async function savePerfilMotoFoto(delId){
@@ -9279,13 +9500,13 @@ async function viewDashVend(){
   const gaugeColor=logrado?'#54d684':pctMeta>=70?'#CDEB45':pctMeta>=40?'#f5b945':'#5db4f5';
   v.innerHTML=`
   <div class="view-head"><div><div class="eyebrow">${new Date().toLocaleDateString('es-VE',{weekday:'long',day:'numeric',month:'long'})}</div>
-    <h2>${saludo}, ${esc(S.user.nombre.split(' ')[0])} 👋</h2>
+    <h2>${saludo}, ${esc(S.user.nombre.split(' ')[0])}</h2>
     <div class="sub">${activos} pedido(s) activos en el sistema</div></div>
     <button class="btn pri sm" onclick="openNewOrder()">+ Pedido</button></div>
 
   <!-- 🎯 META DE COMISIÓN — bono al llegar a la meta -->
   ${tieneNomina?`<div class="card" style="margin-bottom:16px;background:linear-gradient(135deg,rgba(205,235,69,.06),rgba(93,180,245,.04));border:1px solid ${logrado?'rgba(84,214,132,.4)':'var(--line)'};overflow:hidden;position:relative">
-    ${logrado?'<div style="position:absolute;top:0;right:0;background:var(--ok);color:#0A0A0B;font-size:10px;font-weight:800;padding:4px 12px;border-radius:0 0 0 10px;letter-spacing:.04em">🎉 BONO LOGRADO</div>':''}
+    ${logrado?'<div style="position:absolute;top:0;right:0;background:var(--ok);color:#0A0A0B;font-size:10px;font-weight:800;padding:4px 12px;border-radius:0 0 0 10px;letter-spacing:.04em">BONO LOGRADO</div>':''}
     <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
       <!-- Gauge SVG -->
       <div style="position:relative;flex:none;width:200px;height:118px">
@@ -9301,19 +9522,19 @@ async function viewDashVend(){
       </div>
       <!-- Texto motivacional -->
       <div style="flex:1;min-width:150px">
-        <div style="font-size:10px;color:var(--glow);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:4px">🎯 Meta de comisión · ${esc(periodoComLabel)}</div>
+        <div style="font-size:10px;color:var(--glow);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:4px">${ei('target')} Meta de comisión · ${esc(periodoComLabel)}</div>
         ${logrado?`
-          <div style="font-weight:700;font-size:16px;margin-bottom:3px">¡Felicidades! 🚀</div>
+          <div style="font-weight:700;font-size:16px;margin-bottom:3px">¡Felicidades!</div>
           <div style="font-size:13px;color:var(--muted)">Acumulaste ${usd(META)} en comisión — ganaste tu bono de <b style="color:var(--ok)">${usd(BONO)}</b>.</div>`
         :`
           <div style="font-weight:700;font-size:16px;margin-bottom:3px">Te faltan <span style="color:${gaugeColor}">${usd(faltante)}</span> de comisión</div>
-          <div style="font-size:13px;color:var(--muted)">Acumula <b style="color:var(--white)">${usd(META)}</b> en comisión y ganas un bono extra de <b style="color:var(--glow)">${usd(BONO)}</b> 💪</div>`}
+          <div style="font-size:13px;color:var(--muted)">Acumula <b style="color:var(--white)">${usd(META)}</b> en comisión y ganas un bono extra de <b style="color:var(--glow)">${usd(BONO)}</b></div>`}
       </div>
     </div>
   </div>`:''}
 
-  ${activos>0?`<div class="alert" style="margin-bottom:13px"><span>🛵</span><div><b>${activos} en proceso</b> — ${porEstado.POR_DESPACHAR} por despachar, ${porEstado.EN_CAMINO} en camino. <a onclick="go('despacho')" style="color:var(--glow)">Ver despacho ›</a></div></div>`:''}
-  ${low.length?`<div class="alert bad" style="margin-bottom:13px"><span>⚠️</span><div><b>Stock bajo</b> — ${low.slice(0,4).map(l=>`${l.prod} en ${l.sede} (${l.q} u)`).join(', ')}${low.length>4?' y '+(low.length-4)+' más':''}. <a onclick="go('inv')" style="color:var(--bad)">Ver inventario ›</a></div></div>`:''}
+  ${activos>0?`<div class="alert" style="margin-bottom:13px"><span>${ei('scooter')}</span><div><b>${activos} en proceso</b> — ${porEstado.POR_DESPACHAR} por despachar, ${porEstado.EN_CAMINO} en camino. <a onclick="go('despacho')" style="color:var(--glow)">Ver despacho ›</a></div></div>`:''}
+  ${low.length?`<div class="alert bad" style="margin-bottom:13px"><span>${ei('alert')}</span><div><b>Stock bajo</b> — ${low.slice(0,4).map(l=>`${l.prod} en ${l.sede} (${l.q} u)`).join(', ')}${low.length>4?' y '+(low.length-4)+' más':''}. <a onclick="go('inv')" style="color:var(--bad)">Ver inventario ›</a></div></div>`:''}
 
   <!-- Mi actividad -->
   <div class="sec-title">Mi actividad</div>
@@ -9370,7 +9591,7 @@ function cobroInstrucciones(metodo,pagosInfo,monto,pid){
   if(metodo==='Pago Móvil'){
     const pmTexto=`Pago Movil Firefly\n${pi.pmBanco}\nTel: ${pi.pmTelefono}\nCI: ${pi.pmCedula}${montoBs?`\nMonto: ${montoBs} Bs`:''}`;
     return `<div style="background:var(--panel3);border-radius:10px;padding:12px;text-align:center">
-      <div class="eyebrow" style="margin-bottom:8px">💸 Datos para Pago Móvil</div>
+      <div class="eyebrow" style="margin-bottom:8px">Datos para Pago Móvil</div>
       ${montoBs?`<div style="background:rgba(245,185,69,.12);border:1px solid rgba(245,185,69,.3);border-radius:10px;padding:10px;margin-bottom:10px">
         <div style="font-size:10px;color:var(--warn);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px">Total a cobrar en bolívares</div>
         <div style="font-family:var(--mono);font-weight:800;font-size:26px;color:var(--warn)">${num(montoBs)} Bs</div>
@@ -9379,30 +9600,30 @@ function cobroInstrucciones(metodo,pagosInfo,monto,pid){
       <img src="${qrData(pmTexto)}" style="width:150px;height:150px;border-radius:10px;margin-bottom:8px" alt="QR Pago Móvil">
       <div style="font-size:12px;color:var(--muted);margin-bottom:8px">El cliente escanea el QR o copia estos datos:</div>
       <div style="font-family:var(--mono);font-size:13px;line-height:1.8;text-align:left;background:var(--panel2);border-radius:8px;padding:10px">
-        🏦 ${esc(pi.pmBanco)}<br>
-        📞 <b>${esc(pi.pmTelefono)}</b><br>
-        🪪 <b>${esc(pi.pmCedula)}</b>
+        ${ei('bank')} ${esc(pi.pmBanco)}<br>
+        ${ei('phone')} <b>${esc(pi.pmTelefono)}</b><br>
+        ${ei('idcard')} <b>${esc(pi.pmCedula)}</b>
       </div>
-      <button class="btn sm full" style="margin-top:8px" onclick="navigator.clipboard.writeText('${esc(pi.pmBanco)} · Tel ${esc(pi.pmTelefono)} · CI ${esc(pi.pmCedula)}').then(()=>toast('Datos copiados ✓','ok'))">📋 Copiar datos</button>
+      <button class="btn sm full" style="margin-top:8px" onclick="navigator.clipboard.writeText('${esc(pi.pmBanco)} · Tel ${esc(pi.pmTelefono)} · CI ${esc(pi.pmCedula)}').then(()=>toast('Datos copiados ✓','ok'))">${ei('copy')} Copiar datos</button>
     </div>`;
   }
   if(metodo==='Zelle')return `<div style="background:var(--panel3);border-radius:10px;padding:12px">
     <div class="cobh">${metTile('Zelle',28)}<b>Zelle</b></div>
     <div style="font-family:var(--mono);font-size:14px;font-weight:700">${esc(pi.zelle)}</div>
-    <button class="btn sm full" style="margin-top:8px" onclick="navigator.clipboard.writeText('${esc(pi.zelle)}').then(()=>toast('Copiado ✓','ok'))">📋 Copiar correo</button>
+    <button class="btn sm full" style="margin-top:8px" onclick="navigator.clipboard.writeText('${esc(pi.zelle)}').then(()=>toast('Copiado ✓','ok'))">${ei('copy')} Copiar correo</button>
   </div>`;
   if(metodo==='PayPal')return `<div style="background:var(--panel3);border-radius:10px;padding:12px">
     <div class="cobh">${metTile('PayPal',28)}<b>PayPal</b></div>
     <div style="font-family:var(--mono);font-size:14px;font-weight:700">${esc(pi.paypal)}</div>
-    <button class="btn sm full" style="margin-top:8px" onclick="navigator.clipboard.writeText('${esc(pi.paypal)}').then(()=>toast('Copiado ✓','ok'))">📋 Copiar correo</button>
+    <button class="btn sm full" style="margin-top:8px" onclick="navigator.clipboard.writeText('${esc(pi.paypal)}').then(()=>toast('Copiado ✓','ok'))">${ei('copy')} Copiar correo</button>
   </div>`;
   if(metodo==='Binance')return `<div style="background:var(--panel3);border-radius:10px;padding:12px">
     <div class="cobh">${metTile('Binance',28)}<b>Binance Pay</b></div>
     <div style="font-family:var(--mono);font-size:14px;font-weight:700">${esc(pi.binance)}</div>
-    <button class="btn sm full" style="margin-top:8px" onclick="navigator.clipboard.writeText('${esc(pi.binance)}').then(()=>toast('Copiado ✓','ok'))">📋 Copiar correo</button>
+    <button class="btn sm full" style="margin-top:8px" onclick="navigator.clipboard.writeText('${esc(pi.binance)}').then(()=>toast('Copiado ✓','ok'))">${ei('copy')} Copiar correo</button>
   </div>`;
   if(metodo==='Efectivo Bs')return `<div style="background:var(--panel3);border-radius:10px;padding:12px">
-    <div class="eyebrow" style="margin-bottom:8px">💵 Efectivo en Bolívares</div>
+    <div class="eyebrow" style="margin-bottom:8px">Efectivo en Bolívares</div>
     ${montoBs?`<div style="background:rgba(245,185,69,.12);border:1px solid rgba(245,185,69,.3);border-radius:10px;padding:10px;margin-bottom:8px;text-align:center">
       <div style="font-size:10px;color:var(--warn);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px">Total a cobrar</div>
       <div style="font-family:var(--mono);font-weight:800;font-size:26px;color:var(--warn)">${num(montoBs)} Bs</div>
@@ -9411,7 +9632,7 @@ function cobroInstrucciones(metodo,pagosInfo,monto,pid){
     <div style="font-size:12.5px;color:var(--muted)">Recibe el efectivo y toma foto del dinero como comprobante.</div>
   </div>`;
   if(metodo==='Cash $')return `<div style="background:var(--panel3);border-radius:10px;padding:12px">
-    <div class="eyebrow" style="margin-bottom:6px">💵 Cash en dólares</div>
+    <div class="eyebrow" style="margin-bottom:6px">Cash en dólares</div>
     <div style="font-size:13px;color:var(--muted)">Recibe el efectivo${monto?` — <b style="color:var(--glow);font-size:16px">${usd(monto)}</b>`:''}. Toma foto del dinero como comprobante.</div>
   </div>`;
   return '';
@@ -9465,7 +9686,7 @@ async function bloqueGananciasEmpleado(usuarioId, nombreUsuario){
     <div class="sec-title">Historial de pagos <span class="h">${totalPagadoMes>0?usd(totalPagadoMes)+' este mes':''}</span></div>
     <div class="list" style="margin-bottom:16px">
       ${misPagos.map(p=>`<div class="li">
-        <div class="av" style="font-size:12px;background:rgba(84,214,132,.15);color:var(--ok)">✓</div>
+        <div class="av" style="font-size:12px;background:rgba(84,214,132,.15);color:var(--ok)">${ic('check')}</div>
         <div class="gr"><div class="t">${usd(p.total)}</div>
           <div class="s">${esc(p.periodo||'')} · ${p.metodoPago?esc(p.metodoPago)+' · ':''}${fechaCorta(p.fecha)}</div></div>
         ${p.comision>0&&p.salario>0?`<div style="text-align:right;font-size:10px;color:var(--muted2)">sal ${usd(p.salario)}<br>com ${usd(p.comision)}</div>`:''}
@@ -9922,7 +10143,7 @@ function wzItem(i,ix){
   const over=st!=null&&!_draft.id&&i.cantidad>st;
   return `<div class="wzit"><div class="ph">${pr?.fotoURL?`<img src="${esc(pr.fotoURL)}" alt="">`:ic('torch')}</div>
    <div class="i"><b>${esc(i.version||'')}</b><small>${esc(pr?.nombre||i.nombre||'')}</small>
-     <div class="pc"><span>$</span><input inputmode="decimal" value="${i.precio}" aria-label="Precio c/u" onchange="wzPrecio(${ix},this.value)"><em>c/u</em>${st!=null?`<em style="color:${over?'var(--bad)':'var(--muted)'}">· ${num(st)} disp.${over?' ⚠':''}</em>`:''}</div></div>
+     <div class="pc"><span>$</span><input inputmode="decimal" value="${i.precio}" aria-label="Precio c/u" onchange="wzPrecio(${ix},this.value)"><em>c/u</em>${st!=null?`<em style="color:${over?'var(--bad)':'var(--muted)'}">· ${num(st)} disp.${over?' '+ei('alert'):''}</em>`:''}</div></div>
    <div class="step"><button type="button" aria-label="Menos" onclick="chgQty(${ix},-1)">${ic('minus')}</button><b>${i.cantidad}</b><button type="button" aria-label="Más" onclick="chgQty(${ix},1)">${ic('plus')}</button></div>
    <div class="lt">${usd(i.precio*i.cantidad)}</div>
    <button class="tr" type="button" aria-label="Quitar" onclick="_draft.items.splice(${ix},1);renderOrderSheet()">${ic('trash')}</button></div>`;
@@ -9951,9 +10172,9 @@ function renderOrderSheet(){
   if(d._step===0){
     const promos=(S.cache.promos||[]).filter(p=>p.activo);
     body=`${!d.id?`<div class="wzbox"><div class="wzbh">${ic('clip')}<div><b>Rellenar desde mensaje</b><small>Pega el mensaje del cliente y la IA extrae los datos</small></div><button type="button" class="btn-out" style="height:40px" onclick="_draft._showParser=!_draft._showParser;renderOrderSheet()">${d._showParser?'Cerrar':'Pegar mensaje'}</button></div>
-       ${d._showParser?`<div class="fx" style="align-items:flex-start;margin-top:10px"><span class="fxi">${ic('msg')}</span><textarea id="parseMsg" rows="4" placeholder="Pega aquí el mensaje de WhatsApp o Instagram…"></textarea></div><button id="parseBtn" class="bsave" style="height:46px;margin-top:10px" onclick="parseAndFill()">✨ Rellenar automáticamente</button>`:''}</div>`:''}
+       ${d._showParser?`<div class="fx" style="align-items:flex-start;margin-top:10px"><span class="fxi">${ic('msg')}</span><textarea id="parseMsg" rows="4" placeholder="Pega aquí el mensaje de WhatsApp o Instagram…"></textarea></div><button id="parseBtn" class="bsave" style="height:46px;margin-top:10px" onclick="parseAndFill()">${ic('sparkle')}Rellenar automáticamente</button>`:''}</div>`:''}
      ${!d.id&&promos.length?`<div class="flab">Paquetes rápidos</div><div class="wzpk">${promos.map(promo=>{const pr=S.cache.prods?.find(x=>x.id===promo.productoId);const pt=d._divisas&&pr?promo.precioTotal*(1-(pr.divisasPct||0)/100):promo.precioTotal;const on=d.items.length===1&&d.items[0]._promoId===promo.id;
-       return `<button type="button" class="${on?'on':''}" onclick="applyPromo('${promo.id}')"><span class="ph">${pr?.fotoURL?`<img src="${esc(pr.fotoURL)}" alt="">`:esc(promo.icono||'📦')}</span><span class="tx"><b>${esc(promo.nombre)}</b><small>${usd(Math.round(pt*100)/100)}</small></span></button>`;}).join('')}</div>`:''}
+       return `<button type="button" class="${on?'on':''}" onclick="applyPromo('${promo.id}')"><span class="ph">${pr?.fotoURL?`<img src="${esc(pr.fotoURL)}" alt="">`:(promo.icono?esc(promo.icono):ic('torch'))}</span><span class="tx"><b>${esc(promo.nombre)}</b><small>${usd(Math.round(pt*100)/100)}</small></span></button>`;}).join('')}</div>`:''}
      <div class="flab">Canal de venta</div>
      <div class="wzch">${CANALES.map(c=>`<button type="button" class="${d.canal===c?'on':''}" onclick="wzCanal('${c}')">${canalMark(c)}<span>${CANAL_N[c]}</span></button>`).join('')}</div>
      ${d.canal==='MAYOR'?`<div class="wzbox" style="margin-top:10px"><div class="f2">
@@ -10018,8 +10239,8 @@ function renderOrderSheet(){
             <label style="display:flex;gap:9px;align-items:center;margin-top:10px;font-size:14px;color:${d._vueltoBs?'var(--warn)':'#d6d6da'};cursor:pointer"><input type="checkbox" ${d._vueltoBs?'checked':''} onchange="_draft._vueltoBs=this.checked;renderOrderSheet()"> El vuelto va en bolívares</label>
             ${d._vueltoBs?`<div class="f2"><div><div class="flab sm">Tasa vuelto</div><div class="fx"><span class="fxi">${ic('trend')}</span><input id="vueltoBsTasaInp" inputmode="decimal" value="${d._vueltoBsTasa||d._pagoTasa||600}" style="font-family:var(--mono)" oninput="_draft._vueltoBsTasa=parseFloat(this.value)||0;calcVueltoBs()"></div></div><div><div class="flab sm">Bs a entregar</div><div id="vueltoBsDisplay" class="qbox calc" style="padding:12px 14px;font-family:var(--mono);font-weight:700;color:var(--warn)">${num(Math.round(Math.max(0,(d._pagoCon||0)-(d._pagoUSD||t.total))*(d._vueltoBsTasa||d._pagoTasa||600)))} Bs</div></div></div>
               <div style="margin-top:8px">${wzIn('_draft._vueltoBsRef','hash','Referencia del vuelto en Bs',d._vueltoBsRef)}</div>`:''}</div>`:''}`
-       :`<div class="flab sm" style="margin-top:0">¿Con qué pagará al recibir? ${d.tipoEntrega==='DELIVERY'?'<span class="req">*</span>':''}</div>${wzMetTiles(d._metodoPrevisto,'wzMetPrev')}
-         <div class="wzinfo">${ic('info')}<span>${d._metodoPrevisto?`El motorizado recibirá los datos de cobro por <b>${esc(d._metodoPrevisto)}</b>${ESBs[d._metodoPrevisto]?' con el monto en Bs a la tasa del día':''} junto con el pedido.`:'Este método de pago se compartirá con el motorizado en el mensaje del pedido, con las instrucciones exactas de cobro.'}</span></div>`}
+       :`<div class="flab sm" style="margin-top:0">¿Con qué pagará al recibir? ${d.tipoEntrega==='DELIVERY'?'<span class="req">*</span>':''}</div>${wzMetTiles(d._metodosPrev||(d._metodoPrevisto?[d._metodoPrevisto]:[]),'wzMetPrev')}
+         <div class="wzinfo">${ic('info')}<span>${d._metodoPrevisto?`El motorizado recibirá los datos de cobro por <b>${esc((d._metodosPrev||[d._metodoPrevisto]).join(' + '))}</b>${ESBs[d._metodoPrevisto]?' con el monto en Bs a la tasa del día':''} junto con el pedido.`:'Este método de pago se compartirá con el motorizado en el mensaje del pedido, con las instrucciones exactas de cobro.'}</span></div>`}
        ${t.deliv>0&&d.deliveryPagaCliente!==false?`<div class="fhint">De ${usd(t.total)}: ${usd(t.sub)} son de Firefly y ${usd(t.deliv)} del envío (pasan al motorizado).</div>`:''}</div>`}
      <div class="flab">Estado inicial</div>
      <div class="wzch">${ESTADOS.filter(e=>e.k!=='CANCELADO').map(e=>`<button type="button" class="${(d.estado||'POR_DESPACHAR')===e.k?'on':''}" style="--c:${e.c}" onclick="_draft.estado='${e.k}';renderOrderSheet()"><i style="width:9px;height:9px;border-radius:50%;background:${e.c}"></i><span>${e.n}</span></button>`).join('')}</div>
@@ -10091,8 +10312,8 @@ async function viewAjInteg(){
 async function intBridgeSave(){const u=($('#brUrl').value||'').trim().replace(/\/+$/,'');if(u&&!/^https?:\/\/[^\s/]+\.[^\s]+/.test(u)){toast('La URL debe ser la del puente en Render, ej: https://firefly-bridge.onrender.com. Las claves de Shopify van en Render, no aquí.','bad');throw new Error('URL del puente inválida: debe empezar con https:// (las claves de Shopify van en Render)');}const c=await cfg();c.bridge={url:u,key:($('#brKey').value||'').trim()};await dbPut('config',c);S.cache.cfg=c;toast('Puente guardado ✓','ok');}
 async function intBridgeTest(){const el=$('#brRes');if(el){el.style.color='';el.textContent='Probando…';}
   try{if($('#brUrl')&&S.user?.rol==='socio')await intBridgeSave();const j=await bridgeFetch('/health?check=1');const m=j.modules||{};
-    const f=(k,n)=>!m[k]?`${n}: no configurado`:(j[k]==='ok'?`${n} ✓${k==='shopify'&&j.shopName?' ('+j.shopName+')':k==='ml'&&j.mlNick?' ('+j.mlNick+')':''}`:`${n}: error`);
-    if(el)el.innerHTML=[f('spidi','SPIDI'),f('shopify','Shopify'),f('ml','Mercado Libre')].map(x=>`<span style="margin-right:10px;color:${/✓/.test(x)?'var(--ok)':/error/.test(x)?'var(--bad)':'var(--muted)'}">${esc(x)}</span>`).join('');}
+    const f=(k,n)=>!m[k]?`${n}: no configurado`:(j[k]==='ok'?`${n} OK${k==='shopify'&&j.shopName?' ('+j.shopName+')':k==='ml'&&j.mlNick?' ('+j.mlNick+')':''}`:`${n}: error`);
+    if(el)el.innerHTML=[f('spidi','SPIDI'),f('shopify','Shopify'),f('ml','Mercado Libre')].map(x=>`<span style="margin-right:10px;color:${/ OK/.test(x)?'var(--ok)':/error/.test(x)?'var(--bad)':'var(--muted)'}">${esc(x)}</span>`).join('');}
   catch(e){if(el){el.style.color='var(--bad)';el.textContent=e.message;}}}
 function intOpen(k){if(k==='meta')return ajGo('meta');if(k==='spidi')return ajGo('spidi');return ({shopify:intCanal,ml:intCanal,wa:intWa,cashea:intCashea,tasa:intTasa,envios:intEnvios}[k])(k);}
 const intEsSocio=()=>S.user?.rol==='socio';
@@ -10446,7 +10667,7 @@ async function cxDetailHTML(x){
   <div class="v12sec">Pedidos <span style="font-weight:500;text-transform:none;letter-spacing:0">· ${peds.length} · ${usd(peds.filter(p=>p.estado!=='CANCELADO').reduce((a,p)=>a+(p.subtotalUSD||0),0))}</span></div>
   ${peds.slice(0,6).map(p=>`<div class="v12row" style="cursor:pointer" onclick="closeSheet();openOrder('${p.id}')"><div class="b"><b>${esc(p.codigo)} · ${usd(p.subtotalUSD||0)}</b><small>${esc(fechaCorta(p.fecha))} · ${esc((p.items||[]).map(i=>i.cantidad+'× '+i.version).join(', '))}</small></div>${crmPill(p.estado==='CANCELADO'?'PERDIDO':'CONVERTIDO').replace(/>[^<]+</,'>'+esc(p.estado)+'<')}</div>`).join('')||'<div class="fhint">Aún no tiene pedidos.</div>'}
   ${convs.length?`<div class="v12sec">Conversaciones</div>${convs.map(cv=>`<div class="v12row" style="cursor:pointer" onclick="closeSheet();S.ixOpen='${cv.id}';go('inbox')">${crmAv({name:cv.name,plat:cv.plat},36)}<div class="b"><b>${esc(cv.name)}</b><small>${esc((cv.last||'').slice(0,70))} · ${esc(fechaRel(cv.t||0))}</small></div>${ic('chevR')}</div>`).join('')}`:''}
-  <div class="fhint" style="margin-top:14px">${x.direccion?'📍 '+esc(x.direccion)+' · ':''}${x.email?esc(x.email)+' · ':''}Origen: ${esc(x.origen||'—')}</div>`;
+  <div class="fhint" style="margin-top:14px">${x.direccion?ei('mapPin')+' '+esc(x.direccion)+' · ':''}${x.email?esc(x.email)+' · ':''}Origen: ${esc(x.origen||'—')}</div>`;
 }
 /* ---------- acciones cliente ---------- */
 async function cxPatch(id,patch){await db.collection('clientes').doc(id).set({...patch,actualizado:Date.now()},{merge:true});invalidarCache('clientes');}
@@ -10569,7 +10790,7 @@ async function ixMetaSync(force){
     const who=(cv.participants?.data||[]).find(p=>!me.includes(p.id))||{},m=cv.messages?.data?.[0]||{};
     const id='mt_'+String(cv.id).replace(/[^A-Za-z0-9_-]/g,'_'),t=Date.parse(cv.updated_time)||Date.now(),ex=cur.find(x=>x.id===id);
     const unread=+cv.unread_count||0;if(ex&&ex.t===t&&ex.unread===unread)return;
-    const doc={metaId:cv.id,plat:i===0?'Instagram':'Facebook',name:who.username||who.name||'Cliente',uid:who.id||'',t,unread,last:m.message||(m.attachments?'📎 Adjunto':''),lastMine:me.includes(m.from?.id),lastTs:Date.parse(m.created_time)||t,fuente:'meta'};
+    const doc={metaId:cv.id,plat:i===0?'Instagram':'Facebook',name:who.username||who.name||'Cliente',uid:who.id||'',t,unread,last:m.message||(m.attachments?'Adjunto':''),lastMine:me.includes(m.from?.id),lastTs:Date.parse(m.created_time)||t,fuente:'meta'};
     if(!ex){doc.estado='NUEVO';doc.creado=Date.parse(m.created_time)||t;doc.asignadoId='';}
     batch.set(db.collection('conversaciones').doc(id),doc,{merge:true});n++;});});
   if(n)await batch.commit();return true;
@@ -10665,12 +10886,12 @@ async function ixSend(id,extra){
       const j=await r.json().catch(()=>({}));if(!r.ok||j.error)throw new Error(j.error?.message||'HTTP '+r.status);
       if(extra&&txt){await fetch(GRAPH+c.metaPageId+'/messages?access_token='+encodeURIComponent(c.metaPageToken),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({recipient:{id:x.uid},message:{text:txt},messaging_type:'RESPONSE'})}).catch(()=>{});}
       if(window._ixMsgC)delete window._ixMsgC['ixm_'+id];
-      await db.collection('conversaciones').doc(id).set({last:txt||('📎 '+(extra?.nombre||'Adjunto')),lastMine:true,t:Date.now(),lastTs:Date.now(),unread:0},{merge:true});
+      await db.collection('conversaciones').doc(id).set({last:txt||('Archivo: '+(extra?.nombre||'Adjunto')),lastMine:true,t:Date.now(),lastTs:Date.now(),unread:0},{merge:true});
     }else{
       let enviado=false;
       if(x.plat==='WhatsApp'&&x.tel&&txt&&typeof waCloudSend==='function'&&c.waCloud?.activo){try{enviado=await waCloudSend(x.tel,txt+(extra?'\n'+extra.url:''));}catch(e){}}
       const m={ts:Date.now(),from:'me',por:S.user.nombre,txt,...(extra?{[extra.tipo==='image'?'img':extra.tipo==='video'?'vid':'file']:extra.url,fname:extra.nombre}:{}),enviado};
-      await db.collection('conversaciones').doc(id).set({msgs:[...(x.msgs||[]),m].slice(-300),last:txt||('📎 '+(extra?.nombre||'Adjunto')),lastMine:true,t:Date.now(),lastTs:Date.now(),unread:0},{merge:true});
+      await db.collection('conversaciones').doc(id).set({msgs:[...(x.msgs||[]),m].slice(-300),last:txt||('Archivo: '+(extra?.nombre||'Adjunto')),lastMine:true,t:Date.now(),lastTs:Date.now(),unread:0},{merge:true});
       if(x.plat==='WhatsApp'&&x.tel&&!enviado&&txt)window.open(waLink(x.tel,txt+(extra?'\n'+extra.url:'')),'_blank','noopener');
     }
     if(ta)ta.value='';
@@ -11027,6 +11248,512 @@ function tourAuto(){
    <button class="btn gho full" style="margin-top:8px" onclick="closeSheet();tourEnd()">Ahora no</button>`);
 }
 
+
+/* ============================================================
+   v13 · base: iconos en vez de emojis, toasts, avatar, menús, guía por rol
+   ============================================================ */
+Object.assign(ICO,{
+  route:'<circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M12 19h4.5a3.5 3.5 0 0 0 0-7h-9a3.5 3.5 0 0 1 0-7H12"/>',
+  nav:'<path d="M3 11l19-9-9 19-2-8-8-2z"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>',
+  cloud:'<path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/>',
+  rain:'<path d="M17.5 16H9a6 6 0 1 1 5.7-7.8h2.8a3.9 3.9 0 1 1 0 7.8z"/><path d="M8 19v2M12 19v3M16 19v2"/>',
+  moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',
+  idcard:'<rect x="2" y="5" width="20" height="14" rx="3"/><circle cx="8.5" cy="12" r="2.5"/><path d="M14 10h5M14 14h5"/>',
+  sparkle:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 17l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/>',
+  bulb:'<path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2V18h6v-1.3c0-.8.4-1.5 1-2A7 7 0 0 0 12 2z"/>',
+  thumb:'<path d="M7 10v12M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88z"/>',
+  wave:'<path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.9-5.9-2.7L3.1 13.7a2 2 0 0 1 3.3-2.3L8 13"/>',
+  pkg:'<path d="M16.5 9.4 7.5 4.21M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.3 7 12 12l8.7-5M12 22V12"/>',
+  fire:'<path d="M12 22c4.4 0 8-3.4 8-8 0-3-1.6-5.2-3.5-7-.2 1.6-1 2.8-2.2 3.4C14.2 7.6 13 4.6 10 2c.3 3-1.2 4.6-2.6 6.2C5.8 10 4 11.9 4 14c0 4.6 3.6 8 8 8z"/><path d="M12 22c-2.2 0-4-1.7-4-4 0-1.6 1-2.6 2-3.6.5 1.2 1.2 1.8 2.3 2.1.8-.6 1.3-1.4 1.4-2.5 1.4 1.2 2.3 2.4 2.3 4 0 2.3-1.8 4-4 4z"/>',
+  swap:ICO.swap||'<path d="M16 3l4 4-4 4M20 7H4M8 21l-4-4 4-4M4 17h16"/>'
+});
+function ei(n){return `<i class="ii">${ic(n)}</i>`;}
+const EMO_RX=/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{2300}-\u{23FF}\u{1F000}-\u{1F2FF}]\u{FE0F}?/gu;
+const EMO_IC={'📦':'package','✓':'check','🔍':'search','💰':'wallet','🛵':'scooter','🏭':'building','🔦':'torch','✨':'sparkle','👥':'users','💬':'msg','📊':'bars','⚙':'settings','📅':'cal','📍':'mapPin','📞':'phone','📷':'camera','📸':'camera','🔄':'refresh','🚚':'truck','🔧':'wrench','💡':'bulb','🎉':'sparkle','👤':'user','📝':'note','🔔':'bell','⚠️':'alert','⚠':'alert','🔐':'lock','🔒':'lock','📋':'list','💵':'cash','💳':'card','🏦':'bank','🪪':'idcard','💱':'swap','📤':'share','📎':'clip','🚀':'bolt','💪':'thumb','🙌':'thumb','👋':'wave','🎯':'target','🗺️':'mapPin','🔗':'link','🏪':'store','🔌':'wifi','📖':'book','✕':'x','✗':'x','🚫':'ban','✦':'sparkle','💸':'cash','✅':'check'};
+function emoClean(s){return String(s==null?'':s).replace(EMO_RX,'').replace(/\s{2,}/g,' ').replace(/^\s+|\s+$/g,'');}
+/* toast con icono (y sin emojis) */
+toast=function(msg,type=''){const t=$('#toast');if(!t)return;t.innerHTML=`<span class="ti">${ic(type==='ok'?'check':type==='bad'?'alert':'info')}</span><span>${esc(emoClean(msg))}</span>`;t.className='show '+type;clearTimeout(t._t);t._t=setTimeout(()=>t.className='',2600);};
+emptyState=function(icn,t,s){const n=EMO_IC[icn]||(ICO[icn]?icn:'');return `<div class="empty"><div class="ic">${n?ic(n):esc(icn)}</div><b>${t}</b>${s||''}</div>`;};
+/* ---------- avatar superior con foto (todos los roles) ---------- */
+function tbAvatar(){
+  const av=$('#userAv');if(!av||!S.user)return;const u=S.user,col=u.color||'#CDEB45';
+  const foto=u.fotoURL||window._miFotoDel||'';
+  av.innerHTML=foto?`<img src="${esc(foto)}" alt="">`:esc(initials(u.nombre||'?'));
+  av.style.background=foto?'transparent':col+'22';av.style.color=col;av.style.fontSize='14px';
+}
+openUserMenu=function(){
+  const u=S.user||{};const col=u.color||'#CDEB45',moto=u.rol==='motorizado',foto=u.fotoURL||window._miFotoDel||'';
+  openSheet(`<div style="display:flex;align-items:center;gap:14px;margin:4px 0 18px">
+     ${foto?`<img src="${esc(foto)}" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--glow)">`
+       :`<div style="width:56px;height:56px;border-radius:50%;background:${col}22;color:${col};display:grid;place-items:center;font-weight:800;font-size:20px">${initials(u.nombre)}</div>`}
+     <div style="min-width:0"><div style="font-weight:800;font-size:17px">${esc(u.nombre||'')}</div><div style="font-size:12.5px;color:var(--muted)">${esc(u.email||'')} · ${esc(ROL_L[u.rol]||u.rol||'')}</div></div></div>
+   <div class="mlist">
+     ${moto?menuItem('camera','Foto de perfil','Cámbiala desde tu galería o cámara',"closeSheet();motoFoto()")+menuItem('lock','Contraseña','Actualiza tu clave de acceso',"closeSheet();cambiarMiPassword()"):menuItem('user','Mi cuenta','Foto, contraseña y notificaciones',"closeSheet();window._ajSubNext='cuenta';go('admin')")}
+     ${menuItem('bell','Avisos','Lo que requiere tu atención',"closeSheet();openAvisos()")}
+     ${menuItem('help','Guía interactiva','Aprende lo esencial de tu rol',"closeSheet();tourMenu()")}
+     ${menuItem('logout','Cerrar sesión','',"closeSheet();logout()",'dang')}
+   </div>`);
+};
+{const _openMasV12=openMas;openMas=function(){_openMasV12();const list=document.querySelector('#sheetBody .mlist');if(!list)return;
+  list.querySelectorAll('.mitem').forEach(m=>{const t=m.querySelector('.mt')?.textContent||'';if(/^Mi cuenta$/.test(t))m.remove();if(S.user?.rol==='motorizado'&&/^Buscar$/.test(t))m.remove();});};}
+{const _ssV12=sessionStart;sessionStart=function(){_ssV12();tbAvatar();
+  if(S.user?.rol==='motorizado'){dbAll('deliveries').then(ds=>{const d=ds.find(x=>x.usuarioId===S.user.id)||ds.find(x=>x.nombre===S.user.nombre);window._miDel=d||null;window._miFotoDel=d?.fotoURL||'';tbAvatar();}).catch(()=>{});}
+};}
+/* ---------- guía interactiva por rol (v13) ---------- */
+TOUR_CATS.length=0;
+TOUR_CATS.push(
+  {k:'esencial',t:'Lo esencial',s:'Navegación, avisos y tasa',i:'torch',c:'#CDEB45',roles:['socio','admin','supervisor','vendedor','ads']},
+  {k:'vende',t:'Tu día como vendedor',s:'Meta, pedidos y comisión',i:'bolt',c:'#54d684',roles:['vendedor']},
+  {k:'ordenes',t:'Órdenes',s:'Crear, filtrar y despachar pedidos',i:'scooter',c:'#f5b945',roles:['socio','admin','supervisor','vendedor']},
+  {k:'inventario',t:'Inventario',s:'Stock por sede, recepciones y traslados',i:'grid',c:'#5db4f5',roles:['socio','admin','supervisor']},
+  {k:'clientes',t:'Clientes y mensajes',s:'Leads, asignación y seguimiento',i:'users',c:'#b78bf0',roles:['socio','admin','supervisor','vendedor','ads']},
+  {k:'motosup',t:'Motorizados y rutas',s:'Supervisión, rutas del día y ubicación',i:'route',c:'#ff9f43',roles:['socio','admin','supervisor']},
+  {k:'finanzas',t:'Finanzas y nómina',s:'Gastos, cajas, P&L y comisiones',i:'dollar',c:'#54d684',roles:['socio','admin']},
+  {k:'ads',t:'Ads 360',s:'Meta Ads en vivo y conversiones',i:'mega',c:'#4a8cff',roles:['socio','admin','ads','supervisor']},
+  {k:'equipo',t:'Equipo e integraciones',s:'Roles, accesos y conexiones',i:'settings',c:'#a1a1aa',roles:['socio','admin']},
+  {k:'moto',t:'Tu portal de entregas',s:'Inicio, rutas y nuevas entregas',i:'package',c:'#ff9f43',roles:['motorizado']},
+  {k:'entrega',t:'Una entrega paso a paso',s:'Aceptar, navegar, cobrar y cerrar',i:'nav',c:'#5db4f5',roles:['motorizado']});
+tourSteps=function(cat){
+  const rol=S.user?.rol,mob=innerWidth<768,nav=r=>`.nav a[data-r="${r}"]`,nombre=(S.user?.nombre||'').split(' ')[0];
+  const E={
+   esencial:[
+    {t:`Hola, ${nombre}`,p:'Este recorrido dura menos de un minuto y está hecho para tu rol. Puedes salir cuando quieras y volver desde el menú de tu avatar o desde Ajustes → Ayuda.'},
+    {sel:'.nav',t:'Navegación',p:mob?'Abajo tienes tus secciones principales. En "Más" están el resto de módulos y la guía.':'A la izquierda están tus secciones. La activa se marca en verde.'},
+    {sel:'#tbBell',t:'Avisos',p:'La campana reúne lo que requiere acción: leads, mensajes sin responder, seguimientos del día, stock bajo o tareas. Toca un aviso para ir directo.'},
+    {sel:'#tbTasa',t:'Tasa del día',p:'Bolívares por dólar usados en cobros y reportes. Socios y admins pueden actualizarla o activar la tasa BCV automática.'},
+    {sel:nav('agenda'),t:'Agenda',p:'Tareas, recordatorios y reuniones. Lo que te asignen aparece aquí y en tus avisos.',skipIfHidden:true},
+    {sel:'#userAv',t:'Tu avatar',p:'Desde aquí cambias tu foto y contraseña, abres la guía o cierras sesión.'}],
+   vende:[
+    {route:'dash',sel:'#view .vh',t:'Tu resumen',p:'Al entrar ves tu meta de comisión, el bono por desempeño y tus ventas del período.'},
+    {route:'dash',sel:'#fab',t:'Nuevo pedido',p:'El botón + abre el asistente de 3 pasos: cliente, productos y pago/entrega. Puedes pegar el mensaje del cliente y Firefly rellena los datos.',skipIfHidden:true},
+    {route:'clientes',sel:nav('clientes'),t:'Tus clientes',p:'Cada lead asignado a ti aparece aquí con su plan de seguimiento de 7 toques. Los toques del día te llegan a la campana.',skipIfHidden:true},
+    {route:'inbox',sel:nav('inbox'),t:'Mensajes',p:'Conversaciones de Instagram, Facebook y WhatsApp asignadas a ti. Responde, adjunta fotos, marca la conversión o crea el pedido desde el chat.',skipIfHidden:true}],
+   ordenes:[
+    {route:'despacho',sel:nav('despacho'),t:'Órdenes',p:'Todos los pedidos: por despachar, en camino, entregados y cancelados.'},
+    {route:'despacho',sel:'.fchip',t:'Filtros rápidos',p:'Toca un chip para filtrar por estado o por mayoristas; el contador indica cuántos hay.'},
+    {route:'despacho',sel:mob?'#fab':'#orderList .ok2',t:mob?'Nuevo pedido':'Lista y detalle',p:mob?'El botón + abre el asistente de 3 pasos.':'El pedido seleccionado se resalta en verde y su detalle aparece al lado: pagos, línea de tiempo, guía e impresión.'},
+    {route:'despacho',sel:'.ordside .od-ha',t:'Acciones del pedido',p:'Imprimir, editar, cambiar estado, registrar pagos, cambiar el método de pago o notificar al motorizado.',skipIfHidden:true},
+    {route:'productos',sel:nav('productos'),t:'Productos',p:'Catálogo con fotos, precios, SKU, stock mínimo y canales de publicación.',skipIfHidden:true}],
+   inventario:[
+    {route:'inv',sel:nav('inv'),t:'Inventario',p:'Stock por sede, con fotos de cada tienda y alertas de stock bajo.'},
+    {route:'inv',sel:'#invStats',t:'Resumen de stock',p:'Unidades totales, valor del inventario y traslados en tránsito.'},
+    {route:'inv',sel:'.iseg',t:'Sedes, recepciones e incidencias',p:'Registra recepciones con fotos, reporta incidencias y mueve stock entre sedes.',skipIfHidden:true}],
+   clientes:[
+    {route:'inbox',sel:nav('inbox'),t:'Mensajes',p:'Aquí llegan los DMs de Instagram y Facebook (y los leads que registres). Cada conversación es un lead.',skipIfHidden:true},
+    {route:'inbox',sel:'#ixTabs',t:'Bandejas',p:'"Sin asignar" son leads nuevos esperando vendedor. "Mías" son las conversaciones a tu cargo.'},
+    {route:'inbox',sel:'.ixact',pre:()=>{if(innerWidth<1024&&!S.ixOpen){const L=ixList();if(L[0])return ixOpen(L[0].id);}},t:'Acciones del lead',p:'Asigna o toma la conversación, cambia el estado, marca la conversión, inicia el seguimiento, adjunta fotos o crea el pedido.'},
+    {route:'clientes',sel:nav('clientes'),t:'Clientes',p:'Base de datos completa: historial, etiquetas, vendedor asignado y plan de seguimiento de 7 toques.',skipIfHidden:true},
+    {route:'clientes',sel:'.v12kp',t:'Seguimiento',p:'Los toques vencidos aparecen en amarillo o rojo y en la campana. Marca cada uno como hecho con una nota.'}],
+   motosup:[
+    {route:'moto',sel:nav('moto'),t:'Motorizados',p:'Supervisa a cada repartidor: entregas activas, completadas hoy y su ubicación en vivo mientras está en ruta.',skipIfHidden:true},
+    {route:'moto',sel:'#mpRutas',t:'Rutas del día',p:'Agrupa varias entregas en una ruta con hora de salida. El motorizado la elige desde su portal y acepta cada parada.',skipIfHidden:true},
+    {route:'moto',sel:'#mpEntList',t:'Entregas en curso',p:'Cada tarjeta muestra el estado, el método de pago y la última ubicación reportada. Si el motorizado pide ayuda, verás la incidencia aquí y podrás cerrarla.',skipIfHidden:true}],
+   finanzas:[
+    {route:'fin',sel:nav('fin'),t:'Finanzas',p:'Gastos, cajas por sede, cuentas por cobrar y P&L del período.',skipIfHidden:true},
+    {route:'nomina',sel:nav('nomina'),t:'Nómina',p:'Comisiones por vendedor, bonos por meta y pagos del equipo.',skipIfHidden:true}],
+   ads:[
+    {route:'ads',sel:nav('ads'),t:'Ads 360',p:'Datos de Meta Ads en vivo (cada 2 minutos) cruzados con los leads y conversiones reales del equipo.',skipIfHidden:true},
+    {route:'ads',sel:'.adper',t:'Período',p:'Hoy, ayer, 7 días, 30 días o el mes. Todo cambia a la vez.'},
+    {route:'ads',sel:'#adsK',t:'Métricas clave',p:'Gasto, impresiones, CTR, resultados, ROAS de Meta y ROAS real; costo por lead y por conversión real.'},
+    {route:'ads',sel:'#adsFun',t:'Embudo',p:'Impresiones → clics → leads → conversiones. Si cae en leads, es el anuncio; si cae en conversiones, es el seguimiento.'},
+    {route:'ads',sel:'#adsCamp',t:'Campañas',p:'Gasto, resultados y ROAS por campaña. Exporta a CSV con el botón de descarga.'}],
+   equipo:[
+    {route:'admin',sel:nav('admin'),t:'Ajustes',p:'Tasa, catálogos, equipo, métodos de cobro, integraciones y respaldo.'},
+    {route:'admin',sel:'[data-q*="equipo"]',t:'Equipo',p:'Crea usuarios con rol socio, admin, supervisor, vendedor, motorizado o ads. Cada rol ve solo lo que necesita.',skipIfHidden:true},
+    {route:'admin',sel:'[data-q*="meta"]',t:'Integraciones',p:'Shopify, Mercado Libre, WhatsApp, Meta (mensajes y anuncios), SPIDI, Cashea y tasa BCV.',skipIfHidden:true}],
+   moto:[
+    {t:`Bienvenido, ${nombre}`,p:'Este portal está pensado para usarse con una mano y en movimiento. Te mostramos lo esencial en 40 segundos.'},
+    {route:'moto',sel:'.mh',t:'Tu inicio',p:'Arriba está tu saludo del día y la campana con tus avisos: nuevas entregas, rutas y mensajes de la central.'},
+    {route:'moto',sel:'#mRutas',t:'Rutas del día',p:'Una ruta agrupa varias entregas en orden. Elige la tuya, confirma tu hora de salida y acepta cada parada.',skipIfHidden:true},
+    {route:'moto',sel:'#mNuevas',t:'Nuevas entregas',p:'Cada tarjeta muestra cliente, zona, productos y cuánto cobrar. Toca "Aceptar" para abrir la entrega paso a paso.',skipIfHidden:true},
+    {route:'moto',sel:'#mStats',t:'Tus números',p:'Rutas completadas, entregas exitosas, con incidencia y lo cobrado en el período que elijas.',skipIfHidden:true},
+    {sel:'#userAv',t:'Tu perfil',p:'Desde tu avatar cambias la foto y la contraseña, abres esta guía o cierras sesión.'}],
+   entrega:[
+    {t:'Así es una entrega',p:'1) Aceptas. 2) Navegas con Google Maps, Waze o Apple Maps y avisas al cliente por WhatsApp con un toque. 3) Al llegar, ves el método de pago principal y los alternos. 4) Registras el cobro, subes la foto y confirmas.'},
+    {t:'Si algo sale mal',p:'El botón "Ayuda" te comunica con la sede que despachó y deja registrada la incidencia (cliente no responde, dirección incorrecta, sin pago, producto dañado). La central puede cerrar la orden con esa etiqueta.'},
+    {t:'Ubicación en vivo',p:'Mientras estás en camino, el portal comparte tu ubicación con la central una vez por minuto para que puedan apoyarte. Se detiene al cerrar la entrega.'}]};
+  return (E[cat]||[]);
+};
+{const _tourShowV12=tourShow;tourShow=async function(){
+  const T=window._tour;if(!T)return;const s=T.steps[T.i];if(!s){tourEnd();toast('Listo. Ya conoces lo esencial.','ok');return;}
+  if(s.route&&S.route!==s.route){go(s.route);await new Promise(r=>setTimeout(r,140));}
+  if(s.pre){try{await s.pre();}catch(e){}}
+  let el=null;if(s.sel){for(let k=0;k<40;k++){el=document.querySelector(s.sel);if(el&&el.offsetParent!==null&&el.getBoundingClientRect().width>0)break;el=null;await new Promise(r=>setTimeout(r,45));if(!window._tour)return;}}
+  if(s.sel&&!el&&s.skipIfHidden){T.i++;return tourShow();}
+  const hole=$('#tgHole'),card=$('#tgCard');if(!hole||!card)return;
+  if(el){el.scrollIntoView({block:'center',behavior:'auto',inline:'nearest'});await new Promise(r=>setTimeout(r,60));}
+  const r=el?el.getBoundingClientRect():null,pad=8;
+  if(r){hole.className='';hole.style.cssText=`top:${r.top-pad}px;left:${r.left-pad}px;width:${r.width+pad*2}px;height:${r.height+pad*2}px`;}
+  else{hole.className='none';hole.style.cssText='top:50%;left:50%;width:0;height:0';}
+  const n=T.steps.length;
+  card.innerHTML=`<div class="cat">${esc(s.cat||'')}<span>${T.i+1} / ${n}</span></div><h4>${esc(s.t)}</h4><p>${esc(s.p)}</p>
+   <div class="dots">${T.steps.map((_,i)=>`<i class="${i<=T.i?'on':''}"></i>`).join('')}</div>
+   <div class="bt"><button class="sk" onclick="tourEnd()">Salir</button>${T.i>0?`<button class="pv" aria-label="Anterior" onclick="window._tour.i--;tourShow()">${ic('chevL')}</button>`:''}<button class="nx" onclick="window._tour.i++;tourShow()">${T.i===n-1?'Terminar':'Siguiente'}</button></div>`;
+  const cw=card.offsetWidth||340,ch=card.offsetHeight||180,vw=innerWidth,vh=innerHeight;let top,left;
+  if(r){left=Math.min(Math.max(16,r.left+r.width/2-cw/2),vw-cw-16);
+    if(r.bottom+ch+24<vh)top=r.bottom+pad+12;else if(r.top-ch-24>0)top=r.top-pad-12-ch;else{top=Math.max(16,Math.min(vh-ch-16,r.top));left=r.right+cw+24<vw?r.right+pad+12:Math.max(16,r.left-pad-12-cw);}
+    if(innerWidth<768&&r.top>vh*.6)top=Math.max(16,r.top-pad-12-ch);}
+  else{top=Math.max(16,vh/2-ch/2);left=Math.max(16,vw/2-cw/2);}
+  card.style.top=top+'px';card.style.left=left+'px';
+};}
+tourAuto=function(){
+  if(!S.user||window._tour)return;let seen=false;try{seen=!!localStorage.getItem('ffTour_'+S.user.id);}catch(e){}
+  if(seen||S.user.guiaVista)return;const cats=tourCatsFor().map(c=>c.k);
+  openSheet(`<div class="shx"><span class="shi">${ic('torch')}</span><div style="flex:1;min-width:0"><h3>¿Un recorrido rápido?</h3><div class="shsub">Hecho para tu rol: ${esc(ROL_L[S.user.rol]||S.user.rol)}</div></div></div>
+   <div class="hintline" style="margin-bottom:14px">Es tu primera vez con esta cuenta. Puedes verlo ahora o después desde tu avatar o Ajustes → Ayuda.</div>
+   <button class="btn pri full" onclick="closeSheet();tourStart(${JSON.stringify(cats.slice(0,3)).replace(/"/g,'&quot;')})">Empezar recorrido</button>
+   <button class="btn gho full" style="margin-top:8px" onclick="closeSheet();tourEnd()">Ahora no</button>`);
+};
+
+/* ============================================================
+   v13 · métodos de pago múltiples, SPIDI y edición posterior
+   ============================================================ */
+function metListPrev(){return METODOS.concat(S.cache.cfg?.spidi?.activo?['SPIDI']:[]);}
+function metTileAny(m,sz){if(m==='SPIDI')return metTile('SPIDI',sz);if(m==='Cashea')return `<span class="btile" style="width:${sz}px;height:${sz}px;background:#FFDD00;color:#111;font-weight:900;font-size:${Math.round(sz/2)}px;display:grid;place-items:center">C</span>`;return metTile(m,sz);}
+{const _wzMetTilesV11=wzMetTiles;wzMetTiles=function(cur,fn){
+  if(!Array.isArray(cur))return _wzMetTilesV11(cur,fn);
+  return `<div class="wzmt">${metListPrev().map(m=>{const i=cur.indexOf(m);return `<button type="button" class="${i>=0?'on':''} ${i===0?'pri':''}" onclick="${fn}('${esc(m)}')">${metTileAny(m,34)}<span>${esc(m)}</span>${i>=0?`<span class="mc">${i+1}</span>`:''}</button>`;}).join('')}</div>
+   <div class="fhint">Toca varios si el cliente combinará métodos; el primero es el principal y los demás quedan como alternativa para el motorizado.</div>`;};}
+wzMetPrev=function(m){const d=_draft;let L=d._metodosPrev||(d._metodoPrevisto?[d._metodoPrevisto]:[]);L=L.includes(m)?L.filter(x=>x!==m):[...L,m];d._metodosPrev=L;d._metodoPrevisto=L[0]||'';renderOrderSheet();};
+function pedMetodos(p){return (p.metodosPrevistos&&p.metodosPrevistos.length?p.metodosPrevistos:(p.metodoPrevisto?[p.metodoPrevisto]:[])).filter(Boolean);}
+function pmListHTML(p){const L=pedMetodos(p);if(!L.length)return '';return `<div class="pmlist" style="margin-top:8px">${L.map((m,i)=>`<span class="${i===0?'pri':''}">${metTileAny(m,18)}${esc(m)}${i===0&&L.length>1?' · principal':''}</span>`).join('')}</div>`;}
+async function ordMetodoPago(id){
+  const p=await dbGet('pedidos',id);if(!p)return;window._omp=pedMetodos(p);
+  const render=()=>{const b=$('#ompTiles');if(b)b.innerHTML=wzMetTiles(window._omp,'ompTap');};
+  window.ompTap=m=>{let L=window._omp;L=L.includes(m)?L.filter(x=>x!==m):[...L,m];window._omp=L;render();};
+  openSheet(`<div class="shx"><span class="shi">${ic('card')}</span><div style="flex:1;min-width:0"><h3>Método de pago previsto</h3><div class="shsub">${esc(p.codigo)} · ${esc(p.cliente?.nombre||'')}</div></div><button class="xbtn" onclick="closeSheet()" aria-label="Cerrar">${ic('x')}</button></div>
+   <div class="hintline" style="margin-bottom:10px">El motorizado verá el principal en grande y los demás como alternativa al momento de cobrar.</div>
+   <div id="ompTiles"></div>
+   <button class="bsave" style="margin-top:14px" onclick="ordMetodoPagoSave('${id}')">${ic('save')}Guardar</button>`);render();
+}
+async function ordMetodoPagoSave(id){
+  const p=await dbGet('pedidos',id);if(!p)return;const L=window._omp||[];
+  p.metodosPrevistos=L;p.metodoPrevisto=L[0]||'';p.timeline=[...(p.timeline||[]),{estado:p.estado,ts:Date.now(),por:S.user.nombre,nota:'Método de pago previsto: '+(L.join(' + ')||'sin definir')}];
+  await dbPut('pedidos',p);S.cache.peds=null;invalidarCache('pedidos');closeSheet();toast('Método de pago actualizado','ok');
+  if(S.route==='despacho'){S.ordSel=id;await viewDespacho(true);}else if(typeof renderOrderDetail==='function'&&document.getElementById('odBody'))renderOrderDetail(p);
+}
+{const _openOrderMenuV12=openOrderMenu;openOrderMenu=function(id){_openOrderMenuV12(id);const list=document.querySelector('#sheetBody .mlist');if(!list)return;
+  const p=(S.cache.peds||[]).find(x=>x.id===id);if(!p||p.estado==='CANCELADO')return;const L=pedMetodos(p);
+  list.insertAdjacentHTML('afterbegin',menuItem('card','Método de pago previsto',L.length?esc(L.join(' + ')):'Sin definir · toca para elegir',`closeSheet();ordMetodoPago('${id}')`));};}
+/* línea de métodos en el detalle (web y sheet) */
+function pmInject(root,p){try{if(!root||!p)return;const m=root.querySelector('.od-m');if(!m||root.querySelector('.pmlist'))return;const L=pedMetodos(p);if(L.length>1)m.insertAdjacentHTML('afterend',pmListHTML(p));}catch(e){}}
+if(typeof ordSideRender==='function'){const _osr=ordSideRender;ordSideRender=function(){const r=_osr.apply(this,arguments);const fin=()=>{try{const p=(S.cache.peds||[]).find(x=>x.id===S.ordSel);pmInject(document.getElementById('ordSide'),p);document.querySelectorAll('#orderList .ok2').forEach(e=>e.classList.toggle('on',e.dataset.id===S.ordSel));}catch(e){}};Promise.resolve(r).then(fin,fin);return r;};}
+if(typeof renderOrderDetail==='function'){const _rod=renderOrderDetail;renderOrderDetail=function(p){const r=_rod.apply(this,arguments);Promise.resolve(r).then(()=>{try{pmInject(document.getElementById('sheetBody'),p);}catch(e){}});return r;};}
+/* texto de datos de cobro por método (WhatsApp del motorizado) */
+function pagoDatosTxt(m,montoUSD){
+  const c=S.cache.cfg||{},pi=c.pagosInfo||PAGOS_INFO_DEFAULT,tasa=+c.tasaActual||0,bs=montoUSD&&tasa?Math.round(montoUSD*tasa):0;
+  switch(m){
+    case 'Pago Móvil':return `Pago Móvil: ${pi.pmBanco} · Tel ${pi.pmTelefono} · CI ${pi.pmCedula}${bs?' · '+num(bs)+' Bs':''}`;
+    case 'Zelle':return `Zelle: ${pi.zelle}`;
+    case 'PayPal':return `PayPal: ${pi.paypal}`;
+    case 'Binance':return `Binance Pay: ${pi.binance}`;
+    case 'Efectivo Bs':return `Efectivo en bolívares${bs?': '+num(bs)+' Bs':''}`;
+    case 'Cash $':return `Efectivo en dólares${montoUSD?': '+usd(montoUSD):''}`;
+    case 'SPIDI':return 'SPIDI: te envío el link de pago al llegar (débito inmediato o Pago Móvil)';
+    case 'Cashea':return 'Cashea: cuotas desde la app';
+    default:return m;}
+}
+
+/* ============================================================
+   v13 · Portal del motorizado: inicio, rutas, entrega paso a paso,
+   ubicación en vivo, ayuda a la sede · y rutas desde la central
+   ============================================================ */
+const WX_CITY=[['caracas',10.48,-66.9],['valencia',10.16,-68.0],['barquisimeto',10.07,-69.32],['ordaz',8.3,-62.72],['pzo',8.3,-62.72],['maracaibo',10.65,-71.64],['anzo',10.13,-64.69],['barcelona',10.13,-64.69],['lecher',10.19,-64.69],['maracay',10.25,-67.6],['mérida',8.6,-71.15],['merida',8.6,-71.15]];
+const WX_CODE=c=>c===0?['Despejado','sun']:c<=3?['Parcialmente nublado','cloud']:c<=48?['Nublado','cloud']:c<=67?['Lluvia ligera','rain']:c<=82?['Lluvia','rain']:c<=99?['Tormenta','rain']:['',''];
+const ISSUE_T={NO_RESPONDE:'Cliente no responde',DIRECCION:'Dirección incorrecta',SIN_PAGO:'Cliente sin el pago',DANADO:'Producto dañado',OTRO:'Otro'};
+function mDel(){return window._miDel||null;}
+function mSedeDe(sedeId){return (S.cache.sedes||[]).find(s=>s.id===sedeId);}
+function mCoords(){const d=mDel();const s=d?mSedeDe(d.sedeId):null;const name=((s?.nombre||'')+' '+(s?.codigo||'')).toLowerCase();const hit=WX_CITY.find(w=>name.includes(w[0]));return hit?[hit[1],hit[2]]:null;}
+async function mWeather(){
+  const k='ffWx',now=Date.now();try{const c=JSON.parse(localStorage.getItem(k)||'null');if(c&&now-c.ts<30*60e3)return c.w;}catch(e){}
+  let ll=null;try{ll=await new Promise((res)=>{if(!navigator.geolocation)return res(null);navigator.geolocation.getCurrentPosition(p=>res([p.coords.latitude,p.coords.longitude]),()=>res(null),{timeout:3500,maximumAge:600e3});});}catch(e){}
+  ll=ll||mCoords();if(!ll)return null;
+  try{const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${ll[0]}&longitude=${ll[1]}&current=temperature_2m,weather_code&timezone=auto`);const j=await r.json();const cur=j.current||{};const [lab,icn]=WX_CODE(+cur.weather_code||0);const w={t:Math.round(+cur.temperature_2m||0),lab,icn};try{localStorage.setItem(k,JSON.stringify({ts:now,w}));}catch(e){}return w;}catch(e){return null;}
+}
+function mSaludos(ctx){
+  const n=(S.user?.nombre||'').split(' ')[0],h=new Date().getHours(),dia=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'][new Date().getDay()];
+  const L=[];
+  L.push(h<12?`Buenos días, ${n}`:h<19?`Buenas tardes, ${n}`:`Buenas noches, ${n}`);
+  if(ctx.pend)L.push(`${ctx.pend} entrega${ctx.pend>1?'s':''} te esperan`);else L.push('Todo al día por ahora');
+  if(ctx.rutas)L.push(`${ctx.rutas} ruta${ctx.rutas>1?'s':''} para hoy`);
+  L.push(dia==='viernes'?'Viernes de cierre fuerte':dia==='lunes'?'Arrancamos la semana':dia==='sábado'?'Sábado de entregas':`Feliz ${dia}`);
+  if(ctx.wx&&ctx.wx.lab)L.push(ctx.wx.icn==='rain'?`Lluvia hoy, maneja con calma`:`${ctx.wx.lab} · ${ctx.wx.t}°`);
+  if(ctx.hoyOk)L.push(`${ctx.hoyOk} completada${ctx.hoyOk>1?'s':''} hoy, buen ritmo`);
+  return L;
+}
+function mRotar(list){clearInterval(window._mRot);let i=0;const el=$('#mTitle');if(!el)return;el.textContent=list[0];
+  window._mRot=setInterval(()=>{const e=$('#mTitle');if(!e||S.route!=='moto'){clearInterval(window._mRot);return;}i=(i+1)%list.length;e.classList.add('sw');setTimeout(()=>{e.textContent=list[i];e.classList.remove('sw');},350);},7000);}
+function mPeriodoRango(per){const hoy=agSod(Date.now());if(per==='hoy')return [hoy,Infinity];if(per==='sem'){const d=new Date(hoy);const dow=(d.getDay()+6)%7;return [hoy-dow*DAY,Infinity];}const m=new Date(hoy);m.setDate(1);return [m.getTime(),Infinity];}
+function mEsMio(p){const d=mDel();return !!((d&&p.deliveryId===d.id)||(p.deliveryNombre&&p.deliveryNombre===S.user.nombre));}
+function mDebe(p){return Math.max(0,(p.totalUSD||0)-(p.totalPagadoUSD||0));}
+function mZona(p){return p.cliente?.zona||p.cliente?.ciudad||'Zona por confirmar';}
+/* ---------- INICIO ---------- */
+{const _viewMotoV12=viewMoto;viewMoto=async function(){
+  mEntregaClose();
+  if(S.user?.rol!=='motorizado'){await _viewMotoV12();mpRutasSection();mpLiveTick();return;}
+  const v=$('#view');if(!v.querySelector('.mh'))v.innerHTML=skelView(2,3);
+  const [peds,sedes,dels,rutas,c]=await Promise.all([dbAll('pedidos'),dbAll('sedes'),dbAll('deliveries'),dbAll('rutas'),cfg()]);
+  S.cache.cfg=c;S.cache.sedes=sedes;
+  const miDel=dels.find(d=>d.usuarioId===S.user.id)||dels.find(d=>d.nombre===S.user.nombre)||null;window._miDel=miDel;window._miFotoDel=miDel?.fotoURL||'';tbAvatar();
+  if(!S.mper)S.mper='hoy';
+  const mios=peds.filter(p=>p.estado!=='CANCELADO'&&mEsMio(p));
+  const enCurso=mios.filter(p=>['ACEPTADO','EN_SITIO'].includes(p.motoEstado)&&p.estado!=='ENTREGADO');
+  const nuevas=mios.filter(p=>!['ACEPTADO','EN_SITIO','ENTREGADO'].includes(p.motoEstado)&&EST_ACTIVOS.includes(p.estado));
+  const libres=miDel?peds.filter(p=>p.tipoEntrega==='DELIVERY'&&!p.deliveryId&&!p.deliveryNombre&&p.sedeId===miDel.sedeId&&['POR_DESPACHAR','DESPACHADO'].includes(p.estado)&&!p.motoIssue):[];
+  const hoy=agSod(Date.now());
+  const misRutas=rutas.filter(r=>r.estado!=='COMPLETADA'&&r.estado!=='CANCELADA'&&((miDel&&r.deliveryId===miDel.id)||(!r.deliveryId&&miDel&&r.sedeId===miDel.sedeId))&&(r.fecha||0)>=hoy-DAY).sort((a,b)=>(a.deliveryId?0:1)-(b.deliveryId?0:1)||(a.salida||'').localeCompare(b.salida||''));
+  const [a]=mPeriodoRango(S.mper);
+  const entregados=mios.filter(p=>p.estado==='ENTREGADO').sort((x,y)=>(y.motoEntregadoEl||y.fecha)-(x.motoEntregadoEl||x.fecha));
+  const enPer=entregados.filter(p=>(p.motoEntregadoEl||p.fecha)>=a);
+  const conIssue=mios.filter(p=>p.motoIssue&&(p.motoIssue.ts||0)>=a);
+  const rutasOk=rutas.filter(r=>miDel&&r.deliveryId===miDel.id&&r.estado==='COMPLETADA'&&(r.completada||r.fecha||0)>=a).length;
+  const cobrado=enPer.reduce((s,p)=>s+(p.pagos||[]).filter(g=>g.por===S.user.nombre).reduce((t,g)=>t+(g.montoUSD||0),0),0);
+  const hoyOk=entregados.filter(p=>(p.motoEntregadoEl||p.fecha)>=hoy).length;
+  const av=(window._avisos||[]).length;const _rm={};rutas.forEach(r=>{if(r.estado!=='CANCELADA'&&r.estado!=='COMPLETADA')(r.paradas||[]).forEach(id=>_rm[id]=r.nombre);});S.cache._rutasMap=_rm;
+  v.innerHTML=`<div class="mh"><div class="ttl"><div class="eb">Portal de entregas</div><h2 id="mTitle">&nbsp;</h2><div class="sub" id="mSub">${nuevas.length+enCurso.length?`${nuevas.length+enCurso.length} entrega${nuevas.length+enCurso.length>1?'s':''} activa${nuevas.length+enCurso.length>1?'s':''}`:'Sin entregas pendientes'}</div></div>
+    <button class="mbell" onclick="openAvisos()" aria-label="Avisos">${ic('bell')}${av?'<span class="dot"></span>':''}</button></div>
+   ${enCurso.length?`<div class="msec"><h3>En curso</h3></div>${enCurso.map(p=>mOrderCard(p,'curso')).join('')}`:''}
+   <div class="msec"><h3>Rutas del día</h3>${misRutas.length?`<button class="v12lk" onclick="mRutasTodas()">Ver todas ${ic('chevR')}</button>`:''}</div>
+   <div id="mRutas">${misRutas.length?misRutas.slice(0,3).map(r=>mRutaCard(r,peds)).join(''):`<div class="v12note">${ei('route')} Cuando la central arme una ruta para tu sede aparecerá aquí con su hora de salida. Mientras tanto puedes aceptar entregas individuales.</div>`}</div>
+   <div class="msec"><h3>Nuevas entregas</h3><span style="font-size:12.5px;color:var(--muted)">${nuevas.length+libres.length?num(nuevas.length+libres.length)+' disponibles':''}</span></div>
+   <div id="mNuevas">${nuevas.length||libres.length?nuevas.map(p=>mOrderCard(p,'nueva')).join('')+libres.slice(0,5).map(p=>mOrderCard(p,'libre')).join(''):`<div class="v12note">${ei('check')} No hay entregas nuevas por ahora. Te avisaremos con una notificación cuando te asignen una.</div>`}</div>
+   <div class="vh" hidden></div><div class="msec"><h3>Tus números</h3><div class="mper">${[['hoy','Hoy'],['sem','Semana'],['mes','Mes']].map(([k,l])=>`<button class="${S.mper===k?'on':''}" onclick="S.mper='${k}';viewMoto()">${l}</button>`).join('')}</div></div>
+   <div class="mstat" id="mStats">
+    <div><span class="si" style="background:rgba(205,235,69,.12);color:var(--glow)">${ic('route')}</span><div><b>${num(rutasOk)}</b><small>Rutas completadas</small></div></div>
+    <div><span class="si" style="background:rgba(78,227,154,.14);color:#4ee39a">${ic('check')}</span><div><b>${num(enPer.filter(p=>!p.motoIssue).length)}</b><small>Entregas exitosas</small></div></div>
+    <div><span class="si" style="background:rgba(255,107,94,.14);color:#ff7a6b">${ic('alert')}</span><div><b>${num(conIssue.length)}</b><small>Con incidencia</small></div></div>
+    <div><span class="si" style="background:rgba(93,180,245,.14);color:#5db4f5">${ic('wallet')}</span><div><b>${usd(cobrado)}</b><small>Cobrado al cliente</small></div></div>
+   </div>
+   <div id="motoGanancias" style="margin-top:10px"></div>
+   <div class="msec"><h3>Entregas completadas</h3>${entregados.length>3?`<button class="v12lk" onclick="mHistorial()">Ver historial ${ic('chevR')}</button>`:''}</div>
+   <div id="mHist">${entregados.length?entregados.slice(0,3).map(mHistRow).join(''):`<div class="v12note">Aún no tienes entregas completadas.</div>`}</div>`;
+  const wx=await mWeather().catch(()=>null);
+  if(S.route!=='moto')return;
+  mRotar(mSaludos({pend:nuevas.length+enCurso.length,rutas:misRutas.length,wx,hoyOk}));
+  const sub=$('#mSub');if(sub&&wx&&wx.lab)sub.innerHTML=`${sub.textContent} · <span class="wx">${ic(wx.icn)}${esc(wx.lab)} ${wx.t}°</span>`;
+  bloqueGananciasEmpleado(S.user.id,S.user.nombre).then(h=>{const el=$('#motoGanancias');if(el&&h)el.innerHTML=h;}).catch(()=>{});
+  if(window.Notification&&Notification.permission==='default')setTimeout(()=>Notification.requestPermission().catch(()=>{}),2500);
+};}
+function mOrderCard(p,tipo){
+  const debe=mDebe(p),items=(p.items||[]).map(i=>`${i.cantidad}× ${i.version}`).join(', '),mets=pedMetodos(p);
+  const ruta=(S.cache._rutasMap||{})[p.id];
+  return `<div class="mo ${tipo==='nueva'?'new':''}">
+    <div class="top"><span class="av">${esc(initials(p.cliente?.nombre||'?'))}</span><div style="min-width:0"><div class="nm">${esc(p.cliente?.nombre||'Cliente')}</div><div class="zn">${ic('mapPin')}${esc(mZona(p))}</div></div>
+      <div class="amt ${debe<=0.5?'paid':''}">${debe>0.5?`<b>${usd(debe)}</b><small>por cobrar</small>`:`<b>Pagado</b><small>solo entregar</small>`}</div></div>
+    <div class="meta"><span>${ic('package')}${esc(items||'Sin productos')}</span>${mets.length?`<span>${metTileAny(mets[0],13)}${esc(mets[0])}${mets.length>1?' +'+(mets.length-1):''}</span>`:''}${tipo==='curso'?`<span class="st ${p.motoEstado==='EN_SITIO'?'go':''}">${p.motoEstado==='EN_SITIO'?'En el sitio':'En camino'}</span>`:tipo==='libre'?`<span class="st">Disponible en tu sede</span>`:''}${ruta?`<span class="rt">${ic('route')}${esc(ruta)}</span>`:''}</div>
+    <div class="act">${tipo==='curso'?`<button class="btn-lime" onclick="mEntregaOpen('${p.id}')">${ic('nav')}Continuar entrega</button>`:tipo==='libre'?`<button class="btn-lime" onclick="mTomar('${p.id}')">${ic('plus')}Tomar entrega</button>`:`<button class="btn-lime" onclick="mAceptar('${p.id}')">${ic('check')}Aceptar</button>`}<button class="btn-out" aria-label="Detalles" onclick="mVerPedido('${p.id}')">${ic('info')}</button></div>
+  </div>`;
+}
+function mHistRow(p){const bad=!!p.motoIssue;return `<div class="mhist" onclick="mVerPedido('${p.id}')"><span class="ok ${bad?'bad':''}">${ic(bad?'alert':'check')}</span><div class="b"><b>${esc(p.cliente?.nombre||'—')}</b><small>${esc(mZona(p))} · ${esc(fechaCorta(p.motoEntregadoEl||p.fecha))}${bad?' · '+esc(ISSUE_T[p.motoIssue.tipo]||'Incidencia'):''}</small></div><span class="r">${usd(p.totalUSD||0)}</span></div>`;}
+async function mHistorial(){
+  if(!S.mhist)S.mhist={per:'d7',a:'',b:''};const H=S.mhist;const peds=await dbAll('pedidos');
+  const all=peds.filter(p=>p.estado==='ENTREGADO'&&mEsMio(p)).sort((x,y)=>(y.motoEntregadoEl||y.fecha)-(x.motoEntregadoEl||x.fecha));
+  const hoy=agSod(Date.now());let a=0,b=Infinity;if(H.per==='hoy')a=hoy;else if(H.per==='d7')a=hoy-6*DAY;else if(H.per==='d30')a=hoy-29*DAY;else if(H.per==='custom'){a=H.a?new Date(H.a+'T00:00').getTime():0;b=H.b?new Date(H.b+'T23:59:59').getTime():Infinity;}
+  const L=all.filter(p=>{const t=p.motoEntregadoEl||p.fecha;return t>=a&&t<=b;});
+  openSheet(`<div class="shx"><span class="shi">${ic('clock')}</span><div style="flex:1;min-width:0"><h3>Historial de entregas</h3><div class="shsub">${num(L.length)} entrega${L.length===1?'':'s'} · ${usd(L.reduce((s,p)=>s+(p.totalUSD||0),0))}</div></div><button class="xbtn" onclick="closeSheet()" aria-label="Cerrar">${ic('x')}</button></div>
+   <div class="chipx" style="margin-bottom:10px">${[['hoy','Hoy'],['d7','7 días'],['d30','30 días'],['custom','Personalizado']].map(([k,l])=>`<button class="${H.per===k?'on':''}" onclick="S.mhist.per='${k}';mHistorial()">${l}</button>`).join('')}</div>
+   ${H.per==='custom'?`<div class="v12grid2" style="margin-bottom:10px"><div class="field" style="margin:0"><label>Desde</label><input type="date" class="inp" value="${esc(H.a)}" onchange="S.mhist.a=this.value;mHistorial()"></div><div class="field" style="margin:0"><label>Hasta</label><input type="date" class="inp" value="${esc(H.b)}" onchange="S.mhist.b=this.value;mHistorial()"></div></div>`:''}
+   ${L.length?L.slice(0,80).map(mHistRow).join(''):`<div class="v12note">Sin entregas en este rango.</div>`}`);
+}
+async function mVerPedido(id){
+  const p=await dbGet('pedidos',id);if(!p)return;const s=mSedeDe(p.sedeId),debe=mDebe(p),mets=pedMetodos(p);
+  openSheet(`<div class="shx"><span class="shi">${ic('package')}</span><div style="flex:1;min-width:0"><h3>${esc(p.cliente?.nombre||'Cliente')}</h3><div class="shsub">${esc(p.codigo)} · ${esc(fechaCorta(p.fecha))}</div></div><button class="xbtn" onclick="closeSheet()" aria-label="Cerrar">${ic('x')}</button></div>
+   <div class="dtab">${[['Zona',mZona(p)],['Dirección',p.motoEstado&&p.motoEstado!=='ASIGNADO'||p.estado==='ENTREGADO'?(p.cliente?.direccion||'—'):'Visible al aceptar'],['Productos',(p.items||[]).map(i=>i.cantidad+'× '+i.version).join(', ')],['Total',usd(p.totalUSD||0)],['Por cobrar',debe>0.5?usd(debe):'Pagado'],['Método previsto',mets.join(' + ')||'—'],['Sede',s?(s.nombre||s.codigo):'—'],['Estado',p.estado==='ENTREGADO'?'Entregado'+(p.motoIssue?' con incidencia':''):(MOTO_EST[p.motoEstado]?.n||'Asignado')]].map(([k,x])=>`<div class="dtr"><span>${k}</span><b>${esc(x)}</b></div>`).join('')}</div>
+   ${p.motoIssue?`<div class="v12note">${ei('alert')} ${esc(ISSUE_T[p.motoIssue.tipo]||'Incidencia')}${p.motoIssue.nota?': '+esc(p.motoIssue.nota):''}</div>`:''}
+   ${p.comprobanteEntregaURL?`<a class="btn-out" style="margin-top:10px;width:100%;justify-content:center" href="${esc(p.comprobanteEntregaURL)}" target="_blank" rel="noopener">${ic('image')}Ver comprobante</a>`:''}`);
+}
+async function mTomar(id){const p=await dbGet('pedidos',id);const d=mDel();if(!p||!d)return;if(p.deliveryId){toast('Esta entrega ya fue tomada por otro motorizado','bad');viewMoto();return;}
+  p.deliveryId=d.id;p.deliveryNombre=d.nombre;p.motoEstado='ASIGNADO';p.timeline=[...(p.timeline||[]),{estado:p.estado,ts:Date.now(),por:S.user.nombre,nota:'Entrega tomada por el motorizado'}];
+  await dbPut('pedidos',p);S.cache.peds=null;invalidarCache('pedidos');toast('Entrega tomada. Ahora acéptala para ver la dirección.','ok');viewMoto();}
+async function mAceptar(id){
+  const p=await dbGet('pedidos',id);if(!p)return;
+  if(p.motoEstado!=='ACEPTADO'&&p.motoEstado!=='EN_SITIO'){p.motoEstado='ACEPTADO';p.motoAceptadoEl=Date.now();p.estado='EN_CAMINO';p.timeline=[...(p.timeline||[]),{estado:'EN_CAMINO',ts:Date.now(),por:S.user.nombre,nota:'Aceptada por el motorizado'}];await dbPut('pedidos',p);S.cache.peds=null;invalidarCache('pedidos');}
+  mEntregaOpen(id);
+}
+/* ---------- RUTAS (motorizado) ---------- */
+function mRutaCard(r,peds){
+  const paradas=(r.paradas||[]).map(id=>peds.find(p=>p.id===id)).filter(Boolean);const done=paradas.filter(p=>p.estado==='ENTREGADO'||p.motoIssue).length;const zonas=[...new Set(paradas.map(mZona))];
+  const mia=!!(mDel()&&r.deliveryId===mDel().id);
+  return `<div class="mrt ${mia?'on':'open'}" onclick="mRutaVer('${r.id}')"><span class="ri">${ic('route')}</span><div class="rbd"><b>${esc(r.nombre||'Ruta')}</b><small>${paradas.length} parada${paradas.length===1?'':'s'}${r.salida?' · salida '+esc(r.salida):''}${mia?(r.estado==='EN_CURSO'?` · ${done}/${paradas.length} listas`:' · tuya'):' · disponible'}</small><div class="rz">${zonas.slice(0,3).map(z=>`<i>${esc(z)}</i>`).join('')}${zonas.length>3?`<i>+${zonas.length-3}</i>`:''}</div></div>
+    <div class="rac">${mia?(r.estado==='EN_CURSO'?`<button class="btn-lime" onclick="event.stopPropagation();mRutaSiguiente('${r.id}')">${ic('nav')}Siguiente</button>`:`<button class="btn-lime" onclick="event.stopPropagation();mRutaIniciar('${r.id}')">${ic('nav')}Iniciar</button>`):`<button class="btn-lime" onclick="event.stopPropagation();mRutaElegir('${r.id}')">${ic('check')}Elegir</button>`}</div></div>`;
+}
+async function mRutasTodas(){const [rutas,peds]=await Promise.all([dbAll('rutas'),dbAll('pedidos')]);const d=mDel();const L=rutas.filter(r=>r.estado!=='CANCELADA'&&d&&(r.deliveryId===d.id||(!r.deliveryId&&r.sedeId===d.sedeId))).sort((a,b)=>(b.fecha||0)-(a.fecha||0));
+  openSheet(`<div class="shx"><span class="shi">${ic('route')}</span><div style="flex:1"><h3>Rutas</h3><div class="shsub">Disponibles y asignadas a ti</div></div><button class="xbtn" onclick="closeSheet()" aria-label="Cerrar">${ic('x')}</button></div>${L.length?L.map(r=>mRutaCard(r,peds)).join(''):'<div class="v12note">Sin rutas por ahora.</div>'}`);}
+async function mRutaVer(id){const [rutas,peds]=await Promise.all([dbAll('rutas'),dbAll('pedidos')]);const r=rutas.find(x=>x.id===id);if(!r)return;const paradas=(r.paradas||[]).map(pid=>peds.find(p=>p.id===pid)).filter(Boolean);const mia=!!(mDel()&&r.deliveryId===mDel().id);
+  openSheet(`<div class="shx"><span class="shi">${ic('route')}</span><div style="flex:1;min-width:0"><h3>${esc(r.nombre||'Ruta')}</h3><div class="shsub">${paradas.length} paradas${r.salida?' · salida '+esc(r.salida):''}${r.deliveryNombre?' · '+esc(r.deliveryNombre):''}</div></div><button class="xbtn" onclick="closeSheet()" aria-label="Cerrar">${ic('x')}</button></div>
+   <div class="tlx">${paradas.map((p,i)=>{const ok=p.estado==='ENTREGADO';return `<div class="v12row"><span class="v12av" style="--c:${ok?'#4ee39a':p.motoIssue?'#ff7a6b':'#5db4f5'};width:34px;height:34px;font-size:13px">${ok?ic('check'):i+1}</span><div class="b"><b>${esc(p.cliente?.nombre||'Cliente')}</b><small>${esc(mZona(p))} · ${mDebe(p)>0.5?'cobrar '+usd(mDebe(p)):'pagado'}</small></div>${mia&&!ok?`<button class="btn-out" style="height:36px;padding:0 10px" onclick="closeSheet();mAceptar('${p.id}')">${ic('nav')}</button>`:''}</div>`;}).join('')}</div>
+   <div style="margin-top:14px">${mia?(r.estado==='EN_CURSO'?`<button class="bsave" onclick="closeSheet();mRutaSiguiente('${r.id}')">${ic('nav')}Siguiente parada</button>`:`<button class="bsave" onclick="closeSheet();mRutaIniciar('${r.id}')">${ic('nav')}Iniciar ruta</button>`):`<button class="bsave" onclick="closeSheet();mRutaElegir('${r.id}')">${ic('check')}Elegir esta ruta</button>`}</div>`);}
+async function mRutaElegir(id){const r=await dbGet('rutas',id);const d=mDel();if(!r||!d)return;if(r.deliveryId&&r.deliveryId!==d.id){toast('Esta ruta ya fue tomada por otro motorizado','bad');return;}
+  openSheet(`<div class="sh-head"><h3>Elegir ruta</h3></div><div class="hintline" style="margin-bottom:12px">Confirma tu hora de salida. Las paradas pasarán a tu lista de nuevas entregas.</div>
+   <div class="field"><label>Hora de salida</label><input type="time" class="inp" id="mrSal" value="${esc(r.salida||'09:00')}"></div><button class="btn pri full" onclick="mRutaElegirOk('${id}')">Confirmar</button>`);}
+async function mRutaElegirOk(id){const r=await dbGet('rutas',id);const d=mDel();if(!r||!d)return;const sal=$('#mrSal')?.value||r.salida||'';
+  r.deliveryId=d.id;r.deliveryNombre=d.nombre;r.salida=sal;r.estado='ACEPTADA';r.aceptada=Date.now();await dbPut('rutas',r);
+  const peds=await dbAll('pedidos');for(const pid of (r.paradas||[])){const p=peds.find(x=>x.id===pid);if(!p||p.estado==='ENTREGADO'||p.estado==='CANCELADO')continue;if(p.deliveryId&&p.deliveryId!==d.id)continue;p.deliveryId=d.id;p.deliveryNombre=d.nombre;if(!p.motoEstado||p.motoEstado==='ASIGNADO'){p.motoEstado='ASIGNADO';}await dbPut('pedidos',p);}
+  S.cache.peds=null;invalidarCache('pedidos','rutas');closeSheet();toast('Ruta confirmada. Salida '+sal,'ok');viewMoto();}
+async function mRutaIniciar(id){const r=await dbGet('rutas',id);if(!r)return;r.estado='EN_CURSO';r.inicio=Date.now();await dbPut('rutas',r);invalidarCache('rutas');mRutaSiguiente(id);}
+async function mRutaSiguiente(id){const [r,peds]=await Promise.all([dbGet('rutas',id),dbAll('pedidos')]);if(!r)return;const next=(r.paradas||[]).map(pid=>peds.find(p=>p.id===pid)).find(p=>p&&p.estado!=='ENTREGADO'&&p.estado!=='CANCELADO'&&!p.motoIssue);
+  if(!next){r.estado='COMPLETADA';r.completada=Date.now();await dbPut('rutas',r);invalidarCache('rutas');toast('Ruta completada. Excelente trabajo.','ok');viewMoto();return;}
+  mAceptar(next.id);}
+async function mRutaCheck(p){try{const rutas=await dbAll('rutas');const r=rutas.find(x=>x.estado==='EN_CURSO'&&(x.paradas||[]).includes(p.id));if(!r)return null;const peds=await dbAll('pedidos',true);const pend=(r.paradas||[]).map(pid=>peds.find(x=>x.id===pid)).filter(x=>x&&x.estado!=='ENTREGADO'&&x.estado!=='CANCELADO'&&!x.motoIssue);if(!pend.length){r.estado='COMPLETADA';r.completada=Date.now();await dbPut('rutas',r);invalidarCache('rutas');return {r,done:true};}return {r,next:pend[0]};}catch(e){return null;}}
+/* ---------- ENTREGA PASO A PASO ---------- */
+function mEntregaClose(){const el=$('#mdp');if(el)el.remove();document.body.classList.remove('mdp-open');mLocStop();}
+async function mEntregaOpen(id,keepStep){
+  const p=await dbGet('pedidos',id);if(!p)return;window._mE={id,p,pay:pedMetodos(p)[0]||'',foto:null,fotoURL:''};
+  if(!keepStep)window._mE.step=p.estado==='ENTREGADO'?3:p.motoEstado==='EN_SITIO'?2:1;
+  if(!$('#mdp'))document.body.insertAdjacentHTML('beforeend','<div id="mdp" class="mdp"></div>');document.body.classList.add('mdp-open');
+  mEntregaRender();if(window._mE.step===1)mLocStart(id);
+}
+function mNavLinks(p){
+  const dir=[p.cliente?.direccion,p.cliente?.zona].filter(Boolean).join(', ');const q=encodeURIComponent(dir);
+  let ll=null;const m=String(p.cliente?.direccionLink||'').match(/@(-?\d+\.\d+),(-?\d+\.\d+)|[?&]q=(-?\d+\.\d+),(-?\d+\.\d+)|destination=(-?\d+\.\d+),(-?\d+\.\d+)/);if(m){ll=[m[1]||m[3]||m[5],m[2]||m[4]||m[6]];}
+  return {g:ll?`https://www.google.com/maps/dir/?api=1&destination=${ll[0]},${ll[1]}&travelmode=driving`:`https://www.google.com/maps/dir/?api=1&destination=${q}&travelmode=driving`,w:ll?`https://waze.com/ul?ll=${ll[0]},${ll[1]}&navigate=yes`:`https://waze.com/ul?q=${q}&navigate=yes`,a:ll?`https://maps.apple.com/?daddr=${ll[0]},${ll[1]}&dirflg=d`:`https://maps.apple.com/?daddr=${q}&dirflg=d`,link:p.cliente?.direccionLink||''};
+}
+function mWaMsg(p){const n=(p.cliente?.nombre||'').split(' ')[0],me=(S.user.nombre||'').split(' ')[0],debe=mDebe(p),mets=pedMetodos(p);
+  const pagos=debe>0.5&&mets.length?`\n\nPara agilizar la entrega te comparto los métodos de pago (${usd(debe)}):\n${mets.map(m=>'• '+pagoDatosTxt(m,debe)).join('\n')}`:(debe<=0.5?'\n\nTu pedido ya está pagado, solo lo recibes.':'');
+  return `Hola ${n}, soy ${me}, motorizado de Firefly. Ya voy en camino con tu pedido ${p.codigo}.${pagos}\n\n¡Nos vemos en un rato!`;}
+function mEntregaRender(){
+  const E=window._mE,p=E.p,el=$('#mdp');if(!el||!p)return;const step=E.step,debe=mDebe(p),mets=pedMetodos(p),s=mSedeDe(p.sedeId);
+  const head=`<div class="mdp-h"><button class="xbtn" aria-label="Volver" onclick="mEntregaBack()">${ic('back')}</button><div class="t"><b>${esc(p.cliente?.nombre||'Cliente')}</b><small>${esc(p.codigo)} · ${step===1?'En camino':step===2?'En el sitio':step===3?'Entrega completada':'Entrega'}</small></div>${step<3?`<button class="help" onclick="mAyuda('${p.id}')">${ic('help')}Ayuda</button>`:''}</div>
+   <div class="mdp-steps"><i class="${step>1?'done':'on'}"></i><i class="${step>2?'done':step===2?'on':''}"></i><i class="${step===3?'on':''}"></i></div>`;
+  let body='',foot='';
+  if(step===1){const nv=mNavLinks(p);
+    body=`<div class="mcl"><span class="av">${esc(initials(p.cliente?.nombre||'?'))}</span><div style="min-width:0"><b>${esc(p.cliente?.nombre||'Cliente')}</b><small>${p.cliente?.telefono?esc(p.cliente.telefono):'Sin teléfono'} · ${esc(mZona(p))}</small></div><span class="mlive" id="mLive"><i></i>GPS</span></div>
+     ${nv.link?`<a class="mgo" href="${esc(nv.link)}" target="_blank" rel="noopener"><span class="gi">${ic('nav')}</span><div style="min-width:0"><b>Iniciar la entrega</b><small>Abre la ubicación exacta que envió el cliente</small></div>${ic('chevR')}</a>`:''}
+     <div class="maddr"><div class="lb">${ic('mapPin')}Dirección</div><div class="tx">${esc(p.cliente?.direccion||'Sin dirección registrada · confirma con el cliente')}</div>${p.comentarios?`<div class="nt">${esc(p.comentarios)}</div>`:''}</div>
+     <div class="mnav"><a href="${esc(nv.g)}" target="_blank" rel="noopener"><span class="ni" style="background:#fff;color:#4285F4">G</span>Google Maps</a><a href="${esc(nv.w)}" target="_blank" rel="noopener"><span class="ni" style="background:#33CCFF;color:#0a0a0b">W</span>Waze</a><a href="${esc(nv.a)}" target="_blank" rel="noopener"><span class="ni" style="background:var(--panel3);color:#fff">${ic('mapPin')}</span>Apple Maps</a></div>
+     <div class="mrow"><a class="btn-out wa" ${p.cliente?.telefono?`href="${waLink(p.cliente.telefono,mWaMsg(p))}" target="_blank" rel="noopener"`:'aria-disabled="true"'}>${brandMark('WhatsApp','#25D366')}Avisar que voy</a><a class="btn-out" ${p.cliente?.telefono?`href="tel:${esc(p.cliente.telefono)}"`:'aria-disabled="true"'}>${ic('phone')}Llamar</a></div>
+     <div class="mitems"><span class="pi">${ic('torch')}</span><div class="pt">${esc((p.items||[]).map(i=>i.cantidad+'× '+i.version).join(', '))}<small>${debe>0.5?'Cobrar '+usd(debe)+(mets.length?' · '+mets.join(' / '):''):'Pagado · solo entregar'}</small></div></div>`;
+    foot=`<button class="btn-lime" onclick="mLlegue()">${ic('mapPin')}He llegado al sitio</button>`;}
+  if(step===2){const pagos=(p.pagos||[]);const alt=metListPrev().filter(m=>m!==E.pay);
+    body=`${debe>0.5?`${mPayCard(E.pay,debe,p)}<div class="malt">${(mets.filter(m=>m!==E.pay).concat(alt.filter(m=>!mets.includes(m)))).map(m=>`<button onclick="window._mE.pay='${esc(m)}';mEntregaRender()">${metTileAny(m,22)}${esc(m)}</button>`).join('')}</div>`:`<div class="mpay"><div class="ph"><span class="v12ico" style="width:36px;height:36px;border-radius:12px;background:rgba(78,227,154,.14);color:#4ee39a">${ic('check')}</span><div><b>Pedido pagado</b><small>Entrega los productos y sube la foto de la entrega.</small></div></div></div>`}
+     <div class="mpg">${pagos.map(g=>`<div class="r"><div><b>${esc(g.metodo)}</b><small>${g.ref?'Ref. '+esc(g.ref)+' · ':''}${esc(g.por||'')}</small></div><b class="ok">${usd(g.montoUSD||0)}</b></div>`).join('')}<div class="r"><div><b>${debe>0.5?'Pendiente por cobrar':'Total cobrado'}</b><small>Total ${usd(p.totalUSD||0)}</small></div><b class="${debe>0.5?'deb':'ok'}">${debe>0.5?usd(debe):usd(p.totalPagadoUSD||0)}</b></div>${debe>0.5?`<button class="add" onclick="mPagoAdd()">${ic('plus')}Registrar cobro${E.pay?' con '+esc(E.pay):''}</button>`:''}</div>
+     <label class="mfoto ${E.fotoURL||E.foto?'ok':''}"><input type="file" accept="image/*" capture="environment" class="hide" onchange="mFotoSel(this.files[0])"><span class="fi">${E.fotoURL?`<img src="${esc(E.fotoURL)}">`:ic('camera')}</span><div style="min-width:0"><b>${E.fotoURL||E.foto?'Foto lista':'Foto del comprobante o de la entrega'}</b><small>${debe>0.5?'Captura del pago o foto del efectivo':'Foto del paquete entregado'}${E.foto&&!E.fotoURL?' · '+esc(E.foto.name):''}</small></div>${ic('chevR')}</label>`;
+    foot=`<button class="btn-lime" id="mConfirm" ${debe>0.5||!(E.foto||E.fotoURL)?'disabled':''} onclick="mConfirmar()">${ic('check')}Confirmar entrega</button>`;}
+  if(step===3){const R=E.ruta;
+    body=`<div class="mdone"><span class="ck">${ic('check')}</span><h3>Entrega completada</h3><p>${esc(p.cliente?.nombre||'')} recibió su pedido. ${(p.pagos||[]).length?'El cobro quedó registrado con su comprobante.':'Gracias por el buen trabajo.'}</p>${R?.done?`<div class="v12note" style="margin-top:8px">${ei('route')} Ruta completada.</div>`:R?.next?`<div class="v12note" style="margin-top:8px">${ei('route')} Siguiente parada: <b>${esc(R.next.cliente?.nombre||'')}</b> · ${esc(mZona(R.next))}</div>`:''}</div>`;
+    foot=`${R?.next?`<button class="btn-lime" onclick="mEntregaClose();mAceptar('${R.next.id}')">${ic('nav')}Siguiente parada</button>`:`<button class="btn-lime" onclick="mEntregaClose();viewMoto()">${ic('home')}Volver al inicio</button>`}`;}
+  el.innerHTML=head+`<div class="mdp-body">${body}</div><div class="mdp-foot">${foot}</div>`;
+}
+function mEntregaBack(){const E=window._mE;if(E&&E.step===2&&E.p.motoEstado==='EN_SITIO'){E.step=1;mEntregaRender();mLocStart(E.id);return;}mEntregaClose();viewMoto();}
+function mPayCard(m,debe,p){
+  const c=S.cache.cfg||{},pi=c.pagosInfo||PAGOS_INFO_DEFAULT,tasa=+c.tasaActual||0,bs=tasa?Math.round(debe*tasa):0;
+  const cp=(txt)=>`<button onclick="navigator.clipboard.writeText('${esc(txt).replace(/'/g,'')}').then(()=>toast('Copiado','ok'))">${ic('copy')}Copiar</button>`;
+  const head=`<div class="ph">${metTileAny(m,40)}<div><b>${esc(m)}</b><small>Método ${pedMetodos(p)[0]===m?'principal del cliente':'alternativo'}</small></div></div>`;
+  let dat='';
+  if(m==='Pago Móvil')dat=`<div class="big">${num(bs)} Bs<small>${usd(debe)} × ${num(tasa)}</small></div><div class="dat"><div class="r"><span>${esc(pi.pmBanco)}</span></div><div class="r"><span>Teléfono <b>${esc(pi.pmTelefono)}</b></span>${cp(pi.pmTelefono)}</div><div class="r"><span>Cédula <b>${esc(pi.pmCedula)}</b></span>${cp(pi.pmCedula)}</div></div>`;
+  else if(m==='Efectivo Bs')dat=`<div class="big">${num(bs)} Bs<small>${usd(debe)} × ${num(tasa)}</small></div><div class="dat">Recibe el efectivo en bolívares y toma una foto de los billetes.</div>`;
+  else if(m==='Cash $')dat=`<div class="big">${usd(debe)}</div><div class="dat">Recibe el efectivo en dólares y toma una foto de los billetes.</div>`;
+  else if(m==='Zelle')dat=`<div class="big">${usd(debe)}</div><div class="dat"><div class="r"><span><b>${esc(pi.zelle)}</b></span>${cp(pi.zelle)}</div></div>`;
+  else if(m==='PayPal')dat=`<div class="big">${usd(debe)}</div><div class="dat"><div class="r"><span><b>${esc(pi.paypal)}</b></span>${cp(pi.paypal)}</div></div>`;
+  else if(m==='Binance')dat=`<div class="big">${usd(debe)}</div><div class="dat"><div class="r"><span><b>${esc(pi.binance)}</b></span>${cp(pi.binance)}</div></div>`;
+  else if(m==='SPIDI')dat=`<div class="big">${num(bs)} Bs<small>${usd(debe)}</small></div><div class="dat">El cliente paga con débito inmediato o Pago Móvil desde su banco.</div><button class="btn-out" style="margin-top:10px;width:100%;justify-content:center" onclick="cobrarSpidi('${p.id}')">${ic('qr')}Mostrar link y QR</button>`;
+  else dat=`<div class="big">${usd(debe)}</div>`;
+  return `<div class="mpay">${head}${dat}</div>`;
+}
+function mPagoAdd(){const E=window._mE,p=E.p,debe=mDebe(p),m=E.pay||pedMetodos(p)[0]||'Cash $';const elec=['Pago Móvil','Zelle','Binance','PayPal','SPIDI'].includes(m);
+  openSheet(`<div class="sh-head"><h3>Registrar cobro</h3></div>
+   <div class="field"><label>Método</label><select class="inp" id="mpaM" onchange="document.getElementById('mpaRefW').style.display=['Pago Móvil','Zelle','Binance','PayPal','SPIDI'].includes(this.value)?'block':'none'">${metListPrev().map(x=>`<option ${x===m?'selected':''}>${x}</option>`).join('')}</select></div>
+   <div class="field"><label>Monto recibido (USD)</label><input class="inp" id="mpaMonto" inputmode="decimal" value="${debe.toFixed(2)}"></div>
+   <div class="field" id="mpaRefW" style="display:${elec?'block':'none'}"><label>Referencia (últimos dígitos)</label><input class="inp" id="mpaRef" inputmode="numeric" maxlength="12" placeholder="1234"></div>
+   <div class="hintline" style="margin-bottom:12px">Si el cliente combina métodos, registra cada cobro por separado hasta completar el total.</div>
+   <button class="btn pri full" onclick="mPagoSave()">Guardar cobro</button>`);}
+async function mPagoSave(){const E=window._mE;const p=await dbGet('pedidos',E.id);if(!p)return;const m=$('#mpaM').value,monto=parseFloat(($('#mpaMonto').value||'').replace(',','.'))||0,ref=($('#mpaRef')?.value||'').trim();
+  if(!(monto>0)){toast('Escribe el monto recibido','bad');return;}if(['Pago Móvil','Zelle','Binance','PayPal','SPIDI'].includes(m)&&!ref){toast('Falta la referencia del pago','bad');return;}
+  const debe=mDebe(p);if(monto>debe+0.01){toast('El monto supera lo pendiente ('+usd(debe)+')','bad');return;}
+  const c=S.cache.cfg||{};const pg={metodo:m,montoUSD:monto,montoBs:ESBs[m]||m==='SPIDI'?Math.round(monto*(+c.tasaActual||0)):0,tasa:ESBs[m]||m==='SPIDI'?(+c.tasaActual||0):0,ref:ref||'entrega',ts:Date.now(),por:S.user.nombre,enEntrega:true};
+  p.pagos=[...(p.pagos||[]),pg];p.totalPagadoUSD=Math.round(((p.totalPagadoUSD||0)+monto)*100)/100;await dbPut('pedidos',p);S.cache.peds=null;invalidarCache('pedidos');E.p=p;closeSheet();toast('Cobro registrado','ok');mEntregaRender();}
+function mFotoSel(f){const E=window._mE;if(!f)return;E.foto=f;E.fotoURL='';mEntregaRender();}
+async function mLlegue(){const E=window._mE;const p=await dbGet('pedidos',E.id);if(!p)return;if(p.motoEstado!=='EN_SITIO'){p.motoEstado='EN_SITIO';p.motoEnSitioEl=Date.now();p.timeline=[...(p.timeline||[]),{estado:p.estado,ts:Date.now(),por:S.user.nombre,nota:'Motorizado en el sitio'}];await dbPut('pedidos',p);S.cache.peds=null;invalidarCache('pedidos');}E.p=p;E.step=2;mLocStop();mEntregaRender();}
+async function mConfirmar(){
+  const E=window._mE;const btn=$('#mConfirm');const p=await dbGet('pedidos',E.id);if(!p)return;
+  if(mDebe(p)>0.5){toast('Registra el cobro completo antes de cerrar','bad');return;}if(!E.foto&&!E.fotoURL){toast('Falta la foto del comprobante o de la entrega','bad');return;}
+  if(btn){btn.disabled=true;btn.innerHTML=ic('refresh')+'Guardando…';}
+  try{let url=E.fotoURL;if(!url){let blob=E.foto;if(typeof ffImgCompress==='function')try{blob=await ffImgCompress(E.foto,1600,.82);}catch(e){}const ref=storage.ref(`comprobantes/${p.id}/${Date.now()}.jpg`);await ref.put(blob,{contentType:'image/jpeg'});url=await ref.getDownloadURL();E.fotoURL=url;}
+    p.pagos=(p.pagos||[]).map(g=>g.enEntrega&&!g.comprobanteURL?{...g,comprobanteURL:url}:g);
+    p.estado='ENTREGADO';p.motoEstado='ENTREGADO';p.motoEntregadoEl=Date.now();p.comprobanteEntregaURL=url;
+    p.timeline=[...(p.timeline||[]),{estado:'ENTREGADO',ts:Date.now(),por:S.user.nombre,nota:'Entregado con comprobante'}];
+    await dbPut('pedidos',p);S.cache.peds=null;invalidarCache('pedidos');E.p=p;E.ruta=await mRutaCheck(p);E.step=3;mEntregaRender();
+    try{if(p.deliveryId)db.collection('deliveries').doc(p.deliveryId).set({ubic:firebase.firestore.FieldValue.delete()},{merge:true});}catch(e){}
+  }catch(e){toast('No se pudo guardar: '+(e.code==='storage/unauthorized'?'permiso de fotos (avisa a la central)':e.message),'bad');if(btn){btn.disabled=false;btn.innerHTML=ic('check')+'Confirmar entrega';}}
+}
+/* ---------- ayuda / incidencias ---------- */
+async function mAyuda(id){const p=await dbGet('pedidos',id);if(!p)return;const s=mSedeDe(p.sedeId);const tel=(s?.telefono||'').trim();
+  openSheet(`<div class="shx"><span class="shi" style="color:#f5b945">${ic('help')}</span><div style="flex:1;min-width:0"><h3>¿Necesitas ayuda?</h3><div class="shsub">${s?('Sede '+(s.nombre||s.codigo)):'Central'}${s?.encargado?' · '+esc(s.encargado):''}</div></div><button class="xbtn" onclick="closeSheet()" aria-label="Cerrar">${ic('x')}</button></div>
+   <div class="mrow" style="margin-bottom:14px"><a class="btn-out wa" ${tel?`href="${waLink(tel,`Hola, soy ${S.user.nombre}. Necesito apoyo con el pedido ${p.codigo} (${p.cliente?.nombre||''}).`)}" target="_blank" rel="noopener"`:'aria-disabled="true"'}>${brandMark('WhatsApp','#25D366')}Escribir a la sede</a><a class="btn-out" ${tel?`href="tel:${esc(tel)}"`:'aria-disabled="true"'}>${ic('phone')}Llamar</a></div>
+   ${tel?'':'<div class="fhint" style="margin:-6px 0 12px">La sede no tiene teléfono registrado; reporta la incidencia y la central te contactará.</div>'}
+   <div class="v12sec">Reportar incidencia</div>
+   <div class="chipx" id="mIsT">${Object.entries(ISSUE_T).map(([k,l],i)=>`<button class="${p.motoIssue?.tipo===k?'on':''}" data-k="${k}" onclick="document.querySelectorAll('#mIsT button').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${l}</button>`).join('')}</div>
+   <div class="field" style="margin-top:10px"><label>Detalle</label><textarea class="inp" id="mIsN" rows="2" placeholder="Ej. Llamé 3 veces y no contesta">${esc(p.motoIssue?.nota||'')}</textarea></div>
+   <button class="btn pri full" onclick="mIssueSave('${id}')">Enviar a la central</button>
+   <div class="fhint" style="margin-top:8px">La central recibe la alerta al instante y puede cerrar la orden con la etiqueta de incidencia.</div>`);}
+async function mIssueSave(id){const k=document.querySelector('#mIsT button.on')?.dataset.k;if(!k){toast('Elige el tipo de incidencia','bad');return;}const nota=($('#mIsN').value||'').trim();const p=await dbGet('pedidos',id);if(!p)return;
+  p.motoIssue={tipo:k,nota,ts:Date.now(),por:S.user.nombre,porId:S.user.id};p.timeline=[...(p.timeline||[]),{estado:p.estado,ts:Date.now(),por:S.user.nombre,nota:'Incidencia: '+ISSUE_T[k]+(nota?' · '+nota:'')}];await dbPut('pedidos',p);S.cache.peds=null;invalidarCache('pedidos');
+  const us=Object.values(S.cache.usersMap||{}).filter(u=>['socio','admin','supervisor'].includes(u.rol));for(const u of us)crmNotify(u.id,{id:'nf_iss_'+id+'_'+u.id,titulo:'Incidencia en entrega '+p.codigo,sub:ISSUE_T[k]+(nota?' · '+nota:'')+' · '+S.user.nombre,r:'moto',arg:id,tipo:'lead'});
+  closeSheet();toast('Incidencia enviada a la central','ok');if(window._mE&&window._mE.id===id){window._mE.p=p;}}
+/* ---------- ubicación en vivo ---------- */
+function mLocStart(pedId){mLocStop();if(!navigator.geolocation||!mDel())return;window._mLocLast=0;
+  const push=(pos)=>{const now=Date.now();if(now-(window._mLocLast||0)<60e3)return;window._mLocLast=now;const live=$('#mLive');if(live){live.classList.remove('off');live.innerHTML='<i></i>GPS activo';}
+    db.collection('deliveries').doc(mDel().id).set({ubic:{lat:pos.coords.latitude,lng:pos.coords.longitude,acc:Math.round(pos.coords.accuracy||0),ts:now,pedidoId:pedId,por:S.user.nombre}},{merge:true}).catch(()=>{});};
+  try{window._mLocW=navigator.geolocation.watchPosition(push,()=>{const live=$('#mLive');if(live){live.classList.add('off');live.innerHTML='<i></i>GPS apagado';}},{enableHighAccuracy:true,maximumAge:30e3,timeout:20e3});}catch(e){}
+  window._mLocT=setInterval(()=>{if(!window._mE||window._mE.step!==1){mLocStop();}},30e3);}
+function mLocStop(){try{if(window._mLocW!=null)navigator.geolocation.clearWatch(window._mLocW);}catch(e){}window._mLocW=null;clearInterval(window._mLocT);}
+/* ---------- foto de perfil ---------- */
+async function motoFoto(){const d=mDel();openSheet(`<div class="sh-head"><h3>Foto de perfil</h3></div><div class="field"><label>Elige una foto</label><input type="file" id="mfInp" accept="image/*" class="inp" style="padding:10px"></div><button class="btn pri full" onclick="motoFotoSave()">Guardar</button>`);}
+async function motoFotoSave(){const f=$('#mfInp')?.files?.[0];if(!f){toast('Selecciona una foto','bad');return;}try{let blob=f;if(typeof ffImgCompress==='function')try{blob=await ffImgCompress(f,900,.85);}catch(e){}const ref=storage.ref(`perfiles-usuarios/${S.user.id}/${Date.now()}.jpg`);await ref.put(blob,{contentType:'image/jpeg'});const url=await ref.getDownloadURL();
+  await db.collection('usuarios').doc(S.user.id).set({fotoURL:url},{merge:true});S.user.fotoURL=url;const d=mDel();if(d){await db.collection('deliveries').doc(d.id).set({fotoURL:url},{merge:true});d.fotoURL=url;window._miFotoDel=url;invalidarCache('deliveries');}
+  tbAvatar();closeSheet();toast('Foto actualizada','ok');}catch(e){toast('No se pudo subir la foto: '+(e.code==='storage/unauthorized'?'permiso de fotos pendiente':e.message),'bad');}}
+/* ---------- CENTRAL: rutas, ubicación en vivo e incidencias ---------- */
+async function mpRutasSection(){
+  const grid=document.querySelector('.mpgrid');if(!grid||$('#mpRutas'))return;
+  const [rutas,peds,dels]=await Promise.all([dbAll('rutas'),dbAll('pedidos'),dbAll('deliveries')]);const hoy=agSod(Date.now());
+  const L=rutas.filter(r=>r.estado!=='CANCELADA'&&((r.fecha||0)>=hoy-DAY||r.estado!=='COMPLETADA')).sort((a,b)=>(b.fecha||0)-(a.fecha||0)).slice(0,12);
+  const map={};rutas.forEach(r=>(r.paradas||[]).forEach(id=>map[id]=r.nombre));S.cache._rutasMap=map;
+  const col=grid.children[0];col.insertAdjacentHTML('afterbegin',`<div class="mp-sec" id="mpRutas"><h3>${ic('route')}Rutas del día</h3><button class="r lime" onclick="mpRutaNueva()">${ic('plus')}Crear ruta</button></div><div id="mpRutasList">${L.length?L.map(r=>{const par=(r.paradas||[]).map(id=>peds.find(p=>p.id===id)).filter(Boolean),done=par.filter(p=>p.estado==='ENTREGADO').length;const est={PLANIFICADA:['Abierta','#f5b945'],ACEPTADA:['Aceptada','#5db4f5'],EN_CURSO:['En curso','#b78bf0'],COMPLETADA:['Completada','#4ee39a']}[r.estado]||['',''];
+    return `<div class="rtc"><span class="ri">${ic('route')}</span><div class="b"><b>${esc(r.nombre)} <span class="pill" style="--c:${est[1]};margin-left:6px">${est[0]}</span></b><small>${par.length} paradas · ${done}/${par.length} entregadas${r.salida?' · salida '+esc(r.salida):''} · ${r.deliveryNombre?esc(r.deliveryNombre):'<span style="color:#f5b945">sin motorizado</span>'}</small></div><button class="oc-b" aria-label="Editar" onclick="mpRutaNueva('${r.id}')">${ic('edit')}</button></div>`;}).join(''):`<div class="fhint" style="margin-bottom:10px">Agrupa varias entregas en una ruta con hora de salida; el motorizado la elige desde su portal.</div>`}</div>`);
+}
+async function mpRutaNueva(id){
+  const [rutas,peds,dels,sedes]=await Promise.all([dbAll('rutas'),dbAll('pedidos'),dbAll('deliveries'),dbAll('sedes')]);const r=id?rutas.find(x=>x.id===id):null;
+  const hoyS=new Date().toISOString().slice(0,10);window._rt={id:r?.id||uid('rt'),nombre:r?.nombre||'',sedeId:r?.sedeId||sedes[0]?.id||'',fecha:r?.fecha?new Date(r.fecha).toISOString().slice(0,10):hoyS,salida:r?.salida||'09:00',deliveryId:r?.deliveryId||'',paradas:r?.paradas||[],estado:r?.estado||'PLANIFICADA'};
+  const R=window._rt;const enOtra=new Set(rutas.filter(x=>x.id!==R.id&&x.estado!=='COMPLETADA'&&x.estado!=='CANCELADA').flatMap(x=>x.paradas||[]));
+  const cand=()=>peds.filter(p=>p.tipoEntrega==='DELIVERY'&&['POR_DESPACHAR','DESPACHADO','EN_CAMINO'].includes(p.estado)&&p.sedeId===R.sedeId&&(!enOtra.has(p.id)||R.paradas.includes(p.id))).sort((a,b)=>(R.paradas.indexOf(b.id)>=0)-(R.paradas.indexOf(a.id)>=0)||b.fecha-a.fecha);
+  const render=window._rtRender=()=>{const el=$('#rtSel');if(!el)return;const C=cand();el.innerHTML=C.length?C.map(p=>{const i=R.paradas.indexOf(p.id);return `<label><input type="checkbox" ${i>=0?'checked':''} onchange="const R=window._rt;if(this.checked)R.paradas.push('${p.id}');else R.paradas=R.paradas.filter(x=>x!=='${p.id}');document.getElementById('rtN').textContent=R.paradas.length"><div class="b"><b>${i>=0?(i+1)+'. ':''}${esc(p.cliente?.nombre||'Cliente')}</b><small>${esc(mZona(p))} · ${esc(p.codigo)} · ${mDebe(p)>0.5?'cobrar '+usd(mDebe(p)):'pagado'}${p.deliveryNombre?' · '+esc(p.deliveryNombre):''}</small></div></label>`;}).join(''):'<div class="fhint">No hay entregas pendientes en esta sede.</div>';};
+  openSheet(`<div class="shx"><span class="shi">${ic('route')}</span><div style="flex:1"><h3>${r?'Editar ruta':'Nueva ruta'}</h3><div class="shsub">Agrupa entregas en orden de visita</div></div><button class="xbtn" onclick="closeSheet()" aria-label="Cerrar">${ic('x')}</button></div>
+   <div class="v12grid2"><div class="field"><label>Nombre</label><input class="inp" id="rtNom" value="${esc(R.nombre)}" placeholder="Ej. Ruta Este · mañana"></div><div class="field"><label>Sede</label><select class="inp" onchange="window._rt.sedeId=this.value;window._rt.paradas=[];document.getElementById('rtN').textContent=0;window._rtRender()">${sedes.map(s=>`<option value="${s.id}" ${R.sedeId===s.id?'selected':''}>${esc(s.nombre||s.codigo)}</option>`).join('')}</select></div></div>
+   <div class="v12grid2"><div class="field"><label>Fecha</label><input type="date" class="inp" id="rtFec" value="${esc(R.fecha)}"></div><div class="field"><label>Hora de salida</label><input type="time" class="inp" id="rtSal" value="${esc(R.salida)}"></div></div>
+   <div class="field"><label>Motorizado</label><select class="inp" id="rtDel"><option value="">Abierta · cualquier motorizado de la sede la elige</option>${dels.filter(d=>d.activo!==false).map(d=>`<option value="${d.id}" ${R.deliveryId===d.id?'selected':''}>${esc(d.nombre)}</option>`).join('')}</select></div>
+   <div class="v12sec">Paradas <span style="text-transform:none;letter-spacing:0;font-weight:500">· <span id="rtN">${R.paradas.length}</span> seleccionadas, en el orden que las marques</span></div>
+   <div class="rtsel" id="rtSel"></div>
+   <div style="display:flex;gap:8px;margin-top:14px">${r?`<button class="btn-out" style="height:50px;color:#ff7a6b" onclick="mpRutaCancelar('${r.id}')">${ic('xc')}Cancelar ruta</button>`:''}<button class="bsave" style="flex:1" onclick="mpRutaSave()">${ic('save')}Guardar ruta</button></div>`);
+  render();
+}
+async function mpRutaSave(){const R=window._rt;R.nombre=($('#rtNom').value||'').trim()||'Ruta';R.fecha=new Date(($('#rtFec').value||new Date().toISOString().slice(0,10))+'T00:00').getTime();R.salida=$('#rtSal').value||'';R.deliveryId=$('#rtDel').value||'';
+  if(!R.paradas.length){toast('Selecciona al menos una parada','bad');return;}
+  const dels=await dbAll('deliveries');const d=dels.find(x=>x.id===R.deliveryId);
+  const doc={id:R.id,nombre:R.nombre,sedeId:R.sedeId,fecha:R.fecha,salida:R.salida,deliveryId:R.deliveryId,deliveryNombre:d?.nombre||'',paradas:R.paradas,estado:R.deliveryId&&R.estado==='PLANIFICADA'?'ACEPTADA':R.estado,creadoPor:S.user.nombre,actualizado:Date.now()};
+  await dbPut('rutas',doc);
+  if(d){const peds=await dbAll('pedidos');for(const pid of R.paradas){const p=peds.find(x=>x.id===pid);if(!p||p.estado==='ENTREGADO')continue;if(p.deliveryId!==d.id){p.deliveryId=d.id;p.deliveryNombre=d.nombre;p.motoEstado=p.motoEstado==='ACEPTADO'||p.motoEstado==='EN_SITIO'?p.motoEstado:'ASIGNADO';await dbPut('pedidos',p);}}
+    if(d.usuarioId)crmNotify(d.usuarioId,{id:'nf_rt_'+R.id+'_'+Date.now(),titulo:'Nueva ruta: '+R.nombre,sub:R.paradas.length+' paradas · salida '+R.salida,r:'moto',arg:R.id,tipo:'lead'});}
+  invalidarCache('pedidos','rutas');S.cache.peds=null;closeSheet();toast('Ruta guardada','ok');viewMoto();}
+async function mpRutaCancelar(id){confirmSheet('Cancelar ruta','Las entregas quedan asignadas como están; solo se elimina la agrupación.',async()=>{const r=await dbGet('rutas',id);if(!r)return;r.estado='CANCELADA';await dbPut('rutas',r);invalidarCache('rutas');viewMoto();});}
+function mpLiveTick(){clearInterval(window._mpLive);window._mpLive=setInterval(()=>{if(S.route!=='moto'||S.user?.rol==='motorizado'){clearInterval(window._mpLive);return;}invalidarCache('pedidos','deliveries','rutas');viewMoto();},60e3);}
+/* tarjeta de entrega en curso: ubicación e incidencia (inyección) */
+{const _rmsV12=renderMotoSup;renderMotoSup=function(){_rmsV12();try{const M=window._mp;if(!M)return;
+  document.querySelectorAll('#mpEntList .ecard').forEach(card=>{const oc=card.getAttribute('onclick')||'';const id=(oc.match(/openMotoEntrega\('([^']+)'/)||[])[1];if(!id||card.querySelector('.mplive'))return;const p=M.activas.find(x=>x.id===id);if(!p)return;const d=M.delDe(p);
+    const u=d?.ubic;const live=u&&u.pedidoId===p.id&&Date.now()-u.ts<15*60e3;
+    const html=`<div class="mplive" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px;font-size:12px">${u&&u.pedidoId===p.id?`<a class="mlive ${live?'':'off'}" href="https://maps.google.com/?q=${u.lat},${u.lng}" target="_blank" rel="noopener" onclick="event.stopPropagation()"><i></i>${live?'En vivo':'Última ubicación'} · hace ${p360Age(Date.now()-u.ts)}</a>`:p.motoEstado==='ACEPTADO'?`<span class="mlive off"><i></i>Sin ubicación aún</span>`:''}${p.motoIssue?`<span class="issuetag">${ic('alert')}${esc(ISSUE_T[p.motoIssue.tipo]||'Incidencia')}</span><button class="v12lk" onclick="event.stopPropagation();mpIssueCerrar('${p.id}')">Cerrar con incidencia ${ic('chevR')}</button>`:''}</div>`;
+    card.insertAdjacentHTML('beforeend',html);});}catch(e){}};}
+async function mpIssueCerrar(id){const p=await dbGet('pedidos',id);if(!p||!p.motoIssue)return;
+  openSheet(`<div class="shx"><span class="shi" style="color:#ff7a6b">${ic('alert')}</span><div style="flex:1;min-width:0"><h3>Cerrar con incidencia</h3><div class="shsub">${esc(p.codigo)} · ${esc(ISSUE_T[p.motoIssue.tipo]||'')}${p.motoIssue.nota?' · '+esc(p.motoIssue.nota):''}</div></div><button class="xbtn" onclick="closeSheet()" aria-label="Cerrar">${ic('x')}</button></div>
+   <div class="mlist">${menuItem('check','Entregado con incidencia','Se marca entregado y conserva la etiqueta',`closeSheet();mpIssueOk('${id}','ENTREGADO')`)}${menuItem('undo','Devolver a por despachar','Se libera el motorizado y vuelve a la lista',`closeSheet();mpIssueOk('${id}','POR_DESPACHAR')`)}${menuItem('xc','No entregado · cancelar pedido','Cierra el pedido como cancelado con su etiqueta',`closeSheet();mpIssueOk('${id}','CANCELADO')`,'dang')}${menuItem('x','Quitar la incidencia','El motorizado continúa la entrega',`closeSheet();mpIssueOk('${id}','')`)}</div>`);}
+async function mpIssueOk(id,est){const p=await dbGet('pedidos',id);if(!p)return;const tag=ISSUE_T[p.motoIssue?.tipo]||'Incidencia';
+  if(est==='ENTREGADO'){p.estado='ENTREGADO';p.motoEstado='ENTREGADO';p.motoEntregadoEl=Date.now();p.issueTag=tag;}
+  else if(est==='CANCELADO'){p.estado='CANCELADO';p.issueTag=tag;}
+  else if(est==='POR_DESPACHAR'){p.estado='POR_DESPACHAR';p.motoEstado='';p.deliveryId='';p.deliveryNombre='';p.issueTag=tag;p.motoIssue=null;}
+  else{p.motoIssue=null;}
+  p.timeline=[...(p.timeline||[]),{estado:p.estado,ts:Date.now(),por:S.user.nombre,nota:est?'Cerrado por la central · '+tag:'Incidencia descartada por la central'}];
+  await dbPut('pedidos',p);S.cache.peds=null;invalidarCache('pedidos');toast('Listo','ok');viewMoto();}
+
 </script>
 <script>
 /* ===== Login · luciérnaga voladora en la selva ===== */
@@ -11137,7 +11864,7 @@ function tourAuto(){
   }
   function off(l,now){const k=(now-t0)/1000;return{x:-cam.x*l.k*14+Math.sin(k*.5+l.k*40)*l.sw,y:-cam.y*l.k*10+Math.cos(k*.37+l.k*30)*l.sw*.6};}
   function perchPos(p,now){const o=off(L[p.L],now);return{x:p.x+o.x,y:p.y+o.y};}
-  function size(){DPR=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H=innerHeight;for(const c of[cv,fv]){c.width=W*DPR;c.height=H*DPR;c.style.width=W+'px';c.style.height=H+'px';}cx.setTransform(DPR,0,0,DPR,0,0);fx.setTransform(DPR,0,0,DPR,0,0);build();}
+  function size(){DPR=Math.min(2,window.devicePixelRatio||1);const _w=innerWidth,_h=innerHeight;if(W&&_w===W&&_h<=H)return;W=_w;H=Math.max(_h,(_w===W?H:0));for(const c of[cv,fv]){c.width=W*DPR;c.height=H*DPR;c.style.width=W+'px';c.style.height=H+'px';}cx.setTransform(DPR,0,0,DPR,0,0);fx.setTransform(DPR,0,0,DPR,0,0);build();}
   function homeRect(){const r=home.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2,s:r.width/56};}
   function later(fn,ms){const id=setTimeout(fn,ms);timers.push(id);return id;}
   function place(x,y,s,rot){fly.style.transform=`translate3d(${x}px,${y}px,0) translate(-50%,-50%) scale(${s}) rotate(${rot}deg)`;
