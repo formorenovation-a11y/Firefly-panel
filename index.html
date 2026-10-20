@@ -11289,7 +11289,7 @@ openUserMenu=function(){
        :`<div style="width:56px;height:56px;border-radius:50%;background:${col}22;color:${col};display:grid;place-items:center;font-weight:800;font-size:20px">${initials(u.nombre)}</div>`}
      <div style="min-width:0"><div style="font-weight:800;font-size:17px">${esc(u.nombre||'')}</div><div style="font-size:12.5px;color:var(--muted)">${esc(u.email||'')} · ${esc(ROL_L[u.rol]||u.rol||'')}</div></div></div>
    <div class="mlist">
-     ${moto?menuItem('camera','Foto de perfil','Cámbiala desde tu galería o cámara',"closeSheet();motoFoto()")+menuItem('lock','Contraseña','Actualiza tu clave de acceso',"closeSheet();cambiarMiPassword()"):menuItem('user','Mi cuenta','Foto, contraseña y notificaciones',"closeSheet();window._ajSubNext='cuenta';go('admin')")}
+     ${moto?menuItem('camera','Foto de perfil','Cámbiala desde tu galería o cámara',"closeSheet();motoFoto()")+menuItem('settings','Ajustes','Perfil, contraseña y notificaciones',"closeSheet();go('admin')"):menuItem('user','Mi cuenta','Foto, contraseña y notificaciones',"closeSheet();window._ajSubNext='cuenta';go('admin')")}
      ${menuItem('bell','Avisos','Lo que requiere tu atención',"closeSheet();openAvisos()")}
      ${menuItem('help','Guía interactiva','Aprende lo esencial de tu rol',"closeSheet();tourMenu()")}
      ${menuItem('logout','Cerrar sesión','',"closeSheet();logout()",'dang')}
@@ -11518,7 +11518,7 @@ function mZona(p){return p.cliente?.zona||p.cliente?.ciudad||'Zona por confirmar
    <div id="mRutas">${misRutas.length?misRutas.slice(0,3).map(r=>mRutaCard(r,peds)).join(''):`<div class="v12note">${ei('route')} Cuando la central arme una ruta para tu sede aparecerá aquí con su hora de salida. Mientras tanto puedes aceptar entregas individuales.</div>`}</div>
    <div class="msec"><h3>Nuevas entregas</h3><span style="font-size:12.5px;color:var(--muted)">${nuevas.length+libres.length?num(nuevas.length+libres.length)+' disponibles':''}</span></div>
    <div id="mNuevas">${nuevas.length||libres.length?nuevas.map(p=>mOrderCard(p,'nueva')).join('')+libres.slice(0,5).map(p=>mOrderCard(p,'libre')).join(''):`<div class="v12note">${ei('check')} No hay entregas nuevas por ahora. Te avisaremos con una notificación cuando te asignen una.</div>`}</div>
-   <div class="vh" hidden></div><div class="msec"><h3>Tus números</h3><div class="mper">${[['hoy','Hoy'],['sem','Semana'],['mes','Mes']].map(([k,l])=>`<button class="${S.mper===k?'on':''}" onclick="S.mper='${k}';viewMoto()">${l}</button>`).join('')}</div></div>
+   <div class="msec"><h3>Tus números</h3><div class="mper">${[['hoy','Hoy'],['sem','Semana'],['mes','Mes']].map(([k,l])=>`<button class="${S.mper===k?'on':''}" onclick="S.mper='${k}';viewMoto()">${l}</button>`).join('')}</div></div>
    <div class="mstat" id="mStats">
     <div><span class="si" style="background:rgba(205,235,69,.12);color:var(--glow)">${ic('route')}</span><div><b>${num(rutasOk)}</b><small>Rutas completadas</small></div></div>
     <div><span class="si" style="background:rgba(78,227,154,.14);color:#4ee39a">${ic('check')}</span><div><b>${num(enPer.filter(p=>!p.motoIssue).length)}</b><small>Entregas exitosas</small></div></div>
@@ -11528,6 +11528,7 @@ function mZona(p){return p.cliente?.zona||p.cliente?.ciudad||'Zona por confirmar
    <div id="motoGanancias" style="margin-top:10px"></div>
    <div class="msec"><h3>Entregas completadas</h3>${entregados.length>3?`<button class="v12lk" onclick="mHistorial()">Ver historial ${ic('chevR')}</button>`:''}</div>
    <div id="mHist">${entregados.length?entregados.slice(0,3).map(mHistRow).join(''):`<div class="v12note">Aún no tienes entregas completadas.</div>`}</div>`;
+  const _ag=$('#agHoy');if(_ag)_ag.remove();window._motoNoAg=true;
   const wx=await mWeather().catch(()=>null);
   if(S.route!=='moto')return;
   mRotar(mSaludos({pend:nuevas.length+enCurso.length,rutas:misRutas.length,wx,hoyOk}));
@@ -11753,6 +11754,11 @@ async function mpIssueOk(id,est){const p=await dbGet('pedidos',id);if(!p)return;
   else{p.motoIssue=null;}
   p.timeline=[...(p.timeline||[]),{estado:p.estado,ts:Date.now(),por:S.user.nombre,nota:est?'Cerrado por la central · '+tag:'Incidencia descartada por la central'}];
   await dbPut('pedidos',p);S.cache.peds=null;invalidarCache('pedidos');toast('Listo','ok');viewMoto();}
+
+/* la tarjeta de agenda no va en el inicio del motorizado (tiene su pestaña Agenda) */
+{const _agHoyV12=agHoyCard;agHoyCard=async function(){if(S.user?.rol==='motorizado'&&S.route==='moto')return;return _agHoyV12.apply(this,arguments);};}
+/* foto de perfil del motorizado también desde Ajustes → Editar perfil */
+{const _editMiFotoV12=editMiFoto;editMiFoto=async function(){if(S.user?.rol==='motorizado')return motoFoto();return _editMiFotoV12.apply(this,arguments);};}
 
 </script>
 <script>
