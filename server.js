@@ -296,7 +296,7 @@ async function asignarConv(conv, sedeKey, cfg) {
   }
   return v;
 }
-async function enviarTexto(conv, txt, cfg) {
+async function enviarTexto(conv, txt, cfg, meta) {
   if (conv.plat === 'WhatsApp') {
     const w = cfg.waCloud || {}; const tok = w.token || cfg.metaPageToken; if (!w.phoneId || !tok) return;
     await graph(`${w.phoneId}/messages`, tok, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messaging_product: 'whatsapp', to: conv.uid, type: 'text', text: { body: txt } }) });
@@ -304,7 +304,7 @@ async function enviarTexto(conv, txt, cfg) {
     if (!cfg.metaPageId || !cfg.metaPageToken) return;
     await graph(`${cfg.metaPageId}/messages`, cfg.metaPageToken, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ recipient: { id: conv.uid }, message: { text: txt }, messaging_type: 'RESPONSE' }) });
   }
-  await appendMsg(conv.id, { ts: Date.now(), from: 'me', por: 'Firefly (auto)', txt }, true);
+  await appendMsg(conv.id, { ts: Date.now(), from: 'me', por: 'Firefly (auto)', txt, ...(meta || {}) }, true);
 }
 async function saludar(conv, cfg) {
   const w = cfg.waCloud || {};
@@ -372,6 +372,7 @@ async function waEvento(value, cfg) {
     const sedeKey = extra.payload && extra.payload.startsWith('sede_') ? extra.payload.slice(5) : (!conv.asignadoId && conv.saludoTs ? await sedeDesdeTexto(txt) : null);
     if (sedeKey && !conv.asignadoId) { await asignarConv(conv, sedeKey, cfg).catch(e => log('asignar', e.message)); continue; }
     if (nuevo || (!conv.saludoTs && !conv.asignadoId)) { await saludar(conv, cfg).catch(e => log('saludo', e.message)); }
+    else if (txt && m.type !== 'interactive') iaMaybe(conv, txt, cfg);
   }
 }
 /* ---- Instagram / Messenger ---- */
@@ -405,8 +406,85 @@ async function pageEvento(platform, entry, cfg) {
     const sedeKey = extra.payload && extra.payload.startsWith('sede_') ? extra.payload.slice(5) : (!c2.asignadoId && c2.saludoTs ? await sedeDesdeTexto(txt) : null);
     if (sedeKey && !c2.asignadoId) { await asignarConv(c2, sedeKey, cfg).catch(e => log('asignar', e.message)); continue; }
     if (!c2.saludoTs && !c2.asignadoId) await saludar(c2, cfg).catch(e => log('saludo', e.message));
+    else if (txt) iaMaybe({ ...c2, fuente: conv.fuente, metaId: conv.metaId }, txt, cfg);
   }
 }
+/* ---- Asistente IA: responde a clientes según config.ia (personalidad, horario, traspaso a humano) ---- */
+function iaHoraLocal(tz) { try { const f = new Intl.DateTimeFormat('en-US', { timeZone: tz || 'America/Caracas', hour12: false, weekday: 'short', hour: '2-digit', minute: '2-digit' }); const p = Object.fromEntries(f.formatToParts(new Date()).map(x => [x.type, x.value])); const d = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(p.weekday); return { d, m: (+p.hour % 24) * 60 + (+p.minute) }; } catch { const n = new Date(); return { d: n.getUTCDay(), m: ((n.getUTCHours() + 20) % 24) * 60 + n.getUTCMinutes() }; } }
+function iaEnHorario(ia) {
+  if (ia.modo === 'siempre') return true;
+  const h = iaHoraLocal(ia.tz); const dias = ia.dias && ia.dias.length ? ia.dias : [0, 1, 2, 3, 4, 5, 6]; if (!dias.includes(h.d)) return false;
+  const mm = s => { const [a, b] = String(s || '0:0').split(':').map(Number); return (a || 0) * 60 + (b || 0); };
+  const a = mm(ia.desde || '20:00'), b = mm(ia.hasta || '08:00');
+  return a <= b ? (h.m >= a && h.m < b) : (h.m >= a || h.m < b); // cruza medianoche
+}
+function iaSistema(cfg, prods, sedes, promos) {
+  const ia = cfg.ia || {}; const emp = cfg.empresa || 'Firefly';
+  const cat = prods.filter(p => p.activo !== false).map(p => `- ${p.nombre}${p.version ? ' (' + p.version + ')' : ''}: $${(+p.precioBase || 0).toFixed(2)}${p.descripcionCorta || p.descripcion ? ' · ' + String(p.descripcionCorta || p.descripcion).slice(0, 160) : ''}`).join('\n');
+  const pr = (promos || []).filter(p => p.activo !== false).map(p => `- ${p.nombre}: ${p.cantidad} und por $${(+p.precioTotal || 0).toFixed(2)}`).join('\n');
+  const sd = sedes.map(s => s.nombre || s.codigo).join(', ');
+  const pagos = Object.keys((cfg.pagosInfo && cfg.pagosInfo.datos) || cfg.pagosInfo || {}).filter(k => k !== 'qrImg').join(', ') || 'Pago Móvil, Zelle, Binance, efectivo';
+  const tasa = +cfg.tasaActual || 0;
+  return `${ia.prompt || `Eres ${ia.nombre || 'Luci'}, asistente de ventas de ${emp}, una marca venezolana de linternas de cabeza. Hablas en español venezolano, cercano y alegre, con frases cortas y sin emojis en exceso (máximo uno).`}
+
+DATOS DEL NEGOCIO (úsalos, no inventes nada fuera de esto):
+Productos y precios en USD:
+${cat || '- (consulta con un asesor)'}
+${pr ? 'Paquetes y promociones:\n' + pr : ''}
+Ciudades con sede (entrega por motorizado): ${sd || 'varias ciudades'}. Al resto del país se envía por agencia (MRW, Zoom, Tealca).
+Métodos de pago: ${pagos}. ${tasa ? 'Tasa del día: ' + tasa + ' Bs por $ (los pagos en bolívares se calculan con esta tasa).' : ''}
+Horario del equipo humano: ${ia.horarioEquipo || 'de 9:00 am a 7:00 pm'}.
+
+REGLAS:
+- Responde en máximo 3 frases, directo y amable. Nunca inventes precios, stock ni fechas; si no lo sabes, di que un asesor lo confirma.
+- Si el cliente quiere comprar, pide en un solo mensaje: producto y cantidad, ciudad o dirección, y método de pago; luego avisa que un asesor del equipo confirmará el pedido ${ia.horarioEquipo ? 'en el horario ' + ia.horarioEquipo : 'al iniciar el horario de atención'}.
+- Si el cliente pide hablar con una persona, se queja, o el tema es garantía, reclamo o devolución, responde exactamente: [HUMANO]
+- No hables de temas ajenos a ${emp}. Si te preguntan si eres un bot, dilo con naturalidad.`;
+}
+async function iaHistorial(conv, cfg) {
+  if (conv.fuente === 'meta' && conv.metaId && cfg.metaPageToken) {
+    try { const j = await graph(`${conv.metaId}?fields=messages.limit(12){message,from,created_time}`, cfg.metaPageToken); const me = [cfg.metaPageId, cfg.metaIgUserId].filter(Boolean); return ((j.messages && j.messages.data) || []).reverse().map(m => ({ role: me.includes(m.from && m.from.id) ? 'assistant' : 'user', content: m.message || '(adjunto)' })); } catch { return []; }
+  }
+  return (conv.msgs || []).slice(-12).map(m => ({ role: m.from === 'cl' ? 'user' : 'assistant', content: m.txt || (m.img ? '(foto)' : m.aud ? '(nota de voz)' : '(adjunto)') }));
+}
+async function iaMaybe(conv, txt, cfg) {
+  try {
+    const ia = cfg.ia || {}; if (!ia.modo || ia.modo === 'off' || !cfg.anthropicKey) return;
+    const canales = ia.canales || ['WhatsApp', 'Instagram', 'Facebook']; if (!canales.includes(conv.plat)) return;
+    const cur = await fsGet('conversaciones', conv.id); if (!cur || cur.iaOff) return;
+    if (!iaEnHorario(ia)) return;
+    const msgs = cur.msgs || [];
+    const ultHumano = msgs.filter(m => m.from === 'me' && m.por !== 'Asistente IA' && m.por !== 'Firefly (auto)').slice(-1)[0];
+    if (ultHumano && Date.now() - ultHumano.ts < (+ia.pausaHumanoMin || 120) * 60e3) return;
+    const turnos = msgs.filter(m => m.from === 'ia').length; if (turnos >= (+ia.maxTurnos || 25)) return;
+    if (!txt || !txt.trim()) return;
+    const pideHumano = /\b(asesor|asesora|humano|persona real|una persona|agente|vendedor|vendedora|hablar con alguien|reclamo|garant[ií]a|devoluci[oó]n)\b/i.test(txt);
+    let reply = '';
+    if (pideHumano) reply = '[HUMANO]';
+    else {
+      const [prods, sedes, promos] = await Promise.all([fsCached('productos', 120e3, () => fsList('productos')), fsCached('sedes', 120e3, () => fsList('sedes')), fsCached('promociones', 120e3, () => fsList('promociones')).catch(() => [])]);
+      const hist = await iaHistorial(cur, cfg); const messages = hist.length ? hist : [{ role: 'user', content: txt }];
+      if (messages[messages.length - 1].role !== 'user') messages.push({ role: 'user', content: txt });
+      // Anthropic exige alternancia user/assistant: fusiona consecutivos
+      const M = []; messages.forEach(m => { if (M.length && M[M.length - 1].role === m.role) M[M.length - 1].content += '\n' + m.content; else M.push({ ...m }); }); if (M[0].role !== 'user') M.shift();
+      const r = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-api-key': cfg.anthropicKey, 'anthropic-version': '2023-06-01' }, body: JSON.stringify({ model: ia.modelo || 'claude-sonnet-4-6', max_tokens: 350, system: iaSistema(cfg, prods, sedes, promos), messages: M }) });
+      const j = await r.json().catch(() => ({})); if (!r.ok) { log('ia', j.error && j.error.message || r.status); metaStats.lastError = 'IA: ' + (j.error && j.error.message || r.status); return; }
+      reply = (j.content || []).map(x => x.text || '').join('').trim();
+    }
+    if (!reply) return;
+    if (reply.includes('[HUMANO]')) {
+      const msg = ia.handoffMsg || 'Claro, te paso con una persona del equipo. En nuestro horario de atención te responde en breve.';
+      await enviarTexto({ ...cur, id: conv.id, plat: conv.plat, uid: conv.uid }, msg, cfg, { from: 'ia', por: 'Asistente IA' });
+      await fsPatch('conversaciones', conv.id, { iaOff: true, iaHandoff: Date.now(), unread: ((cur.unread || 0) + 1) });
+      if (cur.asignadoId) await fsPatch('notifs', 'nf_ia_' + conv.id + '_' + Date.now(), { uid: cur.asignadoId, t: 'Cliente pide un asesor: ' + (cur.name || ''), s: txt.slice(0, 90), r: 'inbox', ic: 'inbox', ts: Date.now(), leido: false }).catch(() => { });
+      return;
+    }
+    await enviarTexto({ ...cur, id: conv.id, plat: conv.plat, uid: conv.uid }, reply.slice(0, 900), cfg, { from: 'ia', por: 'Asistente IA' });
+    await fsPatch('conversaciones', conv.id, { iaTs: Date.now(), iaTurnos: turnos + 1 });
+    metaStats.ia = (metaStats.ia || 0) + 1;
+  } catch (e) { log('ia', e.message); }
+}
+
 async function metaWebhook(j) {
   const cfg = (await metaCfg()) || {};
   for (const entry of (j.entry || [])) {
@@ -449,7 +527,7 @@ const server = http.createServer(async (req, res) => {
     if (req.method === 'GET' && url.pathname === '/health') {
       const out = { ok: true, env: ENV, configured: !!(SHORT_NAME && PASSWORD && BRIDGE_KEY), agreement: !!AGREEMENT_ID,
         modules: { spidi: !!(SHORT_NAME && PASSWORD), shopify: shopOn(), ml: !!(ML_ID && ML_SECRET && ML_REFRESH), meta: !!FB_SA },
-        webhook: PUBLIC_URL ? PUBLIC_URL + '/webhook/meta' : '', meta: { sa: !!FB_SA, project: FB_PROJECT, hits: metaStats.hits, last: metaStats.last, msgs: metaStats.msgs, lastError: metaStats.lastError } };
+        webhook: PUBLIC_URL ? PUBLIC_URL + '/webhook/meta' : '', meta: { sa: !!FB_SA, project: FB_PROJECT, hits: metaStats.hits, last: metaStats.last, msgs: metaStats.msgs, ia: metaStats.ia || 0, lastError: metaStats.lastError } };
       if (url.searchParams.get('check') === '1') {
         if (!authed(req)) return send(res, 401, { ok: false, error: 'Clave del puente incorrecta' });
         const only = url.searchParams.get('only');
