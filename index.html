@@ -3066,6 +3066,751 @@ html.kb-open .ixsend{padding-bottom:10px}html.kb-open .bnav,html.kb-open .mnav{d
 .ffupd{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:9000;display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--glow);border-radius:14px;padding:10px 12px;box-shadow:0 10px 30px rgba(0,0,0,.5);font-size:13.5px;max-width:calc(100vw - 32px)}.ffupd>svg{width:18px;height:18px;color:var(--glow);flex:none}.ffupd button{height:32px;padding:0 12px;border-radius:9px;border:none;background:var(--glow);color:#111;font-weight:700;font-family:var(--body);cursor:pointer}.ffupd button.x{background:transparent;color:var(--muted);padding:0 4px}.ffupd button.x svg{width:16px;height:16px}
 .eqavl{width:64px;height:64px;flex:none}.eqavl>img,.eqavl>.v12av{display:grid;place-items:center;width:64px;height:64px}
 
+/* v17 shell */
+/* ============================================================
+   v17 · SHELL Y NAVEGACIÓN + MÓVIL
+   Capa de overrides: se concatena al final del <style>. Solo usa tokens
+   y colores existentes (--glow, --card, --stroke, --muted, etc.).
+   ============================================================ */
+
+/* ---- Tokens de movimiento (una sola fuente de verdad) ---- */
+:root{
+  --ff-fast:.12s;          /* tap feedback */
+  --ff-base:.18s;          /* hover / color / fondo */
+  --ff-enter:.3s;          /* entrada de hojas y vistas */
+  --ff-exit:.18s;          /* salida: siempre más rápida que la entrada */
+  --ff-ease-out:cubic-bezier(.22,1,.36,1);
+  --ff-ease-in:cubic-bezier(.4,0,1,1);
+  --ff-nav-h:calc(66px + env(safe-area-inset-bottom));
+}
+
+/* ---- Base táctil ---- */
+button,a,[role="button"],.mitem,.nav a,.fchip,.chip,.stbtn,.oc,.order,.li,.kpi{touch-action:manipulation}
+html{scroll-behavior:auto}                 /* go() hace scrollTo(0,0): sin "viaje" animado al cambiar de vista */
+html:focus-within{scroll-behavior:auto}
+body{overscroll-behavior-y:none;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+#app{min-height:100dvh}
+
+/* ---- Safe areas laterales (iPhone en horizontal) ---- */
+.topbar{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}
+.view{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+@media(max-width:767px){
+  .nav{padding-left:max(4px,env(safe-area-inset-left));padding-right:max(4px,env(safe-area-inset-right))}
+  .view{padding-bottom:calc(var(--ff-nav-h) + 40px)}
+  .fab{right:max(16px,env(safe-area-inset-right))}
+  #toast{bottom:calc(var(--ff-nav-h) + 16px)}
+}
+@media(min-width:768px){
+  .topbar{padding-left:28px;padding-right:max(28px,env(safe-area-inset-right))}
+}
+
+/* ---- Topbar: altura estable y foco ---- */
+.topbar{min-height:calc(64px + env(safe-area-inset-top));transition:box-shadow var(--ff-base) ease,border-color var(--ff-base) ease}
+.topbar.scrolled{border-bottom-color:var(--stroke);box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.topbar button{transition:transform var(--ff-fast) ease,background var(--ff-base) ease,border-color var(--ff-base) ease}
+.topbar button:active{transform:scale(.95)}
+.tb-ic,.tb-user{min-width:44px;min-height:44px}
+.tb-tasa{min-height:44px}
+.tb-tasa:focus-visible,.tb-ic:focus-visible,.tb-user:focus-visible,.tb-search:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+
+/* ---- Navegación inferior (móvil) ---- */
+@media(max-width:767px){
+  .nav{background:rgba(13,13,15,.86);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);
+    border-top:1px solid var(--stroke);box-shadow:0 -8px 30px rgba(0,0,0,.35);padding-top:6px}
+  .nav a{min-height:56px;justify-content:center;gap:3px;font-size:11px;padding:4px 0 6px;margin:0 1px;border-radius:14px;
+    -webkit-user-select:none;user-select:none;transition:color var(--ff-base) ease,background var(--ff-base) ease}
+  .nav a .ic{width:46px;height:30px;border-radius:999px;transition:background var(--ff-base) ease,transform var(--ff-fast) ease}
+  .nav a .ic svg{width:23px;height:23px;transition:transform var(--ff-base) var(--ff-ease-out)}
+  .nav a.on{background:none;border-color:transparent}
+  .nav a.on .ic{background:rgba(205,235,69,.14)}
+  .nav a.on .t{font-weight:700}
+  .nav a:active .ic{transform:scale(.88)}
+  .nav a.on::after{display:none}
+  /* teclado abierto: la barra inferior y el FAB estorban */
+  html.kb-open .nav,html.kb-open .fab{display:none!important}
+  html.kb-open .view{padding-bottom:24px}
+}
+/* ---- Sidebar (iPad / escritorio) ---- */
+@media(min-width:768px){
+  .nav a{min-height:44px;transition:color var(--ff-base) ease,background var(--ff-base) ease}
+  .nav a:focus-visible{outline:2px solid var(--glow);outline-offset:-2px}
+  .nav-foot button{min-height:44px;border-radius:12px;transition:color var(--ff-base) ease,background var(--ff-base) ease}
+  .nav-foot button:hover{color:var(--white);background:var(--glow-soft)}
+  .nav-foot button:focus-visible{outline:2px solid var(--glow);outline-offset:-2px}
+}
+@media(min-width:768px) and (max-width:1023px){
+  .nav a{position:relative}
+  .nav a.on .ic{background:rgba(205,235,69,.13)}
+}
+@media(min-width:1024px){
+  .nav a{min-height:48px}
+  .nav a:hover:not(.on){color:var(--white);background:rgba(255,255,255,.035)}
+}
+
+/* ---- Hojas (sheet) ---- */
+.scrim{background:rgba(0,0,0,.62);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  transition:opacity var(--ff-exit) var(--ff-ease-in)}
+.scrim.show{transition:opacity var(--ff-base) ease}
+.sheet{overscroll-behavior:contain;-webkit-overflow-scrolling:touch;max-height:min(92vh,92dvh);
+  transition:transform var(--ff-exit) var(--ff-ease-in);will-change:transform;
+  box-shadow:0 -12px 50px rgba(0,0,0,.45)}
+.scrim.show .sheet{transition:transform var(--ff-enter) var(--ff-ease-out)}
+.sheet.dragging{transition:none}
+#sheet:focus,#sheet:focus-visible{outline:none}
+.sheet .grab{width:40px;height:5px;margin:8px auto 10px;background:var(--line2);cursor:grab;touch-action:none;position:relative}
+.sheet .grab::before{content:'';position:absolute;inset:-14px -40px}   /* área de agarre generosa */
+.sheet .grab:active{cursor:grabbing}
+.sheet .sh-head,.sheet .shx{touch-action:pan-x;min-height:44px}
+.sheet .sh-head h3{font-size:22px;font-weight:700;letter-spacing:-.02em;margin:0}
+/* botón de cierre que la capa JS inyecta cuando la cabecera no trae uno */
+.sheet .ff-x{width:40px;height:40px;border-radius:50%;background:var(--card2);border:1px solid var(--line2);color:var(--muted);
+  display:grid;place-items:center;cursor:pointer;flex:none;padding:0;margin-left:auto;transition:background var(--ff-base),color var(--ff-base),transform var(--ff-fast)}
+.sheet .ff-x svg{width:18px;height:18px}
+.sheet .ff-x:hover{color:var(--white);background:var(--panel3)}
+.sheet .ff-x:active{transform:scale(.92)}
+.sheet .ff-x:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+@media(max-width:767px){
+  .sheet{border-radius:24px 24px 0 0;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+  /* fondo bloqueado mientras hay una hoja abierta (iOS ignora overflow:hidden en body) */
+  body.ff-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
+}
+@media(min-width:768px){
+  .sheet{border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.6);max-height:min(88vh,88dvh);
+    transform:scale(.97) translateY(14px)}
+  .scrim.show .sheet{transform:none}
+  .sheet .grab{display:none}
+}
+/* Menú "Más" y listas de menú: tocables, accesibles por teclado */
+.mitem{min-height:56px;transition:background var(--ff-base) ease,border-color var(--ff-base) ease,transform var(--ff-fast) ease}
+.mitem:active{transform:scale(.985)}
+.mitem:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+@media(hover:hover){.mitem:hover{border-color:var(--line2);background:var(--panel3)}}
+.mitem>div:not(.mi){min-width:0}
+.mitem .mt,.mitem .ms{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mitem .ms{white-space:normal}
+@media(min-width:768px){#sheetBody .mlist.ff-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}}
+
+/* ---- Toast ---- */
+#toast{bottom:calc(var(--ff-nav-h) + 16px);width:max-content;max-width:min(92vw,440px);padding:12px 16px;border-radius:14px;
+  font-size:14px;line-height:1.35;text-align:left;
+  transition:opacity var(--ff-exit) var(--ff-ease-in),transform var(--ff-exit) var(--ff-ease-in)}
+#toast.show{transition:opacity var(--ff-base) ease,transform var(--ff-enter) var(--ff-ease-out)}
+#toast .ti svg{width:20px;height:20px}
+#toast>span:last-child{overflow-wrap:anywhere}
+@media(min-width:768px){#toast{bottom:28px;left:auto;right:28px;transform:translateY(16px)}#toast.show{transform:none}}
+html.kb-open #toast{bottom:auto;top:calc(var(--vvt,0px) + 12px);transform:translateX(-50%) translateY(-12px)}
+html.kb-open #toast.show{transform:translateX(-50%)}
+@media(min-width:768px){html.kb-open #toast{transform:none}}
+
+/* ---- Jerarquía tipográfica global ---- */
+.vh{margin:4px 0 18px}
+.vh h2{line-height:1.08;text-wrap:balance;overflow-wrap:anywhere}
+.vh .sub{line-height:1.4;max-width:62ch;text-wrap:pretty}
+.view-head h2{line-height:1.1}
+.eyebrow{line-height:1.2}
+.sec-title,.v12sec{margin-top:28px}
+.card+.card{margin-top:12px}
+@media(max-width:479px){
+  .vh h2{font-size:clamp(24px,6.6vw,30px)}
+  .vh .sub{font-size:13.5px}
+  .view-head h2{font-size:24px}
+}
+@media(min-width:1280px){.vh .sub{font-size:15px}}
+
+/* ---- Estados de carga ---- */
+.skel::after{animation-duration:1.6s}
+#view[aria-busy="true"]{pointer-events:none}
+.skel-card{box-shadow:none}
+.skel-line{height:13px}
+
+/* ---- Empty states ---- */
+.empty{display:flex;flex-direction:column;align-items:center;gap:4px;padding:44px 20px;max-width:380px;margin:0 auto}
+.empty .ic{width:64px;height:64px;border-radius:20px;background:var(--card);border:1px solid var(--stroke);display:grid;place-items:center;margin-bottom:10px;opacity:1;filter:none}
+.empty .ic svg{width:28px;height:28px;color:var(--muted)}
+.empty b{font-size:15.5px;color:var(--white);font-weight:700}
+.empty{font-size:13.5px;line-height:1.45;color:var(--muted)}
+.empty .btn,.empty .btn-out,.empty .btn-lime{margin-top:12px}
+
+/* ---- Listas horizontales (chips, statusbar, tiras) ---- */
+.statusbar,.dfil .dchips,.pvstrip,.orgw{scroll-snap-type:x proximity;scroll-padding-inline:16px;scrollbar-width:none;overscroll-behavior-x:contain}
+.statusbar>*,.dfil .dchips>*{scroll-snap-align:start}
+.statusbar{-webkit-mask-image:linear-gradient(90deg,transparent,#000 16px,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,transparent,#000 16px,#000 calc(100% - 28px),transparent)}
+.ff-hscroll{overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+.ff-hscroll::-webkit-scrollbar{display:none}
+table{max-width:100%}
+.view img,.view svg{max-width:100%}
+
+/* ---- Targets táctiles ≥44px en pantallas táctiles ---- */
+@media(pointer:coarse){
+  .chip,.stbtn,.fchip{min-height:44px}
+  .btn.sm{min-height:44px}
+  .iconbtn,.xbtn,.oc-b{width:44px;height:44px;min-width:44px}
+  .tb-ic{width:44px;height:44px}
+  input.inp,select.inp{min-height:46px}
+  .per-btn,.ok2,.bsec{min-height:44px}
+}
+@media(pointer:coarse) and (max-width:400px){.oc-b{width:44px;height:44px}}
+
+/* ---- Foco visible coherente (solo teclado) ---- */
+:focus:not(:focus-visible){outline:none}
+:focus-visible{outline:2px solid var(--glow);outline-offset:2px;border-radius:10px}
+.inp:focus-visible,select.inp:focus-visible,textarea.inp:focus-visible{outline:none}     /* ya tienen su propio anillo */
+.nav a:focus-visible{outline-offset:-2px}
+
+/* ---- Transición de vista: fundido corto en cada go() ---- */
+#view{animation:none}
+#view.ff-in{animation:ffViewIn var(--ff-enter) var(--ff-ease-out)}
+@keyframes ffViewIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ---- Tap feedback coherente en superficies clicables ---- */
+.kpi,.order,.li,.oc,.k2,.dst{transition:transform var(--ff-fast) ease,border-color var(--ff-base) ease,box-shadow var(--ff-base) ease}
+@media(pointer:coarse){
+  .kpi:active,.order:active,.li:active,.oc:active{transform:scale(.985)}
+}
+
+/* ---- Movimiento reducido: sin desplazamientos, solo fundidos instantáneos ---- */
+@media(prefers-reduced-motion:reduce){
+  :root{--ff-fast:.01ms;--ff-base:.01ms;--ff-enter:.01ms;--ff-exit:.01ms}
+  #view.ff-in{animation:none}
+  .sheet,.scrim.show .sheet{transform:none!important}
+  .skel::after{animation:none;background:rgba(255,255,255,.04)}
+  .nav a .ic,.nav a .ic svg,.topbar button,.mitem,.kpi,.order,.li,.oc{transition:none}
+}
+
+/* ---- Pantallas muy angostas (iPhone SE / mini) ---- */
+@media(max-width:360px){
+  .nav a{font-size:10px}
+  .nav a .ic svg{width:22px;height:22px}
+  .topbar{gap:6px}
+}
+/* ---- iPad en horizontal / escritorio ancho: columna de lectura cómoda ---- */
+@media(min-width:1024px){.view .sub,.view p{max-width:72ch}}
+
+/* v17 forms */
+/* ============================================================
+   v17 · FORMULARIOS Y FLUJOS (capa CSS) — accesibilidad WCAG 2.1 AA,
+   validación inline, estados de carga, foco, tamaño de controles.
+   Solo usa tokens y colores ya existentes (--glow, --bad, --ok, --muted…).
+   ============================================================ */
+
+/* ── Mensaje de error inline junto al campo (3.3.1 / 3.3.3) ── */
+.ff-errmsg{display:flex;align-items:flex-start;gap:6px;margin:6px 0 8px;font-size:12.5px;line-height:1.35;color:var(--bad);font-weight:500}
+.ff-errmsg svg{width:14px;height:14px;flex:none;margin-top:1px}
+.ff-errmsg:empty{display:none}
+/* el contenedor del campo con error: borde y halo con --bad (sin colores nuevos) */
+.fx.ff-err,.field.ff-err .inp,.cvb.ff-err,.ff-err>.inp,.wzbox.ff-err,.chips.ff-err,.wzmt.ff-err,.wzt.ff-err,.cft.ff-err,.cfc.ff-err,.seg.ff-err,.wzadd.ff-err,.vprods.ff-err,.wzch.ff-err{border-color:var(--bad)!important;box-shadow:0 0 0 3px rgba(255,107,94,.14)}
+.fx.ff-err:focus-within{border-color:var(--bad);box-shadow:0 0 0 3px rgba(255,107,94,.22)}
+.cfsw.ff-err i,.sw.ff-err span{box-shadow:0 0 0 2px var(--bad)}
+/* resumen de errores (cuando un chequeo no tiene campo) */
+.ff-errsum{display:flex;align-items:flex-start;gap:10px;background:rgba(255,107,94,.12);border:1px solid rgba(255,107,94,.3);color:#ffb0a8;border-radius:12px;padding:10px 13px;font-size:13.5px;line-height:1.4;margin:0 0 12px}
+.ff-errsum svg{width:18px;height:18px;flex:none;color:var(--bad)}
+.ff-errsum b{display:block;color:var(--white);font-size:14px;margin-bottom:2px}
+.ff-errsum button{background:none;border:none;color:var(--glow);font:inherit;font-weight:600;cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:2px}
+.ff-errsum:focus{outline:2px solid rgba(255,107,94,.6);outline-offset:2px}
+/* login: el bloque de error tiene rol alert; se puede enfocar sin anillo raro */
+.login-err:focus{outline:2px solid rgba(255,107,94,.6);outline-offset:2px}
+.login-err{display:flex;gap:8px;align-items:flex-start;line-height:1.4}
+.login-err svg{width:16px;height:16px;flex:none;margin-top:1px}
+.login-err.hide{display:none!important}
+
+/* ── Estado de carga en botones de guardar (evita doble envío) ── */
+.ff-loading{position:relative;pointer-events:none;opacity:.78;cursor:progress}
+.ff-loading>svg:first-child{display:none}
+.ff-loading::before{content:'';width:18px;height:18px;flex:none;border-radius:50%;border:2.5px solid currentColor;border-right-color:transparent;animation:ffspin .7s linear infinite;margin-right:2px}
+.btn.ff-loading::before,.btn-lime.ff-loading::before{width:15px;height:15px;border-width:2px}
+@keyframes ffspin{to{transform:rotate(360deg)}}
+.bsave[disabled],.btn-lime[disabled],.btn.pri[disabled]{cursor:not-allowed}
+.bsave[disabled]:not(.ff-loading){opacity:.45}
+.btn[aria-busy=true],.bsave[aria-busy=true]{pointer-events:none}
+
+/* ── Controles: tamaño mínimo cómodo (2.5.5 / 2.5.8) ── */
+.qst button{width:44px;height:44px}
+.wzit .step button{height:40px;width:40px}
+.cfc button{min-height:40px;padding:7px 14px}
+.iadias button{width:44px;height:44px}
+.cvb .tasa .ta button{width:36px;height:36px;place-items:center;border-radius:9px}
+.cvb .tasa .ta{flex-direction:row}
+.wzs button{min-height:40px}
+.v12lk{min-height:32px;padding:4px 0}
+.wzbt .lnk{min-height:32px;padding:2px 6px;margin-right:-6px;border-radius:8px}
+.fhint[onclick],.fhint[role=button]{display:inline-block;min-height:32px;line-height:32px;padding:0 4px;margin-left:-4px;border-radius:8px}
+.chips .chip{min-height:40px;display:inline-flex;align-items:center}
+@media(pointer:coarse){
+  .cfc button{min-height:44px}
+  .wzit .step button{width:44px;height:44px}
+  .attach .abtn{width:56px;height:48px}
+}
+
+/* ── Foco visible en controles que no lo tenían (2.4.7) ── */
+.chip:focus-visible,.ajr:focus-visible,.ajacc:focus-visible,.wzchk div:focus-visible,.attach .abtn:focus-visible,.eqavl:focus-visible,[role=button]:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+.fx input:focus-visible,.fx select:focus-visible,.fx textarea:focus-visible{outline:none}/* el anillo lo pone .fx:focus-within */
+.cvb .tasa input:focus-visible{outline:none;border-bottom:1px solid var(--glow)}
+/* interruptores: el checkbox oculto ahora es enfocable; el anillo se pinta sobre la pista */
+.cfsw input{display:block;position:absolute;opacity:0;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);pointer-events:none}
+.cfsw{position:relative}
+.cfsw input:focus-visible+i,.sw input:focus-visible+span{outline:2px solid var(--glow);outline-offset:3px}
+.ajr[tabindex]{outline-offset:-2px}
+/* grupos de opciones: el seleccionado también se distingue sin color (aria-pressed → marca) */
+.wzt button[aria-pressed=true] b::after,.cft button[aria-pressed=true] b::after{content:' ✓';font-weight:800}
+.wzmt button[aria-pressed=true]>span::after{content:' ✓'}
+
+/* ── Foco no tapado por el pie pegajoso del asistente (2.4.11) ── */
+.sheet.wzsheet{scroll-padding-bottom:96px;scroll-padding-top:12px}
+.sheet{scroll-padding-top:12px;scroll-padding-bottom:24px}
+
+/* ── Campos deshabilitados (solo lectura para no-socios) ── */
+.fx input:disabled,.fx textarea:disabled,.fx select:disabled{opacity:.55;cursor:not-allowed}
+.fx:has(> input:disabled),.fx:has(> textarea:disabled){background:var(--panel3)}
+.ff-ro-hint{font-size:12.5px;color:var(--muted);margin:-4px 0 10px}
+
+/* ── Etiquetas y agrupación visual ── */
+.ff-req{color:var(--glow);font-weight:700}
+.flab.sm,.cfl,.flab2{cursor:default}
+label.ff-lbl{cursor:text}
+.field label[for]{cursor:pointer}
+/* hoja: cabecera enfocable (foco inicial) sin anillo visual molesto */
+.sheet [data-ff-title]:focus{outline:none}
+.sheet [data-ff-title]:focus-visible{outline:2px solid rgba(205,235,69,.7);outline-offset:4px;border-radius:8px}
+/* contador de caracteres asociado */
+.fx .cnt{pointer-events:none}
+/* textarea de dirección: altura mínima útil en móvil */
+.fx textarea{min-height:64px}
+/* zona táctil de los chips de método en Registrar pago */
+#pgMet .chip{padding:10px 15px}
+
+/* ── Mensajes del asistente (toasts) también accesibles ── */
+#ffA11yAlert{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ── Login ── */
+.login-card .inp[aria-invalid=true]{border-color:var(--bad);box-shadow:0 0 0 3px rgba(255,107,94,.14)}
+.forgot a{display:inline-block;min-height:32px;line-height:32px;padding:0 6px;border-radius:8px;cursor:pointer}
+.forgot a:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+
+@media(prefers-reduced-motion:reduce){.ff-loading::before{animation:none;border-right-color:currentColor;opacity:.6}}
+
+/* v17 data */
+/* ============================================================
+   v17 · DATA · vistas de datos (Resumen, Finanzas, Productos, Órdenes,
+   Nómina/Equipo, Clientes, Ads 360, tablas y gráficos SVG)
+   Solo presentación. Sin colores nuevos: reutiliza tokens existentes.
+   ============================================================ */
+
+/* ── 1. Tablas .mtab: envoltura de scroll (JS añade .v17-tw) ──
+   Antes: la tabla de 8 columnas (nowrap) desbordaba la tarjeta y
+   provocaba scroll horizontal de TODA la página en 1024–1399px. */
+.v17-tw{overflow-x:auto;overflow-y:hidden;margin:0 -6px;padding:0 6px;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:rgba(205,235,69,.45) transparent}
+.v17-tw::-webkit-scrollbar{height:8px}
+.v17-tw::-webkit-scrollbar-thumb{background:rgba(205,235,69,.45);border-radius:8px}
+.v17-tw>.mtab{min-width:100%}
+/* pista de "hay más a la derecha" solo cuando realmente desborda y no está al final */
+.v17-tw.scr:not(.at-end){-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 34px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 34px),transparent)}
+/* si la tabla cabe, no hay contenedor de scroll → la cabecera puede ser pegajosa bajo la topbar */
+.v17-tw.fit{overflow:visible;-webkit-mask-image:none;mask-image:none}
+.v17-tw.fit .mtab thead th{position:sticky;top:var(--v17-top,64px);background:var(--card);z-index:2;padding-top:8px}
+/* la descripción cede espacio antes de forzar scroll; usuario/categoría recortan con elipsis */
+.mtab .desc{max-width:min(280px,22vw)}
+.v17-mov td:nth-child(4),.v17-mov td:nth-child(7){max-width:130px;overflow:hidden;text-overflow:ellipsis}
+.mtab th.r,.mtab td.r{font-variant-numeric:tabular-nums}
+/* Movimientos (Finanzas/Libro, 8 columnas; JS marca .v17-mov): por debajo de 1400px se
+   ocultan Categoría y Usuario para que el MONTO quede siempre a la vista sin desplazar.
+   Ambos datos siguen en el detalle del movimiento (toque en la fila). Usuario <1500, Categoría <1400. */
+@media(max-width:1499px){.v17-mov th:nth-child(7),.v17-mov td:nth-child(7){display:none}}
+@media(max-width:1399px){.v17-mov th:nth-child(4),.v17-mov td:nth-child(4){display:none}.v17-mov td:nth-child(5){max-width:150px;overflow:hidden;text-overflow:ellipsis}}
+/* 1024–1179px: además se oculta Tipo (el signo y el color del monto ya lo expresan; la
+   descripción distingue las transferencias) y Método recorta con elipsis. */
+@media(max-width:1179px){
+  .v17-mov .desc{max-width:190px}
+  .mtab td,.mtab th{padding-left:8px;padding-right:8px}
+  .v17-mov th:nth-child(2),.v17-mov td:nth-child(2){display:none}
+  .v17-mov td:nth-child(5){max-width:136px;overflow:hidden;text-overflow:ellipsis}
+}
+.mtab tbody tr:focus-within td{background:rgba(255,255,255,.035)}
+/* tablas ya envueltas por el panel (.adtw/.p3tw/.cstw/.ftw): mismo scrollbar fino */
+.adtw,.p3tw,.cstw,.ftw{scrollbar-width:thin;scrollbar-color:rgba(205,235,69,.45) transparent;overscroll-behavior-x:contain}
+
+/* ── 2. Gráficos ──
+   Leyenda "Ingresos / Gastos": antes se OCULTABA por debajo de 1280px y el
+   gráfico dependía solo del color. Ahora baja a su propia línea. */
+@media(max-width:1279px){
+  .frow2 .c2h{flex-wrap:wrap}
+  .frow2 .lgd{display:inline-flex;order:9;flex-basis:100%;margin-top:2px}
+  .frow2 .lgd i:first-child{margin-left:0}
+}
+.frow2 .lgd i:first-of-type{margin-left:0}
+/* SVG estirados (preserveAspectRatio="none"): el trazo no se deforma */
+.adchart svg polyline,.adchart svg path,.p3spark svg polyline,.p3spark svg path{vector-effect:non-scaling-stroke}
+/* contenedores de gráfico: reservan alto para evitar saltos (CLS) mientras se dibujan */
+.ch7:empty{min-height:176px}
+.frow2 .ch7:empty{min-height:230px}
+/* etiquetas de ejes: drawCh7 fija font-family="Space Mono" (fuente que ya no se carga →
+   caía a Courier del sistema). CSS gana al atributo: misma tipografía que el panel. */
+.ch7 svg text,.donut text,.adchart svg text{font-family:var(--body);font-variant-numeric:tabular-nums}
+/* títulos de tarjeta: elipsis en vez de empujar los controles fuera */
+.c2h h3{min-width:0;overflow:hidden;text-overflow:ellipsis}
+
+/* ── 3. Tarjetas KPI: delta "Sin datos…" en Finanzas móvil ──
+   Antes se pintaba como pastilla con borde blanco y texto recortado. */
+.fk .fkd:not(.up):not(.down){position:static;display:block;border:0;background:none;padding:0;margin-top:6px;color:var(--muted);font-weight:500;font-size:12px;white-space:normal;line-height:1.3}
+/* KPI delta: el icono de flecha alineado con el texto */
+.k2 .kd svg,.fk .fkd svg{vertical-align:-2px}
+
+/* ── 3b. Resumen · "Margen": la clase .mrow colisiona con la del motorizado
+   (línea ~2853: display:grid 2 columnas para botones WhatsApp/Llamar). Las filas
+   etiqueta/valor del Margen vuelven a ser flex con el valor a la derecha. */
+.mg .mrow{display:flex;grid-template-columns:none;justify-content:space-between;align-items:center;gap:8px}
+.mg .mrow>span:first-child{min-width:0}
+.mg .mrow .v{text-align:right;font-variant-numeric:tabular-nums}
+
+/* ── 4. Consistencia entre familias de tarjetas (radios en 3 niveles) ──
+   Tarjetas de nivel 1: --r-l (18). Filas seleccionables: 16. Mini-tiles anidados: 12. */
+.kpi,.fk,.nk,.p3k,.dst,.eqc,.v12kp>div,.cta,.pcard,.ltot{border-radius:var(--r-l)}
+.li,.order,.nemp,.ok2,.cxc{border-radius:16px}
+.eqk>div,.pcard .k3 div,.p3am>div,.adsrc>div,.mrow,.tsb,.adfun>div,.et{border-radius:12px}
+/* etiquetas de KPI: misma voz (sin versalitas sueltas en Nómina/Equipo/Productos) */
+.nkb small,.eqk small,.pcard .k3 small,.kpi .lab{text-transform:none;letter-spacing:.01em;font-family:var(--body)}
+.eqk small,.pcard .k3 small{font-size:11.5px;font-weight:600}
+.nkb small{font-size:12.5px;font-weight:600}
+/* valores: misma métrica tipográfica (peso, tracking, interlínea) */
+.dst .sv,.v12kp b,.p3kb b,.nkb b,.ltot b,.cta b,.eqk b,.pcard .k3 b,.adfun>div b,.adsrc>div b,.p3am b,.tsb .tv,.mrow .v,.pl .v,.plt b,.gr2 .gv,.ner b{letter-spacing:-.02em;line-height:1.15;font-weight:700}
+.pcard .k3 b{font-size:16px}
+/* Equipo: los 3 mini-tiles alinean el valor abajo aunque la etiqueta ocupe 2 líneas */
+.eqk>div{display:flex;flex-direction:column;justify-content:flex-end;min-height:52px}
+.eqk b{margin-top:auto;padding-top:2px}
+/* Productos/Órdenes/Inventario: la etiqueta de los stats ya no se corta ("Productos activ…") */
+@media(max-width:600px){
+  .dst .sl{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.15}
+  .dst .si{width:36px;height:36px}
+  .dst .si svg{width:19px;height:19px}
+  .dst{gap:9px;padding:11px}
+}
+/* sombras: un solo lenguaje para tarjetas flotantes de datos (sin glow nuevo) */
+.k2,.fk,.nk,.p3k,.dst,.v12kp>div,.cta,.ltot{box-shadow:none}
+
+/* ── 5. Densidad / cabeceras ──
+   Finanzas móvil: con 3 acciones el título ("Este mes ⌄") se partía en dos líneas.
+   Si .vh-act tiene ≥3 botones en <480px, las acciones bajan a su propia fila. */
+@media(max-width:479px){
+  .vh:has(.vh-act>:nth-child(3)){flex-wrap:wrap}
+  .vh:has(.vh-act>:nth-child(3)) .vh-act{flex:1 0 100%;justify-content:flex-end}
+  .vh h2 .tchev{white-space:nowrap}
+}
+/* Finanzas escritorio: el calendario de la fila de chips duplica el chip "Personalizado" y el botón de período de la barra */
+@media(min-width:1024px){body.route-fin .per-row .flt-btn{display:none}}
+/* fila de sub-pestañas de Finanzas: pista de scroll igual que las chips de período */
+.fsubs{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent)}
+.fsubs.at-end{-webkit-mask-image:none;mask-image:none}
+/* Resumen: la agenda del día se coloca debajo de los KPI (JS la mueve); separación coherente */
+#dashKpis+#dashAlerts:empty+.aghc,#dashKpis+.aghc{margin-top:0}
+.aghc{margin-bottom:12px}
+/* Resumen escritorio: alertas y agenda no rompen el ritmo de 12px */
+.dash-alerts:empty{display:none}
+
+/* ── 6. Estados vacíos ──
+   Órdenes: el vacío ahora ofrece acciones (quitar filtros / nuevo pedido) en vez de solo texto. */
+.v17-ea{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.v17-ea .btn-out,.v17-ea .btn-lime{height:42px}
+.empty{padding:34px 18px 30px}
+.empty b{font-size:15.5px}
+.empty .ic{margin-bottom:10px}
+.trempty svg+span,.trempty svg+*{display:block}
+.trempty{display:flex;flex-direction:column;align-items:center;gap:6px}
+.trempty svg{margin:0 auto 4px}
+
+/* ── 7. Rendimiento de render en listas largas ──
+   Filas fuera de pantalla no se maquetan ni pintan; el tamaño se recuerda tras el primer render. */
+.ok2,.cxc,.nemp,.gr2,.order,.li,.eqc,.pcard{content-visibility:auto;contain-intrinsic-size:auto 86px}
+.pcard{contain-intrinsic-size:auto 420px}
+.eqc{contain-intrinsic-size:auto 150px}
+/* tablas largas (Libro: hasta 200 filas): el layout de la tarjeta no se recalcula al pasar el ratón */
+.mtab tbody tr:hover td{will-change:auto}
+/* skeleton del Resumen reserva el alto real de los KPI (menos salto al cargar) */
+#dashKpis .k2 .skel{min-height:12px}
+#dashKpis:has(.skel){min-height:118px}
+
+/* ── 8. Movimiento reducido en gráficos vivos ── */
+@media(prefers-reduced-motion:reduce){
+  .p3live{animation:none}
+  .tp .bar i,.plbar i,svg path,svg circle{transition:none!important}
+}
+
+/* v17 chat */
+/* ============================================================
+   v17 · chat: Mensajes / CRM / Portal del motorizado / Verificación /
+   Feedback / Organigrama — solo presentación, interacción y rendimiento.
+   Se concatena al final del <style>: gana por orden. Sin colores nuevos.
+   ============================================================ */
+
+/* ---------- 0. Tokens locales (solo alias de valores ya usados) ---------- */
+:root{--v17-s1:4px;--v17-s2:8px;--v17-s3:12px;--v17-s4:16px;--v17-s5:20px;
+  --v17-r-s:10px;--v17-r-m:14px;--v17-r-l:18px;--v17-r-xl:22px;
+  --v17-tap:44px;--v17-ease:cubic-bezier(.32,.72,.24,1);--v17-fast:.14s;--v17-med:.22s}
+
+/* ---------- 1. Corrección: .chipx (regla del organigrama, línea ~2979) pisaba
+   a todos los grupos de chips de la app: el contenedor pasaba a ser una píldora
+   y sus botones perdían borde, fondo y estado .on. Se restaura para <div>. ---------- */
+div.chipx{display:flex;flex-wrap:wrap;gap:7px;background:none;border:none;border-radius:0;padding:0;margin:0;font-size:inherit}
+div.chipx>button{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 13px;border-radius:20px;border:1px solid var(--stroke);background:var(--card2);color:#e4e4e8;font-size:13.5px;font-family:var(--body);cursor:pointer;font-weight:500;line-height:1}
+div.chipx>button i{width:8px;height:8px;border-radius:50%;background:var(--c,#888)}
+div.chipx>button.on{border-color:var(--c,var(--glow));background:color-mix(in srgb,var(--c,var(--glow)) 16%,transparent);color:#fff;font-weight:600}
+div.chipx.bad>button.on{--c:#ff6b5e}
+div.chipx>button svg{width:14px;height:14px}
+div.chipx .v12tag button{min-height:0;padding:0;border:none;background:none;border-radius:0}
+
+/* ---------- 2. Mensajes: lista de conversaciones ---------- */
+.ixc{content-visibility:auto;contain-intrinsic-size:0 66px;min-height:66px;transition:border-color var(--v17-fast),background var(--v17-fast),transform var(--v17-fast)}
+.ixc:active{transform:scale(.992)}
+.ixc:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+.ixc .lp{line-height:1.3}
+.ixc .r small{font-variant-numeric:tabular-nums}
+.ixtabs .fchip{min-height:38px}
+
+/* cabecera del hilo: respeta el notch en móvil y da aire al título */
+@media(max-width:1023px){
+  .ixw.open .ixside .ixh{padding-top:calc(12px + env(safe-area-inset-top))}
+  .ixw.open .ixside{animation:v17slide var(--v17-med) var(--v17-ease)}
+}
+@keyframes v17slide{from{transform:translateX(24px);opacity:.6}to{transform:none;opacity:1}}
+.ixh .t b{font-size:16px;letter-spacing:-.01em}
+.ixact{padding:8px 12px 10px;scroll-snap-type:x proximity}
+.ixact button,.ixact a{min-height:36px;scroll-snap-align:start;transition:background var(--v17-fast),transform var(--v17-fast)}
+.ixact button:active{transform:scale(.97)}
+.ixact button:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+
+/* escritorio: el panel del hilo mide lo que queda de pantalla desde donde empieza,
+   para que el composer se vea sin hacer scroll (chat.js fija --v17-ixtop) */
+@media(min-width:1024px){.ixw .ixside{height:calc(100vh - var(--v17-ixtop,88px) - 16px);min-height:420px}.ixw .ixlist{max-height:calc(100vh - var(--v17-ixtop,88px) - 16px)}}
+
+/* ---------- 3. Mensajes: burbujas ---------- */
+.ixmsgs{gap:var(--v17-s2);padding:var(--v17-s4) 14px;scroll-padding-bottom:var(--v17-s4);overscroll-behavior:contain}
+.ixm{content-visibility:auto;contain-intrinsic-size:0 44px;padding:8px 12px 6px;line-height:1.42;font-size:14.5px;border-radius:18px 18px 18px 6px}
+.ixm.me{border-radius:18px 18px 6px 18px}
+.ixm small{margin-top:3px;font-size:10.5px;line-height:1;display:flex;justify-content:flex-end;align-items:center;gap:4px;font-variant-numeric:tabular-nums}
+/* agrupación: burbujas consecutivas del mismo lado se pegan y redondean distinto */
+.ixm:not(.me):not(.nota):not(.sys)+.ixm:not(.me):not(.nota):not(.sys){margin-top:-4px;border-top-left-radius:6px}
+.ixm.me+.ixm.me{margin-top:-4px;border-top-right-radius:6px}
+.ixm:not(.me):not(.nota):not(.sys):has(+.ixm:not(.me):not(.nota):not(.sys)){border-bottom-left-radius:6px}
+.ixm.me:has(+.ixm.me){border-bottom-right-radius:6px}
+.ixm img,.ixm video{margin-top:6px;border-radius:12px}
+.ixm img{cursor:zoom-in}
+.ixm.nota{padding:10px 12px}
+.ixm.nota b{letter-spacing:.04em;font-size:11px}
+/* separador de fecha (lo inserta chat.js) */
+.ixday{align-self:center;position:sticky;top:0;z-index:1;font-size:11px;font-weight:600;color:var(--muted);background:var(--card);border:1px solid var(--stroke);border-radius:999px;padding:4px 10px;margin:6px 0 2px;letter-spacing:.02em;max-width:100%;flex:none}
+@media(max-width:1023px){.ixday{background:var(--void)}}
+/* estado de envío (lo marca chat.js): check sencillo = registrado, doble = enviado por el canal */
+.ixm.me small .ixst{display:inline-grid;place-items:center;width:14px;height:12px;color:var(--muted)}
+.ixm.me small .ixst svg{width:14px;height:14px}
+.ixm.me small .ixst.sent{color:var(--glow-d)}
+.ixm.me.pending{opacity:.55}
+.ixm.me.pending small .ixst{animation:ffpulse 1s infinite}
+.ixm.me.failed{border-color:rgba(255,107,94,.5)}
+.ixm.me.failed small .ixst{color:#ff6b5e}
+
+/* ---------- 4. Mensajes: composer ---------- */
+.ixsend{gap:var(--v17-s2);padding:var(--v17-s2) var(--v17-s3) calc(var(--v17-s2) + env(safe-area-inset-bottom));align-items:flex-end}
+.ixsend textarea{min-height:44px;max-height:132px;padding:11px 14px;line-height:1.4;font-size:15px;border-radius:22px;overflow-y:auto;transition:border-color var(--v17-fast),height 0s;scrollbar-width:thin}
+.ixsend textarea:focus{outline:none;border-color:rgba(205,235,69,.5)}
+.ixsend textarea::placeholder{color:var(--muted2)}
+.ixsend button,.ixsend .mic{width:44px;height:44px;border-radius:50%;transition:transform var(--v17-fast),opacity var(--v17-fast),background var(--v17-fast)}
+.ixsend button svg,.ixsend .mic svg{width:19px;height:19px}
+.ixsend button:active,.ixsend .mic:active{transform:scale(.92)}
+.ixsend button.go{box-shadow:0 4px 14px rgba(205,235,69,.22)}
+.ixsend button.go:disabled{opacity:.45;box-shadow:none}
+.ixsend button:focus-visible,.ixsend .mic:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+/* grabadora: cubre el composer con el mismo alto para que no salte el layout */
+.ixrecw.rec{display:flex;align-items:center;border-radius:0}
+.ffrec .rx,.ffrec .rok{width:44px;height:44px}
+.ffrec .rx:active,.ffrec .rok:active{transform:scale(.92)}
+/* nota de voz en burbuja */
+.ffau{min-width:180px;padding:4px 0}
+.ffau .ap{width:36px;height:36px}
+.ffau .ap:active{transform:scale(.92)}
+.ffau .ab{height:6px;touch-action:none}
+.ffau .ab::after{content:'';position:absolute;inset:-10px 0}
+.ffau .at{min-width:36px}
+.ixinfo{line-height:1.4}
+/* barra de estado del seguimiento: botón con tamaño táctil */
+.ixstat .v12lk{min-height:32px}
+.ixstat>span{flex:1;min-width:0}
+@media(max-width:400px){.ixsend button:not(.go),.ixsend .mic{width:40px;height:40px;margin-bottom:2px}.ixsend button:not(.go) svg,.ixsend .mic svg{width:18px;height:18px}}
+
+/* ---------- 5. Ficha de cliente (cxOpen / cxDetailHTML): ritmo vertical ---------- */
+#cxSheet .cxhead{margin-bottom:var(--v17-s2)}
+#cxSheet .cxhead h3{font-size:21px;letter-spacing:-.02em}
+#cxSheet .cxhead .sub{line-height:1.45;row-gap:2px}
+#cxSheet .v12acts{margin:var(--v17-s3) 0 var(--v17-s1)}
+#cxSheet .v12acts .btn-out{min-height:40px}
+#cxSheet .v12sec{margin:var(--v17-s5) 0 var(--v17-s2);font-size:12.5px;letter-spacing:.01em}
+#cxSheet .v12sec:first-of-type{margin-top:var(--v17-s4)}
+#cxSheet .cxest button{min-height:36px}
+#cxSheet .v12row{padding:11px 0}
+#cxSheet .v12row .b b{line-height:1.3;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#cxSheet .v12row .b small{margin-top:2px}
+#cxSheet .cxfu .st{padding:12px 0}
+#cxSheet .cxfu .st button{min-height:36px;min-width:64px}
+#cxSheet .v12note{line-height:1.45}
+#cxSheet .v12note small{margin-top:6px}
+#cxSheet .fhint{line-height:1.5}
+#cxSheet .cxconv{margin-top:var(--v17-s3)}
+#cxSheet #cxNotaInp{min-height:44px}
+/* lado fijo en escritorio: mismo ritmo */
+.cxside .v12sec{margin:var(--v17-s5) 0 var(--v17-s2)}
+.cxside .v12row .b b{white-space:normal}
+
+/* ---------- 6. Portal del motorizado: inicio ---------- */
+.mh{margin:var(--v17-s1) 0 var(--v17-s4)}
+.mh .ttl h2{font-size:23px;letter-spacing:-.02em}
+.mbell{width:var(--v17-tap);height:var(--v17-tap);transition:transform var(--v17-fast)}
+.mbell:active{transform:scale(.92)}
+.mstrip{gap:var(--v17-s2)}
+.mstrip>div{padding:12px 6px 10px;border-radius:var(--v17-r-l)}
+.mstrip b{font-size:17px;font-variant-numeric:tabular-nums}
+.mstrip small{font-size:11px}
+.mper button{min-height:30px}
+.msec{margin:var(--v17-s5) 0 var(--v17-s3)}
+.msec h3{font-size:17px;letter-spacing:-.01em}
+.msec .v12lk{min-height:32px}
+/* tarjetas de entrega: jerarquía y feedback táctil */
+.mo{padding:var(--v17-s4);margin-bottom:var(--v17-s3);border-radius:var(--v17-r-xl);transition:transform var(--v17-fast),border-color var(--v17-fast)}
+.mo .nm{font-size:17.5px;letter-spacing:-.01em}
+.mo .amt b{font-size:21px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.mo .meta{margin-top:var(--v17-s3);gap:6px 6px}
+.mo .meta span{min-height:28px}
+.mo .act{margin-top:var(--v17-s4)}
+.mo .act .btn-lime{height:52px;font-size:16px;font-weight:800;border-radius:var(--v17-r-m);transition:transform var(--v17-fast),box-shadow var(--v17-fast)}
+.mo .act .btn-lime:active{transform:scale(.97);box-shadow:0 2px 8px rgba(205,235,69,.2)}
+.mo .act .btn-out{height:52px;width:52px;border-radius:var(--v17-r-m);transition:transform var(--v17-fast)}
+.mo .act .btn-out:active{transform:scale(.94)}
+.mrt{padding:14px;transition:transform var(--v17-fast),border-color var(--v17-fast)}
+.mrt:active{transform:scale(.99)}
+.mrt .rac .btn-lime{min-height:40px}
+.mhist{min-height:60px;transition:transform var(--v17-fast)}
+.mhist:active{transform:scale(.99)}
+/* tira de cobros por verificar dentro del portal */
+#view .mstrip+.pvs{margin-top:var(--v17-s2)}
+
+/* ---------- 7. Portal del motorizado: entrega paso a paso (#mdp) ---------- */
+.mdp{animation:v17up var(--v17-med) var(--v17-ease)}
+@keyframes v17up{from{transform:translateY(18px);opacity:0}to{transform:none;opacity:1}}
+.mdp-h{padding:calc(10px + env(safe-area-inset-top)) 14px 10px;gap:var(--v17-s3)}
+.mdp-h .xbtn{width:var(--v17-tap);height:var(--v17-tap);transition:transform var(--v17-fast)}
+.mdp-h .xbtn:active{transform:scale(.92)}
+.mdp-h .t b{font-size:16px;letter-spacing:-.01em}
+.mdp-h .help{min-height:38px}
+/* progreso de pasos: barras + etiquetas (chat.js inserta .mdp-stepl) */
+.mdp-steps{gap:6px;padding:var(--v17-s3) var(--v17-s4) 0}
+.mdp-steps i{height:5px;transition:background var(--v17-med)}
+.mdp-stepl{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:6px var(--v17-s4) 0;flex:none}
+.mdp-stepl span{font-size:11px;font-weight:600;color:var(--muted2);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mdp-stepl span.on{color:var(--glow)}
+.mdp-stepl span.done{color:var(--muted)}
+.mdp-body{padding:var(--v17-s4);gap:var(--v17-s3);scroll-padding:var(--v17-s4);overscroll-behavior:contain}
+.mdp-body>*{animation:v12in .24s ease-out both}
+.mdp-body>*:nth-child(2){animation-delay:.03s}.mdp-body>*:nth-child(3){animation-delay:.06s}.mdp-body>*:nth-child(4){animation-delay:.09s}.mdp-body>*:nth-child(5){animation-delay:.12s}.mdp-body>*:nth-child(n+6){animation-delay:.14s}
+.mcl b{font-size:20px}
+.mgo{padding:14px;min-height:72px;transition:transform var(--v17-fast)}
+.mgo:active{transform:scale(.985)}
+.mgo b{font-size:16px}
+.maddr .tx{font-size:16px;line-height:1.4}
+.mnav{gap:var(--v17-s2)}
+.mnav a{padding:12px 6px 10px;min-height:84px;border-radius:var(--v17-r-l);transition:transform var(--v17-fast),border-color var(--v17-fast)}
+.mnav a:active{transform:scale(.96)}
+.mnav a .ni{width:40px;height:40px}
+/* la fila "Avisar que voy / Llamar" heredaba fondo, borde y padding de la .mrow de Finanzas (línea ~549) */
+.mdp .mrow{background:none;border:none;padding:0;border-radius:0;font-size:inherit;color:inherit;display:grid;grid-template-columns:1fr 1fr;gap:var(--v17-s2)}
+.mdp .mrow .btn-out{height:52px;font-size:15px;font-weight:600;transition:transform var(--v17-fast)}
+.mdp .mrow .btn-out:active{transform:scale(.97)}
+.mdp .mrow .btn-out[aria-disabled="true"]{opacity:.45;pointer-events:none}
+.mitems{min-height:64px}
+.mitems .pt{font-size:14.5px}
+/* paso 2: cobro */
+.mpay{padding:var(--v17-s4);border-radius:var(--v17-r-xl)}
+.mpay .ph b{font-size:16.5px}
+.mpay .big{font-size:34px;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin:var(--v17-s2) 0 var(--v17-s1)}
+.mpay .dat{font-size:14.5px;line-height:1.65;padding:11px 12px}
+.mpay .dat .r{min-height:36px}
+.mpay .dat .r button{height:34px;min-width:72px;transition:transform var(--v17-fast),background var(--v17-fast)}
+.mpay .dat .r button:active{transform:scale(.95);background:var(--panel3)}
+.malt{gap:var(--v17-s2);padding:var(--v17-s1) 0;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.malt button{height:40px;scroll-snap-align:start;transition:border-color var(--v17-fast),transform var(--v17-fast)}
+.malt button:active{transform:scale(.96)}
+.mpg{padding:var(--v17-s3) 14px}
+.mpg .r{min-height:46px;padding:8px 0}
+.mpg .r b{font-variant-numeric:tabular-nums}
+.mpg .add{height:48px;font-size:14px;transition:transform var(--v17-fast),background var(--v17-fast)}
+.mpg .add:active{transform:scale(.98);background:rgba(205,235,69,.08)}
+.mfoto{min-height:72px;transition:transform var(--v17-fast),border-color var(--v17-fast)}
+.mfoto:active{transform:scale(.985)}
+.mfoto b{font-size:15px}
+/* pie: botón primario grande, siempre alcanzable */
+.mdp-foot{padding:var(--v17-s3) var(--v17-s4) calc(var(--v17-s3) + env(safe-area-inset-bottom));gap:var(--v17-s2)}
+.mdp-foot .btn-lime{height:56px;font-size:17px;border-radius:var(--v17-r-l);transition:transform var(--v17-fast),opacity var(--v17-fast),box-shadow var(--v17-fast)}
+.mdp-foot .btn-lime:active:not(:disabled){transform:scale(.975);box-shadow:0 2px 8px rgba(205,235,69,.2)}
+.mdp-foot .btn-lime:disabled{opacity:.4;box-shadow:none;cursor:not-allowed}
+.mdp-foot .btn-out{height:56px;border-radius:var(--v17-r-l)}
+/* ayuda contextual bajo el botón deshabilitado (chat.js) */
+.mdp-why{flex:none;text-align:center;font-size:12.5px;color:var(--muted);padding:0 var(--v17-s4) 6px;background:var(--void);line-height:1.35}
+.mdone .ck{width:100px;height:100px}
+.mdone h3{font-size:26px;letter-spacing:-.02em}
+.mdone p{font-size:15px;line-height:1.45}
+/* borde de arrastre para volver (chat.js): indicador sutil mientras se arrastra */
+.mdp.v17-drag,.ixside.v17-drag{transition:none}
+
+/* ---------- 8. Verificación de pagos ---------- */
+.pvs{padding:var(--v17-s3) 0 var(--v17-s2)}
+.pvsh{padding:0 14px var(--v17-s2)}
+.pvsh .v12lk{min-height:32px}
+.pvstrip{gap:var(--v17-s2);padding:2px 14px 8px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.pvc{flex:0 0 220px;min-height:60px;padding:10px;transition:transform var(--v17-fast),border-color var(--v17-fast)}
+.pvc:active{transform:scale(.98)}
+.pvc:focus-visible,.pvi:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+.pvc .pi{width:32px;height:32px}
+.pvgrid{gap:var(--v17-s3)}
+.pvi{padding:var(--v17-s3);min-height:88px;transition:transform var(--v17-fast),border-color var(--v17-fast)}
+.pvi:active{transform:scale(.985)}
+.pvi .ph{width:68px;height:68px;border-radius:var(--v17-r-s)}
+.pvi .l1 b{font-size:14.5px}
+.pvi small{line-height:1.35}
+.pvi .amt{font-size:15px}
+.pvfoto{margin:var(--v17-s3) 0}
+.pvfoto img{max-height:min(360px,48vh)}
+.pvbt{gap:var(--v17-s2);margin-top:var(--v17-s3)}
+.pvbt button{height:48px;font-size:13.5px;transition:transform var(--v17-fast),opacity var(--v17-fast)}
+.pvbt button:active{transform:scale(.96)}
+.pvbt button:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+@media(max-width:420px){.pvbt{grid-template-columns:1fr 1fr}.pvbt .ok{grid-column:1/-1}}
+/* ---------- 9. Feedback ---------- */
+.fblist{gap:var(--v17-s3)}
+.fbc{padding:14px 14px 12px;gap:var(--v17-s2);content-visibility:auto;contain-intrinsic-size:0 150px}
+.fbc p{line-height:1.5}
+.fbb{line-height:1.45}
+.fbr{line-height:1.45}
+.fba{margin-top:var(--v17-s1);gap:var(--v17-s2)}
+.fba button{height:36px;min-width:44px;padding:0 12px;font-weight:600;transition:transform var(--v17-fast),background var(--v17-fast)}
+.fba button:active{transform:scale(.96)}
+.fba button:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+.fbtipos button{min-height:38px}
+.fbk3{gap:var(--v17-s3)}
+
+/* ---------- 10. Organigrama en lienzo ---------- */
+.orgleg button{min-height:34px}
+.orgf{transition:box-shadow var(--v17-fast),border-color var(--v17-fast),transform var(--v17-fast);will-change:left,top}
+.orgf.drag{transform:scale(1.02)}
+.orgf:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+.orgfe{width:30px;height:30px}
+.orgfe::after{content:'';position:absolute;inset:-8px}
+.orgfe{position:relative}
+.orgh{width:18px;height:18px;bottom:-9px}
+.orgh::after{content:'';position:absolute;inset:-10px;border-radius:50%}
+@media(pointer:coarse){.orgh{width:22px;height:22px;bottom:-11px}}
+
+/* ---------- 11. Movimiento reducido: todo lo anterior se apaga ---------- */
+@media(prefers-reduced-motion:reduce){
+  .ixc:active,.ixact button:active,.ixsend button:active,.ixsend .mic:active,.ffau .ap:active,.mbell:active,.mo .act .btn-lime:active,.mo .act .btn-out:active,.mrt:active,.mhist:active,.mdp-h .xbtn:active,.mgo:active,.mnav a:active,.mdp .mrow .btn-out:active,.mpay .dat .r button:active,.malt button:active,.mpg .add:active,.mfoto:active,.mdp-foot .btn-lime:active:not(:disabled),.pvc:active,.pvi:active,.pvbt button:active,.fba button:active,.orgf.drag{transform:none}
+  .mdp,.ixw.open .ixside,.mdp-body>*{animation:none}
+  .ixm.me.pending small .ixst{animation:none}
+}
+
 </style>
 </head>
 <body>
@@ -12996,6 +13741,1005 @@ async function iaProbar(){const c=await cfg();if(!c.anthropicKey)return toast('F
   act.insertAdjacentHTML('beforeend',`<button class="iatg ${x.iaOff?'':'on'}" onclick="iaTog('${id}')">${ic('sparkle')}${x.iaOff?'IA pausada':'IA activa'}</button>`);
   if(x.iaHandoff&&!x.iaAtendido){const h=document.querySelector('#ixSide .ixh');if(h)h.insertAdjacentHTML('afterend',`<div class="ixstat" style="color:#f5b945">${ic('alert')}<span>El cliente pidió un asesor · la IA se detuvo</span><button class="v12lk" style="margin-left:auto" onclick="db.collection('conversaciones').doc('${id}').set({iaAtendido:true},{merge:true});this.parentNode.remove()">Atendido ${ic('check')}</button></div>`);}}catch(e){}};}
 async function iaTog(id){const x=(S.cache.convs||[]).find(y=>y.id===id);if(!x)return;const off=!x.iaOff;await db.collection('conversaciones').doc(id).set({iaOff:off,iaAtendido:true},{merge:true});x.iaOff=off;const b=document.querySelector('#ixSide .iatg');if(b){b.classList.toggle('on',!off);b.innerHTML=ic('sparkle')+(off?'IA pausada':'IA activa');}toast(off?'La IA no responderá en este chat':'La IA vuelve a responder aquí','ok');}
+
+/* ===== v17 shell ===== */
+/* ============================================================
+   v17 · SHELL Y NAVEGACIÓN + MÓVIL (capa JS)
+   Envuelve go / openSheet / closeSheet / toast / openMas sin cambiar
+   firmas ni retornos. Solo presentación, interacción y accesibilidad.
+   ============================================================ */
+(function(){
+'use strict';
+const $q=(s,r)=>(r||document).querySelector(s);
+const isMobile=()=>innerWidth<768;
+const reduced=()=>window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FOCUSABLE='button:not([disabled]),[href],input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+
+/* ── 1. Barra inferior / sidebar: semántica, teclado y estado activo ── */
+function navA11y(){
+  const nav=$q('#nav');if(!nav)return;
+  if(!nav.getAttribute('aria-label'))nav.setAttribute('aria-label','Navegación principal');
+  nav.querySelectorAll('a').forEach(a=>{
+    if(a.dataset.ffA)return;a.dataset.ffA='1';
+    if(!a.hasAttribute('href')){a.setAttribute('role','button');a.setAttribute('tabindex','0');}
+    const t=a.querySelector('.t');if(t&&!a.title)a.title=t.textContent.trim();   /* rail de iconos en iPad: tooltip */
+    if(a.dataset.r==='mas'){a.setAttribute('aria-haspopup','dialog');}
+    a.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();a.click();}});
+  });
+  nav.querySelectorAll('.nav-foot button').forEach(b=>{const s=b.querySelector('span:last-child');if(s&&!b.getAttribute('aria-label'))b.setAttribute('aria-label',s.textContent.trim());});
+}
+function navCurrent(){
+  document.querySelectorAll('.nav a').forEach(a=>{if(a.classList.contains('on'))a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
+}
+
+/* ── 2. go(): historial del navegador (botón "atrás" en Android / PWA), fundido de vista, scroll instantáneo ── */
+let _fromPop=false,_ignorePop=false,_pendingRoute=null,_popPending=false;
+try{history.scrollRestoration='manual';}catch(e){}
+if(typeof go==='function'){const _goV17=go;go=function(route){
+  const r=_goV17.apply(this,arguments);
+  try{
+    const v=$q('#view');
+    if(v&&!reduced()){v.classList.remove('ff-in');void v.offsetWidth;v.classList.add('ff-in');}
+    try{window.scrollTo({top:0,left:0,behavior:'instant'});}catch(e){window.scrollTo(0,0);}
+    navCurrent();
+    const cur=S.route||route;
+    if(!_fromPop){
+      if(_popPending){_pendingRoute=cur;}
+      else if(!history.state||history.state.ffRoute!==cur||history.state.ffSheet)history.pushState({ffRoute:cur},'');
+    }
+    _fromPop=false;
+  }catch(e){}
+  return r;
+};}
+if(typeof S!=='undefined'){try{if(!history.state)history.replaceState({ffRoute:S.route||'dash'},'');}catch(e){}}
+window.addEventListener('popstate',e=>{
+  if(_ignorePop){_ignorePop=false;_popPending=false;
+    if(_pendingRoute){try{history.pushState({ffRoute:_pendingRoute},'');}catch(x){}_pendingRoute=null;}
+    return;}
+  const st=e.state||{};
+  const sc=$q('#scrim');
+  if(sc&&sc.classList.contains('show')){_shHist=false;if(typeof closeSheet==='function')closeSheet();if(!st.ffRoute||st.ffRoute===S.route)return;}
+  const so=$q('#searchOverlay');if(so&&so.classList.contains('show')&&typeof closeSearch==='function'){closeSearch();return;}
+  if(st.ffRoute&&typeof go==='function'&&st.ffRoute!==S.route&&S.user){_fromPop=true;try{go(st.ffRoute);}catch(x){_fromPop=false;}}
+});
+
+/* ── 3. Hojas: diálogo accesible, foco, Escape, botón cerrar, arrastre para cerrar, fondo bloqueado ── */
+let _shHist=false,_shPrevFocus=null,_shScrollY=0,_shLocked=false;
+function sheetEnhance(){
+  const sheet=$q('#sheet'),body=$q('#sheetBody');if(!sheet||!body)return;
+  sheet.setAttribute('role','dialog');sheet.setAttribute('aria-modal','true');sheet.tabIndex=-1;
+  const h=body.querySelector('.sh-head h3,.shx h3,h3');
+  if(h){if(!h.id)h.id='ffSheetTitle';sheet.setAttribute('aria-labelledby',h.id);}else sheet.setAttribute('aria-label','Panel');
+  /* botón cerrar en cabeceras simples (.sh-head) que no traen ninguno */
+  const head=body.querySelector(':scope>.sh-head');
+  if(head&&!head.querySelector('button,.xbtn,.ff-x')&&typeof ic==='function'){
+    const b=document.createElement('button');b.type='button';b.className='ff-x';b.setAttribute('aria-label','Cerrar');b.innerHTML=ic('x');
+    b.addEventListener('click',()=>closeSheet());head.appendChild(b);
+  }
+  /* ítems de menú: tocables por teclado */
+  body.querySelectorAll('.mitem').forEach(m=>{
+    if(m.dataset.ffK)return;m.dataset.ffK='1';
+    if(m.tagName!=='BUTTON'&&m.tagName!=='A'){m.setAttribute('role','button');m.tabIndex=0;
+      m.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();m.click();}});}
+  });
+  /* botones solo-icono sin nombre accesible: tomar el title */
+  body.querySelectorAll('button').forEach(b=>{if(!b.getAttribute('aria-label')&&!b.textContent.trim()&&b.title)b.setAttribute('aria-label',b.title);});
+  /* menú "Más" en iPad/escritorio: dos columnas */
+  const ml=body.querySelector(':scope>.mlist');if(ml&&ml.children.length>=6)ml.classList.add('ff-grid');
+}
+function sheetFocus(){
+  const sheet=$q('#sheet'),body=$q('#sheetBody');if(!sheet||!body)return;
+  /* en móvil no abrimos el teclado solos: enfocamos la hoja; en escritorio, el primer campo o botón */
+  let t=null;
+  if(!isMobile()){t=body.querySelector('input.inp:not([disabled]):not([type=hidden]),select.inp:not([disabled]),textarea.inp:not([disabled])')||body.querySelector(FOCUSABLE);}
+  try{(t||sheet).focus({preventScroll:true});}catch(e){}
+}
+function lockBody(){
+  if(!isMobile()||_shLocked)return;_shLocked=true;_shScrollY=window.scrollY||0;
+  document.body.classList.add('ff-lock');document.body.style.top=(-_shScrollY)+'px';
+}
+function unlockBody(){
+  if(!_shLocked)return;_shLocked=false;
+  document.body.classList.remove('ff-lock');document.body.style.top='';
+  try{window.scrollTo({top:_shScrollY,left:0,behavior:'instant'});}catch(e){window.scrollTo(0,_shScrollY);}
+}
+if(typeof openSheet==='function'){const _openSheetV17=openSheet;openSheet=function(html){
+  const sc=$q('#scrim');const was=!!(sc&&sc.classList.contains('show'));
+  if(!was)_shPrevFocus=document.activeElement;
+  const r=_openSheetV17.apply(this,arguments);
+  try{
+    const sheet=$q('#sheet');if(sheet){sheet.scrollTop=0;sheet.style.transform='';sheet.classList.remove('dragging');}
+    if(sc)sc.setAttribute('aria-hidden','false');
+    sheetEnhance();lockBody();
+    if(!was){try{history.pushState({ffRoute:S.route,ffSheet:1},'');_shHist=true;}catch(e){}}
+    setTimeout(sheetFocus,30);
+  }catch(e){}
+  return r;
+};}
+if(typeof closeSheet==='function'){const _closeSheetV17=closeSheet;closeSheet=function(){
+  const sc=$q('#scrim');const was=!!(sc&&sc.classList.contains('show'));
+  const r=_closeSheetV17.apply(this,arguments);
+  try{
+    if(sc)sc.setAttribute('aria-hidden','true');
+    unlockBody();
+    if(was&&_shHist){_shHist=false;if(history.state&&history.state.ffSheet){_ignorePop=true;_popPending=true;history.back();}}
+    else _shHist=false;
+    const sheet=$q('#sheet');if(sheet)setTimeout(()=>{if(!sc.classList.contains('show')){sheet.style.transform='';sheet.classList.remove('dragging');}},260);
+    const pf=_shPrevFocus;_shPrevFocus=null;
+    if(was&&pf&&document.contains(pf)&&!isMobile()){try{pf.focus({preventScroll:true});}catch(e){}}
+  }catch(e){}
+  return r;
+};}
+/* Escape cierra la hoja (si no hay buscador abierto ni un menú contextual encima) */
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Escape')return;
+  const so=$q('#searchOverlay');if(so&&so.classList.contains('show'))return;
+  if(document.querySelector('.mmenu'))return;
+  const sc=$q('#scrim');if(sc&&sc.classList.contains('show')&&typeof closeSheet==='function'){e.preventDefault();closeSheet();}
+});
+/* Trampa de foco suave: Tab no se escapa de la hoja */
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Tab')return;const sc=$q('#scrim'),sheet=$q('#sheet');if(!sc||!sheet||!sc.classList.contains('show'))return;
+  const f=[...sheet.querySelectorAll(FOCUSABLE)].filter(x=>x.offsetParent!==null);if(!f.length)return;
+  const first=f[0],last=f[f.length-1],a=document.activeElement;
+  if(e.shiftKey&&(a===first||a===sheet)){e.preventDefault();last.focus();}
+  else if(!e.shiftKey&&a===last){e.preventDefault();first.focus();}
+});
+/* Arrastrar hacia abajo para cerrar (móvil): desde el asa o la cabecera */
+(function(){
+  const sheet=$q('#sheet'),sc=$q('#scrim');if(!sheet||!sc)return;
+  let y0=0,dy=0,t0=0,active=false,pid=null;
+  sheet.addEventListener('pointerdown',e=>{
+    if(!isMobile()||e.pointerType==='mouse')return;
+    const h=e.target.closest('.grab,.sh-head,.shx');if(!h||e.target.closest('button,a,input,select,textarea,[role=button]'))return;
+    if(sheet.scrollTop>0&&!e.target.closest('.grab'))return;
+    active=true;pid=e.pointerId;y0=e.clientY;dy=0;t0=performance.now();sheet.classList.add('dragging');
+    try{sheet.setPointerCapture(pid);}catch(x){}
+  });
+  sheet.addEventListener('pointermove',e=>{
+    if(!active||e.pointerId!==pid)return;dy=Math.max(0,e.clientY-y0);
+    sheet.style.transform=`translateY(${dy}px)`;sc.style.backgroundColor=`rgba(0,0,0,${Math.max(.15,.62-dy/900)})`;
+  });
+  const end=e=>{
+    if(!active||e.pointerId!==pid)return;active=false;sheet.classList.remove('dragging');sc.style.backgroundColor='';
+    const v=dy/Math.max(1,performance.now()-t0);
+    if(dy>110||(dy>40&&v>.45)){sheet.style.transform='translateY(110%)';closeSheet();}
+    else sheet.style.transform='';
+  };
+  sheet.addEventListener('pointerup',end);sheet.addEventListener('pointercancel',end);
+})();
+
+/* ── 4. Toast: región viva para lectores de pantalla ── */
+(function(){const t=$q('#toast');if(!t)return;t.setAttribute('role','status');t.setAttribute('aria-live','polite');t.setAttribute('aria-atomic','true');})();
+if(typeof toast==='function'){const _toastV17=toast;toast=function(msg,type){
+  const r=_toastV17.apply(this,arguments);
+  try{const t=$q('#toast');if(t){clearTimeout(t._t);const ms=type==='bad'?3600:2600;t._t=setTimeout(()=>t.className='',ms);}}catch(e){}
+  return r;
+};}
+
+/* ── 5. Estados de carga: aria-busy mientras hay esqueleto en la vista ── */
+(function(){
+  const v=$q('#view');if(!v||!window.MutationObserver)return;
+  const upd=()=>{const busy=!!v.querySelector('.skel');if(busy)v.setAttribute('aria-busy','true');else v.removeAttribute('aria-busy');};
+  new MutationObserver(upd).observe(v,{childList:true,subtree:true});upd();
+})();
+
+/* ── 6. Topbar: sombra al hacer scroll (sensación de capa) ── */
+(function(){
+  const tb=$q('.topbar');if(!tb)return;let tick=false;
+  const f=()=>{tb.classList.toggle('scrolled',(window.scrollY||0)>6);tick=false;};
+  window.addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(f);}},{passive:true});f();
+})();
+
+/* ── 7. Nombres accesibles para botones solo-icono fuera de hojas (post-proceso ligero) ── */
+(function(){
+  const v=$q('#view');if(!v||!window.MutationObserver)return;let t;
+  const fix=()=>{v.querySelectorAll('button:not([aria-label])').forEach(b=>{if(b.textContent.trim())return;if(b.title)b.setAttribute('aria-label',b.title);});
+    v.querySelectorAll('.mitem:not([data-ff-k])').forEach(m=>{m.dataset.ffK='1';if(m.tagName!=='BUTTON'&&m.tagName!=='A'){m.setAttribute('role','button');m.tabIndex=0;m.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();m.click();}});}});};
+  new MutationObserver(()=>{clearTimeout(t);t=setTimeout(fix,80);}).observe(v,{childList:true,subtree:true});fix();
+})();
+
+/* ── 8. Buscador: Escape vuelve el foco al botón que lo abrió ── */
+if(typeof openSearch==='function'&&typeof closeSearch==='function'){
+  let prev=null;const _osV17=openSearch,_csV17=closeSearch;
+  openSearch=function(){prev=document.activeElement;return _osV17.apply(this,arguments);};
+  closeSearch=function(){const r=_csV17.apply(this,arguments);try{if(prev&&document.contains(prev)&&!isMobile())prev.focus({preventScroll:true});}catch(e){}prev=null;return r;};
+}
+
+/* ── init ── */
+navA11y();navCurrent();
+if(typeof sessionStart==='function'){const _ssV17=sessionStart;sessionStart=function(){const r=_ssV17.apply(this,arguments);try{navA11y();navCurrent();if(!history.state||!history.state.ffRoute)history.replaceState({ffRoute:S.route||'dash'},'');}catch(e){}return r;};}
+})();
+
+/* ===== v17 forms ===== */
+/* ============================================================
+   v17 · FORMULARIOS Y FLUJOS (capa JS)
+   Accesibilidad WCAG 2.1 AA sobre las hojas (openSheet) y el login:
+   - hoja = diálogo modal (role/aria-modal, foco inicial, foco de retorno,
+     Tab atrapado dentro, Esc cierra, fondo inerte)
+   - etiquetas asociadas (label/for, aria-labelledby, role=group, aria-required)
+   - inputmode / autocomplete / enterkeyhint; Enter pasa al siguiente campo
+   - validación inline con mensajes claros + resumen enfocable (además del toast)
+   - estado "cargando" y bloqueo de doble envío en los botones de guardar
+   - controles no nativos (div/label con onclick) operables con teclado
+   - toasts anunciados por lector de pantalla
+   Todo por post-procesado del DOM (MutationObserver) y envolturas pequeñas:
+   nunca se reescriben vistas ni se tocan datos.
+   ============================================================ */
+(function(){
+'use strict';
+const FF=window.FFforms={};
+const q=(s,r)=>(r||document).querySelector(s);
+const qa=(s,r)=>Array.prototype.slice.call((r||document).querySelectorAll(s));
+let uidN=0;const ensureId=el=>{if(!el.id)el.id='ffid'+(++uidN);return el.id;};
+const FOC='a[href],button:not([disabled]),input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"]),[contenteditable=true]';
+const CTL='input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not([type=file]),select,textarea';
+const visible=el=>!!el&&!!(el.offsetWidth||el.offsetHeight||(el.getClientRects&&el.getClientRects().length));
+const LBL='.flab,.flab2,.cfl,.cvb>.cl,.ajfld>small,#sheetBody .eyebrow';
+const GRP='.wzt,.wzmt,.wzch,.cft,.cfc,.seg,.catg,.dir2,.iadias,.chips,.wzpk,.wzadd,.f2,.cfg2,.vprods,.wzits,.wzs';
+const TOG='.wzt,.wzmt,.wzch,.cft,.cfc,.seg,.catg,.dir2,.iadias,.wzpk,#pgMet,#iSig,#iaModo,#iaCan,#iaDias,#neTipo,#neFrq,#neSedes,#neCanales,#neMet';
+const sheetOpen=()=>{const s=q('#scrim');return !!(s&&s.classList.contains('show'));};
+const icon=n=>(typeof ic==='function')?ic(n):'';
+const txt=el=>(el&&el.textContent||'').replace(/\s+/g,' ').trim();
+
+/* ────────────────────────────────────────────────────────────
+   1 · ETIQUETAS, ATRIBUTOS DE TECLADO Y SEMÁNTICA
+   ──────────────────────────────────────────────────────────── */
+function labelOf(ctl){return !!(ctl.getAttribute('aria-label')||ctl.getAttribute('aria-labelledby')||ctl.closest('label')||(ctl.id&&q('label[for="'+ctl.id+'"]')));}
+function markRequired(L,ctls){
+  const star=L.querySelector('.req,i');
+  if(!star||!/^\*$/.test(txt(star)))return;
+  star.setAttribute('aria-hidden','true');star.classList.add('ff-req');
+  ctls.forEach(c=>{if(/INPUT|SELECT|TEXTAREA/.test(c.tagName)&&c.type!=='checkbox')c.setAttribute('aria-required','true');});
+}
+function labelize(root){
+  /* <label> sin for dentro de .field (login, hojas clásicas) */
+  qa('label:not([for])',root).forEach(l=>{
+    if(l.querySelector('input,select,textarea'))return;
+    const f=l.parentElement;if(!f)return;
+    const c=f.querySelector(CTL+',input[type=checkbox]');
+    if(c&&!labelOf(c)&&(l.compareDocumentPosition(c)&Node.DOCUMENT_POSITION_FOLLOWING)){l.htmlFor=ensureId(c);l.classList.add('ff-lbl');}
+    const star=l.querySelector('.req');if(star&&c){star.setAttribute('aria-hidden','true');c.setAttribute('aria-required','true');}
+  });
+  /* pseudo-etiquetas (.flab / .flab2 / .cfl / .cvb .cl / .ajfld small) */
+  qa(LBL,root).forEach(L=>{
+    if(L.dataset.ffl)return;L.dataset.ffl='1';
+    let n;
+    if(L.matches('.cvb>.cl'))n=L.parentElement;
+    else{n=L.nextElementSibling;while(n&&n.matches('.ff-errmsg,.ff-errsum'))n=n.nextElementSibling;}
+    if(!n)return;
+    if(L.matches('.eyebrow')&&!n.matches(GRP))return;
+    const inner=L.matches('.cvb>.cl')?null:n.querySelector(LBL+',label:not(.r)');
+    const isGroup=n.matches(GRP)||(!!inner&&!n.matches('.fx,.field'));
+    if(isGroup){
+      /* conjunto de campos u opciones: el título los nombra como grupo */
+      if(!n.getAttribute('role'))n.setAttribute('role','group');
+      if(!n.getAttribute('aria-labelledby'))n.setAttribute('aria-labelledby',ensureId(L));
+      return;
+    }
+    let ctls=qa(CTL,n);
+    if(L.matches('.cvb>.cl'))ctls=ctls.filter(c=>c.parentElement&&c.parentElement.closest('.cvb')===n);
+    if(!ctls.length){
+      const cb=n.querySelector('input[type=checkbox]');
+      if(cb){const d=cb.getAttribute('aria-describedby');const id=ensureId(L);if(!d||d.indexOf(id)<0)cb.setAttribute('aria-describedby',d?d+' '+id:id);}
+      return;
+    }
+    const first=ctls[0];
+    if(!labelOf(first))first.setAttribute('aria-labelledby',ensureId(L));
+    ctls.slice(1).forEach(c=>{if(!labelOf(c)&&c.placeholder)c.setAttribute('aria-label',c.placeholder);});
+    markRequired(L,ctls);
+  });
+  /* cajas del asistente con título (.wzbt) → grupo */
+  qa('.wzbox',root).forEach(b=>{const t=b.querySelector(':scope>.wzbt');if(!t||t.querySelector('button,label,input')||b.getAttribute('role'))return;b.setAttribute('role','group');b.setAttribute('aria-labelledby',ensureId(t));});
+  /* sin etiqueta de ningún tipo → el placeholder (último recurso) */
+  qa(CTL,root).forEach(c=>{if(!labelOf(c)){const ph=c.placeholder||c.title;if(ph)c.setAttribute('aria-label',ph);}});
+  /* cantidad por producto en "Registrar venta" */
+  qa('.vprod',root).forEach(r=>{const i=r.querySelector('.qst input'),b=r.querySelector('.vpt b');if(i&&b&&!i.dataset.ffq){i.dataset.ffq='1';i.setAttribute('aria-label','Cantidad de '+txt(b));}});
+}
+function keyboardAttrs(root){
+  const fields=[];
+  qa('input,textarea',root).forEach(i=>{
+    const t=(i.type||'text').toLowerCase();
+    if(/checkbox|radio|file|hidden|submit|button|range|color/.test(t))return;
+    if(i.tagName==='TEXTAREA'){if(!i.hasAttribute('enterkeyhint'))i.setAttribute('enterkeyhint','enter');return;}
+    const ph=i.placeholder||'',mono=/mono/.test(i.style.fontFamily||'')||i.classList.contains('mono');
+    if(!i.hasAttribute('inputmode')&&!/date|time|email|password|number|search|url/.test(t)){
+      if(/^0[.,]00$/.test(ph)||/^Ej: ?\d+$/.test(ph)||(mono&&/^-?\d+([.,]\d+)?$/.test(i.value||'')))i.setAttribute('inputmode','decimal');
+    }
+    const im=i.getAttribute('inputmode')||'';
+    if(im==='decimal'||im==='numeric'||mono){
+      if(!i.hasAttribute('autocomplete'))i.setAttribute('autocomplete','off');
+      if(!i.hasAttribute('spellcheck'))i.setAttribute('spellcheck','false');
+      if(!i.hasAttribute('autocapitalize'))i.setAttribute('autocapitalize','off');
+    }else if(/nombre/i.test(ph)||/nombre/i.test(i.getAttribute('aria-label')||'')){
+      if(!i.hasAttribute('autocapitalize'))i.setAttribute('autocapitalize','words');
+    }
+    if(t==='password'&&!i.hasAttribute('autocomplete'))i.setAttribute('autocomplete',i.closest('.login-card')?'current-password':'off');
+    if(im==='tel'&&!i.hasAttribute('autocomplete'))i.setAttribute('autocomplete','off');/* se escriben teléfonos de clientes, no el propio */
+    if(!i.closest('.login-card')&&visible(i)&&!i.disabled&&!i.readOnly)fields.push(i);
+  });
+  /* enterkeyhint: "siguiente" en todos y "listo" en el último campo de la hoja */
+  fields.forEach((f,ix)=>{if(f.hasAttribute('enterkeyhint')&&!f.dataset.ffEk)return;f.dataset.ffEk='1';f.setAttribute('enterkeyhint',ix===fields.length-1?'done':'next');});
+}
+function clickables(root,scopeSel){
+  qa(scopeSel||'[onclick]',root).forEach(el=>{
+    if(el.id==='scrim')return;
+    const tag=el.tagName;
+    if(/^(BUTTON|INPUT|SELECT|TEXTAREA)$/.test(tag))return;
+    if(tag==='A'&&el.hasAttribute('href'))return;
+    if(tag==='LABEL'&&!el.querySelector('input[type=file]'))return;
+    if(!el.getAttribute('role'))el.setAttribute('role','button');
+    if(!el.hasAttribute('tabindex'))el.tabIndex=0;
+  });
+  /* etiquetas que abren un selector de archivo (adjuntar comprobante, foto de perfil) */
+  qa('label.abtn,label.eqavl',root).forEach(l=>{if(!l.getAttribute('role'))l.setAttribute('role','button');if(!l.hasAttribute('tabindex'))l.tabIndex=0;if(!l.getAttribute('aria-label')&&l.title)l.setAttribute('aria-label',l.title);});
+}
+function syncPressedIn(g){
+  qa(':scope>button,:scope>.chip',g).forEach(b=>{
+    b.setAttribute('aria-pressed',b.classList.contains('on')?'true':'false');
+    if(b.tagName!=='BUTTON'){if(!b.getAttribute('role'))b.setAttribute('role','button');if(!b.hasAttribute('tabindex'))b.tabIndex=0;}
+  });
+}
+function syncPressed(root){
+  qa(TOG,root).forEach(syncPressedIn);
+  qa('.wzs button',root).forEach(b=>{if(b.classList.contains('on'))b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');});
+  qa('.wzchk>div',root).forEach(d=>{if(d.classList.contains('ok')){d.removeAttribute('role');d.removeAttribute('tabindex');}});
+}
+function readOnlyHint(root){
+  const dis=q('#waPid:disabled,#icOn:disabled',root);
+  if(dis&&!q('.ff-ro-hint',root)){const h=q('.shx',root);if(h){const d=document.createElement('div');d.className='ff-ro-hint';d.textContent='Solo los socios pueden modificar esta integración; el resto la ve en modo lectura.';h.insertAdjacentElement('afterend',d);}}
+}
+function enhance(root){
+  if(!root)return;
+  try{labelize(root);}catch(e){console.warn('[v17 forms] labels',e);}
+  try{keyboardAttrs(root);}catch(e){console.warn('[v17 forms] keyboard',e);}
+  try{clickables(root);}catch(e){console.warn('[v17 forms] clickables',e);}
+  try{syncPressed(root);}catch(e){console.warn('[v17 forms] pressed',e);}
+  try{readOnlyHint(root);}catch(e){}
+}
+FF.enhance=enhance;
+
+/* ────────────────────────────────────────────────────────────
+   2 · VALIDACIÓN INLINE
+   ──────────────────────────────────────────────────────────── */
+const WRAP='.fx,.field,.cvb,.cfsw,.sw,.chips,.wzmt,.wzt,.cft,.cfc,.seg,.wzadd,.vprods,.wzch,.wzbox';
+function wrapOf(el){return el.closest(WRAP)||el;}
+function ctlOf(el){return /INPUT|SELECT|TEXTAREA/.test(el.tagName)?el:(wrapOf(el).querySelector(CTL)||null);}
+function unmark(ctl){
+  if(!ctl)return;
+  const ids=(ctl.getAttribute('aria-describedby')||'').split(' ').filter(Boolean);
+  ids.filter(id=>id.indexOf('fferr')===0).forEach(id=>{const m=document.getElementById(id);if(m)m.remove();});
+  const keep=ids.filter(id=>id.indexOf('fferr')!==0);
+  keep.length?ctl.setAttribute('aria-describedby',keep.join(' ')):ctl.removeAttribute('aria-describedby');
+  ctl.removeAttribute('aria-invalid');
+  const w=wrapOf(ctl);if(w&&!w.querySelector('[aria-invalid=true]'))w.classList.remove('ff-err');
+}
+function clearErrors(root){
+  qa('[aria-invalid=true]',root).forEach(unmark);
+  qa('.ff-err',root).forEach(el=>el.classList.remove('ff-err'));
+  qa('.ff-errmsg,.ff-errsum',root).forEach(el=>el.remove());
+}
+function mark(el,msg){
+  if(!el||!document.contains(el))return null;
+  const w=wrapOf(el);w.classList.add('ff-err');
+  const id='fferr'+(++uidN);
+  const m=document.createElement('div');m.className='ff-errmsg';m.id=id;
+  m.innerHTML=icon('alert')+'<span></span>';m.lastChild.textContent=msg;
+  /* el mensaje va justo después del contenedor del campo */
+  w.insertAdjacentElement('afterend',m);
+  const ctl=ctlOf(el);
+  if(ctl){ctl.setAttribute('aria-invalid','true');const d=ctl.getAttribute('aria-describedby');ctl.setAttribute('aria-describedby',d?d+' '+id:id);}
+  else{m.setAttribute('role','alert');}
+  return m;
+}
+function summary(root,msgs,focusIt){
+  const s=document.createElement('div');s.className='ff-errsum';s.setAttribute('role','alert');s.tabIndex=-1;
+  s.innerHTML=icon('alert')+'<div><b>Revisa estos puntos antes de guardar</b><span></span></div>';
+  s.lastChild.lastChild.textContent=msgs.join(' · ');
+  const head=q('.shx,.sh-head,.wzh,.wzs',root);
+  const wzs=q('.wzs',root);
+  if(wzs)wzs.insertAdjacentElement('afterend',s);else if(head)head.insertAdjacentElement('afterend',s);else root.insertAdjacentElement('afterbegin',s);
+  if(focusIt){try{s.focus({preventScroll:true});s.scrollIntoView({block:'nearest',behavior:'smooth'});}catch(e){}}
+  return s;
+}
+function validate(root,checks){
+  clearErrors(root);
+  let first=null;const loose=[];
+  (checks||[]).forEach(c=>{
+    if(!c||c.ok)return;
+    if(c.el&&document.contains(c.el)){
+      mark(c.el,c.msg);
+      /* el foco va al primer campo con error en orden visual (de arriba hacia abajo) */
+      if(!first||(first.compareDocumentPosition(c.el)&Node.DOCUMENT_POSITION_PRECEDING))first=c.el;
+    }
+    else loose.push(c.msg);
+  });
+  if(loose.length)summary(root,loose,!first);
+  if(first){
+    const f=ctlOf(first)||wrapOf(first).querySelector('button,[tabindex]')||first;
+    try{f.focus({preventScroll:true});(wrapOf(first)).scrollIntoView({block:'center',behavior:'smooth'});}catch(e){}
+  }
+  return !(checks||[]).some(c=>c&&!c.ok);
+}
+FF.validate=validate;FF.mark=mark;FF.clearErrors=clearErrors;
+
+/* validación al salir del campo (obligatorio vacío, número mal escrito, teléfono corto, correo) */
+function liveCheck(t){
+  if(t.getAttribute('aria-invalid')==='true')return;
+  const val=(t.value||'').trim();
+  const req=t.getAttribute('aria-required')==='true'||t.required;
+  if(req&&!val){mark(t,t.tagName==='SELECT'?'Selecciona una opción.':'Este campo es obligatorio.');return;}
+  if(!val)return;
+  const im=t.getAttribute('inputmode')||'';
+  if(im==='decimal'&&isNaN(parseFloat(val.replace(',','.')))){mark(t,'Escribe solo números (usa punto o coma para los decimales).');return;}
+  if(im==='numeric'&&t.type!=='date'&&/[^\d\s\-+().,]/.test(val)){mark(t,'Escribe solo números.');return;}
+  if(im==='tel'&&val.replace(/\D/g,'').length<7){mark(t,'El teléfono parece incompleto (ej. 0412 000 0000).');return;}
+  if(t.type==='email'&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)){mark(t,'Escribe un correo válido (nombre@dominio.com).');}
+}
+document.addEventListener('focusout',e=>{
+  const t=e.target;if(!t||!/INPUT|TEXTAREA|SELECT/.test(t.tagName))return;
+  const sb=q('#sheetBody');
+  if(!(sb&&sb.contains(t)&&sheetOpen())&&!t.closest('.login-card'))return;
+  if(e.relatedTarget&&e.relatedTarget.closest&&e.relatedTarget.closest('.xbtn,.bsec'))return;
+  try{liveCheck(t);}catch(err){}
+});
+document.addEventListener('input',e=>{const t=e.target;if(t&&t.getAttribute&&t.getAttribute('aria-invalid')==='true')unmark(t);},true);
+document.addEventListener('change',e=>{const t=e.target;if(t&&t.getAttribute&&t.getAttribute('aria-invalid')==='true')unmark(t);},true);
+
+/* reglas por función de guardado (espejan las comprobaciones de la función original) */
+const pf=x=>parseFloat(String(x||'').replace(',','.'))||0;
+const v=id=>{const el=document.getElementById(id);return el?(el.value||'').trim():'';};
+const wzInp=ph=>qa('#sheetBody .wzb input,#sheetBody .wzb textarea').find(i=>i.placeholder===ph)||null;
+const ELEC=['Pago Móvil','Zelle','Binance','PayPal'];
+/* _draft está declarado con let en el script principal: se lee por identificador, no por window */
+const draft=()=>{try{return _draft;}catch(e){return window._draft||null;}};
+const RULES={
+  savePago:()=>[{el:q('#pgUsd'),ok:pf(v('pgUsd'))>0,msg:'Escribe el monto en USD de la venta (mayor que 0).'}],
+  mPagoSave:()=>{const m=(q('#mpaM')||{}).value||'';const elec=ELEC.concat('SPIDI').indexOf(m)>=0;return[
+    {el:q('#mpaMonto'),ok:pf(v('mpaMonto'))>0,msg:'Escribe el monto recibido en USD.'},
+    {el:q('#mpaRef'),ok:!elec||!!v('mpaRef'),msg:'Escribe la referencia del pago por '+m+'.'}];},
+  saveGasto:()=>[{el:q('#gUsd'),ok:pf(v('gUsd'))>0,msg:'Escribe el monto en USD (o escríbelo en Bs y se calcula solo).'}],
+  saveGastoEdit:()=>[{el:q('#egUSD'),ok:pf(v('egUSD'))>0,msg:'El monto en USD debe ser mayor que 0.'}],
+  saveIngreso:()=>{const I=window._ing||{};return[
+    {el:q('#iDesc'),ok:!!v('iDesc'),msg:I.o==='devolucion'?'Escribe el motivo de la devolución.':I.o==='ajuste'?'Escribe el motivo del ajuste.':'Escribe una descripción del ingreso.'},
+    {el:q('#iUsd'),ok:pf(v('iUsd'))>0,msg:'Escribe el monto en USD (o escríbelo en Bs y se calcula solo).'},
+    {el:q('#iMet'),ok:I.o==='ajuste'||!!v('iMet'),msg:'Selecciona el método de pago.'}];},
+  saveVentaFin:()=>{const I=window._ing||{};const any=Object.keys(I.qty||{}).some(k=>I.qty[k]>0);const met=(q('#iMet')||{}).value||'';return[
+    {el:q('#iCli'),ok:!!v('iCli'),msg:'Escribe el nombre del cliente.'},
+    {el:q('#iProds'),ok:any,msg:'Agrega al menos un producto con cantidad mayor que 0.'},
+    {el:q('#iRef'),ok:!(ELEC.indexOf(met)>=0&&!v('iRef')),msg:'Escribe la referencia del pago por '+met+'.'}];},
+  saveConversion:()=>[
+    {el:q('#cvTasa'),ok:pf(v('cvTasa'))>0,msg:'Escribe la tasa en Bs por $.'},
+    {el:q('#cvOrig'),ok:pf(v('cvOrig'))>0,msg:'Escribe el monto que vas a convertir.'}],
+  saveNominaEmpleado:()=>[{el:q('#neNom'),ok:!!(((window._ne||{}).nombre)||'').trim(),msg:'Escribe el nombre completo del empleado.'}],
+  eqGuardar:()=>{const E=window._eq||{u:{}};const inp=qa('#sheetBody .fx input').find(i=>/_eq\.u\.nombre/.test(i.getAttribute('oninput')||''));return[{el:inp,ok:!!((E.u||{}).nombre||'').trim(),msg:'Escribe el nombre completo.'}];},
+  /* login: el cuadro #loginErr (role=alert) ya es el resumen; la envoltura de showLoginErr marca el campo (aria-invalid) y lo enfoca */
+  saveDraft:()=>{
+    const d=draft();if(!d||!q('#sheetBody .wz'))return[];
+    const pagoRef=!(d._pagoYa&&ELEC.indexOf(d._pagoMet)>=0&&!(d._pagoRef||'').trim());
+    return[
+      {el:wzInp('Nombre y apellido'),ok:!!(d.cliente.nombre||'').trim(),msg:'Escribe el nombre del cliente.'},
+      {el:q('#sheetBody .wzadd'),ok:d.items.length>0,msg:'Agrega al menos un producto.'},
+      {el:q('#ordPgUsd'),ok:!d._pagoYa||d._pagoUSD>0,msg:'Escribe el monto que pagó el cliente (está marcado "Ya pagó").'},
+      {el:q('#sheetBody .wzmt'),ok:!d._pagoYa||!!d._pagoMet,msg:'Selecciona el método con el que pagó.'},
+      {el:wzInp('Últimos dígitos'),ok:pagoRef,msg:'Escribe la referencia del pago por '+(d._pagoMet||'')+'.'},
+      {el:q('#sheetBody .wzmt'),ok:d._pagoYa||d.tipoEntrega!=='DELIVERY'||!!d._metodoPrevisto,msg:'Selecciona con qué método pagará el cliente al recibir.'}];}
+};
+FF.rules=RULES;
+/* paso del asistente: marca los campos que faltan antes de que el toast lo diga */
+function wzChecks(step){
+  const d=draft();if(!d)return[];
+  if(step===1)return[
+    {el:wzInp('Nombre y apellido'),ok:!!(d.cliente.nombre||'').trim(),msg:'Escribe el nombre del cliente.'},
+    {el:q('#sheetBody .wzb input[inputmode=tel]'),ok:d.canal==='MAYOR'||!!(d.cliente.telefono||'').trim(),msg:'Escribe el teléfono del cliente.'},
+    {el:wzInp('V-12345678'),ok:d.tipoEntrega!=='ENVIO_NACIONAL'||!!(d.cliente.cedula||'').trim(),msg:'La cédula es obligatoria para envíos nacionales.'},
+    {el:q('#wzSede'),ok:!!d.sedeId,msg:'Selecciona la sede.'}];
+  const dir=q('#sheetBody .wzb textarea[placeholder^="Urbanización"],#sheetBody .wzb textarea[placeholder^="Estado"]');
+  return[
+    {el:q('#sheetBody .wzadd'),ok:d.items.length>0&&d.items.every(i=>i.cantidad>0),msg:'Agrega al menos un producto.'},
+    {el:d._zonaCustom?wzInp('Nombre de la zona'):(q('#wzZona')||dir),ok:d.tipoEntrega!=='DELIVERY'||!!((d.cliente.direccion||'').trim()||d.cliente.zona),msg:'Indica la dirección o elige la zona de entrega.'},
+    {el:q('#wzAg'),ok:d.tipoEntrega!=='ENVIO_NACIONAL'||!!d.agenciaEnvio,msg:'Selecciona la agencia de envío.'},
+    {el:dir,ok:d.tipoEntrega!=='ENVIO_NACIONAL'||!!(d.cliente.direccion||'').trim(),msg:'Escribe la dirección de destino.'}];
+}
+
+/* ────────────────────────────────────────────────────────────
+   3 · BOTONES DE GUARDAR: cargando + sin doble envío
+   ──────────────────────────────────────────────────────────── */
+function findBtn(name,root){
+  const sel='button[onclick*="'+name+'("],#loginBtn';
+  const L=qa(sel,root||document).filter(b=>name==='doLogin'?b.id==='loginBtn':(b.getAttribute('onclick')||'').indexOf(name+'(')>=0);
+  return L.find(b=>b.matches('.bsave,.btn-lime,.btn.pri,#loginBtn'))||L[0]||null;
+}
+function setLoading(btn,on){
+  if(!btn)return;
+  btn.classList.toggle('ff-loading',!!on);
+  btn.setAttribute('aria-busy',on?'true':'false');
+  if(on){btn.dataset.ffWasDis=btn.disabled?'1':'';btn.disabled=true;}
+  else{btn.disabled=false;delete btn.dataset.ffWasDis;}
+}
+function wrapSave(name){
+  const orig=window[name];if(typeof orig!=='function'||orig._ffWrapped)return;
+  let busy=null;
+  const w=function(){
+    if(busy)return busy;/* ya hay un guardado en curso: ignora el segundo toque */
+    const root=name==='doLogin'||name==='doResetPassword'?q('.login-card'):(sheetOpen()?q('#sheetBody'):null);
+    let ok=true;
+    try{const R=RULES[name];if(R&&root)ok=validate(root,R.apply(null,arguments));}catch(e){console.warn('[v17 forms] reglas',name,e);}
+    const btn=root?findBtn(name,root):null;
+    const r=orig.apply(this,arguments);
+    if(r&&typeof r.then==='function'&&ok){
+      setLoading(btn,true);busy=r;
+      const done=()=>{busy=null;setLoading(btn,false);};
+      r.then(done,done);
+    }
+    return r;
+  };
+  w._ffWrapped=true;w._ffOrig=orig;window[name]=w;
+}
+['saveDraft','savePago','mPagoSave','saveGasto','saveGastoEdit','saveIngreso','saveVentaFin','saveConversion','saveNominaEmpleado','eqGuardar','intWaSave','iaGuardar','doLogin','doResetPassword','nomPagoSave','saveGastoEdit'].forEach(wrapSave);
+/* pasos del asistente de pedido */
+if(typeof window.wzGo==='function'){
+  const _wzGo=window.wzGo;
+  window.wzGo=function(n){
+    try{const d=draft();if(d&&n>(d._step||0)){const root=q('#sheetBody');if(root){
+      let bad=null;if(n>=1&&!wzVal().s1)bad=wzChecks(1);else if(n>=2&&!wzVal().s2)bad=wzChecks(2);
+      if(bad)validate(root,bad);else clearErrors(root);}}}catch(e){}
+    return _wzGo.apply(this,arguments);
+  };
+}
+
+/* ────────────────────────────────────────────────────────────
+   4 · LA HOJA COMO DIÁLOGO MODAL
+   ──────────────────────────────────────────────────────────── */
+function setInert(on){
+  const app=q('#app');if(!app)return;
+  if('inert' in app)app.inert=!!on;
+  if(on)app.setAttribute('aria-hidden','true');else app.removeAttribute('aria-hidden');
+}
+function sheetTitle(body){return body?q('.shx h3,.sh-head h3,.wzh .cd,h3,h2,.eyebrow',body):null;}
+function focusInitial(sheet,body){
+  const h=sheetTitle(body);
+  const fine=window.matchMedia&&matchMedia('(pointer:fine)').matches;
+  if(fine){
+    const first=qa(CTL,body).find(c=>visible(c)&&!c.disabled&&!c.readOnly);
+    if(first){const top=first.getBoundingClientRect().top-sheet.getBoundingClientRect().top;if(top>=0&&top<360){try{first.focus({preventScroll:true});return;}catch(e){}}}
+  }
+  const t=h||sheet;
+  t.tabIndex=-1;if(h)h.dataset.ffTitle='1';
+  try{t.focus({preventScroll:true});}catch(e){}
+}
+if(typeof window.openSheet==='function'){
+  const _open=window.openSheet;
+  window.openSheet=function(html){
+    const scrim=q('#scrim'),sheet=q('#sheet'),body=q('#sheetBody');
+    const wasOpen=sheetOpen(),act=document.activeElement;
+    let keep=null;
+    if(wasOpen&&body&&act&&body.contains(act)){
+      keep={id:act.id,idx:qa(FOC,body).indexOf(act),tag:act.tagName,sel:[act.selectionStart,act.selectionEnd],title:txt(sheetTitle(body)),wz:sheet?sheet.dataset.wz:''};
+    }else if(!wasOpen){FF._opener=(act&&act!==document.body)?act:null;}
+    const r=_open.apply(this,arguments);
+    if(sheet){
+      sheet.setAttribute('role','dialog');sheet.setAttribute('aria-modal','true');
+      const h=sheetTitle(body);if(h)sheet.setAttribute('aria-labelledby',ensureId(h));else sheet.removeAttribute('aria-labelledby');
+    }
+    enhance(body);
+    setInert(true);
+    /* shell.js (capa de navegación) también enfoca la hoja 30 ms después de abrirla: si está, dejamos que
+       haga el foco inicial y solo re-aplicamos la continuidad del campo (re-render del asistente) después. */
+    const shell=()=>{const sc=q('#scrim');return !!(sc&&sc.getAttribute('aria-hidden')==='false');};/* marca que deja shell.js al abrir */
+    const restore=()=>{
+      if(!sheetOpen()||!sheet)return false;
+      const same=keep&&keep.title===txt(sheetTitle(body))&&keep.wz===(sheet.dataset.wz||'');
+      if(!same)return false;
+      let el=null;
+      if(keep.id){try{el=q('#'+CSS.escape(keep.id),body);}catch(e){}}
+      if(!el&&keep.idx>=0){const L=qa(FOC,body);el=L[keep.idx]&&L[keep.idx].tagName===keep.tag?L[keep.idx]:null;}
+      if(!el)return false;
+      try{el.focus({preventScroll:true});if(keep.sel[0]!=null&&/INPUT|TEXTAREA/.test(el.tagName)&&el.setSelectionRange&&/text|search|tel|url|password/.test(el.type||'text'))el.setSelectionRange(keep.sel[0],keep.sel[1]);}catch(e){}
+      return true;
+    };
+    requestAnimationFrame(()=>{
+      if(!sheetOpen()||!sheet)return;
+      if(restore()){setTimeout(restore,60);return;}
+      if(!shell())focusInitial(sheet,body);
+    });
+    return r;
+  };
+}
+if(typeof window.closeSheet==='function'){
+  const _close=window.closeSheet;
+  window.closeSheet=function(){
+    const r=_close.apply(this,arguments);
+    setInert(false);
+    const o=FF._opener;FF._opener=null;
+    const a=document.activeElement,sheet=q('#sheet');
+    if(o&&document.contains(o)&&visible(o)){try{o.focus({preventScroll:true});}catch(e){}}
+    else if(a&&sheet&&sheet.contains(a)){try{a.blur();}catch(e){}}
+    return r;
+  };
+}
+/* si alguien oculta el scrim sin pasar por closeSheet, el fondo nunca queda inerte */
+(function(){const s=q('#scrim');if(!s)return;new MutationObserver(()=>{if(!s.classList.contains('show'))setInert(false);}).observe(s,{attributes:true,attributeFilter:['class']});})();
+
+/* Esc cierra · Tab se queda dentro · Enter/Espacio activan controles no nativos · Enter pasa al siguiente campo */
+document.addEventListener('keydown',e=>{
+  const t=e.target;
+  /* (fase de captura: así el "Esc dos veces" del asistente se decide antes que el Esc genérico de shell.js) */
+  /* controles con role=button que no son <button> */
+  if((e.key==='Enter'||e.key===' ')&&t&&t.getAttribute&&t.getAttribute('role')==='button'&&!/^(BUTTON|INPUT|SELECT|TEXTAREA)$/.test(t.tagName)&&!(t.tagName==='A'&&t.hasAttribute('href'))){
+    if(t.hasAttribute('onkeydown')||(t.dataset&&t.dataset.ffK)||t.matches('.mitem'))return;/* ya tienen su propio manejador (shell.js) */
+    e.preventDefault();t.click();return;
+  }
+  if(!sheetOpen())return;
+  if(window._tour)return;
+  const sheet=q('#sheet');if(!sheet)return;
+  if(e.key==='Escape'){
+    const so=q('#searchOverlay');if(so&&so.classList.contains('show'))return;
+    if(e.defaultPrevented||(t&&t.tagName==='SELECT'))return;
+    if(sheet.classList.contains('wzsheet')){
+      const now=Date.now();
+      if(!(FF._esc&&now-FF._esc<2000)){FF._esc=now;e.stopPropagation();if(typeof toast==='function')toast('Pulsa Esc otra vez para cerrar el pedido sin guardar');return;}
+      FF._esc=0;
+    }
+    e.preventDefault();closeSheet();return;
+  }
+  if(e.key==='Tab'){
+    const L=qa(FOC,sheet).filter(visible);if(!L.length)return;
+    const first=L[0],last=L[L.length-1],a=document.activeElement;
+    if(!sheet.contains(a)){e.preventDefault();(e.shiftKey?last:first).focus();return;}
+    if(e.shiftKey&&a===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&a===last){e.preventDefault();first.focus();}
+    return;
+  }
+  if(e.key==='Enter'&&t&&t.tagName==='INPUT'&&!t.hasAttribute('onkeydown')&&!e.shiftKey&&!e.ctrlKey&&!e.metaKey&&!e.isComposing){
+    const body=q('#sheetBody');if(!body||!body.contains(t))return;
+    if(/checkbox|radio|file|button|submit/.test(t.type))return;
+    const fields=qa(CTL,body).filter(c=>visible(c)&&!c.disabled&&!c.readOnly);
+    const ix=fields.indexOf(t);if(ix<0)return;
+    e.preventDefault();
+    if(ix<fields.length-1){fields[ix+1].focus();}
+    else{const b=qa('.bsave,.btn-lime,.btn.pri',body).filter(x=>visible(x)&&!x.disabled).pop();if(b)b.focus();else t.blur();}
+  }
+},true);
+
+/* ────────────────────────────────────────────────────────────
+   5 · OBSERVADORES (hoja, vista de Ajustes) · TOAST · LOGIN
+   ──────────────────────────────────────────────────────────── */
+(function(){
+  const body=q('#sheetBody');if(!body)return;
+  let t=null;
+  new MutationObserver(ms=>{
+    let need=false;
+    for(const m of ms){
+      if(m.type==='childList'&&m.addedNodes.length)need=true;
+      else if(m.type==='attributes'&&m.attributeName==='class'){
+        const el=m.target;if(el.nodeType!==1)continue;
+        const g=el.parentElement&&el.parentElement.closest&&el.parentElement.matches(TOG)?el.parentElement:null;
+        if(g)syncPressedIn(g);
+        if(el.matches&&el.matches('.wzs button'))el.classList.contains('on')?el.setAttribute('aria-current','step'):el.removeAttribute('aria-current');
+      }
+    }
+    if(need){clearTimeout(t);t=setTimeout(()=>enhance(body),0);}
+  }).observe(body,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
+})();
+(function(){
+  const view=q('#view');if(!view)return;
+  let t=null;
+  const run=()=>{
+    /* Ajustes: filas y tarjetas de cuenta operables con teclado; campos con etiqueta */
+    try{clickables(view,'.ajr[onclick],.ajacc[onclick],.ajl [onclick]:not(button)');}catch(e){}
+    try{qa('.ajfld',view).forEach(f=>{const s=f.querySelector(':scope>small'),i=f.querySelector('.ajfi input');if(s&&i&&!labelOf(i))i.setAttribute('aria-labelledby',ensureId(s));});
+      qa('.ajfi input',view).forEach(i=>{if(!labelOf(i)&&i.placeholder)i.setAttribute('aria-label',i.placeholder);});
+      qa('#ajMain input[type=search],#ajMain .ajs input',view).forEach(i=>{if(!labelOf(i))i.setAttribute('aria-label',i.placeholder||'Buscar en Ajustes');});}catch(e){}
+  };
+  new MutationObserver(()=>{clearTimeout(t);t=setTimeout(run,0);}).observe(view,{childList:true,subtree:true});
+  run();
+})();
+/* toasts: región de estado + alerta para errores */
+(function(){
+  const tst=q('#toast');
+  if(tst){tst.setAttribute('role','status');tst.setAttribute('aria-live','polite');tst.setAttribute('aria-atomic','true');}
+  let al=q('#ffA11yAlert');
+  if(!al){al=document.createElement('div');al.id='ffA11yAlert';al.setAttribute('role','alert');al.setAttribute('aria-live','assertive');al.setAttribute('aria-atomic','true');document.body.appendChild(al);}
+  if(typeof window.toast==='function'){
+    const _toast=window.toast;
+    window.toast=function(msg,type){
+      const r=_toast.apply(this,arguments);
+      if(type==='bad'){al.textContent='';setTimeout(()=>{al.textContent=(typeof emoClean==='function'?emoClean(String(msg)):String(msg));},30);}
+      return r;
+    };
+  }
+})();
+/* login */
+(function(){
+  const card=q('.login-card');if(!card)return;
+  enhance(card);
+  const em=q('#loginEmail'),pw=q('#loginPass'),err=q('#loginErr'),forgot=q('.forgot a');
+  if(em){em.setAttribute('enterkeyhint','next');em.setAttribute('aria-required','true');em.setAttribute('autocapitalize','off');em.setAttribute('spellcheck','false');}
+  if(pw){pw.setAttribute('enterkeyhint','go');pw.setAttribute('aria-required','true');}
+  if(err){err.setAttribute('role','alert');err.setAttribute('aria-live','assertive');err.tabIndex=-1;}
+  if(forgot&&!forgot.hasAttribute('href')){forgot.setAttribute('role','button');forgot.tabIndex=0;}
+  if(typeof window.showLoginErr==='function'){
+    const _s=window.showLoginErr;
+    window.showLoginErr=function(msg){
+      const r=_s.apply(this,arguments);
+      if(err){err.insertAdjacentHTML('afterbegin',icon('alert'));}
+      const m=String(msg||'').toLowerCase();
+      const badPw=/contraseña|credencial|incorrect/.test(m),badEm=/email|correo|usuario/.test(m);
+      [em,pw].forEach(i=>{if(!i)return;i.removeAttribute('aria-invalid');i.setAttribute('aria-describedby','loginErr');});
+      if(em&&(badEm||(/ingresa/.test(m)&&!em.value.trim())))em.setAttribute('aria-invalid','true');
+      if(pw&&(badPw||(/ingresa/.test(m)&&!pw.value)))pw.setAttribute('aria-invalid','true');
+      const f=(em&&em.getAttribute('aria-invalid'))?em:(pw&&pw.getAttribute('aria-invalid'))?pw:null;
+      try{if(f){f.focus({preventScroll:true});if(f===pw)pw.select();}else if(err)err.focus({preventScroll:true});}catch(e){}
+      return r;
+    };
+  }
+  if(typeof window.hideLoginErr==='function'){
+    const _h=window.hideLoginErr;
+    window.hideLoginErr=function(){const r=_h.apply(this,arguments);[em,pw].forEach(i=>{if(i){i.removeAttribute('aria-invalid');i.removeAttribute('aria-describedby');}});return r;};
+  }
+  [em,pw].forEach(i=>{if(i)i.addEventListener('input',()=>{i.removeAttribute('aria-invalid');});});
+})();
+})();
+
+/* ===== v17 data ===== */
+
+/* ============================================================
+   v17 · DATA · capa de vistas de datos
+   - tablas .mtab: envoltura de scroll + cabecera pegajosa cuando cabe
+   - Resumen: la agenda del día baja debajo de los KPI
+   - Órdenes: estado vacío con acciones
+   - gráficos SVG sin aria-label → lo reciben
+   - emoji '▦' del vacío de Inventario → icono SVG
+   Solo DOM/presentación. No toca datos ni Firestore.
+   ============================================================ */
+(function(){
+'use strict';
+const $q=(s,r)=>(r||document).querySelector(s);
+
+/* ── emoji faltante en el mapa de estados vacíos ── */
+try{if(typeof EMO_IC==='object'&&EMO_IC&&!EMO_IC['▦'])EMO_IC['▦']='grid';}catch(e){}
+
+/* ── altura de la topbar → --v17-top (para cabeceras pegajosas) ── */
+function v17Top(){try{const tb=$q('.topbar');const h=tb?Math.round(tb.getBoundingClientRect().height):64;document.documentElement.style.setProperty('--v17-top',(h-1)+'px');}catch(e){}}
+
+/* ── tablas: envolver y medir ── */
+function v17WrapTables(root){
+  const r=root||$q('#view');if(!r)return;
+  r.querySelectorAll('table.mtab').forEach(t=>{
+    const p=t.parentElement;if(!p)return;
+    if(p.classList.contains('v17-tw')||p.classList.contains('adtw')||p.classList.contains('p3tw')||p.classList.contains('cstw')||p.classList.contains('ftw'))return;
+    try{const hs=[...t.querySelectorAll('thead th')].map(h=>h.textContent.trim());if(hs.length>=8&&hs[3]==='Categoría'&&hs[6]==='Usuario')t.classList.add('v17-mov');}catch(e){}
+    const w=document.createElement('div');w.className='v17-tw';
+    p.insertBefore(w,t);w.appendChild(t);
+    w.addEventListener('scroll',()=>v17Edge(w),{passive:true});
+  });
+  v17MeasureTables(r);
+}
+function v17Edge(w){const over=w.scrollWidth-w.clientWidth>2;w.classList.toggle('scr',over);w.classList.toggle('at-end',!over||w.scrollLeft+w.clientWidth>=w.scrollWidth-2);}
+function v17MeasureTables(root){
+  const r=root||$q('#view');if(!r)return;
+  r.querySelectorAll('.v17-tw').forEach(w=>{
+    const t=w.firstElementChild;if(!t)return;
+    if(!t.offsetParent&&getComputedStyle(t).display==='none'){w.classList.remove('fit','scr');return;}
+    // medir con overflow activo (sin .fit) para saber si cabe
+    w.classList.remove('fit');
+    const fits=t.scrollWidth<=w.clientWidth+1;
+    w.classList.toggle('fit',fits);
+    v17Edge(w);
+  });
+  // chips de sub-pestañas de Finanzas: quitar la pista cuando ya se ve el final
+  r.querySelectorAll('.fsubs').forEach(f=>{if(!f._v17){f._v17=1;f.addEventListener('scroll',()=>v17Edge(f),{passive:true});}v17Edge(f);});
+}
+
+/* ── gráficos SVG sin nombre accesible ── */
+function v17ChartA11y(root){
+  const r=root||$q('#view');if(!r)return;
+  r.querySelectorAll('.adchart svg:not([role])').forEach(s=>{s.setAttribute('role','img');s.setAttribute('aria-label','Gasto en anuncios, ventas y leads por día');});
+  r.querySelectorAll('.p3spark svg:not([role])').forEach(s=>{s.setAttribute('role','img');s.setAttribute('aria-label','Gasto en anuncios y ventas por día');});
+  r.querySelectorAll('.fk .spk svg:not([aria-hidden])').forEach(s=>s.setAttribute('aria-hidden','true'));
+}
+
+/* ── pasada tras cada render (observador con rAF) ── */
+let _raf=0;
+function v17Pass(){cancelAnimationFrame(_raf);_raf=requestAnimationFrame(()=>{try{v17WrapTables();v17ChartA11y();}catch(e){console.warn('v17 data pass',e);}});}
+function v17Observe(){
+  const v=$q('#view');if(!v||v._v17obs)return;
+  v._v17obs=new MutationObserver(ms=>{for(const m of ms){if(m.type==='childList'&&m.addedNodes.length){v17Pass();return;}}});
+  v._v17obs.observe(v,{childList:true,subtree:true});
+  v17Pass();
+}
+document.addEventListener('DOMContentLoaded',()=>{v17Top();v17Observe();});
+if(document.readyState!=='loading'){v17Top();v17Observe();}
+// la vista se monta tras el login: reintentar hasta que exista #view
+let _tries=0;const _it=setInterval(()=>{v17Top();v17Observe();if($q('#view')&&$q('#view')._v17obs||++_tries>40)clearInterval(_it);},500);
+window.addEventListener('resize',()=>{clearTimeout(window._v17rz);window._v17rz=setTimeout(()=>{v17Top();v17MeasureTables();},180);});
+
+/* ── Resumen: agenda del día debajo de los KPI y alertas ──
+   La tarjeta se insertaba justo bajo el saludo, empujando los KPI (lo
+   principal del Resumen) fuera del primer pantallazo en móvil, y dejando
+   los chips de período lejos de las tarjetas que controlan. */
+if(typeof agHoyCard==='function'){
+  const _agHoyV17=agHoyCard;
+  agHoyCard=async function(){
+    const r=await _agHoyV17.apply(this,arguments);
+    try{
+      if(S.route==='dash'){
+        const card=$q('#agHoy'),k=$q('#dashKpis');
+        if(card&&k){const anchor=$q('#dashAlerts')||k;if(card.previousElementSibling!==anchor)anchor.insertAdjacentElement('afterend',card);}
+      }
+    }catch(e){}
+    return r;
+  };
+}
+
+/* ── Órdenes: estado vacío con acciones ── */
+if(typeof renderDespList==='function'){
+  const _rdlV17=renderDespList;
+  renderDespList=function(){
+    const r=_rdlV17.apply(this,arguments);
+    try{
+      const el=$q('#orderList'),em=el&&el.querySelector('.empty');
+      if(em&&!em.querySelector('.v17-ea')){
+        const F=S.filters||{};
+        const hasF=(F.despEstado&&F.despEstado!=='todos')||(F.despSede&&F.despSede!=='todas')||(F.despCanal&&F.despCanal!=='todos')||(F.despPago&&F.despPago!=='todos')||(F.despPeriodo&&F.despPeriodo!=='todos')||!!F.despSearch;
+        const a=document.createElement('div');a.className='v17-ea';
+        a.innerHTML=(hasF?`<button class="btn-out" onclick="v17DespReset()">${ic('x')}<span>Quitar filtros</span></button>`:'')+`<button class="btn-lime" onclick="openNewOrder()">${ic('plus')}Nuevo pedido</button>`;
+        em.appendChild(a);
+      }
+    }catch(e){}
+    return r;
+  };
+}
+window.v17DespReset=function(){
+  const F=S.filters||(S.filters={});
+  F.despEstado='todos';F.despSede='todas';F.despCanal='todos';F.despPago='todos';F.despPeriodo='todos';F.despSearch='';
+  window._despPage=0;
+  if(typeof viewDespacho==='function')viewDespacho();
+};
+
+/* ── Finanzas: al cambiar de sub-pantalla o tabla filtrada, re-medir ── */
+if(typeof finFiltrarTabla==='function'){
+  const _fftV17=finFiltrarTabla;
+  finFiltrarTabla=function(){const r=_fftV17.apply(this,arguments);try{v17MeasureTables();}catch(e){}return r;};
+}
+
+window.v17Data={wrapTables:v17WrapTables,measure:v17MeasureTables,pass:v17Pass};
+})();
+
+/* ===== v17 chat ===== */
+/* ============================================================
+   v17 · chat: Mensajes / CRM / Portal del motorizado / Verificación /
+   Feedback / Organigrama. Capa de presentación e interacción: envuelve
+   funciones existentes (siempre llama a la original), post-procesa el DOM
+   y no escribe nada nuevo en Firestore/Storage.
+   ============================================================ */
+(function(){
+'use strict';
+const RM=()=>!!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+const coarse=()=>!!(window.matchMedia&&matchMedia('(pointer: coarse)').matches);
+const hap=ms=>{try{if(coarse()&&navigator.vibrate)navigator.vibrate(ms||8);}catch(e){}};
+const $$=(s,r)=>Array.from((r||document).querySelectorAll(s));
+
+/* ---------- iconos: check doble para "enviado por el canal" ---------- */
+try{if(typeof ICO==='object'&&!ICO.check2)ICO.check2='<path d="m2 12 4 4 7-8"/><path d="m11 16 2 2 9-10"/>';if(typeof ICO==='object'&&!ICO.check1)ICO.check1='<path d="m5 12 4 4 10-10"/>';}catch(e){}
+
+/* ============================================================
+   1. MENSAJES · hilo: separadores de fecha + estado de envío
+   ============================================================ */
+const DATE_RX=/^(?:(.*?) · )?(\d{1,2}[\s\-\/]+[^\d\s·]+\.?)\s+(\d{1,2}:\d{2}.*)$/;
+function dayLabel(dateStr){
+  try{const f=s=>{const m=String(s).match(DATE_RX);return m?m[2].toLowerCase():'';};
+    const hoy=f(fechaCorta(Date.now())),ayer=f(fechaCorta(Date.now()-864e5));const d=dateStr.toLowerCase();
+    if(d===hoy)return 'Hoy';if(d===ayer)return 'Ayer';return dateStr.charAt(0).toUpperCase()+dateStr.slice(1);}catch(e){return dateStr;}
+}
+function ixDecorate(x){
+  const el=document.getElementById('ixMsgs');if(!el||el.querySelector('.ixday'))return;
+  const bubbles=$$('.ixm',el);if(!bubbles.length)return;
+  /* separadores de fecha: se derivan del texto ya renderizado (dd mmm hh:mm) y se deja solo la hora */
+  let cur='';
+  bubbles.forEach(b=>{if(b.classList.contains('sys'))return;const sm=b.querySelector(':scope>small');if(!sm)return;
+    const m=sm.textContent.trim().match(DATE_RX);if(!m)return;const [,por,date,time]=m;
+    if(date!==cur){const first=!cur;cur=date;const sep=document.createElement('div');sep.className='ixday';sep.setAttribute('role','separator');sep.textContent=dayLabel(date);if(first)el.prepend(sep);else b.before(sep);}
+    sm.textContent=(por?por+' · ':'')+time;sm.title=date+' '+time;});
+  /* estado de envío en mis burbujas */
+  try{const mine=$$('.ixm.me',el);if(!mine.length||!x)return;
+    const meta=x.fuente==='meta';const srcMsgs=meta?null:(x.msgs||[]).filter(m=>m.from==='me'||m.from==='ia').slice().sort((a,b)=>(a.ts||0)-(b.ts||0));
+    const zip=srcMsgs&&srcMsgs.length===mine.length;
+    mine.forEach((b,i)=>{const sm=b.querySelector(':scope>small');if(!sm||sm.querySelector('.ixst'))return;
+      const m=zip?srcMsgs[i]:null;const sent=meta||!!(m&&m.enviado);
+      const lab=meta?'Enviado por '+(x.plat||'Meta'):sent?'Enviado por WhatsApp':'Registrado en el panel';
+      const s=document.createElement('span');s.className='ixst '+(sent?'sent':'reg');s.title=lab;s.setAttribute('aria-label',lab);s.innerHTML=ic(sent?'check2':'check1');sm.appendChild(s);});}catch(e){}
+}
+if(typeof ixLoadMsgs==='function'){const _o=ixLoadMsgs;ixLoadMsgs=async function(x){const r=await _o.apply(this,arguments);try{ixDecorate(x);const el=document.getElementById('ixMsgs');if(el)el.scrollTop=el.scrollHeight;}catch(e){}return r;};}
+
+/* ============================================================
+   2. MENSAJES · composer: auto-grow, envío optimista, foco
+   ============================================================ */
+function taGrow(ta){if(!ta)return;if(!ta.value){ta.style.height='';ta.style.overflowY='hidden';return;}ta.style.height='auto';const h=Math.min(132,Math.max(44,ta.scrollHeight));ta.style.height=h+'px';ta.style.overflowY=ta.scrollHeight>132?'auto':'hidden';}
+document.addEventListener('input',e=>{if(e.target&&e.target.id==='ixTxt')taGrow(e.target);});
+document.addEventListener('focusin',e=>{if(e.target&&e.target.id==='ixTxt')taGrow(e.target);});
+if(typeof ixSend==='function'){const _o=ixSend;ixSend=async function(id,extra){
+  const ta=document.getElementById('ixTxt');const txt=(ta&&ta.value||'').trim();let tmp=null;
+  try{if(txt&&!extra){const el=document.getElementById('ixMsgs');if(el){tmp=document.createElement('div');tmp.className='ixm me pending';tmp.innerHTML=esc(txt)+`<small>Enviando…<span class="ixst" aria-hidden="true">${ic('check1')}</span></small>`;el.appendChild(tmp);el.scrollTop=el.scrollHeight;}hap(6);}}catch(e){}
+  let r;try{r=await _o.apply(this,arguments);}finally{
+    try{const ta2=document.getElementById('ixTxt');if(tmp&&tmp.isConnected){if(ta2&&ta2.value.trim()===txt&&txt)tmp.remove();else{tmp.classList.remove('pending');const sm=tmp.querySelector('small');if(sm)sm.innerHTML='Enviado'+`<span class="ixst sent" aria-hidden="true">${ic('check1')}</span>`;}}
+      if(ta2&&!ta2.value){ta2.style.height='';ta2.style.overflowY='hidden';}}catch(e){}}
+  return r;};}
+/* escritorio: altura del panel del hilo según dónde empieza en pantalla */
+function ixFit(){try{const w=document.getElementById('ixW');if(!w||innerWidth<1024)return;const top=Math.max(88,Math.round(w.getBoundingClientRect().top));w.style.setProperty('--v17-ixtop',top+'px');}catch(e){}}
+if(typeof viewInbox==='function'){const _o=viewInbox;viewInbox=async function(){const r=await _o.apply(this,arguments);ixFit();return r;};}
+window.addEventListener('resize',()=>{if(document.getElementById('ixW'))ixFit();});
+/* al abrir un hilo en escritorio, el foco va al composer; en móvil no (evita abrir el teclado solo) */
+if(typeof ixOpen==='function'){const _o=ixOpen;ixOpen=async function(id,keep){const r=await _o.apply(this,arguments);try{const ta=document.getElementById('ixTxt');if(ta){taGrow(ta);if(innerWidth>=1024&&!keep)ta.focus({preventScroll:true});}
+  const side=document.getElementById('ixSide');if(side)side.setAttribute('role','region'),side.setAttribute('aria-label','Conversación');}catch(e){}return r;};}
+
+/* ============================================================
+   3. Deslizar desde el borde izquierdo para volver (hilo en móvil y entrega)
+   ============================================================ */
+(function(){let st=null;const EDGE=28,GO=72;
+  const target=()=>{const m=document.getElementById('mdp');if(m)return{el:m,back:()=>{try{mEntregaBack();}catch(e){}}};
+    const w=document.getElementById('ixW');const s=document.getElementById('ixSide');if(w&&s&&w.classList.contains('open')&&innerWidth<1024)return{el:s,back:()=>{try{ixBack();}catch(e){}}};return null;};
+  document.addEventListener('pointerdown',e=>{if(e.pointerType!=='touch'||e.clientX>EDGE)return;const t=target();if(!t)return;if(document.getElementById('scrim')?.classList.contains('show'))return;st={...t,x0:e.clientX,y0:e.clientY,on:false,dead:false};},{passive:true});
+  document.addEventListener('pointermove',e=>{if(!st||st.dead)return;const dx=e.clientX-st.x0,dy=e.clientY-st.y0;
+    if(!st.on){if(Math.abs(dy)>12&&Math.abs(dy)>Math.abs(dx)){st.dead=true;return;}if(dx>10){st.on=true;st.el.classList.add('v17-drag');}else return;}
+    if(!RM())st.el.style.transform='translateX('+Math.max(0,dx*.45)+'px)';},{passive:true});
+  const end=e=>{if(!st)return;const dx=e.clientX-st.x0;const go=st.on&&dx>GO;const el=st.el,back=st.back;st=null;
+    el.classList.remove('v17-drag');if(go){hap(10);el.style.transform='';back();}else{el.style.transition=RM()?'':'transform .18s cubic-bezier(.32,.72,.24,1)';el.style.transform='';setTimeout(()=>{el.style.transition='';},200);}};
+  document.addEventListener('pointerup',end,{passive:true});document.addEventListener('pointercancel',end,{passive:true});})();
+
+/* ============================================================
+   4. PORTAL DEL MOTORIZADO · entrega paso a paso
+   ============================================================ */
+const STEPS=['En camino','En el sitio','Entregado'];
+if(typeof mEntregaRender==='function'){const _o=mEntregaRender;mEntregaRender=function(){
+  /* conserva el scroll al re-renderizar el mismo paso (cambiar método de pago, registrar cobro, elegir foto) */
+  let keep=0;try{const E=window._mE;const body=document.querySelector('#mdp .mdp-body');if(body&&E&&E._v17step===E.step)keep=body.scrollTop;if(E)E._v17step=E.step;}catch(e){}
+  const r=_o.apply(this,arguments);
+  try{const E=window._mE,el=document.getElementById('mdp');if(!E||!el)return r;const step=E.step||1;
+    el.setAttribute('role','dialog');el.setAttribute('aria-modal','true');el.setAttribute('aria-label','Entrega · '+(STEPS[step-1]||''));
+    const bars=el.querySelector('.mdp-steps');
+    if(bars&&!el.querySelector('.mdp-stepl')){bars.setAttribute('role','progressbar');bars.setAttribute('aria-valuemin','1');bars.setAttribute('aria-valuemax','3');bars.setAttribute('aria-valuenow',String(step));bars.setAttribute('aria-valuetext','Paso '+step+' de 3: '+(STEPS[step-1]||''));
+      bars.insertAdjacentHTML('afterend','<div class="mdp-stepl" aria-hidden="true">'+STEPS.map((s,i)=>`<span class="${i+1<step?'done':i+1===step?'on':''}">${i+1}. ${s}</span>`).join('')+'</div>');}
+    /* por qué está deshabilitado el botón de confirmar */
+    const btn=el.querySelector('#mConfirm');if(btn&&btn.disabled&&!el.querySelector('.mdp-why')){let why='';try{const debe=mDebe(E.p);why=debe>0.5?'Registra el cobro completo ('+usd(debe)+' pendiente) para poder confirmar.':'Sube la foto de la entrega para poder confirmar.';}catch(e){why='Completa el cobro y la foto para confirmar.';}
+      const foot=el.querySelector('.mdp-foot');if(foot){const d=document.createElement('div');d.className='mdp-why';d.id='mdpWhy';d.setAttribute('role','status');d.textContent=why;foot.before(d);btn.setAttribute('aria-describedby','mdpWhy');}}
+    if(keep){const body=el.querySelector('.mdp-body');if(body)body.scrollTop=keep;}
+    /* el foco entra al diálogo al abrirlo */
+    if(!E._v17focused){E._v17focused=true;const b=el.querySelector('.mdp-h .xbtn');if(b&&!coarse())b.focus({preventScroll:true});}
+  }catch(e){}
+  return r;};}
+/* feedback háptico en acciones primarias del portal */
+document.addEventListener('pointerdown',e=>{try{const t=e.target.closest&&e.target.closest('.mdp-foot .btn-lime:not(:disabled),.mo .act .btn-lime,.mrt .rac .btn-lime,.mpg .add,.pvbt button,.mfoto');if(t)hap(8);}catch(x){}},{passive:true});
+/* Escape cierra la entrega (vuelve) cuando no hay hoja abierta */
+document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(document.getElementById('scrim')?.classList.contains('show'))return;if(document.getElementById('mdp')){try{mEntregaBack();}catch(x){}}});
+
+/* ============================================================
+   5. VERIFICACIÓN · tarjetas accesibles por teclado
+   ============================================================ */
+function a11yCards(sel){$$(sel).forEach(c=>{if(c.dataset.v17)return;c.dataset.v17='1';if(!c.hasAttribute('tabindex'))c.tabIndex=0;c.setAttribute('role','button');
+  c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();c.click();}});});}
+if(typeof viewVerif==='function'){const _o=viewVerif;viewVerif=async function(){const r=await _o.apply(this,arguments);try{a11yCards('.pvi,.pvc');}catch(e){}return r;};}
+if(typeof viewMoto==='function'){const _o=viewMoto;viewMoto=async function(){const r=await _o.apply(this,arguments);try{a11yCards('.pvc,.mhist');}catch(e){}return r;};}
+if(typeof viewDash==='function'){const _o=viewDash;viewDash=async function(){const r=await _o.apply(this,arguments);try{a11yCards('.pvc');}catch(e){}return r;};}
+if(typeof ixRenderList==='function'){const _o=ixRenderList;ixRenderList=function(){const r=_o.apply(this,arguments);try{a11yCards('.ixc');}catch(e){}return r;};}
+
+/* ============================================================
+   6. ORGANIGRAMA · líneas a 60 fps y acceso por teclado
+   ============================================================ */
+if(typeof orgLines==='function'){const _o=orgLines;let raf=0;orgLines=function(){if(raf)return;raf=requestAnimationFrame(()=>{raf=0;try{_o();}catch(e){}});};}
+if(typeof viewOrg==='function'){const _o=viewOrg;viewOrg=async function(){const r=await _o.apply(this,arguments);try{const C=document.getElementById('orgC');if(!C||C.dataset.v17)return r;C.dataset.v17='1';
+  $$('.orgf',C).forEach(f=>{f.tabIndex=0;const nm=f.querySelector('b')?.textContent||'';f.setAttribute('aria-label',nm+'. Enter para editar');});
+  C.addEventListener('keydown',e=>{const f=e.target.closest&&e.target.closest('.orgf');if(!f)return;if(e.key==='Enter'||e.key===' '){e.preventDefault();try{orgEditPersona(f.dataset.id);}catch(x){}}});}catch(e){}return r;};}
+
+/* ============================================================
+   7. Rendimiento: lista de clientes y feedback largas (render perezoso vía CSS
+   content-visibility; aquí solo se evita trabajo repetido al escribir en buscadores)
+   ============================================================ */
+if(typeof fbRenderList==='function'){const _o=fbRenderList;let t=0;fbRenderList=function(){const a=arguments,self=this;const el=document.getElementById('fbList');
+  if(!el||!el.childElementCount)return _o.apply(self,a);/* primer render: inmediato */
+  clearTimeout(t);t=setTimeout(()=>{try{_o.apply(self,a);}catch(e){}},70);};}
+})();
 
 </script>
 <script>
