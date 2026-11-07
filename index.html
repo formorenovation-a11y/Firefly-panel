@@ -15127,7 +15127,7 @@ Object.assign(ICO,{dot:'<circle cx="12" cy="12" r="5"/>',printer:ICO.printer||'<
    vivo por sede, ruta actual por motorizado, ETA, traza del día
    ============================================================ */
 function mapPuede(){const u=S.user||{};return u.rol==='socio'||u.rol==='admin'||u.rolReal==='ceo';}
-const MAP_TILES='https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',MAP_ATTR='&copy; OpenStreetMap &copy; CARTO';
+const MAP_TILES='https://tile.openstreetmap.org/{z}/{x}/{y}.png',MAP_ATTR='&copy; OpenStreetMap';
 function ffLeaflet(){if(window.L&&window.L.map)return Promise.resolve(window.L);if(window._lfP)return window._lfP;window._lfP=new Promise((res,rej)=>{const l=document.createElement('link');l.rel='stylesheet';l.href='https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css';document.head.appendChild(l);const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js';s.onload=()=>res(window.L);s.onerror=()=>{window._lfP=null;rej(new Error('No se pudo cargar el mapa'));};document.head.appendChild(s);});return window._lfP;}
 function geoDist(a,b){if(!a||!b)return 0;const R=6371,dLat=(b[0]-a[0])*Math.PI/180,dLng=(b[1]-a[1])*Math.PI/180;const x=Math.sin(dLat/2)**2+Math.cos(a[0]*Math.PI/180)*Math.cos(b[0]*Math.PI/180)*Math.sin(dLng/2)**2;return 2*R*Math.asin(Math.sqrt(x));}
 function etaMin(km){return Math.max(2,Math.round(km/22*60+3));}
