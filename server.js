@@ -265,9 +265,12 @@ async function sedesRows() {
   rows.push({ id: 'sede_resto', title: 'Resto del país' });
   return { sedes, rows };
 }
-async function elegirVendedor(sedeId) {
+const IA_UID = 'ia_luci';
+function iaActiva(cfg) { const ia = (cfg && cfg.ia) || {}; return !!(ia.modo && ia.modo !== 'off' && cfg.anthropicKey); }
+async function elegirVendedor(sedeId, cfg, soloHumano) {
+  if (!soloHumano && cfg && iaActiva(cfg) && cfg.ia.primeraLinea) return { id: IA_UID, nombre: cfg.ia.nombre || 'Luci', esIA: true };
   const users = await fsCached('usuarios', 5 * 60e3, () => fsList('usuarios'));
-  let pool = users.filter(u => u.activo !== false && u.rol === 'vendedor' && (sedeId === 'resto' ? (u.sedeId === 'resto' || !u.sedeId) : u.sedeId === sedeId));
+  let pool = users.filter(u => u.activo !== false && u.rol === 'vendedor' && u.id !== IA_UID && (sedeId === 'resto' ? (u.sedeId === 'resto' || !u.sedeId) : u.sedeId === sedeId));
   if (!pool.length) pool = users.filter(u => u.activo !== false && u.rol === 'vendedor');
   if (!pool.length) return null;
   pool.sort((a, b) => String(a.id).localeCompare(String(b.id)));
@@ -280,7 +283,7 @@ async function asignarConv(conv, sedeKey, cfg) {
   const { sedes } = await sedesRows();
   const sedeId = sedeKey === 'resto' ? 'resto' : sedeKey;
   const sede = sedes.find(s => s.id === sedeId);
-  const v = await elegirVendedor(sedeId);
+  const v = await elegirVendedor(sedeId, cfg);
   const now = Date.now();
   const patch = { sedeId: sedeId === 'resto' ? '' : sedeId, sedeNombre: sede ? (sede.nombre || sede.codigo) : 'Resto del país', sedeElegida: now };
   if (v) Object.assign(patch, { asignadoId: v.id, asignadoNombre: v.nombre || '', asignadoTs: now, asignadoPor: 'Firefly (automático)', estado: 'CONTACTADO' });
@@ -289,7 +292,10 @@ async function asignarConv(conv, sedeKey, cfg) {
   await fsPatch('clientes', clId, { nombre: conv.name || 'Cliente', telefono: conv.tel || '', ig: conv.plat === 'Instagram' ? (conv.name || '') : '', igId: conv.plat === 'Instagram' ? (conv.uid || '') : '', fbId: conv.plat === 'Facebook' ? (conv.uid || '') : '', canal: conv.plat, origen: 'Mensaje', estado: v ? 'CONTACTADO' : 'NUEVO', creado: conv.creado || now, actualizado: now, tags: [], pedidoIds: [], pedidos: 0, totalUSD: 0, sedeId: patch.sedeId, ...(v ? { vendedorId: v.id, vendedorNombre: v.nombre || '', asignadoTs: now, asignadoPor: 'Firefly (automático)', fu: { inicio: now, hechos: {}, activo: true } } : {}) }).catch(e => log('cliente', e.message));
   patch.clienteId = clId;
   await fsPatch('conversaciones', conv.id, patch);
-  if (v) {
+  if (v && v.esIA) {
+    const txt = (cfg.ia && cfg.ia.saludoLuci || 'Perfecto. Soy {vendedor}, del equipo de {empresa} en {sede}. Cuéntame, ¿en qué te ayudo?').replace('{vendedor}', v.nombre).replace('{empresa}', cfg.empresa || 'Firefly').replace('{sede}', patch.sedeNombre);
+    await enviarTexto({ ...conv, ...patch }, txt, cfg, { from: 'ia', por: v.nombre + ' (IA)' }).catch(e => log('saludoLuci', e.message));
+  } else if (v) {
     await fsPatch('notifs', 'nf_auto_' + conv.id, { paraId: v.id, titulo: `Nuevo lead de ${conv.plat}: ${conv.name || 'cliente'}`, sub: `${patch.sedeNombre} · ${(conv.last || '').slice(0, 80)} · Inicia el follow-up #1 hoy`, r: 'inbox', arg: conv.id, tipo: 'lead', ts: now, leido: false, deId: '', deNombre: 'Firefly' }).catch(() => {});
     const txt = (cfg.waCloud && cfg.waCloud.saludoOk || 'Perfecto. {vendedor} de nuestro equipo en {sede} te atenderá en un momento.').replace('{vendedor}', (v.nombre || 'Un asesor').split(' ')[0]).replace('{sede}', patch.sedeNombre);
     await enviarTexto(conv, txt, cfg).catch(e => log('saludoOk', e.message));
@@ -425,7 +431,10 @@ function iaSistema(cfg, prods, sedes, promos) {
   const sd = sedes.map(s => s.nombre || s.codigo).join(', ');
   const pagos = Object.keys((cfg.pagosInfo && cfg.pagosInfo.datos) || cfg.pagosInfo || {}).filter(k => k !== 'qrImg').join(', ') || 'Pago Móvil, Zelle, Binance, efectivo';
   const tasa = +cfg.tasaActual || 0;
-  return `${ia.prompt || `Eres ${ia.nombre || 'Luci'}, asistente de ventas de ${emp}, una marca venezolana de linternas de cabeza. Hablas en español venezolano, cercano y alegre, con frases cortas y sin emojis en exceso (máximo uno).`}
+  const nom = ia.nombre || 'Luci';
+  const viejo = /^Eres Luci, la asistente de ventas de Firefly, una marca venezolana de linternas de cabeza\. Hablas en español venezolano, cercano, alegre y directo/.test(String(ia.prompt || '').trim());
+  return `${(ia.prompt && !viejo) ? ia.prompt : iaPromptBase(nom, emp)}
+Tu nombre es ${nom}. Hoy es ${new Date().toLocaleDateString('es-VE', { timeZone: ia.tz || 'America/Caracas', weekday: 'long', day: 'numeric', month: 'long' })}.
 
 DATOS DEL NEGOCIO (úsalos, no inventes nada fuera de esto):
 Productos y precios en USD:
@@ -435,11 +444,20 @@ Ciudades con sede (entrega por motorizado): ${sd || 'varias ciudades'}. Al resto
 Métodos de pago: ${pagos}. ${tasa ? 'Tasa del día: ' + tasa + ' Bs por $ (los pagos en bolívares se calculan con esta tasa).' : ''}
 Horario del equipo humano: ${ia.horarioEquipo || 'de 9:00 am a 7:00 pm'}.
 
-REGLAS:
-- Responde en máximo 3 frases, directo y amable. Nunca inventes precios, stock ni fechas; si no lo sabes, di que un asesor lo confirma.
-- Si el cliente quiere comprar, pide en un solo mensaje: producto y cantidad, ciudad o dirección, y método de pago; luego avisa que un asesor del equipo confirmará el pedido ${ia.horarioEquipo ? 'en el horario ' + ia.horarioEquipo : 'al iniciar el horario de atención'}.
-- Si el cliente pide hablar con una persona, se queja, o el tema es garantía, reclamo o devolución, responde exactamente: [HUMANO]
-- No hables de temas ajenos a ${emp}. Si te preguntan si eres un bot, dilo con naturalidad.`;
+REGLAS DE ATENCIÓN:
+- Mensajes cortos, como en un chat real: de 1 a 4 frases, una idea por mensaje. Nada de listas largas ni párrafos.
+- Llama al cliente por su nombre si lo sabes y responde exactamente lo que preguntó antes de ofrecer algo más.
+- Nunca inventes precios, stock, fechas de entrega ni promociones; si no está en los datos, di con naturalidad que lo confirmas con el equipo.
+- Si el cliente quiere comprar, pide en un solo mensaje lo que falte: producto y cantidad, ciudad o dirección de entrega, y método de pago. Cuando lo tengas todo, confirma el resumen y avisa que el equipo valida el pago y coordina la entrega ${ia.horarioEquipo ? 'en el horario ' + ia.horarioEquipo : 'en el horario de atención'}.
+- Si el cliente pide hablar con una persona, se queja, está molesto, o el tema es garantía, reclamo, devolución o un pago que no aparece, responde exactamente: [HUMANO]
+- No hables de temas ajenos a ${emp}, no des opiniones políticas ni médicas, y no prometas nada que no esté en los datos. Si te preguntan si eres una IA, dilo con naturalidad y sigue ayudando.`;
+}
+function iaPromptBase(nom, emp) {
+  return `Eres ${nom}, la encargada de atención al cliente de ${emp}, una marca venezolana de linternas de cabeza. Eres una profesional venezolana de atención al cliente con un carisma increíble y una atención impecable: cálida, atenta, resolutiva y con mucha chispa, pero siempre respetuosa y seria con los datos.
+
+Cómo hablas: en español de Venezuela, natural y cercano, de tú, como una persona real que conoce el producto y disfruta ayudar. Saludas con energía, usas el nombre del cliente, agradeces y cierras con una pregunta o un siguiente paso claro. Expresiones venezolanas suaves cuando encajen ("¡claro que sí!", "con mucho gusto", "chévere", "dale"), sin exagerar ni caer en caricatura. Máximo un emoji por mensaje y solo si aporta.
+
+Cómo atiendes: escuchas primero, respondes exactamente lo que te preguntaron, y luego ayudas a elegir la linterna correcta según el uso (camping, trabajo, ciclismo, apagones, pesca). Explicas precios y formas de pago sin rodeos, resuelves dudas con seguridad y dejas el pedido listo para que el equipo lo confirme. Nunca haces sentir al cliente apurado ni ignorado; si algo no depende de ti, lo dices con honestidad y lo pasas al equipo.`;
 }
 async function iaHistorial(conv, cfg) {
   if (conv.fuente === 'meta' && conv.metaId && cfg.metaPageToken) {
@@ -452,11 +470,14 @@ async function iaMaybe(conv, txt, cfg) {
     const ia = cfg.ia || {}; if (!ia.modo || ia.modo === 'off' || !cfg.anthropicKey) return;
     const canales = ia.canales || ['WhatsApp', 'Instagram', 'Facebook']; if (!canales.includes(conv.plat)) return;
     const cur = await fsGet('conversaciones', conv.id); if (!cur || cur.iaOff) return;
-    if (!iaEnHorario(ia)) return;
+    const nomIA = ia.nombre || 'Luci';
+    const asignadaIA = cur.asignadoId === IA_UID; // chat asignado a Luci desde el panel o como primera línea
+    if (ia.modo === 'asignada' && !asignadaIA) return;
+    if (!asignadaIA && !iaEnHorario(ia)) return;
     const msgs = cur.msgs || [];
-    const ultHumano = msgs.filter(m => m.from === 'me' && m.por !== 'Asistente IA' && m.por !== 'Firefly (auto)').slice(-1)[0];
+    const ultHumano = msgs.filter(m => m.from === 'me' && m.por !== 'Asistente IA' && m.por !== 'Firefly (auto)' && !/\(IA\)$/.test(m.por || '')).slice(-1)[0];
     if (ultHumano && Date.now() - ultHumano.ts < (+ia.pausaHumanoMin || 120) * 60e3) return;
-    const turnos = msgs.filter(m => m.from === 'ia').length; if (turnos >= (+ia.maxTurnos || 25)) return;
+    const turnos = msgs.filter(m => m.from === 'ia').length; if (turnos >= (asignadaIA ? (+ia.maxTurnosAsig || 80) : (+ia.maxTurnos || 25))) return;
     if (!txt || !txt.trim()) return;
     const pideHumano = /\b(asesor|asesora|humano|persona real|una persona|agente|vendedor|vendedora|hablar con alguien|reclamo|garant[ií]a|devoluci[oó]n)\b/i.test(txt);
     let reply = '';
@@ -474,12 +495,20 @@ async function iaMaybe(conv, txt, cfg) {
     if (!reply) return;
     if (reply.includes('[HUMANO]')) {
       const msg = ia.handoffMsg || 'Claro, te paso con una persona del equipo. En nuestro horario de atención te responde en breve.';
-      await enviarTexto({ ...cur, id: conv.id, plat: conv.plat, uid: conv.uid }, msg, cfg, { from: 'ia', por: 'Asistente IA' });
-      await fsPatch('conversaciones', conv.id, { iaOff: true, iaHandoff: Date.now(), unread: ((cur.unread || 0) + 1) });
-      if (cur.asignadoId) await fsPatch('notifs', 'nf_ia_' + conv.id + '_' + Date.now(), { uid: cur.asignadoId, t: 'Cliente pide un asesor: ' + (cur.name || ''), s: txt.slice(0, 90), r: 'inbox', ic: 'inbox', ts: Date.now(), leido: false }).catch(() => { });
+      await enviarTexto({ ...cur, id: conv.id, plat: conv.plat, uid: conv.uid }, msg, cfg, { from: 'ia', por: nomIA + ' (IA)' });
+      const now = Date.now(); const patch = { iaOff: true, iaHandoff: now, unread: ((cur.unread || 0) + 1) };
+      let paraIds = [];
+      if (asignadaIA) { // Luci lo pasa a una persona de la sede
+        const h = await elegirVendedor(cur.sedeId || 'resto', cfg, true).catch(() => null);
+        if (h) { Object.assign(patch, { asignadoId: h.id, asignadoNombre: h.nombre || '', asignadoTs: now, asignadoPor: nomIA + ' (IA)', estado: cur.estado === 'NUEVO' ? 'CONTACTADO' : (cur.estado || 'CONTACTADO') }); paraIds = [h.id]; if (cur.clienteId) await fsPatch('clientes', cur.clienteId, { vendedorId: h.id, vendedorNombre: h.nombre || '', asignadoTs: now, asignadoPor: nomIA + ' (IA)' }).catch(() => { }); }
+        else { Object.assign(patch, { asignadoId: '', asignadoNombre: '', asignadoTs: now, asignadoPor: nomIA + ' (IA)' }); }
+      } else if (cur.asignadoId) paraIds = [cur.asignadoId];
+      if (!paraIds.length) { const users = await fsCached('usuarios', 5 * 60e3, () => fsList('usuarios')); paraIds = users.filter(u => u.activo !== false && ['admin', 'socio', 'supervisor'].includes(u.rol)).map(u => u.id); }
+      await fsPatch('conversaciones', conv.id, patch);
+      for (const pid of paraIds) await fsPatch('notifs', 'nf_ia_' + conv.id + '_' + pid + '_' + now, { paraId: pid, titulo: `${nomIA} te pasa un cliente: ${cur.name || ''}`, sub: `${conv.plat} · "${txt.slice(0, 80)}"`, r: 'inbox', arg: conv.id, tipo: 'lead', ts: now, leido: false, deId: IA_UID, deNombre: nomIA }).catch(() => { });
       return;
     }
-    await enviarTexto({ ...cur, id: conv.id, plat: conv.plat, uid: conv.uid }, reply.slice(0, 900), cfg, { from: 'ia', por: 'Asistente IA' });
+    await enviarTexto({ ...cur, id: conv.id, plat: conv.plat, uid: conv.uid }, reply.slice(0, 900), cfg, { from: 'ia', por: nomIA + ' (IA)' });
     await fsPatch('conversaciones', conv.id, { iaTs: Date.now(), iaTurnos: turnos + 1 });
     metaStats.ia = (metaStats.ia || 0) + 1;
   } catch (e) { log('ia', e.message); }
